@@ -2,14 +2,21 @@ import {
     Button
 } from '@chakra-ui/react';
 
-interface SubmitButtonProps extends React.PropsWithChildren {}
+interface SubmitButtonProps extends React.PropsWithChildren {
+    onSubmit?(e: React.MouseEvent<HTMLButtonElement>): void;
+}
 
-function SubmitButton({ children }: SubmitButtonProps) {
+function SubmitButton({ onSubmit, children }: SubmitButtonProps) {
+    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+        (onSubmit) && (onSubmit(e));
+    };
+
     return (
         <Button
             colorScheme="blue"
             width="full"
             mt={4}
+            onClick={handleSubmit}
         >
             {children}
         </Button>

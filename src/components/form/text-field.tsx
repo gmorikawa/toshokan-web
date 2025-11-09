@@ -6,11 +6,18 @@ import {
 interface TextFieldProps {
     label: string;
     property: string;
+    value?: string | number;
     placeholder?: string;
     required?: boolean;
+
+    onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
-function TextField({ label, property, placeholder, required }: TextFieldProps) {
+function TextField({ label, property, value, placeholder, required, onChange }: TextFieldProps) {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        (onChange) && (onChange(e));
+    };
+
     return (
         <Field.Root id={property} required={required}>
             <Field.Label>{label}</Field.Label>
@@ -18,8 +25,9 @@ function TextField({ label, property, placeholder, required }: TextFieldProps) {
             <Input
                 name={property}
                 type="text"
+                value={value}
                 placeholder={placeholder ?? ""}
-                autoComplete='username'
+                onChange={handleChange}
             />
         </Field.Root>
     );
