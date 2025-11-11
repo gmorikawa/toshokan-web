@@ -8,21 +8,27 @@ import FormTextField from '@/components/form/form-text-field';
 import useForm from '@/components/form/use-form';
 import useAuthentication from '@/hooks/auth/use-authentication';
 import useAlert from "@/hooks/feedback/use-alert";
+import useKeyboard from '@/hooks/keyboard/use-keyboard';
 import useRouter from '@/hooks/router/use-router';
 
 function LoginPage() {
-    const form  = useForm({
+    const form = useForm({
         default: {
             username: "",
             password: "",
         }
     });
 
+    const keyboard = useKeyboard({
+        keys: 'Enter',
+        onKeyPress: () => handleLogin()
+    });
+
     const alert = useAlert();
     const router = useRouter();
     const authentication = useAuthentication();
 
-    const handleLogin = (_: React.MouseEvent) => {
+    const handleLogin = () => {
         const { username, password } = form.entity;
         authentication.login(username, password)
             .then(() => {
@@ -36,7 +42,7 @@ function LoginPage() {
     return (
         <CentralizedContainer parentHeight="100vh">
             <BorderedContainer width="500px">
-                <StackContainer spacing={4}>
+                <StackContainer spacing={4} ref={keyboard.controller}>
                     <FormTextField
                         form={form}
                         label="Username"
