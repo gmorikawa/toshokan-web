@@ -1,4 +1,4 @@
-type Value = string | number | boolean | null;
+type Value = string | null;
 
 interface UseLocalStorage {
     get(key: string): Promise<Value>;
@@ -8,12 +8,12 @@ interface UseLocalStorage {
 
 function useLocalStorage(): UseLocalStorage {
     const get = async (key: string): Promise<Value> => {
-        const serializedValue = localStorage.get(key);
-        return serializedValue && JSON.parse(serializedValue);
+        const serialized = localStorage.getItem(key);
+        return serialized && JSON.parse(serialized);
     };
 
     const set = async (key: string, value: Value): Promise<void> => {
-        return localStorage.set(key, value && JSON.stringify(value));
+        return localStorage.setItem(key, value ? JSON.stringify(value) : '');
     };
 
     return { get, set };
