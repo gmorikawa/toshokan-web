@@ -8,7 +8,6 @@ import FormTextField from '@/components/form/form-text-field';
 import useForm from '@/components/form/use-form';
 import useAuthentication from '@/hooks/auth/use-authentication';
 import useAlert from "@/hooks/feedback/use-alert";
-import useKeyboard from '@/hooks/keyboard/use-keyboard';
 import useRouter from '@/hooks/router/use-router';
 
 function LoginPage() {
@@ -17,11 +16,6 @@ function LoginPage() {
             username: "",
             password: "",
         }
-    });
-
-    const keyboard = useKeyboard({
-        keys: 'Enter',
-        onKeyPress: () => handleLogin()
     });
 
     const alert = useAlert();
@@ -42,7 +36,7 @@ function LoginPage() {
     return (
         <CentralizedContainer parentHeight="100vh">
             <BorderedContainer width="500px">
-                <StackContainer spacing={4} ref={keyboard.controller}>
+                <StackContainer spacing={4}>
                     <FormTextField
                         form={form}
                         label="Username"

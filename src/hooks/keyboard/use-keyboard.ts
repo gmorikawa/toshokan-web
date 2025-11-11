@@ -21,6 +21,12 @@ function validateConfiguration(configuration: UseKeyboardConfiguration) {
 function useKeyboard<Element extends HTMLElement>(configuration: UseKeyboardConfiguration): UseKeyboard {
     validateConfiguration(configuration);
 
+    const handleKeyPress = (e: KeyboardEvent) => {
+        if (!Array.isArray(configuration.keys) && e.code === configuration.keys) {
+            configuration.onKeyPress();
+        }
+    };
+
     const controller = useRef<Element>(null);
 
     useEffect(
@@ -28,12 +34,6 @@ function useKeyboard<Element extends HTMLElement>(configuration: UseKeyboardConf
             const element = controller.current;
 
             if (element !== null) {
-                const handleKeyPress = (e: KeyboardEvent) => {
-                    if (!Array.isArray(configuration.keys) && e.code === configuration.keys) {
-                        configuration.onKeyPress();
-                    }
-                };
-
                 element.addEventListener("keydown", handleKeyPress)
 
                 return () => {
