@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router";
 
-import { toaster } from "@/components/feedback/toaster-provider"
-
 import SubmitButton from '@/components/button/submit-button';
 import BorderedContainer from '@/components/container/bordered-container';
 import CentralizedContainer from '@/components/container/centralized-container';
@@ -10,8 +8,10 @@ import PasswordField from '@/components/form/password-field';
 import TextField from '@/components/form/text-field';
 
 import useAuthentication from '@/hooks/auth/useAuthentication';
+import useAlert from "@/hooks/feedback/useAlert";
 
 function LoginPage() {
+    const alert = useAlert();
     const navigation = useNavigate();
     const authentication = useAuthentication();
 
@@ -21,12 +21,7 @@ function LoginPage() {
                 navigation("/dashboard");
             })
             .catch((error: Error) => {
-                toaster.create({
-                    description: error?.message,
-                    type: "error",
-                });
-    
-                console.error(error);
+                alert.showErrorMessage(error);
             });
     };
 
