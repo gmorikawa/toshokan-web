@@ -2,7 +2,7 @@ import type { AuthenticationToken } from "@/entities/authentication-token";
 
 import NativeHttpClient from "@/common/native.http-client";
 import AuthService from "@/services/auth-service";
-import useLocalStorage from "@/hooks/storage/useLocalStorage";
+import useLocalStorage from "@/hooks/storage/use-local-storage";
 
 interface UseAuthentication {
     login(username: string, password: string): Promise<void>;

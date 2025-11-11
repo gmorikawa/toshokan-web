@@ -1,4 +1,4 @@
-import usePassword from '@/hooks/auth/usePassword';
+import usePassword from '@/hooks/auth/use-password';
 import {
     Box,
     Field,

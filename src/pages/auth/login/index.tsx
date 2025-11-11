@@ -6,9 +6,9 @@ import FormPasswordField from '@/components/form/form-password-field';
 import FormTextField from '@/components/form/form-text-field';
 
 import useForm from '@/components/form/use-form';
-import useAuthentication from '@/hooks/auth/useAuthentication';
-import useAlert from "@/hooks/feedback/useAlert";
-import useRouter from '@/hooks/router/useRouter';
+import useAuthentication from '@/hooks/auth/use-authentication';
+import useAlert from "@/hooks/feedback/use-alert";
+import useRouter from '@/hooks/router/use-router';
 
 function LoginPage() {
     const form  = useForm({
