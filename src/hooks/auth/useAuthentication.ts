@@ -1,43 +1,24 @@
-import { useState } from "react";
+import type { AuthenticationToken } from "@/entities/authentication-token";
 
 import NativeHttpClient from "@/common/native.http-client";
 import AuthService from "@/services/auth-service";
-import type { AuthenticationToken } from "@/entities/authentication-token";
-import useCookies from "../storage/useCookies";
+import useLocalStorage from "@/hooks/storage/useLocalStorage";
 
 interface UseAuthentication {
-    username: string;
-    password: string;
-
-    updateUsername(username: string): void;
-    updatePassword(password: string): void;
-
-    login(): Promise<void>;
+    login(username: string, password: string): Promise<void>;
 }
 
 function useAuthentication(): UseAuthentication {
     const baseUrl = import.meta.env.VITE_API_URL ?? "";
+    const storage = useLocalStorage();
     const httpClient = new NativeHttpClient(baseUrl);
     const authService = new AuthService(httpClient);
 
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-
-    const cookies = useCookies();
-
-    const updateUsername = (username: string) => {
-        setUsername(username);
-    };
-
-    const updatePassword = (password: string) => {
-        setPassword(password);
-    };
-
-    const login = async (): Promise<void> => {
+    const login = async (username: string, password: string): Promise<void> => {
         return authService.login(username, password)
             .then((data: AuthenticationToken) => {
                 if (data.accessToken) {
-                    cookies.set("token", data.accessToken);
+                    storage.set("token", data.accessToken);
                 } else {
                     throw new Error("Authentication | Access Token is null.")
                 }
@@ -45,10 +26,6 @@ function useAuthentication(): UseAuthentication {
     };
 
     return {
-        username,
-        password,
-        updateUsername,
-        updatePassword,
         login
     };
 }

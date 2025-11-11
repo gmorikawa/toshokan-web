@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 
 import LoginPage from "@/pages/auth/login";
-import DashboardPage from "@/pages/auth/dashboard/index.";
+import DashboardPage from "@/pages/app/dashboard/index.";
 
 function RouteProvider() {
     return (
