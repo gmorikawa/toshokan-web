@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router";
-
 import SubmitButton from '@/components/button/submit-button';
 import BorderedContainer from '@/components/container/bordered-container';
 import CentralizedContainer from '@/components/container/centralized-container';
@@ -9,16 +7,17 @@ import TextField from '@/components/form/text-field';
 
 import useAuthentication from '@/hooks/auth/useAuthentication';
 import useAlert from "@/hooks/feedback/useAlert";
+import useRouter from '@/hooks/router/useRouter';
 
 function LoginPage() {
     const alert = useAlert();
-    const navigation = useNavigate();
+    const router = useRouter();
     const authentication = useAuthentication();
 
     const handleLogin = (_: React.MouseEvent) => {
         authentication.login()
             .then(() => {
-                navigation("/dashboard");
+                router.navigateTo("/dashboard");
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
