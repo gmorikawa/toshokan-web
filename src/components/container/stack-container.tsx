@@ -3,12 +3,12 @@ import {
 } from '@chakra-ui/react';
 
 interface StackContainerProps extends React.ComponentPropsWithRef<React.ElementType> {
-    spacing: number;
+    spacing?: number;
 }
 
 function StackContainer({ spacing, children, ref }: StackContainerProps) {
     return (
-        <Stack gap={spacing} ref={ref}>
+        <Stack gap={spacing ?? 0} ref={ref}>
             {children}
         </Stack>
     );

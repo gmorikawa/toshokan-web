@@ -1,9 +1,10 @@
 function DashboardPage() {
 
     return (
-        <p>
-            DASHBOARD
-        </p>
+        <div>
+            <p>DASHBOARD</p>
+            <p>DASHBOARD</p>
+        </div>
     );
 }
 
