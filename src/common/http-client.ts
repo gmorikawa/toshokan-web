@@ -8,11 +8,11 @@ interface RequestOptionsWithBody extends RequestOptions {
 }
 
 interface HttpClient {
-    get<T>(endpoint: string, options: RequestOptions): Promise<T>;
-    post<T>(endpoint: string, options: RequestOptionsWithBody): Promise<T>;
-    put<T>(endpoint: string, options: RequestOptionsWithBody): Promise<T>;
-    patch<T>(endpoint: string, options: RequestOptionsWithBody): Promise<T>
-    delete<T>(endpoint: string, options: RequestOptions): Promise<T>;
+    get<T>(endpoint: string, options?: RequestOptions): Promise<T>;
+    post<T>(endpoint: string, options?: RequestOptionsWithBody): Promise<T>;
+    put<T>(endpoint: string, options?: RequestOptionsWithBody): Promise<T>;
+    patch<T>(endpoint: string, options?: RequestOptionsWithBody): Promise<T>
+    delete<T>(endpoint: string, options?: RequestOptions): Promise<T>;
 }
 
 export type { HttpClient, RequestOptions, RequestOptionsWithBody };

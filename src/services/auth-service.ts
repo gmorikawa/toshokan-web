@@ -1,7 +1,7 @@
 import type { HttpClient } from "@/common/http-client";
 import type { AuthenticationToken } from "@/entities/authentication-token";
 
-class AuthService {
+export class AuthService {
     private readonly http: HttpClient;
 
     constructor(http: HttpClient) {
@@ -14,5 +14,4 @@ class AuthService {
     }
 }
 
-export { AuthService };
 export default AuthService;

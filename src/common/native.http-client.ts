@@ -4,10 +4,10 @@ class NativeHttpClient implements HttpClient {
     private baseUrl: string;
     private defaultHeaders: Record<string, string>;
 
-    constructor(baseUrl: string = '', defaultHeaders: Record<string, string> = {}) {
+    constructor(baseUrl: string = "", defaultHeaders: Record<string, string> = {}) {
         this.baseUrl = baseUrl;
         this.defaultHeaders = {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             ...defaultHeaders,
         };
     }
@@ -40,8 +40,8 @@ class NativeHttpClient implements HttpClient {
             }
 
             // Check if the response has content before parsing JSON
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
                 return response.json();
             }
 
@@ -50,28 +50,28 @@ class NativeHttpClient implements HttpClient {
             if (error instanceof Error) {
                 throw new Error(`Failed to fetch: ${error.message}`);
             }
-            throw new Error('An unknown error occurred');
+            throw new Error("An unknown error occurred");
         }
     }
 
     async get<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
-        return this.request<T>('GET', endpoint, options);
+        return this.request<T>("GET", endpoint, options);
     }
 
     async post<T>(endpoint: string, options: RequestOptionsWithBody = {}): Promise<T> {
-        return this.request<T>('POST', endpoint, options);
+        return this.request<T>("POST", endpoint, options);
     }
 
     async put<T>(endpoint: string, options: RequestOptionsWithBody = {}): Promise<T> {
-        return this.request<T>('PUT', endpoint, options);
+        return this.request<T>("PUT", endpoint, options);
     }
 
     async patch<T>(endpoint: string, options: RequestOptionsWithBody = {}): Promise<T> {
-        return this.request<T>('PATCH', endpoint, options);
+        return this.request<T>("PATCH", endpoint, options);
     }
 
     async delete<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
-        return this.request<T>('DELETE', endpoint, options);
+        return this.request<T>("DELETE", endpoint, options);
     }
 }
 

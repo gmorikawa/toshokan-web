@@ -4,13 +4,12 @@ import {
 
 type TextAlign = "center" | "right" | "left";
 
-interface TextButtonProps extends React.PropsWithChildren {
+interface OutlineButtonProps extends React.PropsWithChildren {
     align?: TextAlign;
-    selected?: boolean;
     onClick?(e: React.MouseEvent<HTMLButtonElement>): void;
 }
 
-function TextButton({ align, selected, onClick, children }: TextButtonProps) {
+function OutlineButton({ align, onClick, children }: OutlineButtonProps) {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         (onClick) && (onClick(e));
     };
@@ -22,11 +21,11 @@ function TextButton({ align, selected, onClick, children }: TextButtonProps) {
             case "right": return "flex-end";
             default: return "center";
         }
-    }
+    };
 
     return (
         <Button
-            variant={selected ? "subtle" : "ghost"}
+            variant="outline"
             justifyContent={aligmentMapper(align)}
             onClick={handleClick}
         >
@@ -35,6 +34,6 @@ function TextButton({ align, selected, onClick, children }: TextButtonProps) {
     );
 }
 
-export { TextButton };
-export type { TextButtonProps };
-export default TextButton;
+export { OutlineButton };
+export type { OutlineButtonProps };
+export default OutlineButton;

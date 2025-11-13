@@ -6,7 +6,7 @@ import BoxContainer from "@/components/container/box-container";
 import StackContainer from "@/components/container/stack-container";
 import BorderedContainer from "@/components/container/bordered-container";
 
-function AppLayout() {
+export function AppLayout() {
     return (
         <ViewportContainer>
             <FlexContainer fullHeight direction="row">

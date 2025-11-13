@@ -7,6 +7,7 @@ interface Form<Entity = any> {
 
     getValue<Field>(property: PropertyPath): Field;
     updateValue<Field>(property: PropertyPath, value: Field): void;
+    reset(entity: Entity): void;
 }
 
 interface UseFormConfiguration<Entity> {
@@ -48,16 +49,31 @@ function getByPath<Entity, Field>(state: Entity, property: PropertyPath): Field 
     return current[keys[keys.length - 1]];
 }
 
-interface DispatchAction<Field> {
+type ActionType = "updateValue" | "reset";
+
+interface DispatchAction {
+    type: ActionType;
+}
+
+interface UpdateValueDispatchAction<Field> extends DispatchAction {
+    type: "updateValue";
     property: PropertyPath;
     value: Field;
+}
+
+interface ResetDispatchAction<Entity> {
+    type: "reset";
+    entity: Entity;
 }
 
 function useForm<Entity extends object = any>(configuration: UseFormConfiguration<Entity>): Form<Entity> {
     validateConfiguration(configuration);
 
-    function reducer<Field = any>(state: Entity, action: DispatchAction<Field>): Entity {
-        return setByPath(state, action.property, action.value);
+    function reducer<Field = any>(state: Entity, action: UpdateValueDispatchAction<Field> | ResetDispatchAction<Entity>): Entity {
+        switch (action.type) {
+            case "updateValue": return setByPath(state, action.property, action.value);
+            case "reset": return action.entity;
+        }
     }
 
     const [state, dispatch] = useReducer(reducer, configuration.default);
@@ -67,13 +83,18 @@ function useForm<Entity extends object = any>(configuration: UseFormConfiguratio
     }
 
     function updateValue<Field>(property: PropertyPath, value: Field): void {
-        dispatch({ property, value });
+        dispatch({ type: "updateValue", property, value });
+    }
+
+    function reset(entity: Entity): void {
+        dispatch({ type: "reset", entity });
     }
 
     return {
         entity: state,
         getValue,
-        updateValue
+        updateValue,
+        reset
     };
 }
 

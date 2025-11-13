@@ -1,13 +1,17 @@
 import { Table } from "@chakra-ui/react"
 
-interface TableColumn {
+type TextNode = string;
+type ComponentNode = React.ReactNode;
+type Node = ComponentNode | TextNode;
+
+interface TableColumn<Row> {
     header: string;
-    accessor<Row, Cell>(row: Row): Cell;
+    accessor(row: Row): Node;
 }
 
 interface DataTableProps<Row> {
     data: Row[];
-    columns: TableColumn[];
+    columns: TableColumn<Row>[];
 }
 
 function DataTable<Row>({ data = [], columns = [] }: DataTableProps<Row>) {
@@ -15,18 +19,18 @@ function DataTable<Row>({ data = [], columns = [] }: DataTableProps<Row>) {
         <Table.Root variant="outline">
             <Table.Header>
                 <Table.Row>
-                    {columns.map((column) => (
-                        <Table.ColumnHeader fontWeight="bold">
+                    {columns.map((column: TableColumn<Row>, index: number) => (
+                        <Table.ColumnHeader key={index} fontWeight="bold">
                             {column.header}
                         </Table.ColumnHeader>
                     ))}
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-                {data.map((row: Row) => (
-                    <Table.Row>
-                        {columns.map((column: TableColumn) => (
-                            <Table.Cell>
+                {data.map((row: Row, rowIndex: number) => (
+                    <Table.Row key={rowIndex}>
+                        {columns.map((column: TableColumn<Row>, colIndex: number) => (
+                            <Table.Cell key={colIndex}>
                                 {column.accessor(row)}
                             </Table.Cell>
                         ))}
