@@ -1,4 +1,4 @@
-import type { NewTopic, Topic } from "@/entities/topic";
+import type { NewTopic, Topic } from "@/entities/models/topic";
 import MainService, { type Service } from "@/services";
 
 export class TopicService extends MainService implements Service {

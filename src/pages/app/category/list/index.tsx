@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import type { Topic } from "@/entities/models/topic";
+import type { Category } from "@/entities/models/category";
 
 import useAlert from "@/hooks/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
-import TopicService from "@/services/topic-service";
+import CategoryService from "@/services/category-service";
 
 import BoxContainer from "@/components/container/box-container";
 import DataTable from "@/components/table/data-table";
@@ -12,21 +12,21 @@ import FlexContainer from "@/components/container/flex-container";
 import OutlineButton from "@/components/button/outline-button";
 import TextButton from "@/components/button/text-button";
 
-function TopicListPage() {
+function CategoryListPage() {
     const alert = useAlert();
     const router = useRouter();
-    const service = useService<TopicService>(TopicService, { includeAuthorization: true });
-    const [list, setList] = useState<Topic[]>([]);
+    const service = useService<CategoryService>(CategoryService, { includeAuthorization: true });
+    const [list, setList] = useState<Category[]>([]);
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/topic/form");
+        router.navigateTo("/app/category/form");
     };
 
-    const handleUpdate = (entity: Topic): void => {
-        router.navigateTo(`/app/topic/form/${entity.id}`);
+    const handleUpdate = (entity: Category): void => {
+        router.navigateTo(`/app/category/form/${entity.id}`);
     };
 
-    const handleRemove = (entity: Topic): void => {
+    const handleRemove = (entity: Category): void => {
         service.remove(entity)
             .then(() => {
                 loadList();
@@ -60,7 +60,7 @@ function TopicListPage() {
                 columns={[
                     {
                         header: "Actions",
-                        accessor: (row: Topic) => (
+                        accessor: (row: Category) => (
                             <FlexContainer spacing="2">
                                 <OutlineButton onClick={() => handleUpdate(row)}>Edit</OutlineButton>
                                 <OutlineButton onClick={() => handleRemove(row)}>Delete</OutlineButton>
@@ -75,4 +75,4 @@ function TopicListPage() {
     );
 }
 
-export default TopicListPage;
+export default CategoryListPage;

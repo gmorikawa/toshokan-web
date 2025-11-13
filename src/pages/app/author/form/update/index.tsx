@@ -1,37 +1,38 @@
-import type { Topic } from "@/entities/models/topic";
+import type { Author } from "@/entities/models/author";
 
 import { useEffect } from "react";
 import useAlert from "@/hooks/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";
 import useParams from "@/hooks/router/use-params";
 import useService from "@/services/use-service";
-import TopicService from "@/services/topic-service";
+import AuthorService from "@/services/author-service";
 
 import useForm from "@/components/form/use-form";
-import TopicForm from "../form";
+import AuthorForm from "../form";
 
 type ParamsWithId = {
     id?: string;
 }
 
-export function UpdateTopicFormPage() {
+export function UpdateAuthorFormPage() {
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<TopicService>(TopicService, { includeAuthorization: true });
+    const service = useService<AuthorService>(AuthorService, { includeAuthorization: true });
 
-    const form = useForm<Topic>({
+    const form = useForm<Author>({
         default: {
             id: "",
-            name: ""
+            fullname: "",
+            biography: ""
         }
     });
 
     async function loadEntity(): Promise<void> {
         if (id) {
             return service.getById(id)
-                .then((entity: Topic) => {
+                .then((entity: Author) => {
                     form.reset(entity);
                 })
                 .catch((error: Error) => {
@@ -43,7 +44,7 @@ export function UpdateTopicFormPage() {
     function handleSave(): void {
         service.update(form.entity)
             .then(() => {
-                router.navigateTo("/app/topic/list");
+                router.navigateTo("/app/author/list");
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
@@ -55,8 +56,8 @@ export function UpdateTopicFormPage() {
     }, []);
 
     return (
-        <TopicForm form={form} onSubmit={handleSave} />
+        <AuthorForm form={form} onSubmit={handleSave} />
     );
 }
 
-export default UpdateTopicFormPage;
+export default UpdateAuthorFormPage;

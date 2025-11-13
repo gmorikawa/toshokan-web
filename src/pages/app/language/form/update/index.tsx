@@ -1,27 +1,27 @@
-import type { Topic } from "@/entities/models/topic";
+import type { Language } from "@/entities/models/language";
 
 import { useEffect } from "react";
 import useAlert from "@/hooks/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";
 import useParams from "@/hooks/router/use-params";
 import useService from "@/services/use-service";
-import TopicService from "@/services/topic-service";
+import LanguageService from "@/services/language-service";
 
 import useForm from "@/components/form/use-form";
-import TopicForm from "../form";
+import LanguageForm from "../form";
 
 type ParamsWithId = {
     id?: string;
 }
 
-export function UpdateTopicFormPage() {
+export function UpdateLanguageFormPage() {
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<TopicService>(TopicService, { includeAuthorization: true });
+    const service = useService<LanguageService>(LanguageService, { includeAuthorization: true });
 
-    const form = useForm<Topic>({
+    const form = useForm<Language>({
         default: {
             id: "",
             name: ""
@@ -31,7 +31,7 @@ export function UpdateTopicFormPage() {
     async function loadEntity(): Promise<void> {
         if (id) {
             return service.getById(id)
-                .then((entity: Topic) => {
+                .then((entity: Language) => {
                     form.reset(entity);
                 })
                 .catch((error: Error) => {
@@ -43,7 +43,7 @@ export function UpdateTopicFormPage() {
     function handleSave(): void {
         service.update(form.entity)
             .then(() => {
-                router.navigateTo("/app/topic/list");
+                router.navigateTo("/app/language/list");
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
@@ -55,8 +55,8 @@ export function UpdateTopicFormPage() {
     }, []);
 
     return (
-        <TopicForm form={form} onSubmit={handleSave} />
+        <LanguageForm form={form} onSubmit={handleSave} />
     );
 }
 
-export default UpdateTopicFormPage;
+export default UpdateLanguageFormPage;

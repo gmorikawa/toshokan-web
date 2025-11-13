@@ -1,29 +1,30 @@
-import type { NewTopic } from "@/entities/models/topic";
+import type { NewAuthor } from "@/entities/models/author";
 
 import useAlert from "@/hooks/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
-import TopicService from "@/services/topic-service";
+import AuthorService from "@/services/author-service";
 
 import useForm from "@/components/form/use-form";
-import TopicForm from "../form";
+import AuthorForm from "../form";
 
-export function CreateTopicFormPage() {
+export function CreateAuthorFormPage() {
     const alert = useAlert();
     const router = useRouter();
 
-    const service = useService<TopicService>(TopicService, { includeAuthorization: true });
+    const service = useService<AuthorService>(AuthorService, { includeAuthorization: true });
 
-    const form = useForm<NewTopic>({
+    const form = useForm<NewAuthor>({
         default: {
-            name: ""
+            fullname: "",
+            biography: ""
         }
     });
 
-    function handleSave(entity: NewTopic): void {
+    function handleSave(entity: NewAuthor): void {
         service.create(entity)
             .then(() => {
-                router.navigateTo("/app/topic/list");
+                router.navigateTo("/app/author/list");
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
@@ -31,11 +32,11 @@ export function CreateTopicFormPage() {
     };
 
     return (
-        <TopicForm
+        <AuthorForm
             form={form}
             onSubmit={handleSave}
         />
     );
 }
 
-export default CreateTopicFormPage;
+export default CreateAuthorFormPage;

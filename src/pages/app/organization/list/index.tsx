@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import type { Topic } from "@/entities/models/topic";
+import type { Organization } from "@/entities/models/organization";
 
 import useAlert from "@/hooks/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
-import TopicService from "@/services/topic-service";
+import OrganizationService from "@/services/organization-service";
 
 import BoxContainer from "@/components/container/box-container";
 import DataTable from "@/components/table/data-table";
@@ -12,21 +12,21 @@ import FlexContainer from "@/components/container/flex-container";
 import OutlineButton from "@/components/button/outline-button";
 import TextButton from "@/components/button/text-button";
 
-function TopicListPage() {
+function OrganizationListPage() {
     const alert = useAlert();
     const router = useRouter();
-    const service = useService<TopicService>(TopicService, { includeAuthorization: true });
-    const [list, setList] = useState<Topic[]>([]);
+    const service = useService<OrganizationService>(OrganizationService, { includeAuthorization: true });
+    const [list, setList] = useState<Organization[]>([]);
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/topic/form");
+        router.navigateTo("/app/organization/form");
     };
 
-    const handleUpdate = (entity: Topic): void => {
-        router.navigateTo(`/app/topic/form/${entity.id}`);
+    const handleUpdate = (entity: Organization): void => {
+        router.navigateTo(`/app/organization/form/${entity.id}`);
     };
 
-    const handleRemove = (entity: Topic): void => {
+    const handleRemove = (entity: Organization): void => {
         service.remove(entity)
             .then(() => {
                 loadList();
@@ -60,14 +60,15 @@ function TopicListPage() {
                 columns={[
                     {
                         header: "Actions",
-                        accessor: (row: Topic) => (
+                        accessor: (row: Organization) => (
                             <FlexContainer spacing="2">
                                 <OutlineButton onClick={() => handleUpdate(row)}>Edit</OutlineButton>
                                 <OutlineButton onClick={() => handleRemove(row)}>Delete</OutlineButton>
                             </FlexContainer>
                         )
                     },
-                    { header: "Name", accessor: (row: any) => row.name }
+                    { header: "Name", accessor: (row: any) => row.name },
+                    { header: "Type", accessor: (row: any) => row.type }
                 ]}>
 
             </DataTable>
@@ -75,4 +76,4 @@ function TopicListPage() {
     );
 }
 
-export default TopicListPage;
+export default OrganizationListPage;

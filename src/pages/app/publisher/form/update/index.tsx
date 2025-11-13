@@ -1,37 +1,38 @@
-import type { Topic } from "@/entities/models/topic";
+import type { Publisher } from "@/entities/models/publisher";
 
 import { useEffect } from "react";
 import useAlert from "@/hooks/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";
 import useParams from "@/hooks/router/use-params";
 import useService from "@/services/use-service";
-import TopicService from "@/services/topic-service";
+import PublisherService from "@/services/publisher-service";
 
 import useForm from "@/components/form/use-form";
-import TopicForm from "../form";
+import PublisherForm from "../form";
 
 type ParamsWithId = {
     id?: string;
 }
 
-export function UpdateTopicFormPage() {
+export function UpdatePublisherFormPage() {
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<TopicService>(TopicService, { includeAuthorization: true });
+    const service = useService<PublisherService>(PublisherService, { includeAuthorization: true });
 
-    const form = useForm<Topic>({
+    const form = useForm<Publisher>({
         default: {
             id: "",
-            name: ""
+            name: "",
+            description: ""
         }
     });
 
     async function loadEntity(): Promise<void> {
         if (id) {
             return service.getById(id)
-                .then((entity: Topic) => {
+                .then((entity: Publisher) => {
                     form.reset(entity);
                 })
                 .catch((error: Error) => {
@@ -43,7 +44,7 @@ export function UpdateTopicFormPage() {
     function handleSave(): void {
         service.update(form.entity)
             .then(() => {
-                router.navigateTo("/app/topic/list");
+                router.navigateTo("/app/publisher/list");
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
@@ -55,8 +56,8 @@ export function UpdateTopicFormPage() {
     }, []);
 
     return (
-        <TopicForm form={form} onSubmit={handleSave} />
+        <PublisherForm form={form} onSubmit={handleSave} />
     );
 }
 
-export default UpdateTopicFormPage;
+export default UpdatePublisherFormPage;
