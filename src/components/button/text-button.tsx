@@ -1,5 +1,6 @@
 import {
-    Button
+    Button,
+    Icon
 } from '@chakra-ui/react';
 
 type TextAlign = "center" | "right" | "left";
@@ -7,10 +8,14 @@ type TextAlign = "center" | "right" | "left";
 interface TextButtonProps extends React.PropsWithChildren {
     align?: TextAlign;
     selected?: boolean;
+
+    leftIcon?: React.ReactNode;
+    rightIcon?: React.ReactNode;
+
     onClick?(e: React.MouseEvent<HTMLButtonElement>): void;
 }
 
-function TextButton({ align, selected, onClick, children }: TextButtonProps) {
+function TextButton({ align, selected, leftIcon, rightIcon, onClick, children }: TextButtonProps) {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         (onClick) && (onClick(e));
     };
@@ -27,10 +32,13 @@ function TextButton({ align, selected, onClick, children }: TextButtonProps) {
     return (
         <Button
             variant={selected ? "subtle" : "ghost"}
+            colorPalette="green"
             justifyContent={aligmentMapper(align)}
             onClick={handleClick}
         >
+            {leftIcon && (<Icon>{leftIcon}</Icon>)}
             {children}
+            {rightIcon && (<Icon>{rightIcon}</Icon>)}
         </Button>
     );
 }
