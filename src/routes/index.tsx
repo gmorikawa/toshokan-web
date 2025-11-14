@@ -6,6 +6,10 @@ import AppLayout from "@/pages/app/layout";
 
 import DashboardPage from "@/pages/app/dashboard/index.";
 
+import UserListPage from "@/pages/app/user/list";
+import CreateUserFormPage from "@/pages/app/user/form/create";
+import UpdateUserFormPage from "@/pages/app/user/form/update";
+
 import AuthorListPage from "@/pages/app/author/list";
 import CreateAuthorFormPage from "@/pages/app/author/form/create";
 import UpdateAuthorFormPage from "@/pages/app/author/form/update";
@@ -39,6 +43,12 @@ function RouteProvider() {
 
                 <Route path="app" element={<AppLayout />}>
                     <Route path="dashboard" element={<DashboardPage />} />
+
+                    <Route path="user">
+                        <Route path="list" element={<UserListPage />} />
+                        <Route path="form" element={<CreateUserFormPage />} />
+                        <Route path="form/:id" element={<UpdateUserFormPage />} />
+                    </Route>
 
                     <Route path="author">
                         <Route path="list" element={<AuthorListPage />} />

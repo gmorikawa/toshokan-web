@@ -2,8 +2,9 @@ import {
     Field,
     Input,
 } from '@chakra-ui/react';
+import type { ThemeProps } from '..';
 
-interface TextFieldProps {
+export interface TextFieldProps extends ThemeProps {
     label: string;
     property: string;
     value?: string | number;
@@ -13,13 +14,13 @@ interface TextFieldProps {
     onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
-function TextField({ label, property, value, placeholder, required, onChange }: TextFieldProps) {
+export function TextField({ label, property, value, placeholder, required, onChange, palette }: TextFieldProps) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         (onChange) && (onChange(e));
     };
 
     return (
-        <Field.Root id={property} required={required}>
+        <Field.Root id={property} required={required} colorPalette={palette ?? "primary"}>
             <Field.Label>{label}</Field.Label>
 
             <Input
@@ -33,6 +34,4 @@ function TextField({ label, property, value, placeholder, required, onChange }: 
     );
 }
 
-export { TextField };
-export type { TextFieldProps };
 export default TextField;

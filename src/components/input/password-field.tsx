@@ -6,8 +6,9 @@ import {
     IconButton,
 } from '@chakra-ui/react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import type { ThemeProps } from '..';
 
-interface PasswordFieldProps {
+export interface PasswordFieldProps extends ThemeProps {
     label: string;
     property: string;
     value?: string | number;
@@ -17,7 +18,7 @@ interface PasswordFieldProps {
     onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
-function PasswordField({ label, property, value, placeholder, required, onChange }: PasswordFieldProps) {
+export function PasswordField({ label, property, value, placeholder, required, onChange, palette }: PasswordFieldProps) {
     const password = usePassword();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -29,7 +30,7 @@ function PasswordField({ label, property, value, placeholder, required, onChange
     };
 
     return (
-        <Field.Root id={property} required={required}>
+        <Field.Root id={property} required={required} colorPalette={palette ?? "primary"}>
             <Field.Label>{label}</Field.Label>
             <Box position="relative" width="100%">
                 <Input
@@ -54,6 +55,4 @@ function PasswordField({ label, property, value, placeholder, required, onChange
     );
 }
 
-export { PasswordField };
-export type { PasswordFieldProps };
 export default PasswordField;
