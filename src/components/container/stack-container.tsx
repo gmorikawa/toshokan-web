@@ -4,11 +4,16 @@ import {
 
 interface StackContainerProps extends React.ComponentPropsWithRef<React.ElementType> {
     spacing?: number;
+    fullHeight?: boolean;
 }
 
-function StackContainer({ spacing, children, ref }: StackContainerProps) {
+function StackContainer({ spacing, fullHeight, children, ref }: StackContainerProps) {
     return (
-        <Stack gap={spacing ?? 0} ref={ref}>
+        <Stack
+            gap={spacing ?? 0}
+            height={fullHeight ? "100%" : "auto"}
+            ref={ref}
+        >
             {children}
         </Stack>
     );

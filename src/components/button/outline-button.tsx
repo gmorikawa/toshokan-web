@@ -1,15 +1,16 @@
 import {
     Button
 } from '@chakra-ui/react';
+import type { ThemeProps } from '..';
 
 type TextAlign = "center" | "right" | "left";
 
-interface OutlineButtonProps extends React.PropsWithChildren {
+interface OutlineButtonProps extends React.PropsWithChildren, ThemeProps {
     align?: TextAlign;
     onClick?(e: React.MouseEvent<HTMLButtonElement>): void;
 }
 
-function OutlineButton({ align, onClick, children }: OutlineButtonProps) {
+function OutlineButton({ align, onClick, palette, children }: OutlineButtonProps) {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         (onClick) && (onClick(e));
     };
@@ -28,6 +29,7 @@ function OutlineButton({ align, onClick, children }: OutlineButtonProps) {
             variant="outline"
             justifyContent={aligmentMapper(align)}
             onClick={handleClick}
+            colorPalette={palette ?? "primary"}
         >
             {children}
         </Button>

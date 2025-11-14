@@ -6,11 +6,16 @@ import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import AuthorService from "@/services/author-service";
 
+import ActionButton from "@/components/button/action-button";
 import BoxContainer from "@/components/container/box-container";
 import DataTable from "@/components/table/data-table";
 import FlexContainer from "@/components/container/flex-container";
 import OutlineButton from "@/components/button/outline-button";
-import TextButton from "@/components/button/text-button";
+import ApplicationPage from "@/pages/app/page";
+import ApplicationHeader from "@/pages/app/header";
+import ApplicationContent from "@/pages/app/content";
+
+import { AddIcon } from "@/fragments/icons";
 
 function AuthorListPage() {
     const alert = useAlert();
@@ -50,28 +55,35 @@ function AuthorListPage() {
         loadList();
     }, []);
     return (
-        <BoxContainer>
-            <TextButton onClick={handleCreate}>
-                New
-            </TextButton>
+        <ApplicationPage>
+            <ApplicationHeader
+                title="Author"
+                actionSlot={
+                    <BoxContainer>
+                        <ActionButton variant="text" onClick={handleCreate} leftIcon={<AddIcon />}>New</ActionButton>
+                    </BoxContainer>
+                }
+            />
 
-            <DataTable
-                data={list}
-                columns={[
-                    {
-                        header: "Actions",
-                        accessor: (row: Author) => (
-                            <FlexContainer spacing="2">
-                                <OutlineButton onClick={() => handleUpdate(row)}>Edit</OutlineButton>
-                                <OutlineButton onClick={() => handleRemove(row)}>Delete</OutlineButton>
-                            </FlexContainer>
-                        )
-                    },
-                    { header: "Full name", accessor: (row: any) => row.fullname }
-                ]}>
+            <ApplicationContent>
+                <DataTable
+                    data={list}
+                    columns={[
+                        {
+                            header: "Actions",
+                            accessor: (row: Author) => (
+                                <FlexContainer spacing="2">
+                                    <OutlineButton onClick={() => handleUpdate(row)}>Edit</OutlineButton>
+                                    <OutlineButton onClick={() => handleRemove(row)}>Delete</OutlineButton>
+                                </FlexContainer>
+                            )
+                        },
+                        { header: "Full name", accessor: (row: any) => row.fullname }
+                    ]}>
 
-            </DataTable>
-        </BoxContainer>
+                </DataTable>
+            </ApplicationContent>
+        </ApplicationPage>
     );
 }
 

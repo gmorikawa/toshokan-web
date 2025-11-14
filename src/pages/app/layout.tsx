@@ -12,7 +12,7 @@ export function AppLayout() {
                 <BoxContainer fullHeight flexBasis="auto">
                     <Menu />
                 </BoxContainer>
-                <BoxContainer fullHeight flexGrow="1" padding="8">
+                <BoxContainer fullHeight flexGrow="1">
                     <Outlet />
                 </BoxContainer>
             </FlexContainer>

@@ -6,7 +6,14 @@ import useService from "@/services/use-service";
 import LanguageService from "@/services/language-service";
 
 import useForm from "@/components/form/use-form";
+import BoxContainer from "@/components/container/box-container";
+import ActionButton from "@/components/button/action-button";
+import ApplicationPage from "@/pages/app/page";
+import ApplicationHeader from "@/pages/app/header";
+import ApplicationContent from "@/pages/app/content";
 import LanguageForm from "../form";
+
+import { BackIcon } from "@/fragments/icons";
 
 export function CreateLanguageFormPage() {
     const alert = useAlert();
@@ -30,11 +37,25 @@ export function CreateLanguageFormPage() {
             });
     };
 
+    function handleBack(): void {
+        router.navigateTo("/app/language/list");
+    }
+
     return (
-        <LanguageForm
-            form={form}
-            onSubmit={handleSave}
-        />
+        <ApplicationPage>
+            <ApplicationHeader
+                title="Language"
+                actionSlot={
+                    <BoxContainer>
+                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                    </BoxContainer>
+                }
+            />
+
+            <ApplicationContent>
+                <LanguageForm form={form} onSubmit={handleSave} />
+            </ApplicationContent>
+        </ApplicationPage>
     );
 }
 

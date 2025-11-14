@@ -8,7 +8,14 @@ import useService from "@/services/use-service";
 import AuthorService from "@/services/author-service";
 
 import useForm from "@/components/form/use-form";
+import ActionButton from "@/components/button/action-button";
+import BoxContainer from "@/components/container/box-container";
+import ApplicationPage from "@/pages/app/page";
+import ApplicationHeader from "@/pages/app/header";
+import ApplicationContent from "@/pages/app/content";
 import AuthorForm from "../form";
+
+import { BackIcon } from "@/fragments/icons";
 
 type ParamsWithId = {
     id?: string;
@@ -51,12 +58,29 @@ export function UpdateAuthorFormPage() {
             });
     }
 
+    function handleBack(): void {
+        router.navigateTo("/app/author/list");
+    }
+
     useEffect(() => {
         loadEntity();
     }, []);
 
     return (
-        <AuthorForm form={form} onSubmit={handleSave} />
+        <ApplicationPage>
+            <ApplicationHeader
+                title="Author"
+                actionSlot={
+                    <BoxContainer>
+                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                    </BoxContainer>
+                }
+            />
+
+            <ApplicationContent>
+                <AuthorForm form={form} onSubmit={handleSave} />
+            </ApplicationContent>
+        </ApplicationPage>
     );
 }
 

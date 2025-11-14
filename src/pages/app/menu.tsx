@@ -55,8 +55,6 @@ function MenuGroup({ title, children }: MenuGroupProps) {
 interface MenuContainerProps extends React.PropsWithChildren { }
 
 function MenuContainer({ children }: MenuContainerProps) {
-    const borderColor = 'gray.200';
-
     return (
         <BoxContainer
             minWidth="250px"
@@ -64,7 +62,7 @@ function MenuContainer({ children }: MenuContainerProps) {
             padding={2}
             fullHeight
             borderRightWidth="1px"
-            borderRightColor={borderColor}
+            borderRightColor="gray.200"
         >
             <StackContainer spacing={4}>
                 {children}

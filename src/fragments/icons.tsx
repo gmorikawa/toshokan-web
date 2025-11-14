@@ -1,3 +1,6 @@
+export { MdAdd as AddIcon } from "react-icons/md";
+export { MdArrowBack as BackIcon } from "react-icons/md";
+
 export { FaUser as UserIcon } from "react-icons/fa";
 export { FaBook as BookIcon } from "react-icons/fa";
 export { RiFilePaperLine as WhitepaperIcon } from "react-icons/ri";

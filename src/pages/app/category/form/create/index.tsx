@@ -6,7 +6,14 @@ import useService from "@/services/use-service";
 import CategoryService from "@/services/category-service";
 
 import useForm from "@/components/form/use-form";
+import BoxContainer from "@/components/container/box-container";
+import ActionButton from "@/components/button/action-button";
+import ApplicationPage from "@/pages/app/page";
+import ApplicationHeader from "@/pages/app/header";
+import ApplicationContent from "@/pages/app/content";
 import CategoryForm from "../form";
+
+import { BackIcon } from "@/fragments/icons";
 
 export function CreateCategoryFormPage() {
     const alert = useAlert();
@@ -30,11 +37,25 @@ export function CreateCategoryFormPage() {
             });
     };
 
+    function handleBack(): void {
+        router.navigateTo("/app/category/list");
+    }
+
     return (
-        <CategoryForm
-            form={form}
-            onSubmit={handleSave}
-        />
+        <ApplicationPage>
+            <ApplicationHeader
+                title="Category"
+                actionSlot={
+                    <BoxContainer>
+                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                    </BoxContainer>
+                }
+            />
+
+            <ApplicationContent>
+                <CategoryForm form={form} onSubmit={handleSave} />
+            </ApplicationContent>
+        </ApplicationPage>
     );
 }
 
