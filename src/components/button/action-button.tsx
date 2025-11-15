@@ -36,7 +36,7 @@ function ActionButton({ variant, align, leftIcon, rightIcon, onClick, palette, c
             case "solid": return "solid";
             case "outline": return "outline";
             case "text": return "ghost";
-            default: return "center";
+            default: return "solid";
         }
     };
 
