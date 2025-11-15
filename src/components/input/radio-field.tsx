@@ -1,6 +1,4 @@
 import {
-    Field,
-    Input,
     RadioCard,
 } from '@chakra-ui/react';
 import type { ThemeProps } from '..';
@@ -22,7 +20,7 @@ export interface RadioFieldProps extends ThemeProps {
     onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
-export function RadioField({ label, property, options, value, required, onChange, palette }: RadioFieldProps) {
+export function RadioField({ label, property, options, value, onChange, palette }: RadioFieldProps) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         (onChange) && (onChange(e));
     };

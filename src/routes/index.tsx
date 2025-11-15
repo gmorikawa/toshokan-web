@@ -22,7 +22,7 @@ import CategoryListPage from "@/pages/app/category/list";
 import CreateCategoryFormPage from "@/pages/app/category/form/create";
 import UpdateCategoryFormPage from "@/pages/app/category/form/update";
 
-import TopicListPage from "@/pages/app/topic/list/index.";
+import TopicListPage from "@/pages/app/topic/list";
 import CreateTopicFormPage from "@/pages/app/topic/form/create";
 import UpdateTopicFormPage from "@/pages/app/topic/form/update";
 

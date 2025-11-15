@@ -1,5 +1,5 @@
 import SubmitButton from "@/components/button/submit-button";
-import BoxContainer from "@/components/container/box-container";
+import StackContainer from "@/components/container/stack-container";
 import FormTextField from "@/components/form/form-text-field";
 import type { Form } from "@/components/form/use-form";
 
@@ -14,12 +14,12 @@ export function PublisherForm<Entity>({ form, onSubmit }: PublisherFormProps<Ent
     }
 
     return (
-        <BoxContainer>
+        <StackContainer spacing={4}>
             <FormTextField form={form} label="Name" property="name" />
             <FormTextField form={form} label="Description" property="description" />
 
             <SubmitButton onSubmit={handleSubmit}>Submit</SubmitButton>
-        </BoxContainer>
+        </StackContainer>
     );
 }
 

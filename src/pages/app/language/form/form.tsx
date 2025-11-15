@@ -1,5 +1,5 @@
 import SubmitButton from "@/components/button/submit-button";
-import BoxContainer from "@/components/container/box-container";
+import StackContainer from "@/components/container/stack-container";
 import FormTextField from "@/components/form/form-text-field";
 import type { Form } from "@/components/form/use-form";
 
@@ -14,7 +14,7 @@ export function LanguageForm<Entity>({ form, onSubmit }: LanguageFormProps<Entit
     }
 
     return (
-        <BoxContainer>
+        <StackContainer spacing={4}>
             <FormTextField
                 form={form}
                 label="Name"
@@ -24,7 +24,7 @@ export function LanguageForm<Entity>({ form, onSubmit }: LanguageFormProps<Entit
             <SubmitButton onSubmit={handleSubmit}>
                 Submit
             </SubmitButton>
-        </BoxContainer>
+        </StackContainer>
     );
 }
 
