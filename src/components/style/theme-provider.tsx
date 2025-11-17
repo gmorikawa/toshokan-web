@@ -1,5 +1,3 @@
-"use client"
-
 import { ChakraProvider, createSystem, defaultConfig, defineConfig } from "@chakra-ui/react"
 import {
     ColorModeProvider,
@@ -28,12 +26,39 @@ const themeConfig = {
                     contrast: { value: "{colors.white}" },
                     focusRing: { value: "{colors.purple.500}" },
                 },
+                danger: {
+                    solid: { value: "{colors.red.600}" },
+                    fg: { value: "{colors.red.700}" },
+                    muted: { value: "{colors.red.500}" },
+                    subtle: { value: "{colors.red.100}" },
+                    emphasized: { value: "{colors.red.300}" },
+                    contrast: { value: "{colors.white}" },
+                    focusRing: { value: "{colors.red.500}" },
+                },
+                warning: {
+                    solid: { value: "{colors.yellow.500}" },
+                    fg: { value: "{colors.yellow.600}" },
+                    muted: { value: "{colors.yellow.400}" },
+                    subtle: { value: "{colors.yellow.100}" },
+                    emphasized: { value: "{colors.yellow.300}" },
+                    contrast: { value: "{colors.black}" },
+                    focusRing: { value: "{colors.yellow.400}" },
+                },
+                info: {
+                    solid: { value: "{colors.blue.600}" },
+                    fg: { value: "{colors.blue.700}" },
+                    muted: { value: "{colors.blue.500}" },
+                    subtle: { value: "{colors.blue.100}" },
+                    emphasized: { value: "{colors.blue.300}" },
+                    contrast: { value: "{colors.white}" },
+                    focusRing: { value: "{colors.blue.500}" },
+                },
             },
         },
     },
 };
 
-function ThemeProvider(props: ColorModeProviderProps) {
+export function ThemeProvider(props: ColorModeProviderProps) {
 
     const system = createSystem(
         defaultConfig,
@@ -47,5 +72,4 @@ function ThemeProvider(props: ColorModeProviderProps) {
     )
 }
 
-export { ThemeProvider };
 export default ThemeProvider;
