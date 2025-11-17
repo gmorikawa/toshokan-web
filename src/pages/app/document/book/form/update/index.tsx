@@ -15,11 +15,21 @@ import ApplicationHeader from "@/pages/app/header";
 import ApplicationContent from "@/pages/app/content";
 import BookForm from "../form";
 
-import { BackIcon } from "@/fragments/icons";
+import { BackIcon, FileUploadIcon, FormIcon } from "@/fragments/icons";
+import TabControl, { type TabOption } from "@/components/tab/tab-control";
+import TabContent from "@/components/tab/tab-content";
+import BookFileUpload from "../file";
 
 type ParamsWithId = {
     id?: string;
 }
+
+type BookFormTab = "details" | "files";
+
+const bookFormTabOptions: TabOption<BookFormTab>[] = [
+    { tab: "details", label: "Details", icon: <FormIcon /> },
+    { tab: "files", label: "File Upload", icon: <FileUploadIcon /> }
+];
 
 export function UpdateBookFormPage() {
     const alert = useAlert();
@@ -38,7 +48,8 @@ export function UpdateBookFormPage() {
             topics: [],
             category: null,
             publisher: null,
-            type: "FICTION"
+            type: "FICTION",
+            documentFiles: []
         }
     });
 
@@ -84,7 +95,15 @@ export function UpdateBookFormPage() {
             />
 
             <ApplicationContent>
-                <BookForm form={form} onSubmit={handleSave} />
+                <TabControl defaultTab="details" options={bookFormTabOptions}>
+                    <TabContent tab="details">
+                        <BookForm form={form} onSubmit={handleSave} />
+                    </TabContent>
+
+                    <TabContent tab="files">
+                        <BookFileUpload book={form.entity} />
+                    </TabContent>
+                </TabControl>
             </ApplicationContent>
         </ApplicationPage>
     );

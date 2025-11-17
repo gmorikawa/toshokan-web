@@ -1,11 +1,11 @@
-import type { Whitepaper } from "@/entities/models/whitepaper";
+import type { ResearchPaper } from "@/entities/models/research-paper";
 
 import { useEffect } from "react";
 import useAlert from "@/hooks/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";
 import useParams from "@/hooks/router/use-params";
 import useService from "@/services/use-service";
-import WhitepaperService from "@/services/whitepaper-service";
+import ResearchPaperService from "@/services/research-paper-service";
 
 import useForm from "@/components/form/use-form";
 import ActionButton from "@/components/button/action-button";
@@ -13,22 +13,33 @@ import BoxContainer from "@/components/container/box-container";
 import ApplicationPage from "@/pages/app/page";
 import ApplicationHeader from "@/pages/app/header";
 import ApplicationContent from "@/pages/app/content";
-import WhitepaperForm from "../form";
+import ResearchPaperForm from "../form";
 
-import { BackIcon } from "@/fragments/icons";
+import { BackIcon, FileUploadIcon, FormIcon } from "@/fragments/icons";
+import { TabControl, type TabOption } from "@/components/tab/tab-control";
+import TabContent from "@/components/tab/tab-content";
+import ResearchPaperFileUpload from "../file";
 
 type ParamsWithId = {
     id?: string;
 }
 
-export function UpdateWhitepaperFormPage() {
+type ResearchPaperFormTab = "details" | "files";
+
+const researchPaperFormTabOptions: TabOption<ResearchPaperFormTab>[] = [
+    { tab: "details", label: "Details", icon: <FormIcon /> },
+    { tab: "files", label: "File Upload", icon: <FileUploadIcon /> }
+];
+
+
+export function UpdateResearchPaperFormPage() {
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<WhitepaperService>(WhitepaperService, { includeAuthorization: true });
+    const service = useService<ResearchPaperService>(ResearchPaperService, { includeAuthorization: true });
 
-    const form = useForm<Whitepaper>({
+    const form = useForm<ResearchPaper>({
         default: {
             id: "",
             title: "",
@@ -36,14 +47,16 @@ export function UpdateWhitepaperFormPage() {
             language: null,
             authors: [],
             topics: [],
-            organization: null
+            organization: null,
+            keywords: "",
+            documentFiles: []
         }
     });
 
     async function loadEntity(): Promise<void> {
         if (id) {
             return service.getById(id)
-                .then((entity: Whitepaper) => {
+                .then((entity: ResearchPaper) => {
                     form.reset(entity);
                 })
                 .catch((error: Error) => {
@@ -55,7 +68,7 @@ export function UpdateWhitepaperFormPage() {
     function handleSave(): void {
         service.update(form.entity)
             .then(() => {
-                router.navigateTo("/app/whitepaper/list");
+                router.navigateTo("/app/research-paper/list");
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
@@ -63,7 +76,7 @@ export function UpdateWhitepaperFormPage() {
     }
 
     function handleBack(): void {
-        router.navigateTo("/app/whitepaper/list");
+        router.navigateTo("/app/research-paper/list");
     }
 
     useEffect(() => {
@@ -73,7 +86,7 @@ export function UpdateWhitepaperFormPage() {
     return (
         <ApplicationPage>
             <ApplicationHeader
-                title="Whitepaper"
+                title="Research Paper"
                 actionSlot={
                     <BoxContainer>
                         <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
@@ -82,10 +95,18 @@ export function UpdateWhitepaperFormPage() {
             />
 
             <ApplicationContent>
-                <WhitepaperForm form={form} onSubmit={handleSave} />
+                <TabControl defaultTab="details" options={researchPaperFormTabOptions}>
+                    <TabContent tab="details">
+                        <ResearchPaperForm form={form} onSubmit={handleSave} />
+                    </TabContent>
+
+                    <TabContent tab="files">
+                        <ResearchPaperFileUpload researchPaper={form.entity} />
+                    </TabContent>
+                </TabControl>
             </ApplicationContent>
         </ApplicationPage>
     );
 }
 
-export default UpdateWhitepaperFormPage;
+export default UpdateResearchPaperFormPage;

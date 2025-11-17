@@ -1,4 +1,4 @@
-import type { HttpClient, RequestOptions, RequestOptionsWithBody } from "./http-client";
+import type { RequestContentType, HttpClient, RequestOptions, RequestOptionsWithBody } from "./http-client";
 
 class NativeHttpClient implements HttpClient {
     private baseUrl: string;
@@ -6,33 +6,53 @@ class NativeHttpClient implements HttpClient {
 
     constructor(baseUrl: string = "", defaultHeaders: Record<string, string> = {}) {
         this.baseUrl = baseUrl;
-        this.defaultHeaders = {
-            "Content-Type": "application/json",
-            ...defaultHeaders,
-        };
+        this.defaultHeaders = defaultHeaders;
     }
 
     private async request<T>(
         method: string,
         endpoint: string,
-        options: RequestOptionsWithBody = {}
+        options: RequestOptionsWithBody
     ): Promise<T> {
-        const { headers = {}, params = {}, body } = options;
         const url = new URL(endpoint, this.baseUrl);
 
+        const jsonSerializer = (data: unknown) => JSON.stringify(data);
+        const formDataSerializer = (data: Record<string, any>) => {
+            const formData = new FormData();
+            Object.entries(data).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+            return formData;
+        };
+        const serializers = (data: unknown, contentType: RequestContentType) => {
+            switch (contentType) {
+                case "json":
+                    return jsonSerializer(data);
+                case "form-data":
+                    return formDataSerializer(data as Record<string, any>);
+                default:
+                    return jsonSerializer(data);
+            }
+        };
+
         // Add query parameters
-        Object.entries(params).forEach(([key, value]) => {
+        Object.entries(options?.params ?? {}).forEach(([key, value]) => {
             url.searchParams.append(key, value);
         });
+
+        const contentTypeHeader: Record<string, string> = options?.contentType === "form-data"
+            ? {}
+            : { "Content-Type": "application/json" };
 
         try {
             const response = await fetch(url.toString(), {
                 method,
                 headers: {
                     ...this.defaultHeaders,
-                    ...headers,
+                    ...options?.headers,
+                    ...contentTypeHeader,
                 },
-                ...(body ? { body: JSON.stringify(body) } : {}),
+                ...(options?.body ? { body: serializers(options?.body, options?.contentType ?? "json") } : {}),
             });
 
             if (!response.ok) {
@@ -43,6 +63,10 @@ class NativeHttpClient implements HttpClient {
             const contentType = response.headers.get("content-type");
             if (contentType && contentType.includes("application/json")) {
                 return response.json();
+            }
+
+            if (contentType && contentType.includes("application/octet-stream")) {
+                return response.blob() as unknown as T;
             }
 
             return response.text() as T;

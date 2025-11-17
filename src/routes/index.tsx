@@ -33,15 +33,18 @@ import UpdatePublisherFormPage from "@/pages/app/publisher/form/update";
 import OrganizationListPage from "@/pages/app/organization/list";
 import CreateOrganizationFormPage from "@/pages/app/organization/form/create";
 import UpdateOrganizationFormPage from "@/pages/app/organization/form/update";
-import BookListPage from "@/pages/app/book/list";
-import CreateBookFormPage from "@/pages/app/book/form/create";
-import UpdateBookFormPage from "@/pages/app/book/form/update";
-import ResearchPaperListPage from "@/pages/app/research-paper/list";
-import CreateResearchPaperFormPage from "@/pages/app/research-paper/form/create";
-import UpdateResearchPaperFormPage from "@/pages/app/research-paper/form/update";
-import WhitepaperListPage from "@/pages/app/whitepaper/list";
-import CreateWhitepaperFormPage from "@/pages/app/whitepaper/form/create";
-import UpdateWhitepaperFormPage from "@/pages/app/whitepaper/form/update";
+
+import BookListPage from "@/pages/app/document/book/list";
+import CreateBookFormPage from "@/pages/app/document/book/form/create";
+import UpdateBookFormPage from "@/pages/app/document/book/form/update";
+
+import ResearchPaperListPage from "@/pages/app/document/research-paper/list";
+import CreateResearchPaperFormPage from "@/pages/app/document/research-paper/form/create";
+import UpdateResearchPaperFormPage from "@/pages/app/document/research-paper/form/update";
+
+import WhitepaperListPage from "@/pages/app/document/whitepaper/list";
+import CreateWhitepaperFormPage from "@/pages/app/document/whitepaper/form/create";
+import UpdateWhitepaperFormPage from "@/pages/app/document/whitepaper/form/update";
 
 function RouteProvider() {
     return (

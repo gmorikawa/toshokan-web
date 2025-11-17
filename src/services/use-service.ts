@@ -13,22 +13,18 @@ interface ServiceClassOptions {
 export function useService<Service>(ServiceClass: ServiceClassConstructor<Service>, options?: ServiceClassOptions): Service {
     const storage = useLocalStorage();
 
-    const buildHttpClient = () => {
-        if (options?.includeAuthorization) {
-            return new NativeHttpClient(
-                import.meta.env.VITE_API_URL ?? "",
-                {
-                    "Authorization": `Bearer ${storage.get("token") ?? ""}`,
-                }
-            );
-        } else {
-            return new NativeHttpClient(
-                import.meta.env.VITE_API_URL ?? "",
-            );
-        }
-    };
+    const headers = {};
 
-    return new ServiceClass(buildHttpClient());
+    if (options?.includeAuthorization) {
+        Object.assign(headers, { "Authorization": `Bearer ${storage.get("token") ?? ""}` });
+    }
+
+    return new ServiceClass(
+        new NativeHttpClient(
+            import.meta.env.VITE_API_URL ?? "",
+            headers
+        )
+    );
 }
 
 export default useService;

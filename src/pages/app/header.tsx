@@ -1,17 +1,18 @@
 import BoxContainer from "@/components/container/box-container";
 import HeaderTypography from "@/components/typography/header-typography";
 
-export interface ApplicationHeaderProps {
+export interface ApplicationHeaderProps extends React.PropsWithChildren {
     title: string;
 
     actionSlot?: React.ReactNode;
 }
 
-export function ApplicationHeader({ title, actionSlot }: ApplicationHeaderProps) {
+export function ApplicationHeader({ title, actionSlot, children }: ApplicationHeaderProps) {
     return (
         <BoxContainer
             borderBottomWidth="1px"
             borderBottomColor="gray.200"
+            position="relative"
         >
             <BoxContainer
                 padding="8"
@@ -26,7 +27,10 @@ export function ApplicationHeader({ title, actionSlot }: ApplicationHeaderProps)
                 <BoxContainer>
                     {actionSlot}
                 </BoxContainer>
+
             </BoxContainer>
+
+            {children}
         </BoxContainer>
     );
 }
