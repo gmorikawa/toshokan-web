@@ -16,6 +16,7 @@ import ApplicationContent from "@/pages/app/content";
 import UpdateUserForm from "./form";
 
 import { BackIcon } from "@/fragments/icons";
+import { userValidator } from "@/entities/validators/user/user.validator";
 
 type ParamsWithId = {
     id?: string;
@@ -37,6 +38,16 @@ export function UpdateUserFormPage() {
             role: "READER",
             status: "ACTIVE",
             fullname: ""
+        },
+        validator: userValidator,
+        onSubmit: (entity: User) => {
+            service.update(entity)
+                .then(() => {
+                    router.navigateTo("/app/user/list");
+                })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                });
         }
     });
 
@@ -50,16 +61,10 @@ export function UpdateUserFormPage() {
                     alert.showErrorMessage(error);
                 });
         }
-    };
+    }
 
-    function handleSave(): void {
-        service.update(form.entity)
-            .then(() => {
-                router.navigateTo("/app/user/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
+    function handleSubmit() {
+        form.submit();
     }
 
     function handleBack(): void {
@@ -76,13 +81,15 @@ export function UpdateUserFormPage() {
                 title="User"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent>
-                <UpdateUserForm form={form} onSubmit={handleSave} />
+                <UpdateUserForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

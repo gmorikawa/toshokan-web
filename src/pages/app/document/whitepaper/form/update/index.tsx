@@ -19,6 +19,7 @@ import { BackIcon, FileUploadIcon, FormIcon } from "@/fragments/icons";
 import TabControl, { type TabOption } from "@/components/tab/tab-control";
 import TabContent from "@/components/tab/tab-content";
 import WhitepaperFileUpload from "../file";
+import { whitepaperValidator } from "@/entities/validators/whitepaper/whitepaper.validator";
 
 type ParamsWithId = {
     id?: string;
@@ -32,6 +33,9 @@ const whitepaperFormTabOptions: TabOption<WhitepaperFormTab>[] = [
 ];
 
 export function UpdateWhitepaperFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
@@ -48,7 +52,8 @@ export function UpdateWhitepaperFormPage() {
             topics: [],
             organization: null,
             documentFiles: []
-        }
+        },
+        validator: whitepaperValidator
     });
 
     async function loadEntity(): Promise<void> {
@@ -63,15 +68,9 @@ export function UpdateWhitepaperFormPage() {
         }
     };
 
-    function handleSave(): void {
-        service.update(form.entity)
-            .then(() => {
-                router.navigateTo("/app/whitepaper/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }
+    // ...existing code...
+    // Only one form declaration should exist, so replace the original with the new config above.
+    // Remove the duplicate declaration.
 
     function handleBack(): void {
         router.navigateTo("/app/whitepaper/list");
@@ -95,7 +94,7 @@ export function UpdateWhitepaperFormPage() {
             <ApplicationContent>
                 <TabControl defaultTab="details" options={whitepaperFormTabOptions}>
                     <TabContent tab="details">
-                        <WhitepaperForm form={form} onSubmit={handleSave} />
+                        <WhitepaperForm form={form} onSubmit={handleSubmit} />
                     </TabContent>
 
                     <TabContent tab="files">

@@ -14,8 +14,12 @@ import ApplicationContent from "@/pages/app/content";
 import ResearchPaperForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { newResearchPaperValidator } from "@/entities/validators/research-paper/new-research-paper.validator";
 
 export function CreateResearchPaperFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
 
@@ -30,18 +34,18 @@ export function CreateResearchPaperFormPage() {
             topics: [],
             organization: null,
             keywords: ""
+        },
+        validator: newResearchPaperValidator,
+        onSubmit: async (entity: NewResearchPaper) => {
+            if (!form.isValid()) return;
+            try {
+                await service.create(entity);
+                router.navigateTo("/app/research-paper/list");
+            } catch (error) {
+                alert.showErrorMessage(error as Error);
+            }
         }
     });
-
-    function handleSave(entity: NewResearchPaper): void {
-        service.create(entity)
-            .then(() => {
-                router.navigateTo("/app/research-paper/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
 
     function handleBack(): void {
         router.navigateTo("/app/research-paper/list");
@@ -59,7 +63,7 @@ export function CreateResearchPaperFormPage() {
             />
 
             <ApplicationContent>
-                <ResearchPaperForm form={form} onSubmit={handleSave} />
+                <ResearchPaperForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

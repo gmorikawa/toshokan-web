@@ -14,8 +14,12 @@ import ApplicationContent from "@/pages/app/content";
 import AuthorForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { newAuthorValidator } from "@/entities/validators/author/new-author.validator";
 
 export function CreateAuthorFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
 
@@ -25,22 +29,24 @@ export function CreateAuthorFormPage() {
         default: {
             fullname: "",
             biography: ""
+        },
+        validator: newAuthorValidator,
+        onSubmit: async (entity: NewAuthor) => {
+            if (!form.isValid()) return;
+            try {
+                await service.create(entity);
+                router.navigateTo("/app/author/list");
+            } catch (error) {
+                alert.showErrorMessage(error as Error);
+            }
         }
     });
 
-    function handleSave(entity: NewAuthor): void {
-        service.create(entity)
-            .then(() => {
-                router.navigateTo("/app/author/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
 
     function handleBack(): void {
         router.navigateTo("/app/author/list");
     }
+
 
     return (
         <ApplicationPage>
@@ -54,7 +60,7 @@ export function CreateAuthorFormPage() {
             />
 
             <ApplicationContent>
-                <AuthorForm form={form} onSubmit={handleSave} />
+                <AuthorForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

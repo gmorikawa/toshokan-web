@@ -19,6 +19,7 @@ import { BackIcon, FileUploadIcon, FormIcon } from "@/fragments/icons";
 import TabControl, { type TabOption } from "@/components/tab/tab-control";
 import TabContent from "@/components/tab/tab-content";
 import BookFileUpload from "../file";
+import { bookValidator } from "@/entities/validators/book/book.validator";
 
 type ParamsWithId = {
     id?: string;
@@ -32,6 +33,9 @@ const bookFormTabOptions: TabOption<BookFormTab>[] = [
 ];
 
 export function UpdateBookFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
@@ -50,7 +54,8 @@ export function UpdateBookFormPage() {
             publisher: null,
             type: "FICTION",
             documentFiles: []
-        }
+        },
+        validator: bookValidator
     });
 
     async function loadEntity(): Promise<void> {
@@ -65,15 +70,9 @@ export function UpdateBookFormPage() {
         }
     };
 
-    function handleSave(): void {
-        service.update(form.entity)
-            .then(() => {
-                router.navigateTo("/app/book/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }
+    // ...existing code...
+    // Only one form declaration should exist, so replace the original with the new config above.
+    // Remove the duplicate declaration.
 
     function handleBack(): void {
         router.navigateTo("/app/book/list");
@@ -97,7 +96,7 @@ export function UpdateBookFormPage() {
             <ApplicationContent>
                 <TabControl defaultTab="details" options={bookFormTabOptions}>
                     <TabContent tab="details">
-                        <BookForm form={form} onSubmit={handleSave} />
+                        <BookForm form={form} onSubmit={handleSubmit} />
                     </TabContent>
 
                     <TabContent tab="files">

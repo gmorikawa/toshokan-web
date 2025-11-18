@@ -11,16 +11,23 @@ function FormNumericField({ form, property, ...others }: FormNumericFieldProps) 
         form.updateValue(property, e.target.value);
     };
 
+    const handleBlur = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        form.onBlur(property, e.target.value);
+    };
+
     const value = form.getValue<number>(property);
+    const error = form.getError(property);
 
     return useMemo(
         () => <NumericField
             property={property}
             onChange={handleChange}
+            onBlur={handleBlur}
             value={value}
+            error={error}
             {...others}
         />,
-        [value]
+        [value, error]
     );
 }
 

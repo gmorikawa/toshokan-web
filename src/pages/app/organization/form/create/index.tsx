@@ -14,6 +14,7 @@ import ApplicationContent from "@/pages/app/content";
 import OrganizationForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { newOrganizationValidator } from "@/entities/validators/organization/new-organization.validator";
 
 export function CreateOrganizationFormPage() {
     const alert = useAlert();
@@ -26,18 +27,22 @@ export function CreateOrganizationFormPage() {
             name: "",
             description: "",
             type: "UNIVERSITY"
+        },
+        validator: newOrganizationValidator,
+        onSubmit: (): void => {
+            service.create(form.entity)
+                .then(() => {
+                    router.navigateTo("/app/organization/list");
+                })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                });
         }
     });
 
-    function handleSave(entity: NewOrganization): void {
-        service.create(entity)
-            .then(() => {
-                router.navigateTo("/app/organization/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
+    function handleSubmit(): void {
+        form.submit();
+    }
 
     function handleBack(): void {
         router.navigateTo("/app/organization/list");
@@ -55,7 +60,7 @@ export function CreateOrganizationFormPage() {
             />
 
             <ApplicationContent>
-                <OrganizationForm form={form} onSubmit={handleSave} />
+                <OrganizationForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

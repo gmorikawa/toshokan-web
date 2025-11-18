@@ -14,8 +14,12 @@ import ApplicationContent from "@/pages/app/content";
 import CategoryForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { newCategoryValidator } from "@/entities/validators/category/new-category.validator";
 
 export function CreateCategoryFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
 
@@ -24,18 +28,18 @@ export function CreateCategoryFormPage() {
     const form = useForm<NewCategory>({
         default: {
             name: ""
+        },
+        validator: newCategoryValidator,
+        onSubmit: async (entity: NewCategory) => {
+            if (!form.isValid()) return;
+            try {
+                await service.create(entity);
+                router.navigateTo("/app/category/list");
+            } catch (error) {
+                alert.showErrorMessage(error as Error);
+            }
         }
     });
-
-    function handleSave(entity: NewCategory): void {
-        service.create(entity)
-            .then(() => {
-                router.navigateTo("/app/category/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
 
     function handleBack(): void {
         router.navigateTo("/app/category/list");
@@ -53,7 +57,7 @@ export function CreateCategoryFormPage() {
             />
 
             <ApplicationContent>
-                <CategoryForm form={form} onSubmit={handleSave} />
+                <CategoryForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

@@ -16,12 +16,16 @@ import ApplicationContent from "@/pages/app/content";
 import LanguageForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { languageValidator } from "@/entities/validators/language/language.validator";
 
 type ParamsWithId = {
     id?: string;
 }
 
 export function UpdateLanguageFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
@@ -32,7 +36,8 @@ export function UpdateLanguageFormPage() {
         default: {
             id: "",
             name: ""
-        }
+        },
+        validator: languageValidator
     });
 
     async function loadEntity(): Promise<void> {
@@ -47,15 +52,9 @@ export function UpdateLanguageFormPage() {
         }
     };
 
-    function handleSave(): void {
-        service.update(form.entity)
-            .then(() => {
-                router.navigateTo("/app/language/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }
+    // ...existing code...
+    // Only one form declaration should exist, so replace the original with the new config above.
+    // Remove the duplicate declaration.
 
     function handleBack(): void {
         router.navigateTo("/app/language/list");
@@ -77,7 +76,7 @@ export function UpdateLanguageFormPage() {
             />
 
             <ApplicationContent>
-                <LanguageForm form={form} onSubmit={handleSave} />
+                <LanguageForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

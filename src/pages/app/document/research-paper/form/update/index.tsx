@@ -19,6 +19,7 @@ import { BackIcon, FileUploadIcon, FormIcon } from "@/fragments/icons";
 import { TabControl, type TabOption } from "@/components/tab/tab-control";
 import TabContent from "@/components/tab/tab-content";
 import ResearchPaperFileUpload from "../file";
+import { researchPaperValidator } from "@/entities/validators/research-paper/research-paper.validator";
 
 type ParamsWithId = {
     id?: string;
@@ -33,6 +34,9 @@ const researchPaperFormTabOptions: TabOption<ResearchPaperFormTab>[] = [
 
 
 export function UpdateResearchPaperFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
@@ -50,7 +54,8 @@ export function UpdateResearchPaperFormPage() {
             organization: null,
             keywords: "",
             documentFiles: []
-        }
+        },
+        validator: researchPaperValidator
     });
 
     async function loadEntity(): Promise<void> {
@@ -65,15 +70,9 @@ export function UpdateResearchPaperFormPage() {
         }
     };
 
-    function handleSave(): void {
-        service.update(form.entity)
-            .then(() => {
-                router.navigateTo("/app/research-paper/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }
+    // ...existing code...
+    // Only one form declaration should exist, so replace the original with the new config above.
+    // Remove the duplicate declaration.
 
     function handleBack(): void {
         router.navigateTo("/app/research-paper/list");
@@ -97,7 +96,7 @@ export function UpdateResearchPaperFormPage() {
             <ApplicationContent>
                 <TabControl defaultTab="details" options={researchPaperFormTabOptions}>
                     <TabContent tab="details">
-                        <ResearchPaperForm form={form} onSubmit={handleSave} />
+                        <ResearchPaperForm form={form} onSubmit={handleSubmit} />
                     </TabContent>
 
                     <TabContent tab="files">

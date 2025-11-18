@@ -16,12 +16,16 @@ import ApplicationContent from "@/pages/app/content";
 import AuthorForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { authorValidator } from "@/entities/validators/author/author.validator";
 
 type ParamsWithId = {
     id?: string;
 }
 
 export function UpdateAuthorFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
@@ -33,7 +37,8 @@ export function UpdateAuthorFormPage() {
             id: "",
             fullname: "",
             biography: ""
-        }
+        },
+        validator: authorValidator
     });
 
     async function loadEntity(): Promise<void> {
@@ -47,16 +52,6 @@ export function UpdateAuthorFormPage() {
                 });
         }
     };
-
-    function handleSave(): void {
-        service.update(form.entity)
-            .then(() => {
-                router.navigateTo("/app/author/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }
 
     function handleBack(): void {
         router.navigateTo("/app/author/list");
@@ -78,7 +73,7 @@ export function UpdateAuthorFormPage() {
             />
 
             <ApplicationContent>
-                <AuthorForm form={form} onSubmit={handleSave} />
+                <AuthorForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

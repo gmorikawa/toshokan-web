@@ -19,6 +19,7 @@ export function TopicForm<Entity>({ form, onSubmit }: TopicFormProps<Entity>) {
                 form={form}
                 label="Name"
                 property="name"
+                required
             />
 
             <SubmitButton onSubmit={handleSubmit}>

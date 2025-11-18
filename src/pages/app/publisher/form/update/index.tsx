@@ -16,12 +16,16 @@ import ApplicationContent from "@/pages/app/content";
 import PublisherForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { publisherValidator } from "@/entities/validators/publisher/publisher.validator";
 
 type ParamsWithId = {
     id?: string;
 }
 
 export function UpdatePublisherFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
@@ -33,7 +37,8 @@ export function UpdatePublisherFormPage() {
             id: "",
             name: "",
             description: ""
-        }
+        },
+        validator: publisherValidator
     });
 
     async function loadEntity(): Promise<void> {
@@ -48,15 +53,9 @@ export function UpdatePublisherFormPage() {
         }
     };
 
-    function handleSave(): void {
-        service.update(form.entity)
-            .then(() => {
-                router.navigateTo("/app/publisher/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }
+    // ...existing code...
+    // Only one form declaration should exist, so replace the original with the new config above.
+    // Remove the duplicate declaration.
 
     function handleBack(): void {
         router.navigateTo("/app/publisher/list");
@@ -78,7 +77,7 @@ export function UpdatePublisherFormPage() {
             />
 
             <ApplicationContent>
-                <PublisherForm form={form} onSubmit={handleSave} />
+                <PublisherForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

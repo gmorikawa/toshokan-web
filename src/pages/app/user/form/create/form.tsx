@@ -18,12 +18,11 @@ export function CreateUserForm({ form, onSubmit }: CreateUserFormProps) {
 
     return (
         <StackContainer spacing={4}>
-            <FormTextField form={form} label="Full Name" property="fullname" />
+            <FormTextField form={form} label="Full Name" property="fullname" required />
 
-            <FormTextField form={form} label="Username" property="username" />
+            <FormTextField form={form} label="Username" property="username" required />
 
-            <FormPasswordField form={form} label="Password" property="password" />
-
+            <FormPasswordField form={form} label="Password" property="password" required />
             <FormTextField form={form} label="Email" property="email" />
 
             <FormRadioField
@@ -35,6 +34,7 @@ export function CreateUserForm({ form, onSubmit }: CreateUserFormProps) {
                     { label: "Librarian", value: "LIBRARIAN" },
                     { label: "Reader", value: "READER" }
                 ]}
+                required
             />
 
             <FormRadioField
@@ -45,6 +45,7 @@ export function CreateUserForm({ form, onSubmit }: CreateUserFormProps) {
                     { label: "Active", value: "ACTIVE" },
                     { label: "Blocked", value: "BLOCKED" },
                 ]}
+                required
             />
 
             <SubmitButton onSubmit={handleSubmit}>

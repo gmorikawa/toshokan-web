@@ -15,8 +15,18 @@ export function PublisherForm<Entity>({ form, onSubmit }: PublisherFormProps<Ent
 
     return (
         <StackContainer spacing={4}>
-            <FormTextField form={form} label="Name" property="name" />
-            <FormTextField form={form} label="Description" property="description" />
+            <FormTextField
+                form={form}
+                label="Name"
+                property="name"
+                required
+            />
+
+            <FormTextField
+                form={form}
+                label="Description"
+                property="description"
+            />
 
             <SubmitButton onSubmit={handleSubmit}>Submit</SubmitButton>
         </StackContainer>

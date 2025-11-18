@@ -17,12 +17,11 @@ export function UpdateUserForm({ form, onSubmit }: UpdateUserFormProps) {
 
     return (
         <StackContainer spacing={4}>
-            <FormTextField form={form} label="Full Name" property="fullname" />
+            <FormTextField form={form} label="Full Name" property="fullname" required />
 
-            <FormTextField form={form} label="Username" property="username" />
+            <FormTextField form={form} label="Username" property="username" required />
 
-            <FormTextField form={form} label="Email" property="email" />
-
+            <FormTextField form={form} label="Email" property="email" required />
             <FormRadioField
                 form={form}
                 label="Role"
@@ -32,6 +31,7 @@ export function UpdateUserForm({ form, onSubmit }: UpdateUserFormProps) {
                     { label: "Librarian", value: "LIBRARIAN" },
                     { label: "Reader", value: "READER" }
                 ]}
+                required
             />
 
             <FormRadioField
@@ -42,6 +42,7 @@ export function UpdateUserForm({ form, onSubmit }: UpdateUserFormProps) {
                     { label: "Active", value: "ACTIVE" },
                     { label: "Blocked", value: "BLOCKED" },
                 ]}
+                required
             />
 
             <SubmitButton onSubmit={handleSubmit}>

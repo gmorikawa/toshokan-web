@@ -16,12 +16,16 @@ import ApplicationContent from "@/pages/app/content";
 import TopicForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { topicValidator } from "@/entities/validators/topic/topic.validator";
 
 type ParamsWithId = {
     id?: string;
 }
 
 export function UpdateTopicFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
@@ -32,7 +36,8 @@ export function UpdateTopicFormPage() {
         default: {
             id: "",
             name: ""
-        }
+        },
+        validator: topicValidator
     });
 
     async function loadEntity(): Promise<void> {
@@ -47,15 +52,9 @@ export function UpdateTopicFormPage() {
         }
     };
 
-    function handleSave(): void {
-        service.update(form.entity)
-            .then(() => {
-                router.navigateTo("/app/topic/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }
+    // ...existing code...
+    // Only one form declaration should exist, so replace the original with the new config above.
+    // Remove the duplicate declaration.
 
     function handleBack(): void {
         router.navigateTo("/app/topic/list");
@@ -77,7 +76,7 @@ export function UpdateTopicFormPage() {
             />
 
             <ApplicationContent>
-                <TopicForm form={form} onSubmit={handleSave} />
+                <TopicForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

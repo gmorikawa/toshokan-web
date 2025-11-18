@@ -10,18 +10,32 @@ export interface TextFieldProps extends ThemeProps {
     value?: string | number;
     placeholder?: string;
     required?: boolean;
+    error?: string;
 
     onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
+    onBlur?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
-export function TextField({ label, property, value, placeholder, required, onChange, palette }: TextFieldProps) {
+export function TextField({ label, property, value, placeholder, required, error, onChange, onBlur, palette }: TextFieldProps) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         (onChange) && (onChange(e));
     };
 
+    const handleBlur = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        (onBlur) && (onBlur(e));
+    };
+
     return (
-        <Field.Root id={property} required={required} colorPalette={palette ?? "primary"}>
-            <Field.Label>{label}</Field.Label>
+        <Field.Root
+            id={property}
+            required={required}
+            colorPalette={palette ?? "primary"}
+            invalid={Boolean(error)}
+        >
+            <Field.Label>
+                {label}
+                <Field.RequiredIndicator />
+            </Field.Label>
 
             <Input
                 name={property}
@@ -29,7 +43,12 @@ export function TextField({ label, property, value, placeholder, required, onCha
                 value={value}
                 placeholder={placeholder ?? ""}
                 onChange={handleChange}
+                onBlur={handleBlur}
             />
+
+            <Field.ErrorText>
+                {error}
+            </Field.ErrorText>
         </Field.Root>
     );
 }

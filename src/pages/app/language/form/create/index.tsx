@@ -14,8 +14,12 @@ import ApplicationContent from "@/pages/app/content";
 import LanguageForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { newLanguageValidator } from "@/entities/validators/language/new-language.validator";
 
 export function CreateLanguageFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
 
@@ -24,18 +28,18 @@ export function CreateLanguageFormPage() {
     const form = useForm<NewLanguage>({
         default: {
             name: ""
+        },
+        validator: newLanguageValidator,
+        onSubmit: async (entity: NewLanguage) => {
+            if (!form.isValid()) return;
+            try {
+                await service.create(entity);
+                router.navigateTo("/app/language/list");
+            } catch (error) {
+                alert.showErrorMessage(error as Error);
+            }
         }
     });
-
-    function handleSave(entity: NewLanguage): void {
-        service.create(entity)
-            .then(() => {
-                router.navigateTo("/app/language/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
 
     function handleBack(): void {
         router.navigateTo("/app/language/list");
@@ -53,7 +57,7 @@ export function CreateLanguageFormPage() {
             />
 
             <ApplicationContent>
-                <LanguageForm form={form} onSubmit={handleSave} />
+                <LanguageForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

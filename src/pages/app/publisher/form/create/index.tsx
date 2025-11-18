@@ -14,8 +14,12 @@ import ApplicationContent from "@/pages/app/content";
 import PublisherForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { newPublisherValidator } from "@/entities/validators/publisher/new-publisher.validator";
 
 export function CreatePublisherFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
 
@@ -25,18 +29,18 @@ export function CreatePublisherFormPage() {
         default: {
             name: "",
             description: ""
+        },
+        validator: newPublisherValidator,
+        onSubmit: async (entity: NewPublisher) => {
+            if (!form.isValid()) return;
+            try {
+                await service.create(entity);
+                router.navigateTo("/app/publisher/list");
+            } catch (error) {
+                alert.showErrorMessage(error as Error);
+            }
         }
     });
-
-    function handleSave(entity: NewPublisher): void {
-        service.create(entity)
-            .then(() => {
-                router.navigateTo("/app/publisher/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
 
     function handleBack(): void {
         router.navigateTo("/app/publisher/list");
@@ -54,7 +58,7 @@ export function CreatePublisherFormPage() {
             />
 
             <ApplicationContent>
-                <PublisherForm form={form} onSubmit={handleSave} />
+                <PublisherForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

@@ -14,8 +14,12 @@ import ApplicationContent from "@/pages/app/content";
 import BookForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { newBookValidator } from "@/entities/validators/book/new-book.validator";
 
 export function CreateBookFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
 
@@ -31,18 +35,18 @@ export function CreateBookFormPage() {
             topics: [],
             category: null,
             publisher: null,
+        },
+        validator: newBookValidator,
+        onSubmit: async (entity: NewBook) => {
+            if (!form.isValid()) return;
+            try {
+                await service.create(entity);
+                router.navigateTo("/app/book/list");
+            } catch (error) {
+                alert.showErrorMessage(error as Error);
+            }
         }
     });
-
-    function handleSave(entity: NewBook): void {
-        service.create(entity)
-            .then(() => {
-                router.navigateTo("/app/book/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
 
     function handleBack(): void {
         router.navigateTo("/app/book/list");
@@ -60,7 +64,7 @@ export function CreateBookFormPage() {
             />
 
             <ApplicationContent>
-                <BookForm form={form} onSubmit={handleSave} />
+                <BookForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

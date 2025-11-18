@@ -16,12 +16,16 @@ import ApplicationContent from "@/pages/app/content";
 import CategoryForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { categoryValidator } from "@/entities/validators/category/category.validator";
 
 type ParamsWithId = {
     id?: string;
 }
 
 export function UpdateCategoryFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
@@ -32,7 +36,8 @@ export function UpdateCategoryFormPage() {
         default: {
             id: "",
             name: ""
-        }
+        },
+        validator: categoryValidator
     });
 
     async function loadEntity(): Promise<void> {
@@ -47,15 +52,9 @@ export function UpdateCategoryFormPage() {
         }
     };
 
-    function handleSave(): void {
-        service.update(form.entity)
-            .then(() => {
-                router.navigateTo("/app/category/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }
+    // ...existing code...
+    // Only one form declaration should exist, so replace the original with the new config above.
+    // Remove the duplicate declaration.
 
     function handleBack(): void {
         router.navigateTo("/app/category/list");
@@ -77,7 +76,7 @@ export function UpdateCategoryFormPage() {
             />
 
             <ApplicationContent>
-                <CategoryForm form={form} onSubmit={handleSave} />
+                <CategoryForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

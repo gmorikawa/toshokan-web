@@ -14,8 +14,12 @@ import ApplicationContent from "@/pages/app/content";
 import TopicForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { newTopicValidator } from "@/entities/validators/topic/new-topic.validator";
 
 export function CreateTopicFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
 
@@ -24,18 +28,18 @@ export function CreateTopicFormPage() {
     const form = useForm<NewTopic>({
         default: {
             name: ""
+        },
+        validator: newTopicValidator,
+        onSubmit: async (entity: NewTopic) => {
+            if (!form.isValid()) return;
+            try {
+                await service.create(entity);
+                router.navigateTo("/app/topic/list");
+            } catch (error) {
+                alert.showErrorMessage(error as Error);
+            }
         }
     });
-
-    function handleSave(entity: NewTopic): void {
-        service.create(entity)
-            .then(() => {
-                router.navigateTo("/app/topic/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
 
     function handleBack(): void {
         router.navigateTo("/app/topic/list");
@@ -47,13 +51,19 @@ export function CreateTopicFormPage() {
                 title="Topic"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent>
-                <TopicForm form={form} onSubmit={handleSave} />
+                <TopicForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

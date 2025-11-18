@@ -14,8 +14,12 @@ import ApplicationContent from "@/pages/app/content";
 import CreateUserForm from "./form";
 
 import { BackIcon } from "@/fragments/icons";
+import { newUserValidator } from "@/entities/validators/user/new-user.validator";
 
 export function CreateUserFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
 
@@ -29,18 +33,18 @@ export function CreateUserFormPage() {
             role: "READER",
             status: "ACTIVE",
             fullname: ""
+        },
+        validator: newUserValidator,
+        onSubmit: async (entity: NewUser) => {
+            if (!form.isValid()) return;
+            try {
+                await service.create(entity);
+                router.navigateTo("/app/user/list");
+            } catch (error) {
+                alert.showErrorMessage(error as Error);
+            }
         }
     });
-
-    function handleSave(entity: NewUser): void {
-        service.create(entity)
-            .then(() => {
-                router.navigateTo("/app/user/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
 
     function handleBack(): void {
         router.navigateTo("/app/user/list");
@@ -58,7 +62,7 @@ export function CreateUserFormPage() {
             />
 
             <ApplicationContent>
-                <CreateUserForm form={form} onSubmit={handleSave} />
+                <CreateUserForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );

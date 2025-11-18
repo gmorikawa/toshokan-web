@@ -1,18 +1,8 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
+import type z from "zod";
+import useValidator from "./use-validator";
 
 type PropertyPath = string;
-
-interface Form<Entity = any> {
-    entity: Entity;
-
-    getValue<Field>(property: PropertyPath): Field;
-    updateValue<Field>(property: PropertyPath, value: Field): void;
-    reset(entity: Entity): void;
-}
-
-interface UseFormConfiguration<Entity> {
-    default: Entity;
-}
 
 function validateConfiguration<Entity>(configuration: UseFormConfiguration<Entity>) {
     if (!configuration.default) {
@@ -66,20 +56,71 @@ interface ResetDispatchAction<Entity> {
     entity: Entity;
 }
 
-function useForm<Entity extends object = any>(configuration: UseFormConfiguration<Entity>): Form<Entity> {
+export interface UseFormConfiguration<Entity> {
+    default: Entity;
+    validator?: z.ZodObject;
+
+    onSubmit?(entity: Entity): void;
+}
+
+export interface Form<Entity = any> {
+    entity: Entity;
+
+    getValue<Field>(property: PropertyPath): Field;
+    getError(property: PropertyPath): string;
+    updateValue<Field>(property: PropertyPath, value: Field): void;
+    reset(entity: Entity): void;
+    isValid(): boolean;
+
+    onChange<Field>(property: PropertyPath, value: Field): void;
+    onBlur<Field>(property: PropertyPath, value: Field): void;
+
+    submit(): void;
+}
+
+export function useForm<Entity extends object = any>(configuration: UseFormConfiguration<Entity>): Form<Entity> {
     validateConfiguration(configuration);
 
-    function reducer<Field = any>(state: Entity, action: UpdateValueDispatchAction<Field> | ResetDispatchAction<Entity>): Entity {
-        switch (action.type) {
-            case "updateValue": return setByPath(state, action.property, action.value);
-            case "reset": return action.entity;
-        }
-    }
+    const validation = useValidator<Entity>(configuration.validator!);
+    const [dirties, setDirties] = useState<Record<string, boolean>>(
+        configuration.validator?.shape
+            ? Object
+                .keys(configuration.validator.shape)
+                .reduce(
+                    (acc, key) => {
+                        acc[key] = false;
+                        return acc;
+                    }, {} as Record<string, boolean>)
+            : {}
+    );
 
-    const [state, dispatch] = useReducer(reducer, configuration.default);
+    const [state, dispatch] = useReducer(
+        function <Field = any>(state: Entity, action: UpdateValueDispatchAction<Field> | ResetDispatchAction<Entity>): Entity {
+            switch (action.type) {
+                case "updateValue":
+                    const newValue = setByPath(state, action.property, action.value);
+                    validation.validate(newValue as any);
+                    return newValue;
+                case "reset":
+                    return action.entity;
+            }
+        },
+        configuration.default);
 
     function getValue<Field>(property: PropertyPath): Field {
         return getByPath(state, property);
+    }
+
+    function getError(property: PropertyPath): string {
+        if (!dirties[property]) {
+            return "";
+        }
+
+        return validation.errors?.[property] ?? "";
+    }
+
+    function isValid(): boolean {
+        return validation.validate(state);
     }
 
     function updateValue<Field>(property: PropertyPath, value: Field): void {
@@ -90,14 +131,40 @@ function useForm<Entity extends object = any>(configuration: UseFormConfiguratio
         dispatch({ type: "reset", entity });
     }
 
+    function onChange<Field>(property: PropertyPath, value: Field): void {
+        updateValue(property, value);
+    }
+
+    function onBlur<Field>(property: PropertyPath, value: Field): void {
+        updateValue(property, value);
+        setDirties((previous) => ({ ...previous, [property]: true }));
+    }
+
+    function submit(): void {
+        setDirties((previous) => {
+            Object.keys(previous).forEach((key) => {
+                previous[key] = true;
+            });
+
+            return previous;
+        });
+
+        if (configuration.onSubmit && isValid()) {
+            configuration.onSubmit(state);
+        }
+    }
+
     return {
         entity: state,
         getValue,
+        getError,
         updateValue,
-        reset
+        reset,
+        isValid,
+        onChange,
+        onBlur,
+        submit
     };
 }
 
-export type { Form };
-export { useForm };
 export default useForm;

@@ -14,8 +14,12 @@ import ApplicationContent from "@/pages/app/content";
 import WhitepaperForm from "../form";
 
 import { BackIcon } from "@/fragments/icons";
+import { newWhitepaperValidator } from "@/entities/validators/whitepaper/new-whitepaper.validator";
 
 export function CreateWhitepaperFormPage() {
+    function handleSubmit() {
+        form.submit();
+    }
     const alert = useAlert();
     const router = useRouter();
 
@@ -29,18 +33,18 @@ export function CreateWhitepaperFormPage() {
             authors: [],
             topics: [],
             organization: null
+        },
+        validator: newWhitepaperValidator,
+        onSubmit: async (entity: NewWhitepaper) => {
+            if (!form.isValid()) return;
+            try {
+                await service.create(entity);
+                router.navigateTo("/app/whitepaper/list");
+            } catch (error) {
+                alert.showErrorMessage(error as Error);
+            }
         }
     });
-
-    function handleSave(entity: NewWhitepaper): void {
-        service.create(entity)
-            .then(() => {
-                router.navigateTo("/app/whitepaper/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
 
     function handleBack(): void {
         router.navigateTo("/app/whitepaper/list");
@@ -58,7 +62,7 @@ export function CreateWhitepaperFormPage() {
             />
 
             <ApplicationContent>
-                <WhitepaperForm form={form} onSubmit={handleSave} />
+                <WhitepaperForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
     );
