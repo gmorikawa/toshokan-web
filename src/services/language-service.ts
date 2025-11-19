@@ -1,9 +1,26 @@
 import type { NewLanguage, Language } from "@/entities/models/language";
+import type { QueryOptions } from "@/entities/query";
 import MainService, { type Service } from "@/services";
 
 export class LanguageService extends MainService implements Service {
-    async getAll(): Promise<Language[]> {
+    async getAll(options?: QueryOptions): Promise<Language[]> {
+        const params: Record<string, string> = {
+            ...(options?.pagination ? {
+                "page": options.pagination.page.toString(),
+                "size": options.pagination.size.toString(),
+            } : {}),
+        };
+
+        const queryString = new URLSearchParams(params).toString();
+        if (queryString.length > 0) {
+            return this.http.get<Language[]>(`/api/languages?${queryString}`);
+        }
+
         return this.http.get<Language[]>("/api/languages");
+    }
+
+    async countAll(): Promise<number> {
+        return this.http.get<number>("/api/languages/count");
     }
 
     async getById(id: string): Promise<Language> {

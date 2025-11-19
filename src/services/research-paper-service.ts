@@ -1,10 +1,27 @@
 import type { DocumentFile, NewDocumentFile } from "@/entities/models/document-file";
 import type { NewResearchPaper, ResearchPaper } from "@/entities/models/research-paper";
+import type { QueryOptions } from "@/entities/query";
 import MainService, { type Service } from "@/services";
 
 export class ResearchPaperService extends MainService implements Service {
-    async getAll(): Promise<ResearchPaper[]> {
+    async getAll(options?: QueryOptions): Promise<ResearchPaper[]> {
+        const params: Record<string, string> = {
+            ...(options?.pagination ? {
+                "page": options.pagination.page.toString(),
+                "size": options.pagination.size.toString(),
+            } : {}),
+        };
+
+        const queryString = new URLSearchParams(params).toString();
+        if (queryString.length > 0) {
+            return this.http.get<ResearchPaper[]>(`/api/research-papers?${queryString}`);
+        }
+
         return this.http.get<ResearchPaper[]>("/api/research-papers");
+    }
+
+    async countAll(): Promise<number> {
+        return this.http.get<number>("/api/research-papers/count");
     }
 
     async getById(id: string): Promise<ResearchPaper> {

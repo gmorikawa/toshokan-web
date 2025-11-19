@@ -16,10 +16,15 @@ import ApplicationHeader from "@/pages/app/header";
 import ApplicationContent from "@/pages/app/content";
 
 import { AddIcon } from "@/fragments/icons";
+import type { Pagination } from "@/entities/query";
+import usePagination from "@/components/pagination/use-pagination";
+import PaginationControl from "@/components/pagination/pagination-control";
+import StackContainer from "@/components/container/stack-container";
 
 function BookListPage() {
     const alert = useAlert();
     const router = useRouter();
+    const pagination = usePagination();
     const service = useService<BookService>(BookService, { includeAuthorization: true });
     const [list, setList] = useState<Book[]>([]);
 
@@ -34,15 +39,15 @@ function BookListPage() {
     const handleRemove = (entity: Book): void => {
         service.remove(entity)
             .then(() => {
-                loadList();
+                loadList(pagination);
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
     };
 
-    const loadList = () => {
-        service.getAll()
+    const loadList = (pagination?: Pagination) => {
+        service.getAll({ pagination })
             .then((result) => {
                 setList(result);
             })
@@ -51,8 +56,20 @@ function BookListPage() {
             });
     };
 
+    const loadCount = () => {
+        service.countAll()
+            .then((result) => {
+                pagination.setCount(result);
+            })
+            .catch((error: Error) => {
+                alert.showErrorMessage(error);
+                pagination.setCount(0);
+            });
+    };
+
     useEffect(() => {
-        loadList();
+        loadList(pagination);
+        loadCount();
     }, []);
 
     return (
@@ -67,8 +84,18 @@ function BookListPage() {
             />
 
             <ApplicationContent>
-                <DataTable
-                    data={list}
+                <StackContainer spacing={4}>
+                    <PaginationControl
+                        count={pagination.count}
+                        pageSize={pagination.size}
+                        page={pagination.page}
+                        onPageChange={(page) => {
+                            pagination.setPage(page);
+                            loadList({ page: page, size: pagination.size });
+                        }}
+                    />
+                    <DataTable
+                        data={list}
                     columns={[
                         {
                             header: "Actions",
@@ -84,6 +111,7 @@ function BookListPage() {
                     ]}>
 
                 </DataTable>
+                </StackContainer>
             </ApplicationContent>
         </ApplicationPage>
     );

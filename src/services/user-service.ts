@@ -1,9 +1,26 @@
 import type { NewUser, User } from "@/entities/models/user";
+import type { QueryOptions } from "@/entities/query";
 import MainService, { type Service } from "@/services";
 
 export class UserService extends MainService implements Service {
-    async getAll(): Promise<User[]> {
+    async getAll(options?: QueryOptions): Promise<User[]> {
+        const params: Record<string, string> = {
+            ...(options?.pagination ? {
+                "page": options.pagination.page.toString(),
+                "size": options.pagination.size.toString(),
+            } : {}),
+        };
+
+        const queryString = new URLSearchParams(params).toString();
+        if (queryString.length > 0) {
+            return this.http.get<User[]>(`/api/users?${queryString}`);
+        }
+
         return this.http.get<User[]>("/api/users");
+    }
+
+    async countAll(): Promise<number> {
+        return this.http.get<number>("/api/users/count");
     }
 
     async getById(id: string): Promise<User> {

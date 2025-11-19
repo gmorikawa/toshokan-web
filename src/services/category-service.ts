@@ -1,9 +1,26 @@
 import type { NewCategory, Category } from "@/entities/models/category";
+import type { QueryOptions } from "@/entities/query";
 import MainService, { type Service } from "@/services";
 
 export class CategoryService extends MainService implements Service {
-    async getAll(): Promise<Category[]> {
+    async getAll(options?: QueryOptions): Promise<Category[]> {
+        const params: Record<string, string> = {
+            ...(options?.pagination ? {
+                "page": options.pagination.page.toString(),
+                "size": options.pagination.size.toString(),
+            } : {}),
+        };
+
+        const queryString = new URLSearchParams(params).toString();
+        if (queryString.length > 0) {
+            return this.http.get<Category[]>(`/api/categories?${queryString}`);
+        }
+
         return this.http.get<Category[]>("/api/categories");
+    }
+
+    async countAll(): Promise<number> {
+        return this.http.get<number>("/api/categories/count");
     }
 
     async getById(id: string): Promise<Category> {

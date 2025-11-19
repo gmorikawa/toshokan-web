@@ -16,10 +16,15 @@ import ApplicationHeader from "@/pages/app/header";
 import ApplicationContent from "@/pages/app/content";
 
 import { AddIcon } from "@/fragments/icons";
+import type { Pagination } from "@/entities/query";
+import usePagination from "@/components/pagination/use-pagination";
+import PaginationControl from "@/components/pagination/pagination-control";
+import StackContainer from "@/components/container/stack-container";
 
 function TopicListPage() {
     const alert = useAlert();
     const router = useRouter();
+    const pagination = usePagination();
     const service = useService<TopicService>(TopicService, { includeAuthorization: true });
     const [list, setList] = useState<Topic[]>([]);
 
@@ -41,8 +46,8 @@ function TopicListPage() {
             });
     };
 
-    const loadList = () => {
-        service.getAll()
+    const loadList = (pagination?: Pagination) => {
+        service.getAll({ pagination })
             .then((result) => {
                 setList(result);
             })
@@ -51,8 +56,20 @@ function TopicListPage() {
             });
     };
 
+    const loadCount = () => {
+        service.countAll()
+            .then((result) => {
+                pagination.setCount(result);
+            })
+            .catch((error: Error) => {
+                alert.showErrorMessage(error);
+                pagination.setCount(0);
+            });
+    };
+
     useEffect(() => {
-        loadList();
+        loadList(pagination);
+        loadCount();
     }, []);
     return (
         <ApplicationPage>
@@ -66,22 +83,33 @@ function TopicListPage() {
             />
 
             <ApplicationContent>
-                <DataTable
-                    data={list}
-                    columns={[
-                        {
-                            header: "Actions",
-                            accessor: (row: Topic) => (
-                                <FlexContainer spacing="2">
-                                    <OutlineButton onClick={() => handleUpdate(row)}>Edit</OutlineButton>
-                                    <OutlineButton onClick={() => handleRemove(row)}>Delete</OutlineButton>
-                                </FlexContainer>
-                            )
-                        },
-                        { header: "Name", accessor: (row: any) => row.name }
-                    ]}>
+                <StackContainer spacing={4}>
+                    <PaginationControl
+                        count={pagination.count}
+                        pageSize={pagination.size}
+                        page={pagination.page}
+                        onPageChange={(page) => {
+                            pagination.setPage(page);
+                            loadList({ page: page, size: pagination.size });
+                        }}
+                    />
+                    <DataTable
+                        data={list}
+                        columns={[
+                            {
+                                header: "Actions",
+                                accessor: (row: Topic) => (
+                                    <FlexContainer spacing="2">
+                                        <OutlineButton onClick={() => handleUpdate(row)}>Edit</OutlineButton>
+                                        <OutlineButton onClick={() => handleRemove(row)}>Delete</OutlineButton>
+                                    </FlexContainer>
+                                )
+                            },
+                            { header: "Name", accessor: (row: any) => row.name }
+                        ]}>
 
-                </DataTable>
+                    </DataTable>
+                </StackContainer>
             </ApplicationContent>
         </ApplicationPage>
     );

@@ -1,9 +1,26 @@
 import type { NewOrganization, Organization } from "@/entities/models/organization";
+import type { QueryOptions } from "@/entities/query";
 import MainService, { type Service } from "@/services";
 
 export class OrganizationService extends MainService implements Service {
-    async getAll(): Promise<Organization[]> {
+    async getAll(options?: QueryOptions): Promise<Organization[]> {
+        const params: Record<string, string> = {
+            ...(options?.pagination ? {
+                "page": options.pagination.page.toString(),
+                "size": options.pagination.size.toString(),
+            } : {}),
+        };
+
+        const queryString = new URLSearchParams(params).toString();
+        if (queryString.length > 0) {
+            return this.http.get<Organization[]>(`/api/organizations?${queryString}`);
+        }
+
         return this.http.get<Organization[]>("/api/organizations");
+    }
+
+    async countAll(): Promise<number> {
+        return this.http.get<number>("/api/organizations/count");
     }
 
     async getById(id: string): Promise<Organization> {

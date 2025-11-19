@@ -1,10 +1,27 @@
 import type { NewBook, Book } from "@/entities/models/book";
 import type { DocumentFile, NewDocumentFile } from "@/entities/models/document-file";
+import type { QueryOptions } from "@/entities/query";
 import MainService, { type Service } from "@/services";
 
 export class BookService extends MainService implements Service {
-    async getAll(): Promise<Book[]> {
+    async getAll(options?: QueryOptions): Promise<Book[]> {
+        const params: Record<string, string> = {
+            ...(options?.pagination ? {
+                "page": options.pagination.page.toString(),
+                "size": options.pagination.size.toString(),
+            } : {}),
+        };
+
+        const queryString = new URLSearchParams(params).toString();
+        if (queryString.length > 0) {
+            return this.http.get<Book[]>(`/api/books?${queryString}`);
+        }
+
         return this.http.get<Book[]>("/api/books");
+    }
+
+    async countAll(): Promise<number> {
+        return this.http.get<number>("/api/books/count");
     }
 
     async getById(id: string): Promise<Book> {
