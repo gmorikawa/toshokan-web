@@ -1,50 +1,48 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 
-import LoginPage from "@/pages/auth/login";
+import LoginPage from "@/features/auth/pages/login.page";
 
-import AppLayout from "@/pages/app/layout";
+import AppLayout from "@/components/layout/layout";
 
-import DashboardPage from "@/pages/app/dashboard/index.";
+import ListUserPage from "@/features/user/pages/list-user-page";
+import CreateUserFormPage from "@/features/user/pages/create-user-page";
+import UpdateUserFormPage from "@/features/user/pages/update-user-page";
 
-import UserListPage from "@/pages/app/user/list";
-import CreateUserFormPage from "@/pages/app/user/form/create";
-import UpdateUserFormPage from "@/pages/app/user/form/update";
+import ListAuthorPage from "@/features/author/pages/list-author-page";
+import CreateAuthorFormPage from "@/features/author/pages/create-author-page";
+import UpdateAuthorFormPage from "@/features/author/pages/update-author-page";
 
-import AuthorListPage from "@/pages/app/author/list";
-import CreateAuthorFormPage from "@/pages/app/author/form/create";
-import UpdateAuthorFormPage from "@/pages/app/author/form/update";
+import ListLanguagePage from "@/features/language/pages/list-language-page";
+import CreateLanguageFormPage from "@/features/language/pages/create-language-page";
+import UpdateLanguageFormPage from "@/features/language/pages/update-language-page";
 
-import LanguageListPage from "@/pages/app/language/list";
-import CreateLanguageFormPage from "@/pages/app/language/form/create";
-import UpdateLanguageFormPage from "@/pages/app/language/form/update";
+import ListCategoryPage from "@/features/category/pages/list-category-page";
+import CreateCategoryFormPage from "@/features/category/pages/create-category-page";
+import UpdateCategoryFormPage from "@/features/category/pages/update-category-page";
 
-import CategoryListPage from "@/pages/app/category/list";
-import CreateCategoryFormPage from "@/pages/app/category/form/create";
-import UpdateCategoryFormPage from "@/pages/app/category/form/update";
+import ListTopicPage from "@/features/topic/pages/list-topic-page";
+import CreateTopicFormPage from "@/features/topic/pages/create-topic-page";
+import UpdateTopicFormPage from "@/features/topic/pages/update-topic-page";
 
-import TopicListPage from "@/pages/app/topic/list";
-import CreateTopicFormPage from "@/pages/app/topic/form/create";
-import UpdateTopicFormPage from "@/pages/app/topic/form/update";
+import ListPublisherPage from "@/features/publisher/pages/list-publisher-page";
+import CreatePublisherFormPage from "@/features/publisher/pages/create-publisher-page";
+import UpdatePublisherFormPage from "@/features/publisher/pages/update-publisher-page";
 
-import PublisherListPage from "@/pages/app/publisher/list";
-import CreatePublisherFormPage from "@/pages/app/publisher/form/create";
-import UpdatePublisherFormPage from "@/pages/app/publisher/form/update";
+import ListOrganizationPage from "@/features/organization/pages/list-organization-page";
+import CreateOrganizationFormPage from "@/features/organization/pages/create-organization-page";
+import UpdateOrganizationFormPage from "@/features/organization/pages/update-organization-page";
 
-import OrganizationListPage from "@/pages/app/organization/list";
-import CreateOrganizationFormPage from "@/pages/app/organization/form/create";
-import UpdateOrganizationFormPage from "@/pages/app/organization/form/update";
+import ListBookPage from "@/features/document/book/pages/list-book-page";
+import CreateBookFormPage from "@/features/document/book/pages/create-book-page";
+import UpdateBookFormPage from "@/features/document/book/pages/update-book-page";
 
-import BookListPage from "@/pages/app/document/book/list";
-import CreateBookFormPage from "@/pages/app/document/book/form/create";
-import UpdateBookFormPage from "@/pages/app/document/book/form/update";
+import ListResearchPaperPage from "@/features/document/research-paper/pages/list-research-paper-page";
+import CreateResearchPaperFormPage from "@/features/document/research-paper/pages/create-research-paper-page";
+import UpdateResearchPaperFormPage from "@/features/document/research-paper/pages/update-research-paper-page";
 
-import ResearchPaperListPage from "@/pages/app/document/research-paper/list";
-import CreateResearchPaperFormPage from "@/pages/app/document/research-paper/form/create";
-import UpdateResearchPaperFormPage from "@/pages/app/document/research-paper/form/update";
-
-import WhitepaperListPage from "@/pages/app/document/whitepaper/list";
-import CreateWhitepaperFormPage from "@/pages/app/document/whitepaper/form/create";
-import UpdateWhitepaperFormPage from "@/pages/app/document/whitepaper/form/update";
+import ListWhitepaperPage from "@/features/document/whitepaper/pages/list-whitepaper-page";
+import CreateWhitepaperFormPage from "@/features/document/whitepaper/pages/create-whitepaper-page";
+import UpdateWhitepaperFormPage from "@/features/document/whitepaper/pages/update-whitepaper-page";
 
 function RouteProvider() {
     return (
@@ -54,64 +52,62 @@ function RouteProvider() {
                 <Route path="/login" element={<LoginPage />} />
 
                 <Route path="app" element={<AppLayout />}>
-                    <Route path="dashboard" element={<DashboardPage />} />
-
                     <Route path="user">
-                        <Route path="list" element={<UserListPage />} />
+                        <Route path="list" element={<ListUserPage />} />
                         <Route path="form" element={<CreateUserFormPage />} />
                         <Route path="form/:id" element={<UpdateUserFormPage />} />
                     </Route>
 
                     <Route path="book">
-                        <Route path="list" element={<BookListPage />} />
+                        <Route path="list" element={<ListBookPage />} />
                         <Route path="form" element={<CreateBookFormPage />} />
                         <Route path="form/:id" element={<UpdateBookFormPage />} />
                     </Route>
 
                     <Route path="research-paper">
-                        <Route path="list" element={<ResearchPaperListPage />} />
+                        <Route path="list" element={<ListResearchPaperPage />} />
                         <Route path="form" element={<CreateResearchPaperFormPage />} />
                         <Route path="form/:id" element={<UpdateResearchPaperFormPage />} />
                     </Route>
 
                     <Route path="whitepaper">
-                        <Route path="list" element={<WhitepaperListPage />} />
+                        <Route path="list" element={<ListWhitepaperPage />} />
                         <Route path="form" element={<CreateWhitepaperFormPage />} />
                         <Route path="form/:id" element={<UpdateWhitepaperFormPage />} />
                     </Route>
 
                     <Route path="author">
-                        <Route path="list" element={<AuthorListPage />} />
+                        <Route path="list" element={<ListAuthorPage />} />
                         <Route path="form" element={<CreateAuthorFormPage />} />
                         <Route path="form/:id" element={<UpdateAuthorFormPage />} />
                     </Route>
 
                     <Route path="language">
-                        <Route path="list" element={<LanguageListPage />} />
+                        <Route path="list" element={<ListLanguagePage />} />
                         <Route path="form" element={<CreateLanguageFormPage />} />
                         <Route path="form/:id" element={<UpdateLanguageFormPage />} />
                     </Route>
 
                     <Route path="category">
-                        <Route path="list" element={<CategoryListPage />} />
+                        <Route path="list" element={<ListCategoryPage />} />
                         <Route path="form" element={<CreateCategoryFormPage />} />
                         <Route path="form/:id" element={<UpdateCategoryFormPage />} />
                     </Route>
 
                     <Route path="topic">
-                        <Route path="list" element={<TopicListPage />} />
+                        <Route path="list" element={<ListTopicPage />} />
                         <Route path="form" element={<CreateTopicFormPage />} />
                         <Route path="form/:id" element={<UpdateTopicFormPage />} />
                     </Route>
 
                     <Route path="publisher">
-                        <Route path="list" element={<PublisherListPage />} />
+                        <Route path="list" element={<ListPublisherPage />} />
                         <Route path="form" element={<CreatePublisherFormPage />} />
                         <Route path="form/:id" element={<UpdatePublisherFormPage />} />
                     </Route>
 
                     <Route path="organization">
-                        <Route path="list" element={<OrganizationListPage />} />
+                        <Route path="list" element={<ListOrganizationPage />} />
                         <Route path="form" element={<CreateOrganizationFormPage />} />
                         <Route path="form/:id" element={<UpdateOrganizationFormPage />} />
                     </Route>
