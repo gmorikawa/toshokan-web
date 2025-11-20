@@ -9,8 +9,11 @@ import CentralizedContainer from '@/components/container/centralized-container';
 import StackContainer from '@/components/container/stack-container';
 import FormPasswordField from '@/components/form/form-password-field';
 import FormTextField from '@/components/form/form-text-field';
+import Environment from '@/config/environment';
 
 export function LoginPage() {
+    document.title = `Login - ${Environment.APPLICATION_NAME}`;
+
     const form = useForm({
         default: {
             username: "",
@@ -34,7 +37,7 @@ export function LoginPage() {
     };
 
     return (
-        <CentralizedContainer parentHeight="100vh">
+        <CentralizedContainer height="100vh">
             <BorderedContainer width="500px">
                 <StackContainer spacing={4}>
                     <FormTextField
@@ -42,7 +45,6 @@ export function LoginPage() {
                         label="Username"
                         property="username"
                         placeholder="Enter your username"
-                        required
                     />
 
                     <FormPasswordField
@@ -50,7 +52,6 @@ export function LoginPage() {
                         label="Password"
                         property="password"
                         placeholder="Enter your password"
-                        required
                     />
 
                     <SubmitButton onSubmit={handleLogin}>

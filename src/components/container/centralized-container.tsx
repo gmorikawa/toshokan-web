@@ -3,14 +3,14 @@ import {
     Box
 } from '@chakra-ui/react';
 
-interface CentralizedContainerProps extends React.PropsWithChildren {
-    parentHeight: string;
+export interface CentralizedContainerProps extends React.PropsWithChildren {
+    height: string | number;
 }
 
-function CentralizedContainer({ parentHeight, children }: CentralizedContainerProps) {
+export function CentralizedContainer({ height, children }: CentralizedContainerProps) {
 
     return (
-        <Box position="relative" height={parentHeight}>
+        <Box position="relative" height={height}>
             <AbsoluteCenter>
                 {children}
             </AbsoluteCenter>
@@ -18,6 +18,4 @@ function CentralizedContainer({ parentHeight, children }: CentralizedContainerPr
     );
 }
 
-export { CentralizedContainer };
-export type { CentralizedContainerProps };
 export default CentralizedContainer;

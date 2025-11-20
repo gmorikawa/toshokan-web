@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
 import type { ResearchPaper } from "@/entities/models/research-paper";
-import type { Pagination } from "@/entities/query";
 
 import useAlert from "@/hooks/feedback/use-alert";
-import usePagination from "@/components/pagination/use-pagination";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import ResearchPaperService from "@/services/research-paper-service";
@@ -13,20 +10,20 @@ import ApplicationHeader from "@/components/layout/header";
 import ApplicationContent from "@/components/layout/content";
 import ActionButton from "@/components/button/action-button";
 import BoxContainer from "@/components/container/box-container";
-import DataTable from "@/components/table/data-table";
-import FlexContainer from "@/components/container/flex-container";
-import OutlineButton from "@/components/button/outline-button";
-import PaginationControl from "@/components/pagination/pagination-control";
-import StackContainer from "@/components/container/stack-container";
 
 import { AddIcon } from "@/fragments/icons";
+import EmptyList from "@/fragments/empty-list";
+import ListSkeleton from "@/fragments/list-skeleton";
+import ListError from "@/fragments/list-error";
+import LoadingBoundary from "@/fragments/loading-boundary";
+import useListResearchPapers from "@/features/document/research-paper/hooks/use-list-research-papers";
+import ResearchPaperTable from "@/features/document/research-paper/components/research-paper-table";
 
 export function ListResearchPaperPage() {
+    const list = useListResearchPapers();
     const alert = useAlert();
     const router = useRouter();
-    const pagination = usePagination();
     const service = useService<ResearchPaperService>(ResearchPaperService, { includeAuthorization: true });
-    const [list, setList] = useState<ResearchPaper[]>([]);
 
     const handleCreate = (): void => {
         router.navigateTo("/app/research-paper/form");
@@ -39,38 +36,12 @@ export function ListResearchPaperPage() {
     const handleRemove = (entity: ResearchPaper): void => {
         service.remove(entity)
             .then(() => {
-                loadList(pagination);
+                list.reload();
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
     };
-
-    const loadList = (pagination?: Pagination) => {
-        service.getAll({ pagination })
-            .then((result) => {
-                setList(result);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
-
-    const loadCount = () => {
-        service.countAll()
-            .then((result) => {
-                pagination.setCount(result);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-                pagination.setCount(0);
-            });
-    };
-
-    useEffect(() => {
-        loadList(pagination);
-        loadCount();
-    }, []);
 
     return (
         <ApplicationPage>
@@ -84,34 +55,32 @@ export function ListResearchPaperPage() {
             />
 
             <ApplicationContent>
-                <StackContainer spacing={4}>
-                    <PaginationControl
-                        count={pagination.count}
-                        pageSize={pagination.size}
-                        page={pagination.page}
-                        onPageChange={(page) => {
-                            pagination.setPage(page);
-                            loadList({ page: page, size: pagination.size });
-                        }}
-                    />
-                    <DataTable
-                        data={list}
-                    columns={[
-                        {
-                            header: "Actions",
-                            accessor: (row: ResearchPaper) => (
-                                <FlexContainer spacing="2">
-                                    <OutlineButton onClick={() => handleUpdate(row)}>Edit</OutlineButton>
-                                    <OutlineButton onClick={() => handleRemove(row)}>Delete</OutlineButton>
-                                </FlexContainer>
-                            )
-                        },
-                        { header: "Title", accessor: (row: any) => row.title },
-                        { header: "Keywords", accessor: (row: any) => row.keywords }
-                    ]}>
+                <LoadingBoundary.Root loader={list}>
+                    <LoadingBoundary.LoadingState>
+                        <ListSkeleton />
+                    </LoadingBoundary.LoadingState>
 
-                </DataTable>
-                </StackContainer>
+                    <LoadingBoundary.SuccessState>
+                        {(list.data.length > 0) && (
+                            <ResearchPaperTable
+                                data={list.data}
+                                pagination={list.pagination}
+                                onUpdate={handleUpdate}
+                                onRemove={handleRemove}
+                                onPageChange={(page: number) => {
+                                    list.pagination.setPage(page);
+                                    list.reload();
+                                }}
+                            />
+                        )}
+
+                        <EmptyList shouldRender={list.data?.length === 0} />
+                    </LoadingBoundary.SuccessState>
+
+                    <LoadingBoundary.ErrorState>
+                        <ListError />
+                    </LoadingBoundary.ErrorState>
+                </LoadingBoundary.Root>
             </ApplicationContent>
         </ApplicationPage>
     );

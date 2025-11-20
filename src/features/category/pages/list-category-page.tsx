@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
 import type { Category } from "@/entities/models/category";
-import type { Pagination } from "@/entities/query";
 
 import useAlert from "@/hooks/feedback/use-alert";
-import usePagination from "@/components/pagination/use-pagination";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import CategoryService from "@/services/category-service";
@@ -13,20 +10,20 @@ import ApplicationHeader from "@/components/layout/header";
 import ApplicationContent from "@/components/layout/content";
 import ActionButton from "@/components/button/action-button";
 import BoxContainer from "@/components/container/box-container";
-import DataTable from "@/components/table/data-table";
-import FlexContainer from "@/components/container/flex-container";
-import OutlineButton from "@/components/button/outline-button";
-import PaginationControl from "@/components/pagination/pagination-control";
-import StackContainer from "@/components/container/stack-container";
 
 import { AddIcon } from "@/fragments/icons";
+import EmptyList from "@/fragments/empty-list";
+import ListSkeleton from "@/fragments/list-skeleton";
+import ListError from "@/fragments/list-error";
+import LoadingBoundary from "@/fragments/loading-boundary";
+import useListCategories from "@/features/category/hooks/use-list-categories";
+import CategoryTable from "@/features/category/components/category-table";
 
 export function ListCategoryPage() {
+    const list = useListCategories();
     const alert = useAlert();
     const router = useRouter();
-    const pagination = usePagination();
     const service = useService<CategoryService>(CategoryService, { includeAuthorization: true });
-    const [list, setList] = useState<Category[]>([]);
 
     const handleCreate = (): void => {
         router.navigateTo("/app/category/form");
@@ -39,38 +36,13 @@ export function ListCategoryPage() {
     const handleRemove = (entity: Category): void => {
         service.remove(entity)
             .then(() => {
-                loadList(pagination);
+                list.reload();
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
     };
 
-    const loadList = (pagination?: Pagination) => {
-        service.getAll({ pagination })
-            .then((result) => {
-                setList(result);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
-
-    const loadCount = () => {
-        service.countAll()
-            .then((result) => {
-                pagination.setCount(result);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-                pagination.setCount(0);
-            });
-    };
-
-    useEffect(() => {
-        loadList(pagination);
-        loadCount();
-    }, []);
     return (
         <ApplicationPage>
             <ApplicationHeader
@@ -83,33 +55,32 @@ export function ListCategoryPage() {
             />
 
             <ApplicationContent>
-                <StackContainer spacing={4}>
-                    <PaginationControl
-                        count={pagination.count}
-                        pageSize={pagination.size}
-                        page={pagination.page}
-                        onPageChange={(page) => {
-                            pagination.setPage(page);
-                            loadList({ page: page, size: pagination.size });
-                        }}
-                    />
-                    <DataTable
-                        data={list}
-                    columns={[
-                        {
-                            header: "Actions",
-                            accessor: (row: Category) => (
-                                <FlexContainer spacing="2">
-                                    <OutlineButton onClick={() => handleUpdate(row)}>Edit</OutlineButton>
-                                    <OutlineButton onClick={() => handleRemove(row)}>Delete</OutlineButton>
-                                </FlexContainer>
-                            )
-                        },
-                        { header: "Name", accessor: (row: any) => row.name }
-                    ]}>
+                <LoadingBoundary.Root loader={list}>
+                    <LoadingBoundary.LoadingState>
+                        <ListSkeleton />
+                    </LoadingBoundary.LoadingState>
 
-                </DataTable>
-                </StackContainer>
+                    <LoadingBoundary.SuccessState>
+                        {(list.data.length > 0) && (
+                            <CategoryTable
+                                data={list.data}
+                                pagination={list.pagination}
+                                onUpdate={handleUpdate}
+                                onRemove={handleRemove}
+                                onPageChange={(page: number) => {
+                                    list.pagination.setPage(page);
+                                    list.reload();
+                                }}
+                            />
+                        )}
+
+                        <EmptyList shouldRender={list.data?.length === 0} />
+                    </LoadingBoundary.SuccessState>
+
+                    <LoadingBoundary.ErrorState>
+                        <ListError />
+                    </LoadingBoundary.ErrorState>
+                </LoadingBoundary.Root>
             </ApplicationContent>
         </ApplicationPage>
     );
