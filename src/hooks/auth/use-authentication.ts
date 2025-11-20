@@ -3,13 +3,14 @@ import type { AuthenticationToken } from "@/entities/authentication-token";
 import NativeHttpClient from "@/common/native.http-client";
 import AuthService from "@/services/auth-service";
 import useLocalStorage from "@/hooks/storage/use-local-storage";
+import Environment from "@/config/environment";
 
 interface UseAuthentication {
     login(username: string, password: string): Promise<void>;
 }
 
 function useAuthentication(): UseAuthentication {
-    const baseUrl = import.meta.env.VITE_API_URL ?? "";
+    const baseUrl = Environment.API_URL ?? "";
     const storage = useLocalStorage();
     const httpClient = new NativeHttpClient(baseUrl);
     const authService = new AuthService(httpClient);

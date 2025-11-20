@@ -1,6 +1,7 @@
 import NativeHttpClient from "@/common/native.http-client";
 import useLocalStorage from "../hooks/storage/use-local-storage";
 import type { HttpClient } from "@/common/http-client";
+import Environment from "@/config/environment";
 
 interface ServiceClassConstructor<Service> {
     new(httpClient: HttpClient): Service;
@@ -21,7 +22,7 @@ export function useService<Service>(ServiceClass: ServiceClassConstructor<Servic
 
     return new ServiceClass(
         new NativeHttpClient(
-            import.meta.env.VITE_API_URL ?? "",
+            Environment.API_URL ?? "",
             headers
         )
     );

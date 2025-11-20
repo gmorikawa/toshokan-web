@@ -1,5 +1,6 @@
 import BoxContainer from "@/components/container/box-container";
 import HeaderTypography from "@/components/typography/header-typography";
+import Environment from "@/config/environment";
 
 export interface ApplicationHeaderProps extends React.PropsWithChildren {
     title: string;
@@ -8,6 +9,8 @@ export interface ApplicationHeaderProps extends React.PropsWithChildren {
 }
 
 export function ApplicationHeader({ title, actionSlot, children }: ApplicationHeaderProps) {
+    document.title = `${title} - ${Environment.APPLICATION_NAME}`;
+
     return (
         <BoxContainer
             borderBottomWidth="1px"
