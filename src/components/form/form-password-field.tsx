@@ -18,8 +18,6 @@ function FormPasswordField({ form, property, ...others }: FormPasswordFieldProps
     const value = form.getValue<string | number>(property);
     const error = form.getError(property);
 
-    console.log("FormPasswordField render:", { property, value, error });
-
     return useMemo(
         () => <PasswordField
             property={property}

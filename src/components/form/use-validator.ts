@@ -20,7 +20,6 @@ export function useValidator<Entity>(validationSchema?: z.ZodObject<any, any>): 
     const valid = (!errors);
 
     const validate = (entity: Entity): boolean => {
-        console.log(   "Validating entity:", entity);
         if (!validationSchema) {
             setErrors(undefined);
             return true;
@@ -41,7 +40,6 @@ export function useValidator<Entity>(validationSchema?: z.ZodObject<any, any>): 
                     newErrors[path] = issue.message;
                 });
 
-            console.info("Validation errors:", newErrors);
             setErrors(newErrors);
             return false;
         }
