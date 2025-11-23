@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 
-import LoginPage from "@/features/auth/pages/login.page";
+import FirstAccessPage from "@/features/configuration/pages/first-access-page";
+
+import LoginPage from "@/features/auth/pages/login-page";
 
 import AppLayout from "@/components/layout/layout";
 
@@ -50,6 +52,8 @@ function RouteProvider() {
             <Routes>
                 <Route path="*" element={<LoginPage />} />
                 <Route path="/login" element={<LoginPage />} />
+
+                <Route path="/first-access" element={<FirstAccessPage />} />
 
                 <Route path="app" element={<AppLayout />}>
                     <Route path="user">
