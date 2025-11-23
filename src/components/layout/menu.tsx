@@ -1,9 +1,14 @@
+import useAuthentication from "@/hooks/auth/use-authentication";
+import useRouter from "@/hooks/router/use-router";
+
 import AppRoute from "@/constants/app";
 
-import TextButton from "@/components/button/text-button";
 import BoxContainer from "@/components/container/box-container";
-import StackContainer from "@/components/container/stack-container";
+import FlexContainer from "@/components/container/flex-container";
 import HeaderTypography from "@/components/typography/header-typography";
+import Persona from "@/components/profile/persona";
+import StackContainer from "@/components/container/stack-container";
+import TextButton from "@/components/button/text-button";
 
 import {
     AuthorIcon,
@@ -17,7 +22,6 @@ import {
     UserIcon,
     WhitepaperIcon
 } from "@/fragments/icons";
-import useRouter from "@/hooks/router/use-router";
 import { Logo } from "./logo";
 
 interface MenuItemProps {
@@ -53,9 +57,12 @@ function MenuGroup({ title, children }: MenuGroupProps) {
     );
 }
 
-interface MenuContainerProps extends React.PropsWithChildren { }
+interface MenuContainerProps extends React.PropsWithChildren {
+    header?: React.ReactNode;
+    footer?: React.ReactNode;
+}
 
-function MenuContainer({ children }: MenuContainerProps) {
+function MenuContainer({ header, footer, children }: MenuContainerProps) {
     return (
         <BoxContainer
             minWidth="250px"
@@ -65,17 +72,48 @@ function MenuContainer({ children }: MenuContainerProps) {
             borderRightWidth="1px"
             borderRightColor="gray.200"
         >
-            <StackContainer spacing={4}>
-                <Logo width={230} />
-                {children}
+            <StackContainer spacing={4} fullHeight>
+                <BoxContainer flexBasis="auto">
+                    {header}
+                </BoxContainer>
+
+                <BoxContainer flexGrow={1} overflowY="auto">
+                    <StackContainer spacing={4}>
+                        {children}
+                    </StackContainer>
+                </BoxContainer>
+
+                <BoxContainer flexBasis="auto">
+                    {footer}
+                </BoxContainer>
             </StackContainer>
         </BoxContainer>
     );
 }
 
 export function Menu() {
+    useAuthentication();
+
+    const { logout, loggedUser } = useAuthentication();
+
+    function handleLogout(): void {
+        logout();
+    }
+
     return (
-        <MenuContainer>
+        <MenuContainer
+            header={<Logo width={230} />}
+            footer={(
+                <StackContainer spacing={2}>
+                    <Persona name={loggedUser?.fullname ?? ""} email={loggedUser?.email ?? ""} />
+                    <FlexContainer justify="flex-end">
+                        <TextButton onClick={handleLogout}>
+                            Logout
+                        </TextButton>
+                    </FlexContainer>
+                </StackContainer>
+            )}
+        >
             <MenuGroup title="System">
                 <MenuItem icon={<UserIcon />} label="Users" link={AppRoute.USER_LIST} />
             </MenuGroup>
