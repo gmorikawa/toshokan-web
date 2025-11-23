@@ -18,6 +18,7 @@ import {
     WhitepaperIcon
 } from "@/fragments/icons";
 import useRouter from "@/hooks/router/use-router";
+import { Logo } from "./logo";
 
 interface MenuItemProps {
     icon: React.ReactNode;
@@ -65,6 +66,7 @@ function MenuContainer({ children }: MenuContainerProps) {
             borderRightColor="gray.200"
         >
             <StackContainer spacing={4}>
+                <Logo width={230} />
                 {children}
             </StackContainer>
         </BoxContainer>

@@ -10,6 +10,8 @@ import StackContainer from '@/components/container/stack-container';
 import FormPasswordField from '@/components/form/form-password-field';
 import FormTextField from '@/components/form/form-text-field';
 import Environment from '@/config/environment';
+import { Logo } from '@/components/layout/logo';
+import BoxContainer from '@/components/container/box-container';
 
 export function LoginPage() {
     document.title = `Login - ${Environment.APPLICATION_NAME}`;
@@ -40,6 +42,9 @@ export function LoginPage() {
         <CentralizedContainer height="100vh">
             <BorderedContainer width="500px">
                 <StackContainer spacing={4}>
+                    <BoxContainer justifyContent="center" display="flex">
+                        <Logo width={250} />
+                    </BoxContainer>
                     <FormTextField
                         form={form}
                         label="Username"

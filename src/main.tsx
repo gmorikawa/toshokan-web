@@ -4,6 +4,7 @@ import App from './App.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+      <link rel="icon" type="image/png" href="/favicon.ico"></link>
       <App />
   </StrictMode>
 );
