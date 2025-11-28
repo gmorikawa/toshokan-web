@@ -18,6 +18,7 @@ import ListError from "@/fragments/list-error";
 import LoadingBoundary from "@/fragments/loading-boundary";
 import useListBooks from "@/features/document/book/hooks/use-list-books";
 import BookTable from "@/features/document/book/components/book-table";
+import RestrictedContent from "@/features/auth/components/restricted-content";
 
 export function ListBookPage() {
     const list = useListBooks();
@@ -49,7 +50,9 @@ export function ListBookPage() {
                 title="Book"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleCreate} leftIcon={<AddIcon />}>New</ActionButton>
+                        <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
+                            <ActionButton variant="text" onClick={handleCreate} leftIcon={<AddIcon />}>New</ActionButton>
+                        </RestrictedContent>
                     </BoxContainer>
                 }
             />

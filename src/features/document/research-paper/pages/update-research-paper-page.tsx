@@ -21,6 +21,7 @@ import ResearchPaperForm from "@/features/document/research-paper/components/res
 import ResearchPaperFileUpload from "@/features/document/research-paper/components/research-paper-file-upload";
 
 import { BackIcon, FileUploadIcon, FormIcon } from "@/fragments/icons";
+import { useAuthorizationFilter } from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;
@@ -35,6 +36,8 @@ const researchPaperFormTabOptions: TabOption<ResearchPaperFormTab>[] = [
 
 
 export function UpdateResearchPaperPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -99,7 +102,7 @@ export function UpdateResearchPaperPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <TabControl defaultTab="details" options={researchPaperFormTabOptions}>
                     <TabContent tab="details">
                         <ResearchPaperForm form={form} onSubmit={handleSubmit} />

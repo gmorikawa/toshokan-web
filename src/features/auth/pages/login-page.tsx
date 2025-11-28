@@ -1,4 +1,4 @@
-import useAuthentication from '@/hooks/auth/use-authentication';
+import useAuthentication from '@/features/auth/hooks/use-authentication';
 import useForm from '@/components/form/use-form';
 import useAlert from "@/hooks/feedback/use-alert";
 import useRouter from '@/hooks/router/use-router';

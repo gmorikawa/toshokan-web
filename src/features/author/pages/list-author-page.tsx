@@ -19,7 +19,11 @@ import LoadingBoundary from "@/fragments/loading-boundary";
 import useListAuthors from "@/features/author/hooks/use-list-authors";
 import AuthorTable from "@/features/author/components/author-table";
 
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+
 export function ListAuthorPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     const list = useListAuthors();
     const alert = useAlert();
     const router = useRouter();
@@ -54,7 +58,7 @@ export function ListAuthorPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <LoadingBoundary.Root loader={list}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />

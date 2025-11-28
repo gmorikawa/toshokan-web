@@ -15,8 +15,11 @@ import BoxContainer from "@/components/container/box-container";
 import CategoryForm from "@/features/category/components/category-form";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateCategoryPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -56,7 +59,7 @@ export function CreateCategoryPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <CategoryForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

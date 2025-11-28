@@ -18,6 +18,7 @@ import ListError from "@/fragments/list-error";
 import LoadingBoundary from "@/fragments/loading-boundary";
 import useListResearchPapers from "@/features/document/research-paper/hooks/use-list-research-papers";
 import ResearchPaperTable from "@/features/document/research-paper/components/research-paper-table";
+import RestrictedContent from "@/features/auth/components/restricted-content";
 
 export function ListResearchPaperPage() {
     const list = useListResearchPapers();
@@ -49,7 +50,9 @@ export function ListResearchPaperPage() {
                 title="Research Paper"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleCreate} leftIcon={<AddIcon />}>New</ActionButton>
+                        <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
+                            <ActionButton variant="text" onClick={handleCreate} leftIcon={<AddIcon />}>New</ActionButton>
+                        </RestrictedContent>
                     </BoxContainer>
                 }
             />

@@ -19,7 +19,11 @@ import LoadingBoundary from "@/fragments/loading-boundary";
 import useListPublishers from "@/features/publisher/hooks/use-list-publishers";
 import PublisherTable from "@/features/publisher/components/publisher-table";
 
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+
 export function ListPublisherPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     const list = useListPublishers();
     const alert = useAlert();
     const router = useRouter();
@@ -54,7 +58,7 @@ export function ListPublisherPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <LoadingBoundary.Root loader={list}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />

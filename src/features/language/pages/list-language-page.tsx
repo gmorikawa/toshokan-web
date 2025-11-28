@@ -19,7 +19,11 @@ import LoadingBoundary from "@/fragments/loading-boundary";
 import useListLanguages from "@/features/language/hooks/use-list-languages";
 import LanguageTable from "@/features/language/components/language-table";
 
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+
 export function ListLanguagePage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     const list = useListLanguages();
     const alert = useAlert();
     const router = useRouter();
@@ -54,7 +58,7 @@ export function ListLanguagePage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <LoadingBoundary.Root loader={list}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />

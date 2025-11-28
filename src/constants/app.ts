@@ -1,4 +1,5 @@
 export const AppRoute = Object.freeze({
+    SEARCH_LIST: "/app/search",
     USER_LIST: "/app/user/list",
     BOOK_LIST: "/app/book/list",
     WHITEPAPER_LIST: "/app/whitepaper/list",

@@ -16,8 +16,11 @@ import ActionButton from "@/components/button/action-button";
 import LanguageForm from "@/features/language/components/language-form";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateLanguagePage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -57,7 +60,7 @@ export function CreateLanguagePage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <LanguageForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

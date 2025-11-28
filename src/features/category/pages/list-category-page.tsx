@@ -19,7 +19,11 @@ import LoadingBoundary from "@/fragments/loading-boundary";
 import useListCategories from "@/features/category/hooks/use-list-categories";
 import CategoryTable from "@/features/category/components/category-table";
 
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+
 export function ListCategoryPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     const list = useListCategories();
     const alert = useAlert();
     const router = useRouter();
@@ -54,7 +58,7 @@ export function ListCategoryPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <LoadingBoundary.Root loader={list}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />

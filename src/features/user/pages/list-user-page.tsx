@@ -19,7 +19,11 @@ import LoadingBoundary from "@/fragments/loading-boundary";
 import useListUsers from "@/features/user/hooks/use-list-users";
 import UserTable from "@/features/user/components/user-table";
 
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+
 export function ListUserPage() {
+    const authorization = useAuthorizationFilter("ADMIN");
+
     const list = useListUsers();
     const alert = useAlert();
     const router = useRouter();
@@ -54,7 +58,7 @@ export function ListUserPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <LoadingBoundary.Root loader={list}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />

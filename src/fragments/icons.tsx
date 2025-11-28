@@ -5,6 +5,9 @@ export { MdArrowBack as BackIcon } from "react-icons/md";
 
 export { MdOutlinePlaylistRemove as EmptyListIcon } from "react-icons/md";
 export { LuSearchX as NotFoundIcon } from "react-icons/lu";
+export { MdBlockFlipped as ForbiddenIcon } from "react-icons/md";
+
+export { MdOutlineSearch as SearchIcon } from "react-icons/md";
 
 export { FaUser as UserIcon } from "react-icons/fa";
 export { FaBook as BookIcon } from "react-icons/fa";

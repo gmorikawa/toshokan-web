@@ -16,8 +16,11 @@ import BoxContainer from "@/components/container/box-container";
 import CreateUserForm from "@/features/user/components/create-user-form";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateUserPage() {
+    const authorization = useAuthorizationFilter("ADMIN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -62,7 +65,7 @@ export function CreateUserPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <CreateUserForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

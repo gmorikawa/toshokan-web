@@ -6,6 +6,7 @@ import FlexContainer from "@/components/container/flex-container";
 import OutlineButton from "@/components/button/outline-button";
 import PaginationControl from "@/components/pagination/pagination-control";
 import StackContainer from "@/components/container/stack-container";
+import { RestrictedContent } from "@/features/auth/components/restricted-content";
 
 export interface WhitepaperTableProps {
     data: Whitepaper[];
@@ -45,8 +46,10 @@ export function WhitepaperTable({ data, pagination, onUpdate, onRemove, onPageCh
                         header: "Actions",
                         accessor: (whitepaper: Whitepaper) => (
                             <FlexContainer spacing="2">
-                                <OutlineButton onClick={() => handleUpdate(whitepaper)}>Edit</OutlineButton>
-                                <OutlineButton onClick={() => handleRemove(whitepaper)}>Delete</OutlineButton>
+                                <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
+                                    <OutlineButton onClick={() => handleUpdate(whitepaper)}>Edit</OutlineButton>
+                                    <OutlineButton onClick={() => handleRemove(whitepaper)}>Delete</OutlineButton>
+                                </RestrictedContent>
                             </FlexContainer>
                         )
                     },

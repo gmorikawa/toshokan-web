@@ -19,7 +19,11 @@ import LoadingBoundary from "@/fragments/loading-boundary";
 import useListOrganizations from "@/features/organization/hooks/use-list-organizations";
 import OrganizationTable from "@/features/organization/components/organization-table";
 
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+
 export function ListOrganizationPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     const list = useListOrganizations();
     const alert = useAlert();
     const router = useRouter();
@@ -54,7 +58,7 @@ export function ListOrganizationPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <LoadingBoundary.Root loader={list}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />

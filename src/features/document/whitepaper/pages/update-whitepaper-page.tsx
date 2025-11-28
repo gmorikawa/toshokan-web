@@ -21,6 +21,7 @@ import WhitepaperForm from "@/features/document/whitepaper/components/whitepaper
 import WhitepaperFileUpload from "@/features/document/whitepaper/components/whitepaper-file-upload";
 
 import { BackIcon, FileUploadIcon, FormIcon } from "@/fragments/icons";
+import { useAuthorizationFilter } from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;
@@ -34,6 +35,8 @@ const whitepaperFormTabOptions: TabOption<WhitepaperFormTab>[] = [
 ];
 
 export function UpdateWhitepaperPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -97,7 +100,7 @@ export function UpdateWhitepaperPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <TabControl defaultTab="details" options={whitepaperFormTabOptions}>
                     <TabContent tab="details">
                         <WhitepaperForm form={form} onSubmit={handleSubmit} />

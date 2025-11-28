@@ -1,4 +1,4 @@
-import useAuthentication from "@/hooks/auth/use-authentication";
+import useAuthentication from "@/features/auth/hooks/use-authentication";
 import useRouter from "@/hooks/router/use-router";
 
 import AppRoute from "@/constants/app";
@@ -23,6 +23,7 @@ import {
     WhitepaperIcon
 } from "@/fragments/icons";
 import { Logo } from "./logo";
+import RestrictedContent from "@/features/auth/components/restricted-content";
 
 interface MenuItemProps {
     icon: React.ReactNode;
@@ -114,24 +115,28 @@ export function Menu() {
                 </StackContainer>
             )}
         >
-            <MenuGroup title="System">
-                <MenuItem icon={<UserIcon />} label="Users" link={AppRoute.USER_LIST} />
-            </MenuGroup>
-
             <MenuGroup title="Documents">
                 <MenuItem icon={<BookIcon />} label="Books" link={AppRoute.BOOK_LIST} />
                 <MenuItem icon={<WhitepaperIcon />} label="Whitepapers" link={AppRoute.WHITEPAPER_LIST} />
                 <MenuItem icon={<ResearchPaperIcon />} label="Research Papers" link={AppRoute.RESEARCH_PAPER_LIST} />
             </MenuGroup>
 
-            <MenuGroup title="Settings">
-                <MenuItem icon={<AuthorIcon />} label="Authors" link={AppRoute.AUTHOR_LIST} />
-                <MenuItem icon={<LanguageIcon />} label="Languages" link={AppRoute.LANGUAGE_LIST} />
-                <MenuItem icon={<CategoryIcon />} label="Categories" link={AppRoute.CATEGORY_LIST} />
-                <MenuItem icon={<TopicIcon />} label="Topics" link={AppRoute.TOPIC_LIST} />
-                <MenuItem icon={<PublisherIcon />} label="Publishers" link={AppRoute.PUBLISHER_LIST} />
-                <MenuItem icon={<OrganizationIcon />} label="Organizations" link={AppRoute.ORGANIZATION_LIST} />
-            </MenuGroup>
+            <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
+                <MenuGroup title="Settings">
+                    <MenuItem icon={<AuthorIcon />} label="Authors" link={AppRoute.AUTHOR_LIST} />
+                    <MenuItem icon={<LanguageIcon />} label="Languages" link={AppRoute.LANGUAGE_LIST} />
+                    <MenuItem icon={<CategoryIcon />} label="Categories" link={AppRoute.CATEGORY_LIST} />
+                    <MenuItem icon={<TopicIcon />} label="Topics" link={AppRoute.TOPIC_LIST} />
+                    <MenuItem icon={<PublisherIcon />} label="Publishers" link={AppRoute.PUBLISHER_LIST} />
+                    <MenuItem icon={<OrganizationIcon />} label="Organizations" link={AppRoute.ORGANIZATION_LIST} />
+                </MenuGroup>
+            </RestrictedContent>
+
+            <RestrictedContent allowedRoles={["ADMIN"]}>
+                <MenuGroup title="System">
+                    <MenuItem icon={<UserIcon />} label="Users" link={AppRoute.USER_LIST} />
+                </MenuGroup>
+            </RestrictedContent>
         </MenuContainer>
     );
 };

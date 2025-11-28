@@ -18,12 +18,15 @@ import BoxContainer from "@/components/container/box-container";
 import UpdateUserForm from "@/features/user/components/update-user-form";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;
 }
 
 export function UpdateUserFormPage() {
+    const authorization = useAuthorizationFilter("ADMIN");
+
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
@@ -89,7 +92,7 @@ export function UpdateUserFormPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <UpdateUserForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

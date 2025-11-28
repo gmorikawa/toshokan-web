@@ -16,8 +16,11 @@ import ActionButton from "@/components/button/action-button";
 import ResearchPaperForm from "@/features/document/research-paper/components/research-paper-form";
 
 import { BackIcon } from "@/fragments/icons";
+import { useAuthorizationFilter } from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateResearchPaperPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -63,7 +66,7 @@ export function CreateResearchPaperPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <ResearchPaperForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

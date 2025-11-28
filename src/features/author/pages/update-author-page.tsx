@@ -18,12 +18,15 @@ import BoxContainer from "@/components/container/box-container";
 import AuthorForm from "@/features/author/components/author-form";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;
 }
 
 export function UpdateAuthorPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -82,7 +85,7 @@ export function UpdateAuthorPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <AuthorForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

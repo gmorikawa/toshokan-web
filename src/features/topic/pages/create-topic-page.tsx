@@ -16,8 +16,11 @@ import ActionButton from "@/components/button/action-button";
 import TopicForm from "@/features/topic/components/topic-form";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateTopicPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -63,7 +66,7 @@ export function CreateTopicPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <TopicForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

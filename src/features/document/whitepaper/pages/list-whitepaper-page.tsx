@@ -18,6 +18,7 @@ import ListError from "@/fragments/list-error";
 import LoadingBoundary from "@/fragments/loading-boundary";
 import useListWhitepapers from "@/features/document/whitepaper/hooks/use-list-whitepapers";
 import WhitepaperTable from "@/features/document/whitepaper/components/whitepaper-table";
+import { RestrictedContent } from "@/features/auth/components/restricted-content";
 
 export function ListWhitepaperPage() {
     const list = useListWhitepapers();
@@ -49,7 +50,9 @@ export function ListWhitepaperPage() {
                 title="Whitepaper"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleCreate} leftIcon={<AddIcon />}>New</ActionButton>
+                        <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
+                            <ActionButton variant="text" onClick={handleCreate} leftIcon={<AddIcon />}>New</ActionButton>
+                        </RestrictedContent>
                     </BoxContainer>
                 }
             />

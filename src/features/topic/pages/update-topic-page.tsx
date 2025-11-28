@@ -17,12 +17,15 @@ import BoxContainer from "@/components/container/box-container";
 import TopicForm from "@/features/topic/components/topic-form";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;
 }
 
 export function UpdateTopicPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -80,7 +83,7 @@ export function UpdateTopicPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <TopicForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

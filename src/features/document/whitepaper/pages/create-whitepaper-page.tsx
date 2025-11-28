@@ -16,8 +16,11 @@ import ActionButton from "@/components/button/action-button";
 import WhitepaperForm from "@/features/document/whitepaper/components/whitepaper-form";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateWhitepaperPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -62,7 +65,7 @@ export function CreateWhitepaperPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <WhitepaperForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

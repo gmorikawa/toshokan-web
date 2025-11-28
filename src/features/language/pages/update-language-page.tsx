@@ -17,12 +17,15 @@ import BoxContainer from "@/components/container/box-container";
 import LanguageForm from "@/features/language/components/language-form";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;
 }
 
 export function UpdateLanguagePage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -80,7 +83,7 @@ export function UpdateLanguagePage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <LanguageForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

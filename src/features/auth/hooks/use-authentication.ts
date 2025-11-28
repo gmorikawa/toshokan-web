@@ -5,7 +5,7 @@ import NativeHttpClient from "@/common/native.http-client";
 import AuthService from "@/services/auth-service";
 import useLocalStorage from "@/hooks/storage/use-local-storage";
 import Environment from "@/config/environment";
-import useRouter from "../router/use-router";
+import useRouter from "../../../hooks/router/use-router";
 import { useEffect, useState } from "react";
 
 interface UseAuthentication {
@@ -40,10 +40,18 @@ function useAuthentication(): UseAuthentication {
     }
 
     useEffect(() => {
+        const logged = storage.get("loggedUser");
+
+        if (logged) {
+            setLoggedUser(JSON.parse(logged));
+            return;
+        }
+
         const token = storage.get("token");
         if (token) {
             authService.getLoggedUser(token)
                 .then((user: User) => {
+                    storage.set("loggedUser", JSON.stringify(user));
                     setLoggedUser(user);
                 })
                 .catch(() => {

@@ -15,8 +15,11 @@ import AuthorForm from "@/features/author/components/author-form";
 
 import { BackIcon } from "@/fragments/icons";
 import { newAuthorValidator } from "@/entities/validators/author/new-author.validator";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateAuthorPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -59,7 +62,7 @@ export function CreateAuthorPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <AuthorForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

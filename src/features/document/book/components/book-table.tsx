@@ -6,6 +6,7 @@ import FlexContainer from "@/components/container/flex-container";
 import OutlineButton from "@/components/button/outline-button";
 import PaginationControl from "@/components/pagination/pagination-control";
 import StackContainer from "@/components/container/stack-container";
+import RestrictedContent from "@/features/auth/components/restricted-content";
 
 export interface BookTableProps {
     data: Book[];
@@ -20,7 +21,7 @@ export function BookTable({ data, pagination, onUpdate, onRemove, onPageChange }
     function handleUpdate(entity: Book): void {
         (onUpdate) && (onUpdate(entity));
     }
-    
+
     function handleRemove(entity: Book): void {
         (onRemove) && (onRemove(entity));
     }
@@ -44,10 +45,12 @@ export function BookTable({ data, pagination, onUpdate, onRemove, onPageChange }
                     {
                         header: "Actions",
                         accessor: (book: Book) => (
-                            <FlexContainer spacing="2">
-                                <OutlineButton onClick={() => handleUpdate(book)}>Edit</OutlineButton>
-                                <OutlineButton onClick={() => handleRemove(book)}>Delete</OutlineButton>
-                            </FlexContainer>
+                            <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
+                                <FlexContainer spacing="2">
+                                    <OutlineButton onClick={() => handleUpdate(book)}>Edit</OutlineButton>
+                                    <OutlineButton onClick={() => handleRemove(book)}>Delete</OutlineButton>
+                                </FlexContainer>
+                            </RestrictedContent>
                         )
                     },
                     { header: "Title", accessor: (book: Book) => book.title },

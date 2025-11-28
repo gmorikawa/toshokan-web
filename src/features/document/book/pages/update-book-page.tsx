@@ -20,6 +20,7 @@ import TabControl, { type TabOption } from "@/components/tab/tab-control";
 import BookForm from "@/features/document/book/components/book-form";
 import BookFileUpload from "@/features/document/book/components/book-file-upload";
 import { BackIcon, FileUploadIcon, FormIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;
@@ -33,6 +34,8 @@ const bookFormTabOptions: TabOption<BookFormTab>[] = [
 ];
 
 export function UpdateBookPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -98,7 +101,7 @@ export function UpdateBookPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <TabControl defaultTab="details" options={bookFormTabOptions}>
                     <TabContent tab="details">
                         <BookForm form={form} onSubmit={handleSubmit} />

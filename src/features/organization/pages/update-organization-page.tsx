@@ -17,12 +17,15 @@ import BoxContainer from "@/components/container/box-container";
 import OrganizationForm from "@/features/organization/components/organization-form";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;
 }
 
 export function UpdateOrganizationPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     const alert = useAlert();
     const router = useRouter();
     const { id } = useParams<ParamsWithId>();
@@ -83,7 +86,7 @@ export function UpdateOrganizationPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <OrganizationForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

@@ -15,8 +15,11 @@ import ActionButton from "@/components/button/action-button";
 import OrganizationForm from "@/features/organization/components/organization-form";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateOrganizationPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     const alert = useAlert();
     const router = useRouter();
 
@@ -59,7 +62,7 @@ export function CreateOrganizationPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <OrganizationForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>

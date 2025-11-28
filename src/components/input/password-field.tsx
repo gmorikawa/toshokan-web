@@ -1,4 +1,4 @@
-import usePassword from '@/hooks/auth/use-password';
+import usePassword from '@/components/input/use-password';
 import {
     Box,
     Field,

@@ -6,6 +6,7 @@ import FlexContainer from "@/components/container/flex-container";
 import OutlineButton from "@/components/button/outline-button";
 import PaginationControl from "@/components/pagination/pagination-control";
 import StackContainer from "@/components/container/stack-container";
+import RestrictedContent from "@/features/auth/components/restricted-content";
 
 export interface ResearchPaperTableProps {
     data: ResearchPaper[];
@@ -45,8 +46,10 @@ export function ResearchPaperTable({ data, pagination, onUpdate, onRemove, onPag
                         header: "Actions",
                         accessor: (researchPaper: ResearchPaper) => (
                             <FlexContainer spacing="2">
-                                <OutlineButton onClick={() => handleUpdate(researchPaper)}>Edit</OutlineButton>
-                                <OutlineButton onClick={() => handleRemove(researchPaper)}>Delete</OutlineButton>
+                                <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
+                                    <OutlineButton onClick={() => handleUpdate(researchPaper)}>Edit</OutlineButton>
+                                    <OutlineButton onClick={() => handleRemove(researchPaper)}>Delete</OutlineButton>
+                                </RestrictedContent>
                             </FlexContainer>
                         )
                     },

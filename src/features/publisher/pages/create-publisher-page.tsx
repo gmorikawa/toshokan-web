@@ -15,8 +15,11 @@ import BoxContainer from "@/components/container/box-container";
 import PublisherForm from "@/features/publisher/components/PublisherForm";
 
 import { BackIcon } from "@/fragments/icons";
+import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreatePublisherPage() {
+    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+
     function handleSubmit() {
         form.submit();
     }
@@ -57,7 +60,7 @@ export function CreatePublisherPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent authorization={authorization}>
                 <PublisherForm form={form} onSubmit={handleSubmit} />
             </ApplicationContent>
         </ApplicationPage>
