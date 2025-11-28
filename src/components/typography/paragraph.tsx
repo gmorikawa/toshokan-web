@@ -1,14 +1,19 @@
 import { Text } from "@chakra-ui/react";
 
 type Size = "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl";
+type Align = "left" | "center" | "right" | "justify";
 
 export interface ParagraphProps extends React.PropsWithChildren {
     size?: Size;
+    align?: Align;
 }
 
-export function Paragraph({ size, children }: ParagraphProps) {
+export function Paragraph({ size, align, children }: ParagraphProps) {
     return (
-        <Text textStyle={size ?? "md"}>
+        <Text
+            textStyle={size ?? "md"}
+            textAlign={align ?? "left"}
+        >
             {children}
         </Text>
     );

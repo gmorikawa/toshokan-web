@@ -37,14 +37,17 @@ import UpdateOrganizationFormPage from "@/features/organization/pages/update-org
 import ListBookPage from "@/features/document/book/pages/list-book-page";
 import CreateBookFormPage from "@/features/document/book/pages/create-book-page";
 import UpdateBookFormPage from "@/features/document/book/pages/update-book-page";
+import BookDetailsPage from "@/features/document/book/pages/details-page";
 
 import ListResearchPaperPage from "@/features/document/research-paper/pages/list-research-paper-page";
 import CreateResearchPaperFormPage from "@/features/document/research-paper/pages/create-research-paper-page";
 import UpdateResearchPaperFormPage from "@/features/document/research-paper/pages/update-research-paper-page";
+import ResearchPaperDetailsPage from "@/features/document/research-paper/pages/details-page";
 
 import ListWhitepaperPage from "@/features/document/whitepaper/pages/list-whitepaper-page";
 import CreateWhitepaperFormPage from "@/features/document/whitepaper/pages/create-whitepaper-page";
 import UpdateWhitepaperFormPage from "@/features/document/whitepaper/pages/update-whitepaper-page";
+import WhitepaperDetailsPage from "@/features/document/whitepaper/pages/details-page";
 
 function RouteProvider() {
     return (
@@ -66,18 +69,21 @@ function RouteProvider() {
                         <Route path="list" element={<ListBookPage />} />
                         <Route path="form" element={<CreateBookFormPage />} />
                         <Route path="form/:id" element={<UpdateBookFormPage />} />
+                        <Route path="details/:id" element={<BookDetailsPage />} />
                     </Route>
 
                     <Route path="research-paper">
                         <Route path="list" element={<ListResearchPaperPage />} />
                         <Route path="form" element={<CreateResearchPaperFormPage />} />
                         <Route path="form/:id" element={<UpdateResearchPaperFormPage />} />
+                        <Route path="details/:id" element={<ResearchPaperDetailsPage />} />
                     </Route>
 
                     <Route path="whitepaper">
                         <Route path="list" element={<ListWhitepaperPage />} />
                         <Route path="form" element={<CreateWhitepaperFormPage />} />
                         <Route path="form/:id" element={<UpdateWhitepaperFormPage />} />
+                        <Route path="details/:id" element={<WhitepaperDetailsPage />} />
                     </Route>
 
                     <Route path="author">

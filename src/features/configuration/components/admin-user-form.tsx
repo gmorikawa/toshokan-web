@@ -5,7 +5,7 @@ import { type Form } from "@/components/form/use-form";
 import BoxContainer from "@/components/container/box-container";
 import FormPasswordField from "@/components/form/form-password-field";
 import FormTextField from "@/components/form/form-text-field";
-import HeaderTypography from "@/components/typography/header-typography";
+import Heading from "@/components/typography/header-typography";
 import Paragraph from "@/components/typography/paragraph";
 import SubmitButton from "@/components/button/submit-button";
 
@@ -17,9 +17,9 @@ export function AdminUserForm({ form }: AdminUserFormProps) {
     return (
         <>
             <BoxContainer>
-                <HeaderTypography>
+                <Heading>
                     First Access - Create Admin User
-                </HeaderTypography>
+                </Heading>
 
                 <Paragraph size="sm">
                     Please create the initial admin user to access the application.

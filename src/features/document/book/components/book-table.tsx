@@ -14,16 +14,21 @@ export interface BookTableProps {
 
     onUpdate?(entity: Book): void;
     onRemove?(entity: Book): void;
+    onDetail?(entity: Book): void;
     onPageChange?(page: number): void;
 }
 
-export function BookTable({ data, pagination, onUpdate, onRemove, onPageChange }: BookTableProps) {
+export function BookTable({ data, pagination, onUpdate, onRemove, onDetail, onPageChange }: BookTableProps) {
     function handleUpdate(entity: Book): void {
         (onUpdate) && (onUpdate(entity));
     }
 
     function handleRemove(entity: Book): void {
         (onRemove) && (onRemove(entity));
+    }
+
+    function handleDetail(entity: Book): void {
+        (onDetail) && (onDetail(entity));
     }
 
     function handlePageChange(page: number): void {
@@ -45,12 +50,13 @@ export function BookTable({ data, pagination, onUpdate, onRemove, onPageChange }
                     {
                         header: "Actions",
                         accessor: (book: Book) => (
-                            <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
-                                <FlexContainer spacing="2">
+                            <FlexContainer spacing="2">
+                                <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
                                     <OutlineButton onClick={() => handleUpdate(book)}>Edit</OutlineButton>
                                     <OutlineButton onClick={() => handleRemove(book)}>Delete</OutlineButton>
-                                </FlexContainer>
-                            </RestrictedContent>
+                                </RestrictedContent>
+                                <OutlineButton onClick={() => handleDetail(book)}>Details</OutlineButton>
+                            </FlexContainer>
                         )
                     },
                     { header: "Title", accessor: (book: Book) => book.title },

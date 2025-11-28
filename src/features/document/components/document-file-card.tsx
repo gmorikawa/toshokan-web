@@ -3,8 +3,8 @@ import type { DocumentFile } from "@/entities/models/document-file";
 import ActionButton from "@/components/button/action-button";
 import Card from "@/components/card/card";
 import FlexContainer from "@/components/container/flex-container";
-
-import { DataList } from "@chakra-ui/react";
+import Information from "@/components/data-display/information";
+import RestrictedContent from "@/features/auth/components/restricted-content";
 
 export interface DocumentFileCardProps {
     documentFile: DocumentFile;
@@ -27,9 +27,11 @@ export function DocumentFileCard({ documentFile, onRemove, onDownload }: Documen
             title={documentFile.version}
             footer={(
                 <FlexContainer justify="flex-end" spacing={2}>
-                    <ActionButton palette="danger" onClick={handleRemove}>
-                        Remove
-                    </ActionButton>
+                    <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
+                        <ActionButton palette="danger" onClick={handleRemove}>
+                            Remove
+                        </ActionButton>
+                    </RestrictedContent>
 
                     <ActionButton onClick={handleDownload}>
                         Download
@@ -37,16 +39,14 @@ export function DocumentFileCard({ documentFile, onRemove, onDownload }: Documen
                 </FlexContainer>
             )}
         >
-            <DataList.Root>
-                <DataList.Item>
-                    <DataList.ItemLabel>Publishing Year</DataList.ItemLabel>
-                    <DataList.ItemValue>{documentFile?.publishingYear}</DataList.ItemValue>
-                </DataList.Item>
-                <DataList.Item>
-                    <DataList.ItemLabel>Description</DataList.ItemLabel>
-                    <DataList.ItemValue>{documentFile?.description}</DataList.ItemValue>
-                </DataList.Item>
-            </DataList.Root>
+            <Information.Container>
+                <Information.Item label="Publishing Year">
+                    {documentFile?.publishingYear}
+                </Information.Item>
+                <Information.Item label="Description">
+                    {documentFile?.description}
+                </Information.Item>
+            </Information.Container>
         </Card>
     );
 }

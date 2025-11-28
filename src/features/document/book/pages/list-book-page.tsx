@@ -34,6 +34,10 @@ export function ListBookPage() {
         router.navigateTo(`/app/book/form/${entity.id}`);
     };
 
+    const handleDetail = (entity: Book): void => {
+        router.navigateTo(`/app/book/details/${entity.id}`);
+    }
+
     const handleRemove = (entity: Book): void => {
         service.remove(entity)
             .then(() => {
@@ -70,6 +74,7 @@ export function ListBookPage() {
                                 pagination={list.pagination}
                                 onUpdate={handleUpdate}
                                 onRemove={handleRemove}
+                                onDetail={handleDetail}
                                 onPageChange={(page: number) => {
                                     list.pagination.setPage(page);
                                     list.reload();

@@ -34,6 +34,10 @@ export function ListResearchPaperPage() {
         router.navigateTo(`/app/research-paper/form/${entity.id}`);
     };
 
+    const handleDetail = (entity: ResearchPaper): void => {
+        router.navigateTo(`/app/research-paper/details/${entity.id}`);
+    }
+
     const handleRemove = (entity: ResearchPaper): void => {
         service.remove(entity)
             .then(() => {
@@ -70,6 +74,7 @@ export function ListResearchPaperPage() {
                                 pagination={list.pagination}
                                 onUpdate={handleUpdate}
                                 onRemove={handleRemove}
+                                onDetail={handleDetail}
                                 onPageChange={(page: number) => {
                                     list.pagination.setPage(page);
                                     list.reload();

@@ -14,16 +14,21 @@ export interface WhitepaperTableProps {
 
     onUpdate?(entity: Whitepaper): void;
     onRemove?(entity: Whitepaper): void;
+    onDetail?(entity: Whitepaper): void;
     onPageChange?(page: number): void;
 }
 
-export function WhitepaperTable({ data, pagination, onUpdate, onRemove, onPageChange }: WhitepaperTableProps) {
+export function WhitepaperTable({ data, pagination, onUpdate, onRemove, onDetail, onPageChange }: WhitepaperTableProps) {
     function handleUpdate(entity: Whitepaper): void {
         (onUpdate) && (onUpdate(entity));
     }
     
     function handleRemove(entity: Whitepaper): void {
         (onRemove) && (onRemove(entity));
+    }
+
+    function handleDetail(entity: Whitepaper): void {
+        (onDetail) && (onDetail(entity));
     }
 
     function handlePageChange(page: number): void {
@@ -50,6 +55,7 @@ export function WhitepaperTable({ data, pagination, onUpdate, onRemove, onPageCh
                                     <OutlineButton onClick={() => handleUpdate(whitepaper)}>Edit</OutlineButton>
                                     <OutlineButton onClick={() => handleRemove(whitepaper)}>Delete</OutlineButton>
                                 </RestrictedContent>
+                                <OutlineButton onClick={() => handleDetail(whitepaper)}>Details</OutlineButton>
                             </FlexContainer>
                         )
                     },

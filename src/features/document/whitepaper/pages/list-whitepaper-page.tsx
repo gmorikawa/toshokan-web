@@ -34,6 +34,10 @@ export function ListWhitepaperPage() {
         router.navigateTo(`/app/whitepaper/form/${entity.id}`);
     };
 
+    const handleDetail = (entity: Whitepaper): void => {
+        router.navigateTo(`/app/whitepaper/details/${entity.id}`);
+    }
+
     const handleRemove = (entity: Whitepaper): void => {
         service.remove(entity)
             .then(() => {
@@ -70,6 +74,7 @@ export function ListWhitepaperPage() {
                                 pagination={list.pagination}
                                 onUpdate={handleUpdate}
                                 onRemove={handleRemove}
+                                onDetail={handleDetail}
                                 onPageChange={(page: number) => {
                                     list.pagination.setPage(page);
                                     list.reload();

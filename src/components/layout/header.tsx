@@ -1,5 +1,5 @@
 import BoxContainer from "@/components/container/box-container";
-import HeaderTypography from "@/components/typography/header-typography";
+import Heading from "@/components/typography/header-typography";
 import Environment from "@/config/environment";
 
 export interface ApplicationHeaderProps extends React.PropsWithChildren {
@@ -23,9 +23,9 @@ export function ApplicationHeader({ title, actionSlot, children }: ApplicationHe
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <HeaderTypography size="2xl">
+                <Heading size="2xl" level={1}>
                     {title}
-                </HeaderTypography>
+                </Heading>
 
                 <BoxContainer>
                     {actionSlot}

@@ -14,16 +14,21 @@ export interface ResearchPaperTableProps {
 
     onUpdate?(entity: ResearchPaper): void;
     onRemove?(entity: ResearchPaper): void;
+    onDetail?(entity: ResearchPaper): void;
     onPageChange?(page: number): void;
 }
 
-export function ResearchPaperTable({ data, pagination, onUpdate, onRemove, onPageChange }: ResearchPaperTableProps) {
+export function ResearchPaperTable({ data, pagination, onUpdate, onRemove, onDetail, onPageChange }: ResearchPaperTableProps) {
     function handleUpdate(entity: ResearchPaper): void {
         (onUpdate) && (onUpdate(entity));
     }
     
     function handleRemove(entity: ResearchPaper): void {
         (onRemove) && (onRemove(entity));
+    }
+
+    function handleDetail(entity: ResearchPaper): void {
+        (onDetail) && (onDetail(entity));
     }
 
     function handlePageChange(page: number): void {
@@ -50,6 +55,7 @@ export function ResearchPaperTable({ data, pagination, onUpdate, onRemove, onPag
                                     <OutlineButton onClick={() => handleUpdate(researchPaper)}>Edit</OutlineButton>
                                     <OutlineButton onClick={() => handleRemove(researchPaper)}>Delete</OutlineButton>
                                 </RestrictedContent>
+                                <OutlineButton onClick={() => handleDetail(researchPaper)}>Details</OutlineButton>
                             </FlexContainer>
                         )
                     },

@@ -5,7 +5,7 @@ import AppRoute from "@/constants/app";
 
 import BoxContainer from "@/components/container/box-container";
 import FlexContainer from "@/components/container/flex-container";
-import HeaderTypography from "@/components/typography/header-typography";
+import Heading from "@/components/typography/header-typography";
 import Persona from "@/components/profile/persona";
 import StackContainer from "@/components/container/stack-container";
 import TextButton from "@/components/button/text-button";
@@ -52,7 +52,7 @@ interface MenuGroupProps extends React.PropsWithChildren {
 function MenuGroup({ title, children }: MenuGroupProps) {
     return (
         <StackContainer>
-            <HeaderTypography>{title}</HeaderTypography>
+            <Heading>{title}</Heading>
             {children}
         </StackContainer>
     );
