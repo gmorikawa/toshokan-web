@@ -1,4 +1,14 @@
-import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react"
+import {
+    ChakraProvider,
+    createSystem,
+    defaultConfig,
+    defineConfig
+} from "@chakra-ui/react";
+
+import {
+    ColorModeProvider,
+    type ColorModeProviderProps,
+} from "./color-mode"
 
 const customTheme = {
     theme: {
@@ -54,9 +64,17 @@ const customTheme = {
     },
 };
 
-export const themeConfig = createSystem(
-    defaultConfig,
-    defineConfig(customTheme)
-);
+export function ThemeProvider(props: ColorModeProviderProps) {
+    const themeConfig = createSystem(
+        defaultConfig,
+        defineConfig(customTheme)
+    );
 
-export default themeConfig;
+    return (
+        <ChakraProvider value={themeConfig}>
+            <ColorModeProvider {...props} />
+        </ChakraProvider>
+    )
+}
+
+export default ThemeProvider;

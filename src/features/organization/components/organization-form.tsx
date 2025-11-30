@@ -3,7 +3,7 @@ import StackContainer from "@/components/container/stack-container";
 import FormRadioField from "@/components/form/form-radio-field";
 import FormTextField from "@/components/form/form-text-field";
 import type { Form } from "@/components/form/use-form";
-import OrganizationTypeUtil from "@/entities/util/organization-type.util";
+import OrganizationTypeUtil from "@/types/util/organization-type.util";
 
 export interface OrganizationFormProps<Entity> {
     form: Form<Entity>;

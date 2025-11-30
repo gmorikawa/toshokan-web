@@ -1,12 +1,12 @@
 import useRouter from "@/hooks/router/use-router";
 
-import ApplicationPage from "@/components/layout/page";
-import ApplicationHeader from "@/components/layout/header";
-import ApplicationContent from "@/components/layout/content";
+import ApplicationPage from "@/layout/page";
+import ApplicationHeader from "@/layout/header";
+import ApplicationContent from "@/layout/content";
 import ActionButton from "@/components/button/action-button";
 import BoxContainer from "@/components/container/box-container";
 
-import { BackIcon } from "@/fragments/icons";
+import { BackIcon } from "@/common/icons";
 import { useBook } from "../hooks/use-book";
 import useParams from "@/hooks/router/use-params";
 import { BookInfo } from "../components/book-info";

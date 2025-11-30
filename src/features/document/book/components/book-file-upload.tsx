@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import type { DocumentFile, NewDocumentFile } from "@/entities/models/document-file";
-import type { Book } from "@/entities/models/book";
+import type { DocumentFile, NewDocumentFile } from "@/types/models/document-file";
+import type { Book } from "@/types/models/book";
 
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useModal from "@/components/modal/use-modal";
 import useService from "@/services/use-service";
 import BookService from "@/services/book-service";

@@ -1,5 +1,5 @@
-import type { Category } from "@/entities/models/category";
-import type { Pagination } from "@/entities/query";
+import type { Category } from "@/types/models/category";
+import type { Pagination } from "@/types/query";
 
 import DataTable from "@/components/table/data-table";
 import FlexContainer from "@/components/container/flex-container";

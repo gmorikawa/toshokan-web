@@ -1,5 +1,5 @@
-import type { NewLanguage, Language } from "@/entities/models/language";
-import type { QueryOptions } from "@/entities/query";
+import type { NewLanguage, Language } from "@/types/models/language";
+import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 
 export class LanguageService extends MainService implements Service {

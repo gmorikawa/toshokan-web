@@ -1,6 +1,6 @@
-import type { DocumentFile, NewDocumentFile } from "@/entities/models/document-file";
-import type { NewWhitepaper, Whitepaper } from "@/entities/models/whitepaper";
-import type { QueryOptions } from "@/entities/query";
+import type { DocumentFile, NewDocumentFile } from "@/types/models/document-file";
+import type { NewWhitepaper, Whitepaper } from "@/types/models/whitepaper";
+import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 
 export class WhitepaperService extends MainService implements Service {

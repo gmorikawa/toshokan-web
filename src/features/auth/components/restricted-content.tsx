@@ -1,4 +1,4 @@
-import type { UserRole } from "@/entities/models/user";
+import type { UserRole } from "@/types/models/user";
 import useAuthentication from "../hooks/use-authentication";
 
 export interface RestrictedContentProps extends React.PropsWithChildren {

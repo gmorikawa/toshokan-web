@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import useService from "@/services/use-service";
 import BookService from "@/services/book-service";
 
-import type { Book } from "@/entities/models/book";
-import useAlert from "@/hooks/feedback/use-alert";
+import type { Book } from "@/types/models/book";
+import useAlert from "@/components/feedback/use-alert";
 
 export interface UseBookResult {
     book: Book | null;

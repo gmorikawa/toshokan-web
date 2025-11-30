@@ -1,5 +1,5 @@
-import type { User } from "@/entities/models/user";
-import type { AuthenticationToken } from "@/entities/authentication-token";
+import type { User } from "@/types/models/user";
+import type { AuthenticationToken } from "@/types/authentication-token";
 
 import NativeHttpClient from "@/common/native.http-client";
 import AuthService from "@/services/auth-service";

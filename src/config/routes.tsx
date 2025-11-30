@@ -4,7 +4,7 @@ import FirstAccessPage from "@/features/configuration/pages/first-access-page";
 
 import LoginPage from "@/features/auth/pages/login-page";
 
-import AppLayout from "@/components/layout/layout";
+import AppLayout from "@/layout/layout";
 
 import ListUserPage from "@/features/user/pages/list-user-page";
 import CreateUserFormPage from "@/features/user/pages/create-user-page";
@@ -49,7 +49,7 @@ import CreateWhitepaperFormPage from "@/features/document/whitepaper/pages/creat
 import UpdateWhitepaperFormPage from "@/features/document/whitepaper/pages/update-whitepaper-page";
 import WhitepaperDetailsPage from "@/features/document/whitepaper/pages/details-page";
 
-function RouteProvider() {
+export function RouteProvider() {
     return (
         <BrowserRouter>
             <Routes>

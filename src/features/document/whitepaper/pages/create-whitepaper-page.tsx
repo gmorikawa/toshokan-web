@@ -1,21 +1,21 @@
-import type { NewWhitepaper } from "@/entities/models/whitepaper";
-import { newWhitepaperValidator } from "@/entities/validators/whitepaper/new-whitepaper.validator";
+import type { NewWhitepaper } from "@/types/models/whitepaper";
+import { newWhitepaperValidator } from "@/types/validators/whitepaper/new-whitepaper.validator";
 
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import WhitepaperService from "@/services/whitepaper-service";
 
-import ApplicationPage from "@/components/layout/page";
-import ApplicationHeader from "@/components/layout/header";
-import ApplicationContent from "@/components/layout/content";
+import ApplicationPage from "@/layout/page";
+import ApplicationHeader from "@/layout/header";
+import ApplicationContent from "@/layout/content";
 import BoxContainer from "@/components/container/box-container";
 import ActionButton from "@/components/button/action-button";
 
 import WhitepaperForm from "@/features/document/whitepaper/components/whitepaper-form";
 
-import { BackIcon } from "@/fragments/icons";
+import { BackIcon } from "@/common/icons";
 import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateWhitepaperPage() {

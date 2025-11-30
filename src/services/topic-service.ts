@@ -1,5 +1,5 @@
-import type { NewTopic, Topic } from "@/entities/models/topic";
-import type { QueryOptions } from "@/entities/query";
+import type { NewTopic, Topic } from "@/types/models/topic";
+import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 
 export class TopicService extends MainService implements Service {

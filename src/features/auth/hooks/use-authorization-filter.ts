@@ -1,4 +1,4 @@
-import type { UserRole } from "@/entities/models/user";
+import type { UserRole } from "@/types/models/user";
 import useAuthentication from "./use-authentication";
 
 export interface Authorization {

@@ -1,11 +1,11 @@
-import type { Whitepaper } from "@/entities/models/whitepaper";
+import type { Whitepaper } from "@/types/models/whitepaper";
 
 import BoxContainer from "@/components/container/box-container";
 import Badge from "@/components/data-display/badge";
 import Information from "@/components/data-display/information";
 import Heading from "@/components/typography/header-typography";
 import Paragraph from "@/components/typography/paragraph";
-import type { DocumentFile } from "@/entities/models/document-file";
+import type { DocumentFile } from "@/types/models/document-file";
 import DocumentFileCard from "../../components/document-file-card";
 
 export interface WhitepaperInfoProps {

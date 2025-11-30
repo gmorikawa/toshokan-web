@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import useService from "@/services/use-service";
 import BookService from "@/services/book-service";
 
-import useAlert from "@/hooks/feedback/use-alert";
-import type { DocumentFile } from "@/entities/models/document-file";
-import type { Book } from "@/entities/models/book";
+import useAlert from "@/components/feedback/use-alert";
+import type { DocumentFile } from "@/types/models/document-file";
+import type { Book } from "@/types/models/book";
 
 export interface UseBookFilesResult {
     files: DocumentFile[];

@@ -3,8 +3,8 @@ import {
 } from '@chakra-ui/react';
 import type { ThemeProps } from '..';
 import ActionButton from '../button/action-button';
-import { UploadIcon } from '@/fragments/icons';
-import type { BinaryFile } from '@/entities/binary-file';
+import { UploadIcon } from '@/common/icons';
+import type { BinaryFile } from '@/types/binary-file';
 
 export interface FileFieldProps extends ThemeProps {
     property: string;

@@ -1,5 +1,5 @@
-import type { Publisher } from "@/entities/models/publisher";
-import type { Pagination } from "@/entities/query";
+import type { Publisher } from "@/types/models/publisher";
+import type { Pagination } from "@/types/query";
 
 import DataTable from "@/components/table/data-table";
 import FlexContainer from "@/components/container/flex-container";

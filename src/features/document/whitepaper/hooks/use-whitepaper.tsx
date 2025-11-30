@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import useService from "@/services/use-service";
 import WhitepaperService from "@/services/whitepaper-service";
 
-import type { Whitepaper } from "@/entities/models/whitepaper";
-import useAlert from "@/hooks/feedback/use-alert";
+import type { Whitepaper } from "@/types/models/whitepaper";
+import useAlert from "@/components/feedback/use-alert";
 
 export interface UseWhitepaperResult {
     whitepaper: Whitepaper | null;

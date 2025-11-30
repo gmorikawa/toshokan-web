@@ -1,5 +1,5 @@
-import type { Topic } from "@/entities/models/topic";
-import type { Pagination } from "@/entities/query";
+import type { Topic } from "@/types/models/topic";
+import type { Pagination } from "@/types/query";
 
 import DataTable from "@/components/table/data-table";
 import FlexContainer from "@/components/container/flex-container";

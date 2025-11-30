@@ -1,7 +1,7 @@
 import useAuthentication from "@/features/auth/hooks/use-authentication";
 import useRouter from "@/hooks/router/use-router";
 
-import AppRoute from "@/constants/app";
+import AppRoute from "@/config/constants";
 
 import BoxContainer from "@/components/container/box-container";
 import FlexContainer from "@/components/container/flex-container";
@@ -21,7 +21,7 @@ import {
     TopicIcon,
     UserIcon,
     WhitepaperIcon
-} from "@/fragments/icons";
+} from "@/common/icons";
 import { Logo } from "./logo";
 import RestrictedContent from "@/features/auth/components/restricted-content";
 

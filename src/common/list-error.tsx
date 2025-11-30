@@ -2,25 +2,21 @@ import BoxContainer from "@/components/container/box-container";
 import CentralizedContainer from "@/components/container/centralized-container";
 
 import { EmptyState, VStack } from "@chakra-ui/react"
-import { NotFoundIcon } from "./icons";
+import { WarningIcon } from "../common/icons";
 
-export interface EmptyListProps {
-    shouldRender?: boolean;
-}
-
-export function EmptyList({ shouldRender }: EmptyListProps) {
-    return shouldRender && (
+export function ListError() {
+    return (
         <BoxContainer fullHeight>
-            <CentralizedContainer height="40%">
+            <CentralizedContainer height="60%">
                 <EmptyState.Root>
                     <EmptyState.Content>
                         <EmptyState.Indicator>
-                            <NotFoundIcon />
+                            <WarningIcon />
                         </EmptyState.Indicator>
                         <VStack textAlign="center">
-                            <EmptyState.Title>No data</EmptyState.Title>
+                            <EmptyState.Title>An error occurred</EmptyState.Title>
                             <EmptyState.Description>
-                                Register data by clicking the new button.
+                                Try refreshing the page or come back later.
                             </EmptyState.Description>
                         </VStack>
                     </EmptyState.Content>
@@ -30,4 +26,4 @@ export function EmptyList({ shouldRender }: EmptyListProps) {
     );
 }
 
-export default EmptyList;
+export default ListError;

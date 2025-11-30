@@ -1,5 +1,5 @@
-import type { NewCategory, Category } from "@/entities/models/category";
-import type { QueryOptions } from "@/entities/query";
+import type { NewCategory, Category } from "@/types/models/category";
+import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 
 export class CategoryService extends MainService implements Service {

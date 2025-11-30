@@ -1,10 +1,10 @@
-import type { Category } from "@/entities/models/category";
+import type { Category } from "@/types/models/category";
 
 import { useEffect } from "react";
-import type { Pagination } from "@/entities/query";
+import type { Pagination } from "@/types/query";
 import { useListLoader, type ListLoader } from "@/hooks/list/use-list-loader";
 
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import usePagination from "@/components/pagination/use-pagination";
 import useService from "@/services/use-service";
 import CategoryService from "@/services/category-service";

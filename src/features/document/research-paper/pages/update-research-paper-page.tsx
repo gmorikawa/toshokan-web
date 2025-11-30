@@ -1,17 +1,17 @@
-import type { ResearchPaper } from "@/entities/models/research-paper";
-import { researchPaperValidator } from "@/entities/validators/research-paper/research-paper.validator";
+import type { ResearchPaper } from "@/types/models/research-paper";
+import { researchPaperValidator } from "@/types/validators/research-paper/research-paper.validator";
 
 import { useEffect } from "react";
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
 import useParams from "@/hooks/router/use-params";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import ResearchPaperService from "@/services/research-paper-service";
 
-import ApplicationPage from "@/components/layout/page";
-import ApplicationHeader from "@/components/layout/header";
-import ApplicationContent from "@/components/layout/content";
+import ApplicationPage from "@/layout/page";
+import ApplicationHeader from "@/layout/header";
+import ApplicationContent from "@/layout/content";
 import ActionButton from "@/components/button/action-button";
 import BoxContainer from "@/components/container/box-container";
 import TabContent from "@/components/tab/tab-content";
@@ -20,7 +20,7 @@ import TabControl, { type TabOption } from "@/components/tab/tab-control";
 import ResearchPaperForm from "@/features/document/research-paper/components/research-paper-form";
 import ResearchPaperFileUpload from "@/features/document/research-paper/components/research-paper-file-upload";
 
-import { BackIcon, FileUploadIcon, FormIcon } from "@/fragments/icons";
+import { BackIcon, FileUploadIcon, FormIcon } from "@/common/icons";
 import { useAuthorizationFilter } from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {

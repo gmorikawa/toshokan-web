@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-import type { Author } from "@/entities/models/author";
-import type { Language } from "@/entities/models/language";
-import type { Organization } from "@/entities/models/organization";
-import type { Topic } from "@/entities/models/topic";
+import type { Author } from "@/types/models/author";
+import type { Language } from "@/types/models/language";
+import type { Organization } from "@/types/models/organization";
+import type { Topic } from "@/types/models/topic";
 
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useService from "@/services/use-service";
 import AuthorService from "@/services/author-service";
 import LanguageService from "@/services/language-service";

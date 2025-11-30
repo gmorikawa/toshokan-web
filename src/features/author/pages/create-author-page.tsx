@@ -1,6 +1,6 @@
-import type { NewAuthor } from "@/entities/models/author";
+import type { NewAuthor } from "@/types/models/author";
 
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import AuthorService from "@/services/author-service";
@@ -8,13 +8,13 @@ import AuthorService from "@/services/author-service";
 import useForm from "@/components/form/use-form";
 import BoxContainer from "@/components/container/box-container";
 import ActionButton from "@/components/button/action-button";
-import ApplicationPage from "@/components/layout/page";
-import ApplicationHeader from "@/components/layout/header";
-import ApplicationContent from "@/components/layout/content";
+import ApplicationPage from "@/layout/page";
+import ApplicationHeader from "@/layout/header";
+import ApplicationContent from "@/layout/content";
 import AuthorForm from "@/features/author/components/author-form";
 
-import { BackIcon } from "@/fragments/icons";
-import { newAuthorValidator } from "@/entities/validators/author/new-author.validator";
+import { BackIcon } from "@/common/icons";
+import { newAuthorValidator } from "@/types/validators/author/new-author.validator";
 import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateAuthorPage() {

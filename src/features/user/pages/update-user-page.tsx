@@ -1,23 +1,23 @@
-import type { User } from "@/entities/models/user";
-import { userValidator } from "@/entities/validators/user/user.validator";
+import type { User } from "@/types/models/user";
+import { userValidator } from "@/types/validators/user/user.validator";
 
 import { useEffect } from "react";
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
 import useRouter from "@/hooks/router/use-router";
 import useParams from "@/hooks/router/use-params";
 import useService from "@/services/use-service";
 import UserService from "@/services/user-service";
 
-import ApplicationPage from "@/components/layout/page";
-import ApplicationHeader from "@/components/layout/header";
-import ApplicationContent from "@/components/layout/content";
+import ApplicationPage from "@/layout/page";
+import ApplicationHeader from "@/layout/header";
+import ApplicationContent from "@/layout/content";
 import ActionButton from "@/components/button/action-button";
 import BoxContainer from "@/components/container/box-container";
 
 import UpdateUserForm from "@/features/user/components/update-user-form";
 
-import { BackIcon } from "@/fragments/icons";
+import { BackIcon } from "@/common/icons";
 import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {

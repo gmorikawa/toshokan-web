@@ -1,5 +1,5 @@
-import type { Author } from "@/entities/models/author";
-import type { Pagination } from "@/entities/query";
+import type { Author } from "@/types/models/author";
+import type { Pagination } from "@/types/query";
 
 import DataTable from "@/components/table/data-table";
 import FlexContainer from "@/components/container/flex-container";

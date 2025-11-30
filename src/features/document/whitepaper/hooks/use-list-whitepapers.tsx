@@ -1,10 +1,10 @@
-import type { Whitepaper } from "@/entities/models/whitepaper";
+import type { Whitepaper } from "@/types/models/whitepaper";
 
 import { useEffect } from "react";
-import type { Pagination } from "@/entities/query";
+import type { Pagination } from "@/types/query";
 import { useListLoader, type ListLoader } from "@/hooks/list/use-list-loader";
 
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import usePagination from "@/components/pagination/use-pagination";
 import useService from "@/services/use-service";
 import WhitepaperService from "@/services/whitepaper-service";

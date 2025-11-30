@@ -1,5 +1,5 @@
-import type { NewOrganization, Organization } from "@/entities/models/organization";
-import type { QueryOptions } from "@/entities/query";
+import type { NewOrganization, Organization } from "@/types/models/organization";
+import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 
 export class OrganizationService extends MainService implements Service {

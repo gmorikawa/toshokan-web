@@ -1,6 +1,6 @@
-import type { DocumentFile, NewDocumentFile } from "@/entities/models/document-file";
-import type { NewResearchPaper, ResearchPaper } from "@/entities/models/research-paper";
-import type { QueryOptions } from "@/entities/query";
+import type { DocumentFile, NewDocumentFile } from "@/types/models/document-file";
+import type { NewResearchPaper, ResearchPaper } from "@/types/models/research-paper";
+import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 
 export class ResearchPaperService extends MainService implements Service {

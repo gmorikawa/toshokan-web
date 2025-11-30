@@ -1,5 +1,5 @@
-import type { Language } from "@/entities/models/language";
-import type { Pagination } from "@/entities/query";
+import type { Language } from "@/types/models/language";
+import type { Pagination } from "@/types/query";
 
 import DataTable from "@/components/table/data-table";
 import FlexContainer from "@/components/container/flex-container";

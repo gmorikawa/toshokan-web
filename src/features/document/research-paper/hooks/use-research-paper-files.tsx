@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import useService from "@/services/use-service";
 import ResearchPaperService from "@/services/research-paper-service";
 
-import useAlert from "@/hooks/feedback/use-alert";
-import type { DocumentFile } from "@/entities/models/document-file";
-import type { ResearchPaper } from "@/entities/models/research-paper";
+import useAlert from "@/components/feedback/use-alert";
+import type { DocumentFile } from "@/types/models/document-file";
+import type { ResearchPaper } from "@/types/models/research-paper";
 
 export interface UseResearchPaperFilesResult {
     files: DocumentFile[];

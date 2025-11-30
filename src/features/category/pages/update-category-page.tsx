@@ -1,22 +1,22 @@
-import type { Category } from "@/entities/models/category";
-import { categoryValidator } from "@/entities/validators/category/category.validator";
+import type { Category } from "@/types/models/category";
+import { categoryValidator } from "@/types/validators/category/category.validator";
 
 import { useEffect } from "react";
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
 import useParams from "@/hooks/router/use-params";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import CategoryService from "@/services/category-service";
 
-import ApplicationPage from "@/components/layout/page";
-import ApplicationHeader from "@/components/layout/header";
-import ApplicationContent from "@/components/layout/content";
+import ApplicationPage from "@/layout/page";
+import ApplicationHeader from "@/layout/header";
+import ApplicationContent from "@/layout/content";
 import ActionButton from "@/components/button/action-button";
 import BoxContainer from "@/components/container/box-container";
 import CategoryForm from "@/features/category/components/category-form";
 
-import { BackIcon } from "@/fragments/icons";
+import { BackIcon } from "@/common/icons";
 import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import useService from "@/services/use-service";
 import WhitepaperService from "@/services/whitepaper-service";
 
-import useAlert from "@/hooks/feedback/use-alert";
-import type { DocumentFile } from "@/entities/models/document-file";
-import type { Whitepaper } from "@/entities/models/whitepaper";
+import useAlert from "@/components/feedback/use-alert";
+import type { DocumentFile } from "@/types/models/document-file";
+import type { Whitepaper } from "@/types/models/whitepaper";
 
 export interface UseWhitepaperFilesResult {
     files: DocumentFile[];

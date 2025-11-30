@@ -1,21 +1,21 @@
-import type { NewResearchPaper } from "@/entities/models/research-paper";
-import { newResearchPaperValidator } from "@/entities/validators/research-paper/new-research-paper.validator";
+import type { NewResearchPaper } from "@/types/models/research-paper";
+import { newResearchPaperValidator } from "@/types/validators/research-paper/new-research-paper.validator";
 
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import ResearchPaperService from "@/services/research-paper-service";
 
-import ApplicationPage from "@/components/layout/page";
-import ApplicationHeader from "@/components/layout/header";
-import ApplicationContent from "@/components/layout/content";
+import ApplicationPage from "@/layout/page";
+import ApplicationHeader from "@/layout/header";
+import ApplicationContent from "@/layout/content";
 import BoxContainer from "@/components/container/box-container";
 import ActionButton from "@/components/button/action-button";
 
 import ResearchPaperForm from "@/features/document/research-paper/components/research-paper-form";
 
-import { BackIcon } from "@/fragments/icons";
+import { BackIcon } from "@/common/icons";
 import { useAuthorizationFilter } from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateResearchPaperPage() {

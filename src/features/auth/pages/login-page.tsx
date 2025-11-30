@@ -1,6 +1,6 @@
 import useAuthentication from '@/features/auth/hooks/use-authentication';
 import useForm from '@/components/form/use-form';
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useRouter from '@/hooks/router/use-router';
 
 import SubmitButton from '@/components/button/submit-button';
@@ -10,7 +10,7 @@ import StackContainer from '@/components/container/stack-container';
 import FormPasswordField from '@/components/form/form-password-field';
 import FormTextField from '@/components/form/form-text-field';
 import Environment from '@/config/environment';
-import { Logo } from '@/components/layout/logo';
+import { Logo } from '@/layout/logo';
 import BoxContainer from '@/components/container/box-container';
 
 export function LoginPage() {

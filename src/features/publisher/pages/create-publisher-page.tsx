@@ -1,20 +1,20 @@
-import type { NewPublisher } from "@/entities/models/publisher";
-import { newPublisherValidator } from "@/entities/validators/publisher/new-publisher.validator";
+import type { NewPublisher } from "@/types/models/publisher";
+import { newPublisherValidator } from "@/types/validators/publisher/new-publisher.validator";
 
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import PublisherService from "@/services/publisher-service";
 
-import ApplicationPage from "@/components/layout/page";
-import ApplicationHeader from "@/components/layout/header";
+import ApplicationPage from "@/layout/page";
+import ApplicationHeader from "@/layout/header";
 import ActionButton from "@/components/button/action-button";
-import ApplicationContent from "@/components/layout/content";
+import ApplicationContent from "@/layout/content";
 import BoxContainer from "@/components/container/box-container";
 import PublisherForm from "@/features/publisher/components/PublisherForm";
 
-import { BackIcon } from "@/fragments/icons";
+import { BackIcon } from "@/common/icons";
 import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreatePublisherPage() {

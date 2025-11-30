@@ -1,14 +1,14 @@
-import ThemeProvider from './components/style/theme-provider';
-import ToastProvider from './components/feedback/toaster-provider';
-import RouteProvider from './routes';
+import ThemeProvider from "./config/theme";
+import RouteProvider from "./config/routes";
+import AlertProvider from "./config/alert";
 
-function App() {
+export function App() {
     return (
         <ThemeProvider>
-            <ToastProvider />
+            <AlertProvider />
             <RouteProvider />
         </ThemeProvider>
     );
 }
 
-export default App
+export default App;

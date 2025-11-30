@@ -1,8 +1,8 @@
-import type { NewUser } from "@/entities/models/user";
-import { newUserValidator } from "@/entities/validators/user/new-user.validator";
+import type { NewUser } from "@/types/models/user";
+import { newUserValidator } from "@/types/validators/user/new-user.validator";
 
 import useForm from "@/components/form/use-form";
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 
@@ -14,7 +14,7 @@ import BoxContainer from "@/components/container/box-container";
 import CentralizedContainer from "@/components/container/centralized-container";
 import StackContainer from "@/components/container/stack-container";
 
-import { Logo } from "@/components/layout/logo";
+import { Logo } from "@/layout/logo";
 import AdminUserForm from "../components/admin-user-form";
 
 export function FirstAccessPage() {

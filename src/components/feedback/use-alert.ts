@@ -1,18 +1,18 @@
-import { toaster } from "@/components/feedback/toaster-provider";
+import { toaster } from "./alert";
 
-type AlertType = "success" | "error" | "loading" | "info";
+export type AlertType = "success" | "error" | "loading" | "info";
 
-interface UseAlert {
+export interface UseAlert {
     showMessage(message: string, type: AlertType): void;
 
     showErrorMessage(error: Error): void;
 }
 
-interface UseAlertConfiguration {
+export interface UseAlertConfiguration {
     showInConsole?: boolean;
 }
 
-function useAlert(configuration?: UseAlertConfiguration): UseAlert {
+export function useAlert(configuration?: UseAlertConfiguration): UseAlert {
     const showMessage = (message: string, type: AlertType): void => {
         toaster.create({
             description: message,
@@ -31,6 +31,4 @@ function useAlert(configuration?: UseAlertConfiguration): UseAlert {
     return { showMessage, showErrorMessage };
 }
 
-export { useAlert };
-export type { UseAlert, AlertType };
 export default useAlert;

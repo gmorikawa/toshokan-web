@@ -1,5 +1,5 @@
-import type { NewAuthor, Author } from "@/entities/models/author";
-import type { QueryOptions } from "@/entities/query";
+import type { NewAuthor, Author } from "@/types/models/author";
+import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 
 export class AuthorService extends MainService implements Service {

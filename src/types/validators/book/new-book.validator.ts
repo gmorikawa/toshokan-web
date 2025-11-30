@@ -1,4 +1,4 @@
-import BookTypeUtil from "@/entities/util/book-type.util";
+import BookTypeUtil from "@/types/util/book-type.util";
 import * as z from "zod";
 
 export const newBookValidator = z.object({

@@ -1,6 +1,6 @@
-import type { ResearchPaper } from "@/entities/models/research-paper";
+import type { ResearchPaper } from "@/types/models/research-paper";
 
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useService from "@/services/use-service";
 import ResearchPaperService from "@/services/research-paper-service";
 
@@ -9,7 +9,7 @@ import StackContainer from "@/components/container/stack-container";
 import DocumentFileCard from "@/features/document/components/document-file-card";
 import UploadModal from "@/features/document/components/upload-modal";
 
-import type { DocumentFile, NewDocumentFile } from "@/entities/models/document-file";
+import type { DocumentFile, NewDocumentFile } from "@/types/models/document-file";
 import { useEffect, useState } from "react";
 import useModal from "@/components/modal/use-modal";
 

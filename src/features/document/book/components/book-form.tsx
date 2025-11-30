@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-import type { Author } from "@/entities/models/author";
-import type { Category } from "@/entities/models/category";
-import type { Language } from "@/entities/models/language";
-import type { Publisher } from "@/entities/models/publisher";
-import type { Topic } from "@/entities/models/topic";
-import BookTypeUtil from "@/entities/util/book-type.util";
+import type { Author } from "@/types/models/author";
+import type { Category } from "@/types/models/category";
+import type { Language } from "@/types/models/language";
+import type { Publisher } from "@/types/models/publisher";
+import type { Topic } from "@/types/models/topic";
+import BookTypeUtil from "@/types/util/book-type.util";
 
 import AuthorService from "@/services/author-service";
 import CategoryService from "@/services/category-service";
@@ -13,7 +13,7 @@ import LanguageService from "@/services/language-service";
 import PublisherService from "@/services/publisher-service";
 import TopicService from "@/services/topic-service";
 import useService from "@/services/use-service";
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 
 import type { Form } from "@/components/form/use-form";
 import FormComboField from "@/components/form/form-combo-field";

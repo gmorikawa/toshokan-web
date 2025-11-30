@@ -1,4 +1,4 @@
-import type { DocumentFile } from "@/entities/models/document-file";
+import type { DocumentFile } from "@/types/models/document-file";
 
 import ActionButton from "@/components/button/action-button";
 import Card from "@/components/card/card";

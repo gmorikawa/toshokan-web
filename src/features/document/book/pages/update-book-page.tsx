@@ -1,17 +1,17 @@
-import type { Book } from "@/entities/models/book";
-import { bookValidator } from "@/entities/validators/book/book.validator";
+import type { Book } from "@/types/models/book";
+import { bookValidator } from "@/types/validators/book/book.validator";
 
 import { useEffect } from "react";
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
 import useParams from "@/hooks/router/use-params";
 import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import BookService from "@/services/book-service";
 
-import ApplicationPage from "@/components/layout/page";
-import ApplicationHeader from "@/components/layout/header";
-import ApplicationContent from "@/components/layout/content";
+import ApplicationPage from "@/layout/page";
+import ApplicationHeader from "@/layout/header";
+import ApplicationContent from "@/layout/content";
 import ActionButton from "@/components/button/action-button";
 import BoxContainer from "@/components/container/box-container";
 import TabContent from "@/components/tab/tab-content";
@@ -19,7 +19,7 @@ import TabControl, { type TabOption } from "@/components/tab/tab-control";
 
 import BookForm from "@/features/document/book/components/book-form";
 import BookFileUpload from "@/features/document/book/components/book-file-upload";
-import { BackIcon, FileUploadIcon, FormIcon } from "@/fragments/icons";
+import { BackIcon, FileUploadIcon, FormIcon } from "@/common/icons";
 import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {

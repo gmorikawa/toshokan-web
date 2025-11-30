@@ -1,4 +1,4 @@
-import type { Pagination } from "@/entities/query";
+import type { Pagination } from "@/types/query";
 import { useState } from "react";
 
 export interface UsePagination extends Pagination {

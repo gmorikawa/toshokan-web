@@ -1,5 +1,5 @@
-import type { ResearchPaper } from "@/entities/models/research-paper";
-import type { Pagination } from "@/entities/query";
+import type { ResearchPaper } from "@/types/models/research-paper";
+import type { Pagination } from "@/types/query";
 
 import DataTable from "@/components/table/data-table";
 import FlexContainer from "@/components/container/flex-container";

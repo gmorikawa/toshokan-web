@@ -3,7 +3,7 @@ import StackContainer from "@/components/container/stack-container";
 import FormRadioField from "@/components/form/form-radio-field";
 import FormTextField from "@/components/form/form-text-field";
 import type { Form } from "@/components/form/use-form";
-import type { User } from "@/entities/models/user";
+import type { User } from "@/types/models/user";
 
 export interface UpdateUserFormProps {
     form: Form<User>;

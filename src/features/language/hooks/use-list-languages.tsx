@@ -1,10 +1,10 @@
-import type { Language } from "@/entities/models/language";
+import type { Language } from "@/types/models/language";
 
 import { useEffect } from "react";
-import type { Pagination } from "@/entities/query";
+import type { Pagination } from "@/types/query";
 import { useListLoader, type ListLoader } from "@/hooks/list/use-list-loader";
 
-import useAlert from "@/hooks/feedback/use-alert";
+import useAlert from "@/components/feedback/use-alert";
 import usePagination from "@/components/pagination/use-pagination";
 import useService from "@/services/use-service";
 import LanguageService from "@/services/language-service";

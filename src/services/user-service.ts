@@ -1,5 +1,5 @@
-import type { NewUser, User } from "@/entities/models/user";
-import type { QueryOptions } from "@/entities/query";
+import type { NewUser, User } from "@/types/models/user";
+import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 
 export class UserService extends MainService implements Service {
