@@ -12,7 +12,7 @@ import ApplicationHeader from "@/layout/header";
 import ActionButton from "@/components/button/action-button";
 import ApplicationContent from "@/layout/content";
 import BoxContainer from "@/components/container/box-container";
-import PublisherForm from "@/features/publisher/components/PublisherForm";
+import PublisherForm from "@/features/publisher/components/publisher-form";
 
 import { BackIcon } from "@/common/icons";
 import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";

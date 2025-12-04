@@ -2,6 +2,7 @@ import SubmitButton from "@/components/button/submit-button";
 import StackContainer from "@/components/container/stack-container";
 import FormRadioField from "@/components/form/form-radio-field";
 import FormTextField from "@/components/form/form-text-field";
+import FormTextareaField from "@/components/form/form-textarea-field";
 import type { Form } from "@/components/form/use-form";
 import OrganizationTypeUtil from "@/types/util/organization-type.util";
 
@@ -17,9 +18,19 @@ export function OrganizationForm<Entity>({ form, onSubmit }: OrganizationFormPro
 
     return (
         <StackContainer spacing={4}>
-            <FormTextField form={form} label="Name" property="name" />
+            <FormTextField
+                form={form}
+                label="Name"
+                property="name"
+            />
 
-            <FormTextField form={form} label="Description" property="description" />
+            <FormTextareaField
+                form={form}
+                label="Description"
+                property="description"
+                allowResize
+                rows={10}
+            />
 
             <FormRadioField
                 form={form}

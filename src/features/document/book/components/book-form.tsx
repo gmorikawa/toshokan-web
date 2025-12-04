@@ -22,6 +22,7 @@ import FormSelectField from "@/components/form/form-select-field";
 import FormTextField from "@/components/form/form-text-field";
 import StackContainer from "@/components/container/stack-container";
 import SubmitButton from "@/components/button/submit-button";
+import { FormTextareaField } from "@/components/form/form-textarea-field";
 
 export interface BookFormProps<Entity> {
     form: Form<Entity>;
@@ -118,10 +119,12 @@ export function BookForm<Entity>({ form, onSubmit }: BookFormProps<Entity>) {
                 property="subtitle"
             />
 
-            <FormTextField
+            <FormTextareaField
                 form={form}
                 label="Summary"
                 property="summary"
+                allowResize
+                rows={10}
             />
 
             <FormSelectField

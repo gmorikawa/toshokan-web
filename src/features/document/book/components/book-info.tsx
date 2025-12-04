@@ -30,7 +30,10 @@ export function BookInfo({ book, files }: BookInfoProps) {
 
             <BoxContainer display="flex" flexDirection="row" gap={8}>
                 <BoxContainer flex="2" display="flex" flexDirection="column" gap={4}>
-                    <Paragraph align="justify">{book.summary}</Paragraph>
+
+                    {book?.summary?.split("\n").map((paragraph, index) => (
+                        <Paragraph key={index} align="justify">{paragraph}</Paragraph>
+                    ))}
 
                     <BoxContainer display="flex" flexDirection="column" gap={2}>
                         {files.map((file) => (

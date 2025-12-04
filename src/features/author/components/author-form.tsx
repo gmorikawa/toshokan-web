@@ -1,6 +1,7 @@
 import SubmitButton from "@/components/button/submit-button";
 import StackContainer from "@/components/container/stack-container";
 import FormTextField from "@/components/form/form-text-field";
+import FormTextareaField from "@/components/form/form-textarea-field";
 import type { Form } from "@/components/form/use-form";
 
 export interface AuthorFormProps<Entity> {
@@ -15,8 +16,19 @@ export function AuthorForm<Entity>({ form, onSubmit }: AuthorFormProps<Entity>) 
 
     return (
         <StackContainer spacing={4}>
-            <FormTextField form={form} label="Full name" property="fullname" />
-            <FormTextField form={form} label="Biography" property="biography" />
+            <FormTextField
+                form={form}
+                label="Full name"
+                property="fullname"
+            />
+
+            <FormTextareaField
+                form={form}
+                label="Biography"
+                property="biography"
+                allowResize
+                rows={10}
+            />
 
             <SubmitButton onSubmit={handleSubmit}>Submit</SubmitButton>
         </StackContainer>

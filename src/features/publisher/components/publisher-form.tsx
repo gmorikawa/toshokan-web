@@ -1,6 +1,7 @@
 import SubmitButton from "@/components/button/submit-button";
 import StackContainer from "@/components/container/stack-container";
 import FormTextField from "@/components/form/form-text-field";
+import FormTextareaField from "@/components/form/form-textarea-field";
 import type { Form } from "@/components/form/use-form";
 
 export interface PublisherFormProps<Entity> {
@@ -22,10 +23,12 @@ export function PublisherForm<Entity>({ form, onSubmit }: PublisherFormProps<Ent
                 required
             />
 
-            <FormTextField
+            <FormTextareaField
                 form={form}
                 label="Description"
                 property="description"
+                allowResize
+                rows={10}
             />
 
             <SubmitButton onSubmit={handleSubmit}>Submit</SubmitButton>

@@ -18,6 +18,7 @@ import FormSelectField from "@/components/form/form-select-field";
 import FormTextField from "@/components/form/form-text-field";
 import SubmitButton from "@/components/button/submit-button";
 import StackContainer from "@/components/container/stack-container";
+import FormTextareaField from "@/components/form/form-textarea-field";
 
 export interface ResearchPaperFormProps<Entity> {
     form: Form<Entity>;
@@ -88,10 +89,12 @@ export function ResearchPaperForm<Entity>({ form, onSubmit }: ResearchPaperFormP
                 property="title"
             />
 
-            <FormTextField
+            <FormTextareaField
                 form={form}
                 label="Summary"
                 property="summary"
+                allowResize
+                rows={10}
             />
 
             <FormSelectField
