@@ -33,6 +33,7 @@ export function CreateBookPage() {
         default: {
             type: "FICTION",
             title: "",
+            subtitle: "",
             summary: "",
             language: null,
             authors: [],

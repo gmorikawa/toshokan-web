@@ -109,6 +109,13 @@ export function BookForm<Entity>({ form, onSubmit }: BookFormProps<Entity>) {
                 form={form}
                 label="Title"
                 property="title"
+                required
+            />
+
+            <FormTextField
+                form={form}
+                label="Subtitle"
+                property="subtitle"
             />
 
             <FormTextField

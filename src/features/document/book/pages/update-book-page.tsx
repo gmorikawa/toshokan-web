@@ -49,6 +49,7 @@ export function UpdateBookPage() {
         default: {
             id: "",
             title: "",
+            subtitle: "",
             summary: "",
             language: null,
             authors: [],
