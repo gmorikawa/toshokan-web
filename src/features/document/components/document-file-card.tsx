@@ -5,6 +5,7 @@ import Card from "@/components/card/card";
 import FlexContainer from "@/components/container/flex-container";
 import Information from "@/components/data-display/information";
 import RestrictedContent from "@/features/auth/components/restricted-content";
+import Badge from "@/components/data-display/badge";
 
 export interface DocumentFileCardProps {
     documentFile: DocumentFile;
@@ -45,6 +46,12 @@ export function DocumentFileCard({ documentFile, onRemove, onDownload }: Documen
                 </Information.Item>
                 <Information.Item label="Description">
                     {documentFile?.description}
+                </Information.Item>
+
+                <Information.Item label="File Type">
+                    <Badge>
+                        {documentFile?.file?.type?.extension}
+                    </Badge>
                 </Information.Item>
             </Information.Container>
         </Card>
