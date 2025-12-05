@@ -13,6 +13,7 @@ import TextButton from "@/components/button/text-button";
 import {
     AuthorIcon,
     BookIcon,
+    BundleIcon,
     CategoryIcon,
     LanguageIcon,
     OrganizationIcon,
@@ -123,6 +124,7 @@ export function Menu() {
 
             <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
                 <MenuGroup title="Settings">
+                    <MenuItem icon={<BundleIcon />} label="Bundles" link={AppRoute.BUNDLE_LIST} />
                     <MenuItem icon={<AuthorIcon />} label="Authors" link={AppRoute.AUTHOR_LIST} />
                     <MenuItem icon={<LanguageIcon />} label="Languages" link={AppRoute.LANGUAGE_LIST} />
                     <MenuItem icon={<CategoryIcon />} label="Categories" link={AppRoute.CATEGORY_LIST} />

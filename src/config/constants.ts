@@ -10,6 +10,7 @@ export const AppRoute = Object.freeze({
     TOPIC_LIST: "/app/topic/list",
     PUBLISHER_LIST: "/app/publisher/list",
     ORGANIZATION_LIST: "/app/organization/list",
+    BUNDLE_LIST: "/app/bundle/list",
 });
 
 export default AppRoute;

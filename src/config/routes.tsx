@@ -49,6 +49,10 @@ import CreateWhitepaperFormPage from "@/features/document/whitepaper/pages/creat
 import UpdateWhitepaperFormPage from "@/features/document/whitepaper/pages/update-whitepaper-page";
 import WhitepaperDetailsPage from "@/features/document/whitepaper/pages/details-page";
 
+import ListBundlePage from "@/features/bundle/pages/list-bundle-page";
+import CreateBundleFormPage from "@/features/bundle/pages/create-bundle-page";
+import UpdateBundleFormPage from "@/features/bundle/pages/update-bundle-page";
+
 export function RouteProvider() {
     return (
         <BrowserRouter>
@@ -120,6 +124,12 @@ export function RouteProvider() {
                         <Route path="list" element={<ListOrganizationPage />} />
                         <Route path="form" element={<CreateOrganizationFormPage />} />
                         <Route path="form/:id" element={<UpdateOrganizationFormPage />} />
+                    </Route>
+
+                    <Route path="bundle">
+                        <Route path="list" element={<ListBundlePage />} />
+                        <Route path="form" element={<CreateBundleFormPage />} />
+                        <Route path="form/:id" element={<UpdateBundleFormPage />} />
                     </Route>
                 </Route>
             </Routes>
