@@ -2,14 +2,19 @@ import type { NewAuthor, Author } from "@/types/models/author";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 
+import { removeNullishProperties } from "@/common/object";
+
+type AuthorQueryOptions = QueryOptions & {
+    fullname?: string;
+};
+
 export class AuthorService extends MainService implements Service {
-    async getAll(options?: QueryOptions): Promise<Author[]> {
-        const params: Record<string, string> = {
-            ...(options?.pagination ? {
-                "page": options.pagination.page.toString(),
-                "size": options.pagination.size.toString(),
-            } : {}),
-        };
+    async getAll(query?: AuthorQueryOptions): Promise<Author[]> {
+        const params: Record<string, string> = removeNullishProperties({
+            "page": query?.pagination?.page.toString(),
+            "size": query?.pagination?.size.toString(),
+            "query": query?.fullname,
+        });
 
         const queryString = new URLSearchParams(params).toString();
         if (queryString.length > 0) {

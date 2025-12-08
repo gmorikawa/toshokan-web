@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+import useAuthorSearch from "@/features/author/hooks/use-author-search";
+import useTopicSearch from "@/features/topic/hooks/use-topic-search";
 
+import type { Book } from "@/types/models/book";
 import type { Author } from "@/types/models/author";
 import type { Category } from "@/types/models/category";
 import type { Language } from "@/types/models/language";
@@ -7,11 +10,9 @@ import type { Publisher } from "@/types/models/publisher";
 import type { Topic } from "@/types/models/topic";
 import BookTypeUtil from "@/types/util/book-type.util";
 
-import AuthorService from "@/services/author-service";
 import CategoryService from "@/services/category-service";
 import LanguageService from "@/services/language-service";
 import PublisherService from "@/services/publisher-service";
-import TopicService from "@/services/topic-service";
 import useService from "@/services/use-service";
 import useAlert from "@/components/feedback/use-alert";
 
@@ -24,18 +25,19 @@ import StackContainer from "@/components/container/stack-container";
 import SubmitButton from "@/components/button/submit-button";
 import { FormTextareaField } from "@/components/form/form-textarea-field";
 
-export interface BookFormProps<Entity> {
-    form: Form<Entity>;
-    onSubmit?(entity: Entity): void;
+export interface BookFormProps {
+    form: Form<Book>;
+    onSubmit?(entity: Book): void;
 }
 
-export function BookForm<Entity>({ form, onSubmit }: BookFormProps<Entity>) {
+export function BookForm({ form, onSubmit }: BookFormProps) {
     const alert = useAlert();
     const languageService = useService<LanguageService>(LanguageService, { includeAuthorization: true });
     const categoryService = useService<CategoryService>(CategoryService, { includeAuthorization: true });
     const publisherService = useService<PublisherService>(PublisherService, { includeAuthorization: true });
-    const authorService = useService<AuthorService>(AuthorService, { includeAuthorization: true });
-    const topicService = useService<TopicService>(TopicService, { includeAuthorization: true });
+
+    const authors = useAuthorSearch();
+    const topics = useTopicSearch();
 
     function handleSubmit(): void {
         (onSubmit) && (onSubmit(form.entity));
@@ -44,8 +46,6 @@ export function BookForm<Entity>({ form, onSubmit }: BookFormProps<Entity>) {
     const [languages, setLanguages] = useState<Language[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [publishers, setPublishers] = useState<Publisher[]>([]);
-    const [authors, setAuthors] = useState<Author[]>([]);
-    const [topics, setTopics] = useState<Topic[]>([]);
 
     useEffect(() => {
         languageService.getAll()
@@ -71,26 +71,6 @@ export function BookForm<Entity>({ form, onSubmit }: BookFormProps<Entity>) {
         publisherService.getAll()
             .then((response: Publisher[]) => {
                 setPublishers(response);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }, []);
-
-    useEffect(() => {
-        authorService.getAll()
-            .then((response: Author[]) => {
-                setAuthors(response);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }, []);
-
-    useEffect(() => {
-        topicService.getAll()
-            .then((response: Topic[]) => {
-                setTopics(response);
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
@@ -141,23 +121,35 @@ export function BookForm<Entity>({ form, onSubmit }: BookFormProps<Entity>) {
                 form={form}
                 label="Authors"
                 property="authors"
-                options={authors}
+                placeholder="Select authors"
+                options={authors.data}
                 getLabel={(author: Author) => author.fullname}
                 getValue={(author: Author) => author.id}
                 multiple
+                onChange={(value: Author[]) => {
+                    authors.reset();
+                    form.onChange("authors", value);
+                }}
+                onInput={authors.search}
             />
 
             <FormComboField
                 form={form}
                 label="Topics"
                 property="topics"
-                options={topics}
+                placeholder="Select topics"
+                options={topics.data}
                 getLabel={(topic: Topic) => topic.name}
                 getValue={(topic: Topic) => topic.id}
                 multiple
+                onChange={(value: Topic[]) => {
+                    topics.reset();
+                    form.onChange("topics", value);
+                }}
+                onInput={topics.search}
             />
 
-            <FormSelectField
+            <FormComboField
                 form={form}
                 label="Category"
                 property="category"
@@ -167,7 +159,7 @@ export function BookForm<Entity>({ form, onSubmit }: BookFormProps<Entity>) {
                 getValue={(category: Category) => category.id}
             />
 
-            <FormSelectField
+            <FormComboField
                 form={form}
                 label="Publisher"
                 property="publisher"

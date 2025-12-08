@@ -1,0 +1,73 @@
+import type { Author } from "@/types/models/author";
+
+import { useEffect, useState } from "react";
+import type { Pagination } from "@/types/query";
+
+import useAlert from "@/components/feedback/use-alert";
+import usePagination from "@/components/pagination/use-pagination";
+import useService from "@/services/use-service";
+import AuthorService from "@/services/author-service";
+
+type Milliseconds = number;
+type Name = string;
+type Boolean = boolean;
+
+export interface AuthorSearchController {
+    data: Author[];
+    pagination: Pagination;
+
+    search(fullname: string): void;
+    reset(): void;
+}
+
+export interface AuthorSearchConfiguration {
+    debounceTime?: Milliseconds;
+    defaultFullname?: Name;
+
+    errorAlert?: Boolean;
+}
+
+export function useAuthorSearch(configuration?: AuthorSearchConfiguration): AuthorSearchController {
+    const debounceTime = configuration?.debounceTime ?? 500;
+    const defaultFullname = configuration?.defaultFullname ?? "";
+    const errorAlert = configuration?.errorAlert ?? false;
+
+    const service = useService<AuthorService>(AuthorService, { includeAuthorization: true });
+    const [fullname, setFullname] = useState<Name>(defaultFullname);
+    const [data, setData] = useState<Author[]>([]);
+
+    const alert = useAlert();
+    const pagination = usePagination();
+
+    const search = async (fullname?: string) => {
+        setFullname(fullname || "");
+    };
+
+    const reset = () => {
+        search(undefined);
+    };
+
+    useEffect(() => {
+        const newTimer = setTimeout(() => {
+            service.getAll({ fullname, pagination })
+                .then((result) => {
+                    setData(result);
+                })
+                .catch((error: Error) => {
+                    if (!errorAlert) {
+                        alert.showErrorMessage(error);
+                    }
+                });
+        }, debounceTime);
+
+        return () => clearTimeout(newTimer);
+    }, [fullname, pagination.page, pagination.size]);
+    return {
+        data,
+        pagination,
+        search,
+        reset
+    };
+}
+
+export default useAuthorSearch;

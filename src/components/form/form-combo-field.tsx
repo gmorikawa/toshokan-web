@@ -2,11 +2,11 @@ import { useMemo } from "react";
 import type { Form } from "./use-form";
 import ComboField, { type ComboFieldProps } from "../input/combo-field";
 
-interface FormComboFieldProps<Entity> extends ComboFieldProps<Entity> {
+export interface FormComboFieldProps<Entity> extends ComboFieldProps<Entity> {
     form: Form;
 }
 
-function FormComboField<Entity>({ form, property, options, ...others }: FormComboFieldProps<Entity>) {
+export function FormComboField<Entity>({ form, property, options, ...others }: FormComboFieldProps<Entity>) {
     const handleChange = (entities: Entity[]): void => {
         form.updateValue(property, entities);
     };
@@ -25,6 +25,4 @@ function FormComboField<Entity>({ form, property, options, ...others }: FormComb
     );
 }
 
-export { FormComboField };
-export type { FormComboFieldProps };
 export default FormComboField;

@@ -1,15 +1,19 @@
 import type { NewTopic, Topic } from "@/types/models/topic";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
+import { removeNullishProperties } from "@/common/object";
+
+type TopicQueryOptions = QueryOptions & {
+    name?: string;
+};
 
 export class TopicService extends MainService implements Service {
-    async getAll(options?: QueryOptions): Promise<Topic[]> {
-        const params: Record<string, string> = {
-            ...(options?.pagination ? {
-                "page": options.pagination.page.toString(),
-                "size": options.pagination.size.toString(),
-            } : {}),
-        };
+    async getAll(query?: TopicQueryOptions): Promise<Topic[]> {
+        const params: Record<string, string> = removeNullishProperties({
+            "page": query?.pagination?.page.toString(),
+            "size": query?.pagination?.size.toString(),
+            "query": query?.name,
+        });
 
         const queryString = new URLSearchParams(params).toString();
         if (queryString.length > 0) {
