@@ -17,6 +17,7 @@ export interface AuthorSearchController {
     pagination: Pagination;
 
     search(fullname: string): void;
+    create(): void;
     reset(): void;
 }
 
@@ -47,6 +48,18 @@ export function useAuthorSearch(configuration?: AuthorSearchConfiguration): Auth
         search(undefined);
     };
 
+    const create = () => {
+        service.create({ fullname })
+            .then((result: Author) => {
+                setData([result, ...data]);
+            })
+            .catch((error: Error) => {
+                if (errorAlert) {
+                    alert.showErrorMessage(error);
+                }
+            });
+    };
+
     useEffect(() => {
         const newTimer = setTimeout(() => {
             service.getAll({ fullname, pagination })
@@ -66,6 +79,7 @@ export function useAuthorSearch(configuration?: AuthorSearchConfiguration): Auth
         data,
         pagination,
         search,
+        create,
         reset
     };
 }

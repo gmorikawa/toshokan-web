@@ -96,11 +96,15 @@ export function WhitepaperForm({ form, onSubmit }: WhitepaperFormProps) {
                 getLabel={(author: Author) => author.fullname}
                 getValue={(author: Author) => author.id}
                 multiple
+                allowCreate
                 onChange={(value: Author[]) => {
                     authors.reset();
                     form.onChange("authors", value);
                 }}
                 onInput={authors.search}
+                onCreate={() => {
+                    authors.create();
+                }}
             />
 
             <FormComboField
@@ -112,11 +116,15 @@ export function WhitepaperForm({ form, onSubmit }: WhitepaperFormProps) {
                 getLabel={(topic: Topic) => topic.name}
                 getValue={(topic: Topic) => topic.id}
                 multiple
+                allowCreate
                 onChange={(value: Topic[]) => {
                     topics.reset();
                     form.onChange("topics", value);
                 }}
                 onInput={topics.search}
+                onCreate={() => {
+                    topics.create();
+                }}
             />
 
             <FormSelectField

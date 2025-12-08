@@ -17,6 +17,7 @@ export interface TopicSearchController {
     pagination: Pagination;
 
     search(name: string): void;
+    create(): void;
     reset(): void;
 }
 
@@ -47,6 +48,18 @@ export function useTopicSearch(configuration?: TopicSearchConfiguration): TopicS
         search(undefined);
     };
 
+    const create = () => {
+        service.create({ name })
+            .then((result: Topic) => {
+                setData([result, ...data]);
+            })
+            .catch((error: Error) => {
+                if (errorAlert) {
+                    alert.showErrorMessage(error);
+                }
+            });
+    };
+
     useEffect(() => {
         const newTimer = setTimeout(() => {
             service.getAll({ name, pagination })
@@ -66,6 +79,7 @@ export function useTopicSearch(configuration?: TopicSearchConfiguration): TopicS
         data,
         pagination,
         search,
+        create,
         reset
     };
 }
