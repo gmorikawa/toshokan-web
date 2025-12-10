@@ -2,15 +2,19 @@ import type { DocumentFile, NewDocumentFile } from "@/types/models/document-file
 import type { NewResearchPaper, ResearchPaper } from "@/types/models/research-paper";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
+import { removeNullishProperties } from "@/common/object";
+
+type ResearchPaperQueryOptions = QueryOptions & {
+    title?: string;
+};
 
 export class ResearchPaperService extends MainService implements Service {
-    async getAll(options?: QueryOptions): Promise<ResearchPaper[]> {
-        const params: Record<string, string> = {
-            ...(options?.pagination ? {
-                "page": options.pagination.page.toString(),
-                "size": options.pagination.size.toString(),
-            } : {}),
-        };
+    async getAll(query?: ResearchPaperQueryOptions): Promise<ResearchPaper[]> {
+        const params: Record<string, string> = removeNullishProperties({
+            "page": query?.pagination?.page.toString(),
+            "size": query?.pagination?.size.toString(),
+            "query": query?.title,
+        });
 
         const queryString = new URLSearchParams(params).toString();
         if (queryString.length > 0) {

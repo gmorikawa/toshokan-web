@@ -24,7 +24,7 @@ import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filt
 export function ListAuthorPage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
 
-    const list = useListAuthors();
+    const authors = useListAuthors();
     const alert = useAlert();
     const router = useRouter();
     const service = useService<AuthorService>(AuthorService, { includeAuthorization: true });
@@ -40,11 +40,15 @@ export function ListAuthorPage() {
     const handleRemove = (entity: Author): void => {
         service.remove(entity)
             .then(() => {
-                list.reload();
+                authors.refresh();
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
+    };
+
+    const handlePageChange = (page: number): void => {
+        authors.pagination.update(page);
     };
 
     return (
@@ -59,26 +63,23 @@ export function ListAuthorPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <LoadingBoundary.Root loader={list}>
+                <LoadingBoundary.Root loader={authors.loader}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />
                     </LoadingBoundary.LoadingState>
 
                     <LoadingBoundary.SuccessState>
-                        {(list.data.length > 0) && (
+                        {(authors.data.length > 0) && (
                             <AuthorTable
-                                data={list.data}
-                                pagination={list.pagination}
+                                data={authors.data}
+                                pagination={authors.pagination}
                                 onUpdate={handleUpdate}
                                 onRemove={handleRemove}
-                                onPageChange={(page: number) => {
-                                    list.pagination.setPage(page);
-                                    list.reload();
-                                }}
+                                onPageChange={handlePageChange}
                             />
                         )}
 
-                        {(list.data?.length === 0) && (
+                        {(authors.data?.length === 0) && (
                             <EmptyList />
                         )}
                     </LoadingBoundary.SuccessState>

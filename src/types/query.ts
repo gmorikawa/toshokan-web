@@ -1,8 +1,4 @@
-export interface Pagination {
-    page: number;
-    size: number;
-    count: number;
-}
+import type { Pagination } from "@/common/pagination";
 
 export interface QueryOptions {
     pagination?: Pagination;

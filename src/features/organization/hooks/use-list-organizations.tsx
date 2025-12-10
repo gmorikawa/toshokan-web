@@ -1,16 +1,19 @@
 import type { Organization } from "@/types/models/organization";
-
-import { useEffect } from "react";
-import type { Pagination } from "@/types/query";
-import { useListLoader, type ListLoader } from "@/hooks/list/use-list-loader";
+import type { Count, Pagination } from "@/common/pagination";
+import type { Loader } from "@/common/loader";
 
 import useAlert from "@/components/feedback/use-alert";
-import usePagination from "@/components/pagination/use-pagination";
+import usePagination from "@/hooks/use-pagination";
+import useLoader from "@/hooks/use-loader";
 import useService from "@/services/use-service";
 import OrganizationService from "@/services/organization-service";
 
-export interface UseListOrganizations extends ListLoader<Organization[]> {
+export interface UseListOrganizations {
+    data: Organization[];
     pagination: Pagination;
+    loader: Loader;
+
+    refresh(): void;
 }
 
 export function useListOrganizations() {
@@ -19,34 +22,37 @@ export function useListOrganizations() {
     const service = useService<OrganizationService>(OrganizationService, { includeAuthorization: true });
 
     const loadList = async (pagination?: Pagination) => {
-        return service.getAll({ pagination })
-            .then((result) => {
-                return result;
-            });
+        return service.getAll({ pagination });
     };
 
     const loadCount = () => {
         service.countAll()
-            .then((result) => {
-                pagination.setCount(result);
+            .then((count: Count) => {
+                pagination.update(pagination.page, pagination.size, count);
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
-                pagination.setCount(0);
+                pagination.update(pagination.page, pagination.size, 0);
             });
     };
 
-    const loader = useListLoader<Organization>({
-        loadData: () => loadList(pagination),
+    const loader = useLoader<Organization[]>({
+        loadFunction: async () => {
+            loadCount();
+            return loadList(pagination);
+        },
+        dependencies: [pagination.page, pagination.size],
     });
 
-    useEffect(() => {
-        loadCount();
-    }, []);
+    const refresh = () => {
+        loader.load();
+    };
 
     return {
-        ...loader,
+        data: loader.data || [],
         pagination,
+        loader,
+        refresh,
     };
 }
 

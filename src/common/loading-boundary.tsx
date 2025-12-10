@@ -1,8 +1,8 @@
-import type { ListLoader } from "@/hooks/list/use-list-loader";
 import { Fragment } from "react";
+import { type Loader } from "@/common/loader";
 
-export interface LoadingBoundaryProps<Entity> {
-    loader?: ListLoader<Entity>;
+export interface LoadingBoundaryProps {
+    loader?: Loader;
     children: React.ReactElement[];
 }
 
@@ -18,7 +18,7 @@ function ErrorState({ children }: React.PropsWithChildren) {
     return children;
 }
 
-function Root<Entity>({ loader, children }: LoadingBoundaryProps<Entity>) {
+function Root({ loader, children }: LoadingBoundaryProps) {
     const loadingComponent = children.find((child) => child.type === LoadingState);
     const errorComponent = children.find((child) => child.type === ErrorState);
     const successComponent = children.find((child) => child.type === SuccessState);

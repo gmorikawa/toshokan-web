@@ -24,7 +24,7 @@ import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filt
 export function ListTopicPage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
 
-    const list = useListTopics();
+    const topics = useListTopics();
     const alert = useAlert();
     const router = useRouter();
     const service = useService<TopicService>(TopicService, { includeAuthorization: true });
@@ -40,11 +40,15 @@ export function ListTopicPage() {
     const handleRemove = (entity: Topic): void => {
         service.remove(entity)
             .then(() => {
-                list.reload();
+                topics.refresh();
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
+    };
+
+    const handlePageChange = (page: number): void => {
+        topics.pagination.update(page);
     };
 
     return (
@@ -59,26 +63,23 @@ export function ListTopicPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <LoadingBoundary.Root loader={list}>
+                <LoadingBoundary.Root loader={topics.loader}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />
                     </LoadingBoundary.LoadingState>
 
                     <LoadingBoundary.SuccessState>
-                        {(list.data.length > 0) && (
+                        {(topics.data.length > 0) && (
                             <TopicTable
-                                data={list.data}
-                                pagination={list.pagination}
+                                data={topics.data}
+                                pagination={topics.pagination}
                                 onUpdate={handleUpdate}
                                 onRemove={handleRemove}
-                                onPageChange={(page: number) => {
-                                    list.pagination.setPage(page);
-                                    list.reload();
-                                }}
+                                onPageChange={handlePageChange}
                             />
                         )}
 
-                        {(list.data?.length === 0) && (
+                        {(topics.data?.length === 0) && (
                             <EmptyList />
                         )}
                     </LoadingBoundary.SuccessState>

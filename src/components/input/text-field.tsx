@@ -1,22 +1,26 @@
 import {
     Field,
     Input,
+    InputGroup,
 } from '@chakra-ui/react';
 import type { ThemeProps } from '..';
 
 export interface TextFieldProps extends ThemeProps {
-    label: string;
+    label?: string;
     property: string;
     value?: string | number;
     placeholder?: string;
     required?: boolean;
     error?: string;
 
+    startIcon?: React.ReactNode;
+    endIcon?: React.ReactNode;
+
     onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
     onBlur?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
-export function TextField({ label, property, value, placeholder, required, error, onChange, onBlur, palette }: TextFieldProps) {
+export function TextField({ label, property, value, placeholder, required, error, onChange, onBlur, palette, startIcon, endIcon }: TextFieldProps) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         (onChange) && (onChange(e));
     };
@@ -37,14 +41,16 @@ export function TextField({ label, property, value, placeholder, required, error
                 <Field.RequiredIndicator />
             </Field.Label>
 
-            <Input
-                name={property}
-                type="text"
-                value={value}
-                placeholder={placeholder ?? ""}
-                onChange={handleChange}
-                onBlur={handleBlur}
-            />
+            <InputGroup startElement={startIcon} endElement={endIcon}>
+                <Input
+                    name={property}
+                    type="text"
+                    value={value}
+                    placeholder={placeholder ?? ""}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                />
+            </InputGroup>
 
             <Field.ErrorText>
                 {error}

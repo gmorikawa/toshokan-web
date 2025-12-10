@@ -16,15 +16,15 @@ import EmptyList from "@/common/empty-list";
 import ListSkeleton from "@/common/list-skeleton";
 import ListError from "@/common/list-error";
 import LoadingBoundary from "@/common/loading-boundary";
-import useListUsers from "@/features/user/hooks/use-list-users";
-import UserTable from "@/features/user/components/user-table";
 
 import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+import useListUsers from "@/features/user/hooks/use-list-users";
+import UserTable from "@/features/user/components/user-table";
 
 export function ListUserPage() {
     const authorization = useAuthorizationFilter("ADMIN");
 
-    const list = useListUsers();
+    const users = useListUsers();
     const alert = useAlert();
     const router = useRouter();
     const service = useService<UserService>(UserService, { includeAuthorization: true });
@@ -40,11 +40,15 @@ export function ListUserPage() {
     const handleRemove = (entity: User): void => {
         service.remove(entity)
             .then(() => {
-                list.reload();
+                users.refresh();
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
+    };
+
+    const handlePageChange = (page: number): void => {
+        users.pagination.update(page);
     };
 
     return (
@@ -59,26 +63,23 @@ export function ListUserPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <LoadingBoundary.Root loader={list}>
+                <LoadingBoundary.Root loader={users.loader}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />
                     </LoadingBoundary.LoadingState>
 
                     <LoadingBoundary.SuccessState>
-                        {(list.data.length > 0) && (
+                        {(users.data.length > 0) && (
                             <UserTable
-                                data={list.data}
-                                pagination={list.pagination}
+                                data={users.data}
+                                pagination={users.pagination}
                                 onUpdate={handleUpdate}
                                 onRemove={handleRemove}
-                                onPageChange={(page: number) => {
-                                    list.pagination.setPage(page);
-                                    list.reload();
-                                }}
+                                onPageChange={handlePageChange}
                             />
                         )}
 
-                        {(list.data?.length === 0) && (
+                        {(users.data?.length === 0) && (
                             <EmptyList />
                         )}
                     </LoadingBoundary.SuccessState>

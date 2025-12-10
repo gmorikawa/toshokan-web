@@ -16,12 +16,14 @@ import EmptyList from "@/common/empty-list";
 import ListSkeleton from "@/common/list-skeleton";
 import ListError from "@/common/list-error";
 import LoadingBoundary from "@/common/loading-boundary";
-import useListResearchPapers from "@/features/document/research-paper/hooks/use-list-research-papers";
+
+import useResearchPaperSearch from "@/features/document/research-paper/hooks/use-research-paper-search";
 import ResearchPaperTable from "@/features/document/research-paper/components/research-paper-table";
 import RestrictedContent from "@/features/auth/components/restricted-content";
+import DocumentSearchField from "@/features/document/components/document-search-field";
 
 export function ListResearchPaperPage() {
-    const list = useListResearchPapers();
+    const researchPapers = useResearchPaperSearch();
     const alert = useAlert();
     const router = useRouter();
     const service = useService<ResearchPaperService>(ResearchPaperService, { includeAuthorization: true });
@@ -36,16 +38,24 @@ export function ListResearchPaperPage() {
 
     const handleDetail = (entity: ResearchPaper): void => {
         router.navigateTo(`/app/research-paper/details/${entity.id}`);
-    }
+    };
 
     const handleRemove = (entity: ResearchPaper): void => {
         service.remove(entity)
             .then(() => {
-                list.reload();
+                researchPapers.refresh();
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
+    };
+
+    const handleSearch = (query: string): void => {
+        researchPapers.search(query);
+    };
+
+    const handlePageChange = (page: number): void => {
+        researchPapers.pagination.update(page);
     };
 
     return (
@@ -62,27 +72,29 @@ export function ListResearchPaperPage() {
             />
 
             <ApplicationContent>
-                <LoadingBoundary.Root loader={list}>
+                <DocumentSearchField
+                    query={researchPapers.query}
+                    onSearch={handleSearch}
+                />
+
+                <LoadingBoundary.Root loader={researchPapers.loader}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />
                     </LoadingBoundary.LoadingState>
 
                     <LoadingBoundary.SuccessState>
-                        {(list.data.length > 0) && (
+                        {(researchPapers.data.length > 0) && (
                             <ResearchPaperTable
-                                data={list.data}
-                                pagination={list.pagination}
+                                data={researchPapers.data}
+                                pagination={researchPapers.pagination}
                                 onUpdate={handleUpdate}
                                 onRemove={handleRemove}
                                 onDetail={handleDetail}
-                                onPageChange={(page: number) => {
-                                    list.pagination.setPage(page);
-                                    list.reload();
-                                }}
+                                onPageChange={handlePageChange}
                             />
                         )}
 
-                        {(list.data?.length === 0) && (
+                        {(researchPapers?.data?.length === 0) && (
                             <EmptyList />
                         )}
                     </LoadingBoundary.SuccessState>

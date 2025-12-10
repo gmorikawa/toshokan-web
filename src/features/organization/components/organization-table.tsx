@@ -1,5 +1,5 @@
 import type { Organization } from "@/types/models/organization";
-import type { Pagination } from "@/types/query";
+import type { Pagination } from "@/common/pagination";
 
 import DataTable from "@/components/table/data-table";
 import FlexContainer from "@/components/container/flex-container";

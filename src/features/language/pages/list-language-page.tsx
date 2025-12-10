@@ -24,7 +24,7 @@ import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filt
 export function ListLanguagePage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
 
-    const list = useListLanguages();
+    const languages = useListLanguages();
     const alert = useAlert();
     const router = useRouter();
     const service = useService<LanguageService>(LanguageService, { includeAuthorization: true });
@@ -40,11 +40,15 @@ export function ListLanguagePage() {
     const handleRemove = (entity: Language): void => {
         service.remove(entity)
             .then(() => {
-                list.reload();
+                languages.refresh();
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
+    };
+
+    const handlePageChange = (page: number): void => {
+        languages.pagination.update(page);
     };
 
     return (
@@ -59,26 +63,23 @@ export function ListLanguagePage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <LoadingBoundary.Root loader={list}>
+                <LoadingBoundary.Root loader={languages.loader}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />
                     </LoadingBoundary.LoadingState>
 
                     <LoadingBoundary.SuccessState>
-                        {(list.data.length > 0) && (
+                        {(languages.data.length > 0) && (
                             <LanguageTable
-                                data={list.data}
-                                pagination={list.pagination}
+                                data={languages.data}
+                                pagination={languages.pagination}
                                 onUpdate={handleUpdate}
                                 onRemove={handleRemove}
-                                onPageChange={(page: number) => {
-                                    list.pagination.setPage(page);
-                                    list.reload();
-                                }}
+                                onPageChange={handlePageChange}
                             />
                         )}
 
-                        {(list.data?.length === 0) && (
+                        {(languages.data?.length === 0) && (
                             <EmptyList />
                         )}
                     </LoadingBoundary.SuccessState>

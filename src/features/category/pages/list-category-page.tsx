@@ -24,7 +24,7 @@ import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filt
 export function ListCategoryPage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
 
-    const list = useListCategories();
+    const categories = useListCategories();
     const alert = useAlert();
     const router = useRouter();
     const service = useService<CategoryService>(CategoryService, { includeAuthorization: true });
@@ -40,11 +40,15 @@ export function ListCategoryPage() {
     const handleRemove = (entity: Category): void => {
         service.remove(entity)
             .then(() => {
-                list.reload();
+                categories.refresh();
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
+    };
+
+    const handlePageChange = (page: number): void => {
+        categories.pagination.update(page);
     };
 
     return (
@@ -59,26 +63,23 @@ export function ListCategoryPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <LoadingBoundary.Root loader={list}>
+                <LoadingBoundary.Root loader={categories.loader}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />
                     </LoadingBoundary.LoadingState>
 
                     <LoadingBoundary.SuccessState>
-                        {(list.data.length > 0) && (
+                        {(categories.data.length > 0) && (
                             <CategoryTable
-                                data={list.data}
-                                pagination={list.pagination}
+                                data={categories.data}
+                                pagination={categories.pagination}
                                 onUpdate={handleUpdate}
                                 onRemove={handleRemove}
-                                onPageChange={(page: number) => {
-                                    list.pagination.setPage(page);
-                                    list.reload();
-                                }}
+                                onPageChange={handlePageChange}
                             />
                         )}
 
-                        {(list.data?.length === 0) && (
+                        {(categories.data?.length === 0) && (
                             <EmptyList />
                         )}
                     </LoadingBoundary.SuccessState>

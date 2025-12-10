@@ -1,10 +1,10 @@
 import type { Topic } from "@/types/models/topic";
 
 import { useEffect, useState } from "react";
-import type { Pagination } from "@/types/query";
+import type { Pagination } from "@/common/pagination";
 
 import useAlert from "@/components/feedback/use-alert";
-import usePagination from "@/components/pagination/use-pagination";
+import usePagination from "@/hooks/use-pagination";
 import useService from "@/services/use-service";
 import TopicService from "@/services/topic-service";
 

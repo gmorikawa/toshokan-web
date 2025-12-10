@@ -24,7 +24,7 @@ import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filt
 export function ListBundlePage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
 
-    const list = useListBundles();
+    const bundles = useListBundles();
     const alert = useAlert();
     const router = useRouter();
     const service = useService<BundleService>(BundleService, { includeAuthorization: true });
@@ -40,11 +40,15 @@ export function ListBundlePage() {
     const handleRemove = (entity: Bundle): void => {
         service.remove(entity)
             .then(() => {
-                list.reload();
+                bundles.refresh();
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
+    };
+
+    const handlePageChange = (page: number): void => {
+        bundles.pagination.update(page);
     };
 
     return (
@@ -59,26 +63,23 @@ export function ListBundlePage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <LoadingBoundary.Root loader={list}>
+                <LoadingBoundary.Root loader={bundles.loader}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />
                     </LoadingBoundary.LoadingState>
 
                     <LoadingBoundary.SuccessState>
-                        {(list.data.length > 0) && (
+                        {(bundles.data.length > 0) && (
                             <BundleTable
-                                data={list.data}
-                                pagination={list.pagination}
+                                data={bundles.data}
+                                pagination={bundles.pagination}
                                 onUpdate={handleUpdate}
                                 onRemove={handleRemove}
-                                onPageChange={(page: number) => {
-                                    list.pagination.setPage(page);
-                                    list.reload();
-                                }}
+                                onPageChange={handlePageChange}
                             />
                         )}
 
-                        {(list.data?.length === 0) && (
+                        {(bundles.data?.length === 0) && (
                             <EmptyList />
                         )}
                     </LoadingBoundary.SuccessState>

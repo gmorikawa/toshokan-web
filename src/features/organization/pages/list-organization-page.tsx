@@ -16,15 +16,15 @@ import EmptyList from "@/common/empty-list";
 import ListSkeleton from "@/common/list-skeleton";
 import ListError from "@/common/list-error";
 import LoadingBoundary from "@/common/loading-boundary";
-import useListOrganizations from "@/features/organization/hooks/use-list-organizations";
-import OrganizationTable from "@/features/organization/components/organization-table";
 
 import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+import useListOrganizations from "@/features/organization/hooks/use-list-organizations";
+import OrganizationTable from "@/features/organization/components/organization-table";
 
 export function ListOrganizationPage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
 
-    const list = useListOrganizations();
+    const organizations = useListOrganizations();
     const alert = useAlert();
     const router = useRouter();
     const service = useService<OrganizationService>(OrganizationService, { includeAuthorization: true });
@@ -40,11 +40,15 @@ export function ListOrganizationPage() {
     const handleRemove = (entity: Organization): void => {
         service.remove(entity)
             .then(() => {
-                list.reload();
+                organizations.refresh();
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
+    };
+
+    const handlePageChange = (page: number): void => {
+        organizations.pagination.update(page);
     };
 
     return (
@@ -59,26 +63,23 @@ export function ListOrganizationPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <LoadingBoundary.Root loader={list}>
+                <LoadingBoundary.Root loader={organizations.loader}>
                     <LoadingBoundary.LoadingState>
                         <ListSkeleton />
                     </LoadingBoundary.LoadingState>
 
                     <LoadingBoundary.SuccessState>
-                        {(list.data.length > 0) && (
+                        {(organizations.data.length > 0) && (
                             <OrganizationTable
-                                data={list.data}
-                                pagination={list.pagination}
+                                data={organizations.data}
+                                pagination={organizations.pagination}
                                 onUpdate={handleUpdate}
                                 onRemove={handleRemove}
-                                onPageChange={(page: number) => {
-                                    list.pagination.setPage(page);
-                                    list.reload();
-                                }}
+                                onPageChange={handlePageChange}
                             />
                         )}
 
-                        {(list.data?.length === 0) && (
+                        {(organizations.data?.length === 0) && (
                             <EmptyList />
                         )}
                     </LoadingBoundary.SuccessState>
