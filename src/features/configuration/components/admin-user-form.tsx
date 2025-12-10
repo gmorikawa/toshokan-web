@@ -1,4 +1,4 @@
-import type { NewUser } from "@/types/models/user";
+import type { NewUser } from "@/features/user/types/user";
 
 import { type Form } from "@/components/form/use-form";
 

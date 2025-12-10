@@ -1,5 +1,5 @@
-import type { Organization } from "@/types/models/organization";
-import { organizationValidator } from "@/types/validators/organization/organization.validator";
+import type { Organization } from "@/features/organization/types/organization";
+import { organizationValidator } from "@/features/organization/validators/organization.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";

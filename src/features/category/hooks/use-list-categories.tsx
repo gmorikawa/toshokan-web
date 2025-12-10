@@ -1,4 +1,4 @@
-import type { Category } from "@/types/models/category";
+import type { Category } from "@/features/category/types/category";
 import type { Count, Pagination } from "@/common/pagination";
 import type { Loader } from "@/common/loader";
 

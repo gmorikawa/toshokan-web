@@ -1,4 +1,4 @@
-import type { Author } from "@/types/models/author";
+import type { Author } from "@/features/author/types/author";
 
 import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";

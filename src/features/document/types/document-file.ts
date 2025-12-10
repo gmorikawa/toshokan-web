@@ -1,6 +1,6 @@
-import type { BinaryFile } from "../binary-file";
+import type { BinaryFile } from "../../../types/binary-file";
 import type { Document } from "./document";
-import type { File } from "./file";
+import type { File } from "../../file/types/file";
 
 export interface DocumentFile {
     id: string;

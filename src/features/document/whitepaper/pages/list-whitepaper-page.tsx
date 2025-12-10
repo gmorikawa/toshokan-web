@@ -1,4 +1,4 @@
-import type { Whitepaper } from "@/types/models/whitepaper";
+import type { Whitepaper } from "@/features/document/whitepaper/types/whitepaper";
 
 import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";

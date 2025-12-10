@@ -1,6 +1,6 @@
-import type { Category } from "./category";
-import type { Document, NewDocument } from "./document";
-import type { Publisher } from "./publisher";
+import type { Category } from "../../../category/types/category";
+import type { Document, NewDocument } from "../../types/document";
+import type { Publisher } from "../../../publisher/types/publisher";
 
 export type BookType = "FICTION" | "NON_FICTION";
 

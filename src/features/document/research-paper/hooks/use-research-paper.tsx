@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useService from "@/services/use-service";
 import ResearchPaperService from "@/services/research-paper-service";
 
-import type { ResearchPaper } from "@/types/models/research-paper";
+import type { ResearchPaper } from "@/features/document/research-paper/types/research-paper";
 import useAlert from "@/components/feedback/use-alert";
 
 export interface UseResearchPaperResult {

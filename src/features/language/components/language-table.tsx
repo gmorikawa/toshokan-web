@@ -1,4 +1,4 @@
-import type { Language } from "@/types/models/language";
+import type { Language } from "@/features/language/types/language";
 import type { Pagination } from "@/common/pagination";
 
 import DataTable from "@/components/table/data-table";

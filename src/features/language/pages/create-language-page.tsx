@@ -1,5 +1,5 @@
-import type { NewLanguage } from "@/types/models/language";
-import { newLanguageValidator } from "@/types/validators/language/new-language.validator";
+import type { NewLanguage } from "@/features/language/types/language";
+import { newLanguageValidator } from "@/features/language/validators/new-language.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";

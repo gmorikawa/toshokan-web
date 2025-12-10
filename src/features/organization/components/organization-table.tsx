@@ -1,4 +1,4 @@
-import type { Organization } from "@/types/models/organization";
+import type { Organization } from "@/features/organization/types/organization";
 import type { Pagination } from "@/common/pagination";
 
 import DataTable from "@/components/table/data-table";

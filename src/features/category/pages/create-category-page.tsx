@@ -1,5 +1,5 @@
-import type { NewCategory } from "@/types/models/category";
-import { newCategoryValidator } from "@/types/validators/category/new-category.validator";
+import type { NewCategory } from "@/features/category/types/category";
+import { newCategoryValidator } from "@/features/category/validators/new-category.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";

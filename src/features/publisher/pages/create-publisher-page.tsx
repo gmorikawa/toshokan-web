@@ -1,5 +1,5 @@
-import type { NewPublisher } from "@/types/models/publisher";
-import { newPublisherValidator } from "@/types/validators/publisher/new-publisher.validator";
+import type { NewPublisher } from "@/features/publisher/types/publisher";
+import { newPublisherValidator } from "@/features/publisher/validators/new-publisher.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";

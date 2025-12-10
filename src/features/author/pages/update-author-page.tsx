@@ -1,5 +1,5 @@
-import type { Author } from "@/types/models/author";
-import { authorValidator } from "@/types/validators/author/author.validator";
+import type { Author } from "@/features/author/types/author";
+import { authorValidator } from "@/features/author/validators/author.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";

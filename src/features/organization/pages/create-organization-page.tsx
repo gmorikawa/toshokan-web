@@ -1,5 +1,5 @@
-import type { NewOrganization } from "@/types/models/organization";
-import { newOrganizationValidator } from "@/types/validators/organization/new-organization.validator";
+import type { NewOrganization } from "@/features/organization/types/organization";
+import { newOrganizationValidator } from "@/features/organization/validators/new-organization.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";

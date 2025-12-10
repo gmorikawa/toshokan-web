@@ -1,4 +1,4 @@
-import type { Organization } from "@/types/models/organization";
+import type { Organization } from "@/features/organization/types/organization";
 import type { Count, Pagination } from "@/common/pagination";
 import type { Loader } from "@/common/loader";
 

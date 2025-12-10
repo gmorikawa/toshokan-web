@@ -1,4 +1,4 @@
-import type { Book } from "@/types/models/book";
+import type { Book } from "@/features/document/book/types/book";
 
 import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";

@@ -1,4 +1,4 @@
-import type { Book } from "@/types/models/book";
+import type { Book } from "@/features/document/book/types/book";
 import type { Pagination } from "@/common/pagination";
 
 import DataTable from "@/components/table/data-table";

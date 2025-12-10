@@ -1,5 +1,5 @@
-import type { Whitepaper } from "@/types/models/whitepaper";
-import { whitepaperValidator } from "@/types/validators/whitepaper/whitepaper.validator";
+import type { Whitepaper } from "@/features/document/whitepaper/types/whitepaper";
+import { whitepaperValidator } from "@/features/document/whitepaper/validators/whitepaper.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";

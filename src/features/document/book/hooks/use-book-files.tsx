@@ -3,8 +3,8 @@ import useService from "@/services/use-service";
 import BookService from "@/services/book-service";
 
 import useAlert from "@/components/feedback/use-alert";
-import type { DocumentFile } from "@/types/models/document-file";
-import type { Book } from "@/types/models/book";
+import type { DocumentFile } from "@/features/document/types/document-file";
+import type { Book } from "@/features/document/book/types/book";
 
 export interface UseBookFilesResult {
     files: DocumentFile[];

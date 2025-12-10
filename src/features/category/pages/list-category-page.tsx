@@ -1,4 +1,4 @@
-import type { Category } from "@/types/models/category";
+import type { Category } from "@/features/category/types/category";
 
 import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";

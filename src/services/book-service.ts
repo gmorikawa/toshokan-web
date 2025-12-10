@@ -1,5 +1,5 @@
-import type { NewBook, Book } from "@/types/models/book";
-import type { DocumentFile, NewDocumentFile } from "@/types/models/document-file";
+import type { NewBook, Book } from "@/features/document/book/types/book";
+import type { DocumentFile, NewDocumentFile } from "@/features/document/types/document-file";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 import { removeNullishProperties } from "@/common/object";

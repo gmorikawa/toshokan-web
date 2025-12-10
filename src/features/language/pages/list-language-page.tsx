@@ -1,4 +1,4 @@
-import type { Language } from "@/types/models/language";
+import type { Language } from "@/features/language/types/language";
 
 import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";

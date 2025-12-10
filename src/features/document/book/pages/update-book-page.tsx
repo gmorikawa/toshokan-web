@@ -1,5 +1,5 @@
-import type { Book } from "@/types/models/book";
-import { bookValidator } from "@/types/validators/book/book.validator";
+import type { Book } from "@/features/document/book/types/book";
+import { bookValidator } from "@/features/document/book/validators/book.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";

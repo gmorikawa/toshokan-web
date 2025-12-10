@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import useAuthorSearch from "@/features/author/hooks/use-author-search";
 import useTopicSearch from "@/features/topic/hooks/use-topic-search";
 
-import type { Whitepaper } from "@/types/models/whitepaper";
-import type { Author } from "@/types/models/author";
-import type { Language } from "@/types/models/language";
-import type { Organization } from "@/types/models/organization";
-import type { Topic } from "@/types/models/topic";
+import type { NewWhitepaper, Whitepaper } from "@/features/document/whitepaper/types/whitepaper";
+import type { Author } from "@/features/author/types/author";
+import type { Language } from "@/features/language/types/language";
+import type { Organization } from "@/features/organization/types/organization";
+import type { Topic } from "@/features/topic/types/topic";
 
 import useAlert from "@/components/feedback/use-alert";
 import useService from "@/services/use-service";
@@ -22,8 +22,8 @@ import StackContainer from "@/components/container/stack-container";
 import { FormTextareaField } from "@/components/form/form-textarea-field";
 
 export interface WhitepaperFormProps {
-    form: Form<Whitepaper>;
-    onSubmit?(entity: Whitepaper): void;
+    form: Form<Whitepaper | NewWhitepaper>;
+    onSubmit?(entity: Whitepaper | NewWhitepaper): void;
 }
 
 export function WhitepaperForm({ form, onSubmit }: WhitepaperFormProps) {

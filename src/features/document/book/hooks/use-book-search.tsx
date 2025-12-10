@@ -1,4 +1,4 @@
-import type { Book } from "@/types/models/book";
+import type { Book } from "@/features/document/book/types/book";
 import type { Count, Pagination } from "@/common/pagination";
 
 import { useEffect, useState } from "react";

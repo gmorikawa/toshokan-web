@@ -1,4 +1,4 @@
-import type { UserRole } from "../models/user";
+import type { UserRole } from "../../features/user/types/user";
 
 export interface UserRoleMetadata {
     role: UserRole;

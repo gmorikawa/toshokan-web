@@ -1,4 +1,4 @@
-import type { Author } from "@/types/models/author";
+import type { Author } from "@/features/author/types/author";
 import type { Count, Pagination } from "@/common/pagination";
 import type { Loader } from "@/common/loader";
 

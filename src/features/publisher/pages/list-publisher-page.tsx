@@ -1,4 +1,4 @@
-import type { Publisher } from "@/types/models/publisher";
+import type { Publisher } from "@/features/publisher/types/publisher";
 
 import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";

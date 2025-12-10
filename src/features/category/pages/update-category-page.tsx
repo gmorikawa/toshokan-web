@@ -1,5 +1,5 @@
-import type { Category } from "@/types/models/category";
-import { categoryValidator } from "@/types/validators/category/category.validator";
+import type { Category } from "@/features/category/types/category";
+import { categoryValidator } from "@/features/category/validators/category.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";

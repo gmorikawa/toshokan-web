@@ -1,4 +1,4 @@
-import type { BookType } from "../models/book";
+import type { BookType } from "../../features/document/book/types/book";
 
 export interface BookTypeMetadata {
     type: BookType;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useService from "@/services/use-service";
 import BookService from "@/services/book-service";
 
-import type { Book } from "@/types/models/book";
+import type { Book } from "@/features/document/book/types/book";
 import useAlert from "@/components/feedback/use-alert";
 
 export interface UseBookResult {

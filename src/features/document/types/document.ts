@@ -1,7 +1,7 @@
-import type { Author } from "./author";
+import type { Author } from "../../author/types/author";
 import type { DocumentFile } from "./document-file";
-import type { Language } from "./language";
-import type { Topic } from "./topic";
+import type { Language } from "../../language/types/language";
+import type { Topic } from "../../topic/types/topic";
 
 export interface Document {
     id: string;

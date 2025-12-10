@@ -1,5 +1,5 @@
-import type { Topic } from "@/types/models/topic";
-import { topicValidator } from "@/types/validators/topic/topic.validator";
+import type { Topic } from "@/features/topic/types/topic";
+import { topicValidator } from "@/features/topic/validators/topic.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";

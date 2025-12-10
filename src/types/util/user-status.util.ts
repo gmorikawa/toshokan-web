@@ -1,4 +1,4 @@
-import type { UserStatus } from "../models/user";
+import type { UserStatus } from "../../features/user/types/user";
 
 export interface UserStatusMetadata {
     status: UserStatus;

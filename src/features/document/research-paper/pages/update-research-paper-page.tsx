@@ -1,5 +1,5 @@
-import type { ResearchPaper } from "@/types/models/research-paper";
-import { researchPaperValidator } from "@/types/validators/research-paper/research-paper.validator";
+import type { ResearchPaper } from "@/features/document/research-paper/types/research-paper";
+import { researchPaperValidator } from "@/features/document/research-paper/validators/research-paper.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";

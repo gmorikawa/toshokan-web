@@ -1,5 +1,5 @@
-import type { Publisher } from "@/types/models/publisher";
-import { publisherValidator } from "@/types/validators/publisher/publisher.validator";
+import type { Publisher } from "@/features/publisher/types/publisher";
+import { publisherValidator } from "@/features/publisher/validators/publisher.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";

@@ -1,4 +1,4 @@
-import type { OrganizationType } from "../models/organization";
+import type { OrganizationType } from "../../features/organization/types/organization";
 
 export interface OrganizationTypeMetadata {
     type: OrganizationType;

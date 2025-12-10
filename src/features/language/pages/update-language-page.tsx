@@ -1,5 +1,5 @@
-import type { Language } from "@/types/models/language";
-import { languageValidator } from "@/types/validators/language/language.validator";
+import type { Language } from "@/features/language/types/language";
+import { languageValidator } from "@/features/language/validators/language.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";

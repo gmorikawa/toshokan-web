@@ -1,5 +1,5 @@
-import type { NewResearchPaper } from "@/types/models/research-paper";
-import { newResearchPaperValidator } from "@/types/validators/research-paper/new-research-paper.validator";
+import type { NewResearchPaper } from "@/features/document/research-paper/types/research-paper";
+import { newResearchPaperValidator } from "@/features/document/research-paper/validators/new-research-paper.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";

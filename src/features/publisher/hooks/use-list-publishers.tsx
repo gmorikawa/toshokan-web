@@ -1,4 +1,4 @@
-import type { Publisher } from "@/types/models/publisher";
+import type { Publisher } from "@/features/publisher/types/publisher";
 import type { Count, Pagination } from "@/common/pagination";
 import type { Loader } from "@/common/loader";
 

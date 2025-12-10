@@ -1,4 +1,4 @@
-import type { NewAuthor } from "@/types/models/author";
+import type { NewAuthor } from "@/features/author/types/author";
 
 import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";
@@ -14,7 +14,7 @@ import ApplicationContent from "@/layout/content";
 import AuthorForm from "@/features/author/components/author-form";
 
 import { BackIcon } from "@/common/icons";
-import { newAuthorValidator } from "@/types/validators/author/new-author.validator";
+import { newAuthorValidator } from "@/features/author/validators/new-author.validator";
 import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateAuthorPage() {

@@ -1,4 +1,4 @@
-import type { NewPublisher, Publisher } from "@/types/models/publisher";
+import type { NewPublisher, Publisher } from "@/features/publisher/types/publisher";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 

@@ -1,4 +1,4 @@
-import type { User } from "@/types/models/user";
+import type { User } from "@/features/user/types/user";
 
 import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";

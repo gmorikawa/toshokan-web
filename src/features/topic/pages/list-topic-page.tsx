@@ -1,4 +1,4 @@
-import type { Topic } from "@/types/models/topic";
+import type { Topic } from "@/features/topic/types/topic";
 
 import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";

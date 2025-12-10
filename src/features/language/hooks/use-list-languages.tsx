@@ -1,4 +1,4 @@
-import type { Language } from "@/types/models/language";
+import type { Language } from "@/features/language/types/language";
 import type { Count, Pagination } from "@/common/pagination";
 import type { Loader } from "@/common/loader";
 

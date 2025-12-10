@@ -1,5 +1,5 @@
-import type { NewUser } from "@/types/models/user";
-import { newUserValidator } from "@/types/validators/user/new-user.validator";
+import type { NewUser } from "@/features/user/types/user";
+import { newUserValidator } from "@/features/user/validators/new-user.validator";
 
 import useForm from "@/components/form/use-form";
 import useAlert from "@/components/feedback/use-alert";

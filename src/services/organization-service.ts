@@ -1,4 +1,4 @@
-import type { NewOrganization, Organization } from "@/types/models/organization";
+import type { NewOrganization, Organization } from "@/features/organization/types/organization";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 

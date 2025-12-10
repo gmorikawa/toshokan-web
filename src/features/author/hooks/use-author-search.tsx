@@ -1,4 +1,4 @@
-import type { Author } from "@/types/models/author";
+import type { Author } from "@/features/author/types/author";
 
 import { useEffect, useState } from "react";
 import type { Pagination } from "@/common/pagination";

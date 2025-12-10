@@ -1,11 +1,11 @@
-import type { ResearchPaper } from "@/types/models/research-paper";
+import type { ResearchPaper } from "@/features/document/research-paper/types/research-paper";
 
 import BoxContainer from "@/components/container/box-container";
 import Badge from "@/components/data-display/badge";
 import Information from "@/components/data-display/information";
 import Heading from "@/components/typography/header-typography";
 import Paragraph from "@/components/typography/paragraph";
-import type { DocumentFile } from "@/types/models/document-file";
+import type { DocumentFile } from "@/features/document/types/document-file";
 import DocumentFileCard from "../../components/document-file-card";
 
 export interface ResearchPaperInfoProps {

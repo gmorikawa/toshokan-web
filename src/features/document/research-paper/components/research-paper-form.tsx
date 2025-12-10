@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import useAuthorSearch from "@/features/author/hooks/use-author-search";
 import useTopicSearch from "@/features/topic/hooks/use-topic-search";
 
-import type { ResearchPaper } from "@/types/models/research-paper";
-import type { Author } from "@/types/models/author";
-import type { Language } from "@/types/models/language";
-import type { Organization } from "@/types/models/organization";
-import type { Topic } from "@/types/models/topic";
+import type { ResearchPaper, NewResearchPaper } from "@/features/document/research-paper/types/research-paper";
+import type { Author } from "@/features/author/types/author";
+import type { Language } from "@/features/language/types/language";
+import type { Organization } from "@/features/organization/types/organization";
+import type { Topic } from "@/features/topic/types/topic";
 
 import useAlert from "@/components/feedback/use-alert";
 import useService from "@/services/use-service";
@@ -22,8 +22,8 @@ import StackContainer from "@/components/container/stack-container";
 import FormTextareaField from "@/components/form/form-textarea-field";
 
 export interface ResearchPaperFormProps {
-    form: Form<ResearchPaper>;
-    onSubmit?(entity: ResearchPaper): void;
+    form: Form<ResearchPaper | NewResearchPaper>;
+    onSubmit?(entity: ResearchPaper | NewResearchPaper): void;
 }
 
 export function ResearchPaperForm({ form, onSubmit }: ResearchPaperFormProps) {

@@ -1,4 +1,4 @@
-import type { NewUser, User } from "@/types/models/user";
+import type { NewUser, User } from "@/features/user/types/user";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 

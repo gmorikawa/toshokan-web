@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import useAuthorSearch from "@/features/author/hooks/use-author-search";
 import useTopicSearch from "@/features/topic/hooks/use-topic-search";
 
-import type { Book } from "@/types/models/book";
-import type { Author } from "@/types/models/author";
-import type { Category } from "@/types/models/category";
-import type { Language } from "@/types/models/language";
-import type { Publisher } from "@/types/models/publisher";
-import type { Topic } from "@/types/models/topic";
+import type { Book, NewBook } from "@/features/document/book/types/book";
+import type { Author } from "@/features/author/types/author";
+import type { Category } from "@/features/category/types/category";
+import type { Language } from "@/features/language/types/language";
+import type { Publisher } from "@/features/publisher/types/publisher";
+import type { Topic } from "@/features/topic/types/topic";
 import BookTypeUtil from "@/types/util/book-type.util";
 
 import CategoryService from "@/services/category-service";
@@ -26,8 +26,8 @@ import SubmitButton from "@/components/button/submit-button";
 import { FormTextareaField } from "@/components/form/form-textarea-field";
 
 export interface BookFormProps {
-    form: Form<Book>;
-    onSubmit?(entity: Book): void;
+    form: Form<Book | NewBook>;
+    onSubmit?(entity: Book | NewBook): void;
 }
 
 export function BookForm({ form, onSubmit }: BookFormProps) {

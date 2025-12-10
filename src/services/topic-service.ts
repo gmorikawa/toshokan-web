@@ -1,4 +1,4 @@
-import type { NewTopic, Topic } from "@/types/models/topic";
+import type { NewTopic, Topic } from "@/features/topic/types/topic";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 import { removeNullishProperties } from "@/common/object";

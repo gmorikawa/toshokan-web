@@ -3,8 +3,8 @@ import useService from "@/services/use-service";
 import ResearchPaperService from "@/services/research-paper-service";
 
 import useAlert from "@/components/feedback/use-alert";
-import type { DocumentFile } from "@/types/models/document-file";
-import type { ResearchPaper } from "@/types/models/research-paper";
+import type { DocumentFile } from "@/features/document/types/document-file";
+import type { ResearchPaper } from "@/features/document/research-paper/types/research-paper";
 
 export interface UseResearchPaperFilesResult {
     files: DocumentFile[];

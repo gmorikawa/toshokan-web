@@ -1,4 +1,4 @@
-import type { Publisher } from "@/types/models/publisher";
+import type { Publisher } from "@/features/publisher/types/publisher";
 import type { Pagination } from "@/common/pagination";
 
 import DataTable from "@/components/table/data-table";

@@ -1,5 +1,5 @@
-import type { Document } from "@/types/models/document";
-import type { NewDocumentFile } from "@/types/models/document-file";
+import type { Document } from "@/features/document/types/document";
+import type { NewDocumentFile } from "@/features/document/types/document-file";
 
 import useForm from "@/components/form/use-form";
 import type { ModalController } from "@/components/modal/use-modal";

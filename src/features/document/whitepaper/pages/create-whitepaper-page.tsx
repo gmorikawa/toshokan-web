@@ -1,5 +1,5 @@
-import type { NewWhitepaper } from "@/types/models/whitepaper";
-import { newWhitepaperValidator } from "@/types/validators/whitepaper/new-whitepaper.validator";
+import type { NewWhitepaper } from "@/features/document/whitepaper/types/whitepaper";
+import { newWhitepaperValidator } from "@/features/document/whitepaper/validators/new-whitepaper.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";

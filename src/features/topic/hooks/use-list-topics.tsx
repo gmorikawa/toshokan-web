@@ -1,4 +1,4 @@
-import type { Topic } from "@/types/models/topic";
+import type { Topic } from "@/features/topic/types/topic";
 import type { Count, Pagination } from "@/common/pagination";
 import type { Loader } from "@/common/loader";
 

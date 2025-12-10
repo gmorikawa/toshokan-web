@@ -1,4 +1,4 @@
-import type { Organization } from "@/types/models/organization";
+import type { Organization } from "@/features/organization/types/organization";
 
 import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";

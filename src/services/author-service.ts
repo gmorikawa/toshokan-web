@@ -1,4 +1,4 @@
-import type { NewAuthor, Author } from "@/types/models/author";
+import type { NewAuthor, Author } from "@/features/author/types/author";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 

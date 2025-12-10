@@ -1,4 +1,4 @@
-import type { Topic } from "@/types/models/topic";
+import type { Topic } from "@/features/topic/types/topic";
 
 import { useEffect, useState } from "react";
 import type { Pagination } from "@/common/pagination";

@@ -1,5 +1,5 @@
-import type { NewBook } from "@/types/models/book";
-import { newBookValidator } from "@/types/validators/book/new-book.validator";
+import type { NewBook } from "@/features/document/book/types/book";
+import { newBookValidator } from "@/features/document/book/validators/new-book.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";

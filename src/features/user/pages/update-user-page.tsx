@@ -1,5 +1,5 @@
-import type { User } from "@/types/models/user";
-import { userValidator } from "@/types/validators/user/user.validator";
+import type { User } from "@/features/user/types/user";
+import { userValidator } from "@/features/user/validators/user.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";

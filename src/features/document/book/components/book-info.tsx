@@ -1,11 +1,11 @@
-import type { Book } from "@/types/models/book";
+import type { Book } from "@/features/document/book/types/book";
 
 import BoxContainer from "@/components/container/box-container";
 import Badge from "@/components/data-display/badge";
 import Information from "@/components/data-display/information";
 import Heading from "@/components/typography/header-typography";
 import Paragraph from "@/components/typography/paragraph";
-import type { DocumentFile } from "@/types/models/document-file";
+import type { DocumentFile } from "@/features/document/types/document-file";
 import DocumentFileCard from "../../components/document-file-card";
 
 export interface BookInfoProps {

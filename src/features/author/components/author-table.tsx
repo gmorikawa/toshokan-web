@@ -1,4 +1,4 @@
-import type { Author } from "@/types/models/author";
+import type { Author } from "@/features/author/types/author";
 import type { Pagination } from "@/common/pagination";
 
 import DataTable from "@/components/table/data-table";

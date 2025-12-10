@@ -1,4 +1,4 @@
-import type { Whitepaper } from "@/types/models/whitepaper";
+import type { Whitepaper } from "@/features/document/whitepaper/types/whitepaper";
 import type { Count, Pagination } from "@/common/pagination";
 
 import { useEffect, useState } from "react";

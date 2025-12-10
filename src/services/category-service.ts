@@ -1,4 +1,4 @@
-import type { NewCategory, Category } from "@/types/models/category";
+import type { NewCategory, Category } from "@/features/category/types/category";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 

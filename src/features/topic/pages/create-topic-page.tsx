@@ -1,5 +1,5 @@
-import type { NewTopic } from "@/types/models/topic";
-import { newTopicValidator } from "@/types/validators/topic/new-topic.validator";
+import type { NewTopic } from "@/features/topic/types/topic";
+import { newTopicValidator } from "@/features/topic/validators/new-topic.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useRouter from "@/hooks/router/use-router";

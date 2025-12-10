@@ -1,4 +1,4 @@
-import type { Whitepaper } from "@/types/models/whitepaper";
+import type { Whitepaper } from "@/features/document/whitepaper/types/whitepaper";
 import type { Pagination } from "@/common/pagination";
 
 import DataTable from "@/components/table/data-table";

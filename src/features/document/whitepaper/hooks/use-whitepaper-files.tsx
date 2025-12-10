@@ -3,8 +3,8 @@ import useService from "@/services/use-service";
 import WhitepaperService from "@/services/whitepaper-service";
 
 import useAlert from "@/components/feedback/use-alert";
-import type { DocumentFile } from "@/types/models/document-file";
-import type { Whitepaper } from "@/types/models/whitepaper";
+import type { DocumentFile } from "@/features/document/types/document-file";
+import type { Whitepaper } from "@/features/document/whitepaper/types/whitepaper";
 
 export interface UseWhitepaperFilesResult {
     files: DocumentFile[];

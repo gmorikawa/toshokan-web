@@ -1,4 +1,4 @@
-import type { Category } from "@/types/models/category";
+import type { Category } from "@/features/category/types/category";
 import type { Pagination } from "@/common/pagination";
 
 import DataTable from "@/components/table/data-table";
