@@ -1,11 +1,12 @@
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Whitepaper } from "@/features/document/whitepaper/types/whitepaper";
 import { whitepaperValidator } from "@/features/document/whitepaper/validators/whitepaper.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useParams from "@/hooks/router/use-params";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import WhitepaperService from "@/services/whitepaper-service";
 
@@ -41,7 +42,7 @@ export function UpdateWhitepaperPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
     const service = useService<WhitepaperService>(WhitepaperService, { includeAuthorization: true });
@@ -62,7 +63,7 @@ export function UpdateWhitepaperPage() {
             if (!form.isValid()) return;
             try {
                 await service.update(entity);
-                router.navigateTo("/app/whitepaper/list");
+                navigate.to("/app/whitepaper/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -82,7 +83,7 @@ export function UpdateWhitepaperPage() {
     };
 
     function handleBack(): void {
-        router.navigateTo("/app/whitepaper/list");
+        navigate.to("/app/whitepaper/list");
     }
 
     useEffect(() => {

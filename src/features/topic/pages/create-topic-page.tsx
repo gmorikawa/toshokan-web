@@ -1,8 +1,9 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewTopic } from "@/features/topic/types/topic";
 import { newTopicValidator } from "@/features/topic/validators/new-topic.validator";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import useForm from "@/components/form/use-form";
 import TopicService from "@/services/topic-service";
@@ -25,7 +26,7 @@ export function CreateTopicPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
 
     const service = useService<TopicService>(TopicService, { includeAuthorization: true });
 
@@ -38,7 +39,7 @@ export function CreateTopicPage() {
             if (!form.isValid()) return;
             try {
                 await service.create(entity);
-                router.navigateTo("/app/topic/list");
+                navigate.to("/app/topic/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -46,7 +47,7 @@ export function CreateTopicPage() {
     });
 
     function handleBack(): void {
-        router.navigateTo("/app/topic/list");
+        navigate.to("/app/topic/list");
     }
 
     return (

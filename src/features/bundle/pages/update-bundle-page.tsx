@@ -1,11 +1,12 @@
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Bundle } from "@/features/bundle/types/bundle";
 import { bundleValidator } from "@/features/bundle/validators/bundle.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useParams from "@/hooks/router/use-params";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import BundleService from "@/services/bundle-service";
 
@@ -30,7 +31,7 @@ export function UpdateBundlePage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
     const service = useService<BundleService>(BundleService, { includeAuthorization: true });
@@ -46,7 +47,7 @@ export function UpdateBundlePage() {
             if (!form.isValid()) return;
             try {
                 await service.update(entity);
-                router.navigateTo("/app/bundle/list");
+                navigate.to("/app/bundle/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -66,7 +67,7 @@ export function UpdateBundlePage() {
     };
 
     function handleBack(): void {
-        router.navigateTo("/app/bundle/list");
+        navigate.to("/app/bundle/list");
     }
 
     useEffect(() => {

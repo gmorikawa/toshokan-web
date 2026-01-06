@@ -1,11 +1,12 @@
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Author } from "@/features/author/types/author";
 import { authorValidator } from "@/features/author/validators/author.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useParams from "@/hooks/router/use-params";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import AuthorService from "@/services/author-service";
 
@@ -31,7 +32,7 @@ export function UpdateAuthorPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
     const service = useService<AuthorService>(AuthorService, { includeAuthorization: true });
@@ -47,7 +48,7 @@ export function UpdateAuthorPage() {
             if (!form.isValid()) return;
             try {
                 await service.update(entity);
-                router.navigateTo("/app/author/list");
+                navigate.to("/app/author/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -67,7 +68,7 @@ export function UpdateAuthorPage() {
     };
 
     function handleBack(): void {
-        router.navigateTo("/app/author/list");
+        navigate.to("/app/author/list");
     }
 
     useEffect(() => {

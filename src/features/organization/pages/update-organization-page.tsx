@@ -1,11 +1,12 @@
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Organization } from "@/features/organization/types/organization";
 import { organizationValidator } from "@/features/organization/validators/organization.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useParams from "@/hooks/router/use-params";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import OrganizationService from "@/services/organization-service";
 
@@ -27,7 +28,7 @@ export function UpdateOrganizationPage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
 
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
     const service = useService<OrganizationService>(OrganizationService, { includeAuthorization: true });
@@ -43,7 +44,7 @@ export function UpdateOrganizationPage() {
         onSubmit: (): void => {
             service.update(form.entity)
                 .then(() => {
-                    router.navigateTo("/app/organization/list");
+                    navigate.to("/app/organization/list");
                 })
                 .catch((error: Error) => {
                     alert.showErrorMessage(error);
@@ -68,7 +69,7 @@ export function UpdateOrganizationPage() {
     }
 
     function handleBack(): void {
-        router.navigateTo("/app/organization/list");
+        navigate.to("/app/organization/list");
     }
 
     useEffect(() => {

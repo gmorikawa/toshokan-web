@@ -1,7 +1,8 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { User } from "@/features/user/types/user";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import UserService from "@/services/user-service";
 
@@ -26,15 +27,15 @@ export function ListUserPage() {
 
     const users = useListUsers();
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const service = useService<UserService>(UserService, { includeAuthorization: true });
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/user/form");
+        navigate.to("/app/user/form");
     };
 
     const handleUpdate = (entity: User): void => {
-        router.navigateTo(`/app/user/form/${entity.id}`);
+        navigate.to(`/app/user/form/${entity.id}`);
     };
 
     const handleRemove = (entity: User): void => {

@@ -1,8 +1,9 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewBundle } from "@/features/bundle/types/bundle";
 import { newBundleValidator } from "@/features/bundle/validators/new-bundle.validator";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import useForm from "@/components/form/use-form";
 import BundleService from "@/services/bundle-service";
@@ -25,7 +26,7 @@ export function CreateBundlePage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
 
     const service = useService<BundleService>(BundleService, { includeAuthorization: true });
 
@@ -39,7 +40,7 @@ export function CreateBundlePage() {
             if (!form.isValid()) return;
             try {
                 await service.create(entity);
-                router.navigateTo("/app/bundle/list");
+                navigate.to("/app/bundle/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -47,7 +48,7 @@ export function CreateBundlePage() {
     });
 
     function handleBack(): void {
-        router.navigateTo("/app/bundle/list");
+        navigate.to("/app/bundle/list");
     }
 
     return (

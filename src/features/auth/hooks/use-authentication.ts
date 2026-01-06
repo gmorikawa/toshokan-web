@@ -1,11 +1,12 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { User } from "@/features/user/types/user";
 import type { AuthenticationToken } from "@/types/authentication-token";
 
 import NativeHttpClient from "@/common/native.http-client";
 import AuthService from "@/services/auth-service";
-import useLocalStorage from "@/hooks/storage/use-local-storage";
+import useLocalStorage from "@shared/storage/hooks/local-storage";
 import Environment from "@/config/environment";
-import useRouter from "../../../hooks/router/use-router";
 import { useEffect, useState } from "react";
 
 interface UseAuthentication {
@@ -16,7 +17,7 @@ interface UseAuthentication {
 
 function useAuthentication(): UseAuthentication {
     const baseUrl = Environment.API_URL ?? "";
-    const router = useRouter();
+    const navigate = useNavigator();
     const storage = useLocalStorage();
     const httpClient = new NativeHttpClient(baseUrl);
     const authService = new AuthService(httpClient);
@@ -36,7 +37,7 @@ function useAuthentication(): UseAuthentication {
 
     const logout = (): void => {
         storage.set("token", null);
-        router.navigateTo("/login");
+        navigate.to("/login");
     }
 
     useEffect(() => {

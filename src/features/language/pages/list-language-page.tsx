@@ -1,7 +1,8 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Language } from "@/features/language/types/language";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import LanguageService from "@/services/language-service";
 
@@ -26,15 +27,15 @@ export function ListLanguagePage() {
 
     const languages = useListLanguages();
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const service = useService<LanguageService>(LanguageService, { includeAuthorization: true });
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/language/form");
+        navigate.to("/app/language/form");
     };
 
     const handleUpdate = (entity: Language): void => {
-        router.navigateTo(`/app/language/form/${entity.id}`);
+        navigate.to(`/app/language/form/${entity.id}`);
     };
 
     const handleRemove = (entity: Language): void => {

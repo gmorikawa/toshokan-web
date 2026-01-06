@@ -1,9 +1,10 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewPublisher } from "@/features/publisher/types/publisher";
 import { newPublisherValidator } from "@/features/publisher/validators/new-publisher.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import PublisherService from "@/services/publisher-service";
 
@@ -24,7 +25,7 @@ export function CreatePublisherPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
 
     const service = useService<PublisherService>(PublisherService, { includeAuthorization: true });
 
@@ -38,7 +39,7 @@ export function CreatePublisherPage() {
             if (!form.isValid()) return;
             try {
                 await service.create(entity);
-                router.navigateTo("/app/publisher/list");
+                navigate.to("/app/publisher/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -46,7 +47,7 @@ export function CreatePublisherPage() {
     });
 
     function handleBack(): void {
-        router.navigateTo("/app/publisher/list");
+        navigate.to("/app/publisher/list");
     }
 
     return (

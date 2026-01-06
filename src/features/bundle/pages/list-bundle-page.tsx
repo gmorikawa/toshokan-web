@@ -1,7 +1,8 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Bundle } from "@/features/bundle/types/bundle";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import BundleService from "@/services/bundle-service";
 
@@ -26,15 +27,15 @@ export function ListBundlePage() {
 
     const bundles = useListBundles();
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const service = useService<BundleService>(BundleService, { includeAuthorization: true });
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/bundle/form");
+        navigate.to("/app/bundle/form");
     };
 
     const handleUpdate = (entity: Bundle): void => {
-        router.navigateTo(`/app/bundle/form/${entity.id}`);
+        navigate.to(`/app/bundle/form/${entity.id}`);
     };
 
     const handleRemove = (entity: Bundle): void => {

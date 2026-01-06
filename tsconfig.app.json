@@ -25,6 +25,7 @@
     "noUncheckedSideEffectImports": true,
 
     "paths": {
+      "@shared/*": ["./src/shared/*"],
       "@/*": ["./src/*"]
     }
   },

@@ -1,9 +1,10 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewUser } from "@/features/user/types/user";
 import { newUserValidator } from "@/features/user/validators/new-user.validator";
 
 import useForm from "@/components/form/use-form";
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 
 import Environment from "@/config/environment";
@@ -21,7 +22,7 @@ export function FirstAccessPage() {
     document.title = `First Access - ${Environment.APPLICATION_NAME}`;
 
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const service = useService<ConfigurationService>(ConfigurationService);
 
     const form = useForm<NewUser>({
@@ -38,7 +39,7 @@ export function FirstAccessPage() {
             if (!form.isValid()) return;
             try {
                 await service.configureAdminUser(entity);
-                router.navigateTo("/login");
+                navigate.to("/login");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }

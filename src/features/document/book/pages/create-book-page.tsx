@@ -1,9 +1,10 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewBook } from "@/features/document/book/types/book";
 import { newBookValidator } from "@/features/document/book/validators/new-book.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import BookService from "@/services/book-service";
 
@@ -25,7 +26,7 @@ export function CreateBookPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
 
     const service = useService<BookService>(BookService, { includeAuthorization: true });
 
@@ -46,7 +47,7 @@ export function CreateBookPage() {
             if (!form.isValid()) return;
             try {
                 await service.create(entity);
-                router.navigateTo("/app/book/list");
+                navigate.to("/app/book/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -54,7 +55,7 @@ export function CreateBookPage() {
     });
 
     function handleBack(): void {
-        router.navigateTo("/app/book/list");
+        navigate.to("/app/book/list");
     }
 
     return (

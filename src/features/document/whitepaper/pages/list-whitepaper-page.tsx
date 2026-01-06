@@ -1,7 +1,8 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Whitepaper } from "@/features/document/whitepaper/types/whitepaper";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import WhitepaperService from "@/services/whitepaper-service";
 
@@ -25,19 +26,19 @@ import DocumentSearchField from "@/features/document/components/document-search-
 export function ListWhitepaperPage() {
     const whitepapers = useWhitepaperSearch();
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const service = useService<WhitepaperService>(WhitepaperService, { includeAuthorization: true });
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/whitepaper/form");
+        navigate.to("/app/whitepaper/form");
     };
 
     const handleUpdate = (entity: Whitepaper): void => {
-        router.navigateTo(`/app/whitepaper/form/${entity.id}`);
+        navigate.to(`/app/whitepaper/form/${entity.id}`);
     };
 
     const handleDetail = (entity: Whitepaper): void => {
-        router.navigateTo(`/app/whitepaper/details/${entity.id}`);
+        navigate.to(`/app/whitepaper/details/${entity.id}`);
     };
 
     const handleRemove = (entity: Whitepaper): void => {

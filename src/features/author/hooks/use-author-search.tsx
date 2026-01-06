@@ -1,10 +1,11 @@
+import { usePagination } from "@shared/pagination";
+
 import type { Author } from "@/features/author/types/author";
 
 import { useEffect, useState } from "react";
 import type { Pagination } from "@/common/pagination";
 
 import useAlert from "@/components/feedback/use-alert";
-import usePagination from "@/hooks/use-pagination";
 import useService from "@/services/use-service";
 import AuthorService from "@/services/author-service";
 

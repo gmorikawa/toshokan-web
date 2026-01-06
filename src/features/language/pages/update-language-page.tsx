@@ -1,11 +1,12 @@
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Language } from "@/features/language/types/language";
 import { languageValidator } from "@/features/language/validators/language.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useParams from "@/hooks/router/use-params";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import LanguageService from "@/services/language-service";
 
@@ -30,7 +31,7 @@ export function UpdateLanguagePage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
     const service = useService<LanguageService>(LanguageService, { includeAuthorization: true });
@@ -45,7 +46,7 @@ export function UpdateLanguagePage() {
             if (!form.isValid()) return;
             try {
                 await service.update(entity);
-                router.navigateTo("/app/language/list");
+                navigate.to("/app/language/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -65,7 +66,7 @@ export function UpdateLanguagePage() {
     };
 
     function handleBack(): void {
-        router.navigateTo("/app/language/list");
+        navigate.to("/app/language/list");
     }
 
     useEffect(() => {

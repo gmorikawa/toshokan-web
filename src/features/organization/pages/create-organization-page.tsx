@@ -1,9 +1,10 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewOrganization } from "@/features/organization/types/organization";
 import { newOrganizationValidator } from "@/features/organization/validators/new-organization.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import OrganizationService from "@/services/organization-service";
 
@@ -21,7 +22,7 @@ export function CreateOrganizationPage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
 
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
 
     const service = useService<OrganizationService>(OrganizationService, { includeAuthorization: true });
 
@@ -35,7 +36,7 @@ export function CreateOrganizationPage() {
         onSubmit: (): void => {
             service.create(form.entity)
                 .then(() => {
-                    router.navigateTo("/app/organization/list");
+                    navigate.to("/app/organization/list");
                 })
                 .catch((error: Error) => {
                     alert.showErrorMessage(error);
@@ -48,7 +49,7 @@ export function CreateOrganizationPage() {
     }
 
     function handleBack(): void {
-        router.navigateTo("/app/organization/list");
+        navigate.to("/app/organization/list");
     }
 
     return (

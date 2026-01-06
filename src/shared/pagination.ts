@@ -1,5 +1,6 @@
-import type { Count, Page, Pagination, Size } from "@/common/pagination";
 import { useState } from "react";
+
+import type { Count, Page, Pagination, Size } from "@/common/pagination";
 
 export interface PaginationController extends Pagination {
     update(page: Page, size?: Size, count?: Count): void;

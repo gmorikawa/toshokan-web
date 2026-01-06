@@ -1,11 +1,12 @@
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Publisher } from "@/features/publisher/types/publisher";
 import { publisherValidator } from "@/features/publisher/validators/publisher.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useParams from "@/hooks/router/use-params";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import PublisherService from "@/services/publisher-service";
 
@@ -30,7 +31,7 @@ export function UpdatePublisherPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
     const service = useService<PublisherService>(PublisherService, { includeAuthorization: true });
@@ -46,7 +47,7 @@ export function UpdatePublisherPage() {
             if (!form.isValid()) return;
             try {
                 await service.update(entity);
-                router.navigateTo("/app/publisher/list");
+                navigate.to("/app/publisher/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -66,7 +67,7 @@ export function UpdatePublisherPage() {
     };
 
     function handleBack(): void {
-        router.navigateTo("/app/publisher/list");
+        navigate.to("/app/publisher/list");
     }
 
     useEffect(() => {

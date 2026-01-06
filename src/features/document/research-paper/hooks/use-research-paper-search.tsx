@@ -1,13 +1,13 @@
+import { useDebounce, type DebounceDelayMilliseconds } from "@shared/debounce";
+import { useLoader, type LoaderController } from "@shared/loader";
+import { usePagination, type PaginationController } from "@shared/pagination";
+
 import type { ResearchPaper } from "@/features/document/research-paper/types/research-paper";
 import type { Count, Pagination } from "@/common/pagination";
 
 import { useEffect, useState } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useService from "@/services/use-service";
-
-import useDebounce, { type DebounceDelayMilliseconds } from "@/hooks/use-debounce";
-import useLoader, { type LoaderController } from "@/hooks/use-loader";
-import usePagination, { type PaginationController } from "@/hooks/use-pagination";
 
 import ResearchPaperService from "@/services/research-paper-service";
 

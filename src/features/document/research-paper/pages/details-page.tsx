@@ -1,4 +1,5 @@
-import useRouter from "@/hooks/router/use-router";
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
 
 import ApplicationPage from "@/layout/page";
 import ApplicationHeader from "@/layout/header";
@@ -8,7 +9,6 @@ import BoxContainer from "@/components/container/box-container";
 
 import { BackIcon } from "@/common/icons";
 import { useResearchPaper } from "../hooks/use-research-paper";
-import useParams from "@/hooks/router/use-params";
 import { ResearchPaperInfo } from "../components/research-paper-info";
 import { useResearchPaperFiles } from "../hooks/use-research-paper-files";
 
@@ -21,10 +21,10 @@ export function ResearchPaperDetailsPage() {
     const { researchPaper } = useResearchPaper(id);
     const { files } = useResearchPaperFiles(researchPaper);
 
-    const router = useRouter();
+    const navigate = useNavigator();
 
     function handleBack(): void {
-        router.navigateTo("/app/research-paper/list");
+        navigate.to("/app/research-paper/list");
     }
 
     return (

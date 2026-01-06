@@ -1,12 +1,12 @@
 type Value = string | null;
 
-interface UseLocalStorage {
+export interface UseLocalStorage {
     get(key: string): Value;
     set(key: string, value: Value): void;
 }
 
 
-function useLocalStorage(): UseLocalStorage {
+export function useLocalStorage(): UseLocalStorage {
     const get = (key: string): Value => {
         const serialized = localStorage.getItem(key);
         return serialized && JSON.parse(serialized);
@@ -19,6 +19,4 @@ function useLocalStorage(): UseLocalStorage {
     return { get, set };
 }
 
-export { useLocalStorage };
-export type { UseLocalStorage };
 export default useLocalStorage;

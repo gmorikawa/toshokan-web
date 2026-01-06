@@ -1,9 +1,10 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewUser } from "@/features/user/types/user";
 import { newUserValidator } from "@/features/user/validators/new-user.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import UserService from "@/services/user-service";
 
@@ -25,7 +26,7 @@ export function CreateUserPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
 
     const service = useService<UserService>(UserService, { includeAuthorization: true });
 
@@ -43,7 +44,7 @@ export function CreateUserPage() {
             if (!form.isValid()) return;
             try {
                 await service.create(entity);
-                router.navigateTo("/app/user/list");
+                navigate.to("/app/user/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -51,7 +52,7 @@ export function CreateUserPage() {
     });
 
     function handleBack(): void {
-        router.navigateTo("/app/user/list");
+        navigate.to("/app/user/list");
     }
 
     return (

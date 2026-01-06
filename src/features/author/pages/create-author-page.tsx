@@ -1,7 +1,8 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewAuthor } from "@/features/author/types/author";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import AuthorService from "@/services/author-service";
 
@@ -24,7 +25,7 @@ export function CreateAuthorPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
 
     const service = useService<AuthorService>(AuthorService, { includeAuthorization: true });
 
@@ -38,7 +39,7 @@ export function CreateAuthorPage() {
             if (!form.isValid()) return;
             try {
                 await service.create(entity);
-                router.navigateTo("/app/author/list");
+                navigate.to("/app/author/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -47,7 +48,7 @@ export function CreateAuthorPage() {
 
 
     function handleBack(): void {
-        router.navigateTo("/app/author/list");
+        navigate.to("/app/author/list");
     }
 
 

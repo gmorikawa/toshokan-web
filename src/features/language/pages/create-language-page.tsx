@@ -1,9 +1,10 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewLanguage } from "@/features/language/types/language";
 import { newLanguageValidator } from "@/features/language/validators/new-language.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import LanguageService from "@/services/language-service";
 
@@ -25,7 +26,7 @@ export function CreateLanguagePage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
 
     const service = useService<LanguageService>(LanguageService, { includeAuthorization: true });
 
@@ -38,7 +39,7 @@ export function CreateLanguagePage() {
             if (!form.isValid()) return;
             try {
                 await service.create(entity);
-                router.navigateTo("/app/language/list");
+                navigate.to("/app/language/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -46,7 +47,7 @@ export function CreateLanguagePage() {
     });
 
     function handleBack(): void {
-        router.navigateTo("/app/language/list");
+        navigate.to("/app/language/list");
     }
 
     return (

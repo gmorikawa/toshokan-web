@@ -1,7 +1,8 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Category } from "@/features/category/types/category";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import CategoryService from "@/services/category-service";
 
@@ -26,15 +27,15 @@ export function ListCategoryPage() {
 
     const categories = useListCategories();
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const service = useService<CategoryService>(CategoryService, { includeAuthorization: true });
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/category/form");
+        navigate.to("/app/category/form");
     };
 
     const handleUpdate = (entity: Category): void => {
-        router.navigateTo(`/app/category/form/${entity.id}`);
+        navigate.to(`/app/category/form/${entity.id}`);
     };
 
     const handleRemove = (entity: Category): void => {

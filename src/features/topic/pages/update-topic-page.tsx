@@ -1,11 +1,12 @@
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Topic } from "@/features/topic/types/topic";
 import { topicValidator } from "@/features/topic/validators/topic.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useParams from "@/hooks/router/use-params";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import TopicService from "@/services/topic-service";
 
@@ -30,7 +31,7 @@ export function UpdateTopicPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
     const service = useService<TopicService>(TopicService, { includeAuthorization: true });
@@ -45,7 +46,7 @@ export function UpdateTopicPage() {
             if (!form.isValid()) return;
             try {
                 await service.update(entity);
-                router.navigateTo("/app/topic/list");
+                navigate.to("/app/topic/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -65,7 +66,7 @@ export function UpdateTopicPage() {
     };
 
     function handleBack(): void {
-        router.navigateTo("/app/topic/list");
+        navigate.to("/app/topic/list");
     }
 
     useEffect(() => {

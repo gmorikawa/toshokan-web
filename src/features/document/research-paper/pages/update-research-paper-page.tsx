@@ -1,11 +1,12 @@
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { ResearchPaper } from "@/features/document/research-paper/types/research-paper";
 import { researchPaperValidator } from "@/features/document/research-paper/validators/research-paper.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useParams from "@/hooks/router/use-params";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import ResearchPaperService from "@/services/research-paper-service";
 
@@ -42,7 +43,7 @@ export function UpdateResearchPaperPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
     const service = useService<ResearchPaperService>(ResearchPaperService, { includeAuthorization: true });
@@ -64,7 +65,7 @@ export function UpdateResearchPaperPage() {
             if (!form.isValid()) return;
             try {
                 await service.update(entity);
-                router.navigateTo("/app/research-paper/list");
+                navigate.to("/app/research-paper/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -84,7 +85,7 @@ export function UpdateResearchPaperPage() {
     };
 
     function handleBack(): void {
-        router.navigateTo("/app/research-paper/list");
+        navigate.to("/app/research-paper/list");
     }
 
     useEffect(() => {

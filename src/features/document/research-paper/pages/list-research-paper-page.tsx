@@ -1,7 +1,8 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { ResearchPaper } from "@/features/document/research-paper/types/research-paper";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import ResearchPaperService from "@/services/research-paper-service";
 
@@ -25,19 +26,19 @@ import DocumentSearchField from "@/features/document/components/document-search-
 export function ListResearchPaperPage() {
     const researchPapers = useResearchPaperSearch();
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const service = useService<ResearchPaperService>(ResearchPaperService, { includeAuthorization: true });
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/research-paper/form");
+        navigate.to("/app/research-paper/form");
     };
 
     const handleUpdate = (entity: ResearchPaper): void => {
-        router.navigateTo(`/app/research-paper/form/${entity.id}`);
+        navigate.to(`/app/research-paper/form/${entity.id}`);
     };
 
     const handleDetail = (entity: ResearchPaper): void => {
-        router.navigateTo(`/app/research-paper/details/${entity.id}`);
+        navigate.to(`/app/research-paper/details/${entity.id}`);
     };
 
     const handleRemove = (entity: ResearchPaper): void => {

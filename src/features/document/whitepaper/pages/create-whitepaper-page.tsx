@@ -1,9 +1,10 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewWhitepaper } from "@/features/document/whitepaper/types/whitepaper";
 import { newWhitepaperValidator } from "@/features/document/whitepaper/validators/new-whitepaper.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import WhitepaperService from "@/services/whitepaper-service";
 
@@ -25,7 +26,7 @@ export function CreateWhitepaperPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
 
     const service = useService<WhitepaperService>(WhitepaperService, { includeAuthorization: true });
 
@@ -43,7 +44,7 @@ export function CreateWhitepaperPage() {
             if (!form.isValid()) return;
             try {
                 await service.create(entity);
-                router.navigateTo("/app/whitepaper/list");
+                navigate.to("/app/whitepaper/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -51,7 +52,7 @@ export function CreateWhitepaperPage() {
     });
 
     function handleBack(): void {
-        router.navigateTo("/app/whitepaper/list");
+        navigate.to("/app/whitepaper/list");
     }
 
     return (

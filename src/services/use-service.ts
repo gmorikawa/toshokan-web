@@ -1,5 +1,6 @@
+import { useLocalStorage } from "@shared/storage/hooks/local-storage";
+
 import NativeHttpClient from "@/common/native.http-client";
-import useLocalStorage from "../hooks/storage/use-local-storage";
 import type { HttpClient } from "@/common/http-client";
 import Environment from "@/config/environment";
 

@@ -1,9 +1,10 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewCategory } from "@/features/category/types/category";
 import { newCategoryValidator } from "@/features/category/validators/new-category.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import CategoryService from "@/services/category-service";
 
@@ -24,7 +25,7 @@ export function CreateCategoryPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
 
     const service = useService<CategoryService>(CategoryService, { includeAuthorization: true });
 
@@ -37,7 +38,7 @@ export function CreateCategoryPage() {
             if (!form.isValid()) return;
             try {
                 await service.create(entity);
-                router.navigateTo("/app/category/list");
+                navigate.to("/app/category/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -45,7 +46,7 @@ export function CreateCategoryPage() {
     });
 
     function handleBack(): void {
-        router.navigateTo("/app/category/list");
+        navigate.to("/app/category/list");
     }
 
     return (

@@ -1,4 +1,5 @@
-import useRouter from "@/hooks/router/use-router";
+import { useNavigator } from '@shared/router/hooks/navigator';
+import { useParams } from "@shared/router/hooks/params";
 
 import ApplicationPage from "@/layout/page";
 import ApplicationHeader from "@/layout/header";
@@ -8,7 +9,6 @@ import BoxContainer from "@/components/container/box-container";
 
 import { BackIcon } from "@/common/icons";
 import { useBook } from "../hooks/use-book";
-import useParams from "@/hooks/router/use-params";
 import { BookInfo } from "../components/book-info";
 import { useBookFiles } from "../hooks/use-book-files";
 
@@ -21,10 +21,10 @@ export function BookDetailsPage() {
     const { book } = useBook(id);
     const { files } = useBookFiles(book);
 
-    const router = useRouter();
+    const navigate = useNavigator();
 
     function handleBack(): void {
-        router.navigateTo("/app/book/list");
+        navigate.to("/app/book/list");
     }
 
     return (

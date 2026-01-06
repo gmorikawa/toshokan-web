@@ -1,11 +1,12 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+import { useParams } from "@shared/router/hooks/params";
+
 import type { User } from "@/features/user/types/user";
 import { userValidator } from "@/features/user/validators/user.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useRouter from "@/hooks/router/use-router";
-import useParams from "@/hooks/router/use-params";
 import useService from "@/services/use-service";
 import UserService from "@/services/user-service";
 
@@ -28,7 +29,7 @@ export function UpdateUserFormPage() {
     const authorization = useAuthorizationFilter("ADMIN");
 
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
     const service = useService<UserService>(UserService, { includeAuthorization: true });
@@ -47,7 +48,7 @@ export function UpdateUserFormPage() {
         onSubmit: (entity: User) => {
             service.update(entity)
                 .then(() => {
-                    router.navigateTo("/app/user/list");
+                    navigate.to("/app/user/list");
                 })
                 .catch((error: Error) => {
                     alert.showErrorMessage(error);
@@ -72,7 +73,7 @@ export function UpdateUserFormPage() {
     }
 
     function handleBack(): void {
-        router.navigateTo("/app/user/list");
+        navigate.to("/app/user/list");
     }
 
     useEffect(() => {

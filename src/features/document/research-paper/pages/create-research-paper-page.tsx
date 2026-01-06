@@ -1,9 +1,10 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { NewResearchPaper } from "@/features/document/research-paper/types/research-paper";
 import { newResearchPaperValidator } from "@/features/document/research-paper/validators/new-research-paper.validator";
 
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import ResearchPaperService from "@/services/research-paper-service";
 
@@ -25,7 +26,7 @@ export function CreateResearchPaperPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
 
     const service = useService<ResearchPaperService>(ResearchPaperService, { includeAuthorization: true });
 
@@ -44,7 +45,7 @@ export function CreateResearchPaperPage() {
             if (!form.isValid()) return;
             try {
                 await service.create(entity);
-                router.navigateTo("/app/research-paper/list");
+                navigate.to("/app/research-paper/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -52,7 +53,7 @@ export function CreateResearchPaperPage() {
     });
 
     function handleBack(): void {
-        router.navigateTo("/app/research-paper/list");
+        navigate.to("/app/research-paper/list");
     }
 
     return (

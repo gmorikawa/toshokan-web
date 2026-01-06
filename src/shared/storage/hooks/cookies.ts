@@ -1,9 +1,9 @@
-interface UseCookies {
+export interface UseCookies {
     get<T>(key: string): Promise<T | null>;
     set<T>(key: string, value: T): Promise<void>;
 }
 
-function useCookies(): UseCookies {
+export function useCookies(): UseCookies {
     const get = async <T>(key: string): Promise<T | null> => {
         return cookieStore.get(key)
             .then((result) => {
@@ -24,6 +24,4 @@ function useCookies(): UseCookies {
     return { get, set };
 }
 
-export { useCookies };
-export type { UseCookies };
 export default useCookies;

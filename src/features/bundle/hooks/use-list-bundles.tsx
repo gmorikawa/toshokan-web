@@ -1,10 +1,11 @@
+import { usePagination } from "@shared/pagination";
+import { useLoader } from "@shared/loader";
+
 import type { Bundle } from "@/features/bundle/types/bundle";
 import type { Count, Pagination } from "@/common/pagination";
 import type { Loader } from "@/common/loader";
 
 import useAlert from "@/components/feedback/use-alert";
-import usePagination from "@/hooks/use-pagination";
-import useLoader from "@/hooks/use-loader";
 import useService from "@/services/use-service";
 import BundleService from "@/services/bundle-service";
 

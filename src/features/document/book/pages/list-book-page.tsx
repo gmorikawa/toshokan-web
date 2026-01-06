@@ -1,7 +1,8 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Book } from "@/features/document/book/types/book";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import BookService from "@/services/book-service";
 
@@ -25,19 +26,19 @@ import DocumentSearchField from "@/features/document/components/document-search-
 export function ListBookPage() {
     const books = useBookSearch();
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const service = useService<BookService>(BookService, { includeAuthorization: true });
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/book/form");
+        navigate.to("/app/book/form");
     };
 
     const handleUpdate = (entity: Book): void => {
-        router.navigateTo(`/app/book/form/${entity.id}`);
+        navigate.to(`/app/book/form/${entity.id}`);
     };
 
     const handleDetail = (entity: Book): void => {
-        router.navigateTo(`/app/book/details/${entity.id}`);
+        navigate.to(`/app/book/details/${entity.id}`);
     };
 
     const handleSearch = (query: string): void => {

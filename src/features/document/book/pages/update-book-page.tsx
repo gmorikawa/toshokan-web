@@ -1,11 +1,12 @@
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Book } from "@/features/document/book/types/book";
 import { bookValidator } from "@/features/document/book/validators/book.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useParams from "@/hooks/router/use-params";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import BookService from "@/services/book-service";
 
@@ -40,7 +41,7 @@ export function UpdateBookPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
     const service = useService<BookService>(BookService, { includeAuthorization: true });
@@ -64,7 +65,7 @@ export function UpdateBookPage() {
             if (!form.isValid()) return;
             try {
                 await service.update(entity);
-                router.navigateTo("/app/book/list");
+                navigate.to("/app/book/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -84,7 +85,7 @@ export function UpdateBookPage() {
     };
 
     function handleBack(): void {
-        router.navigateTo("/app/book/list");
+        navigate.to("/app/book/list");
     }
 
     useEffect(() => {

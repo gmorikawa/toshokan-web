@@ -1,7 +1,8 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Author } from "@/features/author/types/author";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import AuthorService from "@/services/author-service";
 
@@ -26,15 +27,15 @@ export function ListAuthorPage() {
 
     const authors = useListAuthors();
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const service = useService<AuthorService>(AuthorService, { includeAuthorization: true });
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/author/form");
+        navigate.to("/app/author/form");
     };
 
     const handleUpdate = (entity: Author): void => {
-        router.navigateTo(`/app/author/form/${entity.id}`);
+        navigate.to(`/app/author/form/${entity.id}`);
     };
 
     const handleRemove = (entity: Author): void => {

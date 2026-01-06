@@ -1,7 +1,8 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Publisher } from "@/features/publisher/types/publisher";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import PublisherService from "@/services/publisher-service";
 
@@ -26,15 +27,15 @@ export function ListPublisherPage() {
 
     const publishers = useListPublishers();
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const service = useService<PublisherService>(PublisherService, { includeAuthorization: true });
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/publisher/form");
+        navigate.to("/app/publisher/form");
     };
 
     const handleUpdate = (entity: Publisher): void => {
-        router.navigateTo(`/app/publisher/form/${entity.id}`);
+        navigate.to(`/app/publisher/form/${entity.id}`);
     };
 
     const handleRemove = (entity: Publisher): void => {

@@ -1,5 +1,6 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import useAuthentication from "@/features/auth/hooks/use-authentication";
-import useRouter from "@/hooks/router/use-router";
 
 import AppRoute from "@/config/constants";
 
@@ -33,10 +34,10 @@ interface MenuItemProps {
 }
 
 function MenuItem({ icon, label, link }: MenuItemProps) {
-    const router = useRouter();
+    const navigate = useNavigator();
 
     function handleClick(): void {
-        router.navigateTo(link);
+        navigate.to(link);
     }
 
     return (

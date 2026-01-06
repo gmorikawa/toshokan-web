@@ -1,7 +1,8 @@
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Organization } from "@/features/organization/types/organization";
 
 import useAlert from "@/components/feedback/use-alert";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import OrganizationService from "@/services/organization-service";
 
@@ -26,15 +27,15 @@ export function ListOrganizationPage() {
 
     const organizations = useListOrganizations();
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const service = useService<OrganizationService>(OrganizationService, { includeAuthorization: true });
 
     const handleCreate = (): void => {
-        router.navigateTo("/app/organization/form");
+        navigate.to("/app/organization/form");
     };
 
     const handleUpdate = (entity: Organization): void => {
-        router.navigateTo(`/app/organization/form/${entity.id}`);
+        navigate.to(`/app/organization/form/${entity.id}`);
     };
 
     const handleRemove = (entity: Organization): void => {

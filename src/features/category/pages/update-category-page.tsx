@@ -1,11 +1,12 @@
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
+
 import type { Category } from "@/features/category/types/category";
 import { categoryValidator } from "@/features/category/validators/category.validator";
 
 import { useEffect } from "react";
 import useAlert from "@/components/feedback/use-alert";
 import useForm from "@/components/form/use-form";
-import useParams from "@/hooks/router/use-params";
-import useRouter from "@/hooks/router/use-router";
 import useService from "@/services/use-service";
 import CategoryService from "@/services/category-service";
 
@@ -30,7 +31,7 @@ export function UpdateCategoryPage() {
         form.submit();
     }
     const alert = useAlert();
-    const router = useRouter();
+    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
     const service = useService<CategoryService>(CategoryService, { includeAuthorization: true });
@@ -45,7 +46,7 @@ export function UpdateCategoryPage() {
             if (!form.isValid()) return;
             try {
                 await service.update(entity);
-                router.navigateTo("/app/category/list");
+                navigate.to("/app/category/list");
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }
@@ -65,7 +66,7 @@ export function UpdateCategoryPage() {
     };
 
     function handleBack(): void {
-        router.navigateTo("/app/category/list");
+        navigate.to("/app/category/list");
     }
 
     useEffect(() => {

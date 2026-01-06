@@ -1,4 +1,5 @@
-import useRouter from "@/hooks/router/use-router";
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from '@shared/router/hooks/navigator';
 
 import ApplicationPage from "@/layout/page";
 import ApplicationHeader from "@/layout/header";
@@ -8,7 +9,6 @@ import BoxContainer from "@/components/container/box-container";
 
 import { BackIcon } from "@/common/icons";
 import { useWhitepaper } from "../hooks/use-whitepaper";
-import useParams from "@/hooks/router/use-params";
 import { WhitepaperInfo } from "../components/whitepaper-info";
 import { useWhitepaperFiles } from "../hooks/use-whitepaper-files";
 
@@ -21,10 +21,10 @@ export function WhitepaperDetailsPage() {
     const { whitepaper } = useWhitepaper(id);
     const { files } = useWhitepaperFiles(whitepaper);
 
-    const router = useRouter();
+    const navigate = useNavigator();
 
     function handleBack(): void {
-        router.navigateTo("/app/whitepaper/list");
+        navigate.to("/app/whitepaper/list");
     }
 
     return (
