@@ -1,5 +1,5 @@
-import BoxContainer from "@/components/container/box-container";
-import CentralizedContainer from "@/components/container/centralized-container";
+import BoxContainer from "@components/container/box-container";
+import CentralizedContainer from "@components/container/centralized-container";
 
 import { EmptyState, VStack } from "@chakra-ui/react"
 import { NotFoundIcon } from "../common/icons";

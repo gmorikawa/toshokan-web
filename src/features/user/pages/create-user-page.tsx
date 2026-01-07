@@ -1,23 +1,22 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { NewUser } from "@/features/user/types/user";
-import { newUserValidator } from "@/features/user/validators/new-user.validator";
+import type { NewUser } from "@features/user/types/user";
+import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { newUserValidator } from "@features/user/utils/validators";
+import { CreateUserForm } from "@features/user/components/create-user-form";
 
-import useAlert from "@/components/feedback/use-alert";
-import useForm from "@/components/form/use-form";
-import useService from "@/services/use-service";
-import UserService from "@/services/user-service";
+import { useAlert } from "@components/feedback/use-alert";
+import { useForm } from "@components/form/use-form";
+import { useService } from "@/services/use-service";
+import { UserService } from "@/services/user-service";
 
-import ActionButton from "@/components/button/action-button";
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import BoxContainer from "@/components/container/box-container";
-
-import CreateUserForm from "@/features/user/components/create-user-form";
+import { ActionButton } from "@components/button/action-button";
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { BoxContainer } from "@components/container/box-container";
 
 import { BackIcon } from "@/common/icons";
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateUserPage() {
     const authorization = useAuthorizationFilter("ADMIN");

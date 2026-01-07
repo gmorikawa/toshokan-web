@@ -1,11 +1,11 @@
-import type { Topic } from "@/features/topic/types/topic";
+import type { Topic } from "@features/topic/types/topic";
 import type { Pagination } from "@/common/pagination";
 
-import DataTable from "@/components/table/data-table";
-import FlexContainer from "@/components/container/flex-container";
-import OutlineButton from "@/components/button/outline-button";
-import PaginationControl from "@/components/pagination/pagination-control";
-import StackContainer from "@/components/container/stack-container";
+import DataTable from "@components/table/data-table";
+import FlexContainer from "@components/container/flex-container";
+import OutlineButton from "@components/button/outline-button";
+import PaginationControl from "@components/pagination/pagination-control";
+import StackContainer from "@components/container/stack-container";
 
 export interface TopicTableProps {
     data: Topic[];

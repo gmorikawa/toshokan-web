@@ -1,10 +1,11 @@
-import SubmitButton from "@/components/button/submit-button";
-import StackContainer from "@/components/container/stack-container";
-import FormRadioField from "@/components/form/form-radio-field";
-import FormTextField from "@/components/form/form-text-field";
-import FormTextareaField from "@/components/form/form-textarea-field";
-import type { Form } from "@/components/form/use-form";
-import OrganizationTypeUtil from "@/types/util/organization-type.util";
+import { OrganizationTypeUtil } from "@features/organization/utils/enums";
+
+import { SubmitButton } from "@components/button/submit-button";
+import { StackContainer } from "@components/container/stack-container";
+import { FormRadioField } from "@components/form/form-radio-field";
+import { FormTextField } from "@components/form/form-text-field";
+import { FormTextareaField } from "@components/form/form-textarea-field";
+import type { Form } from "@components/form/use-form";
 
 export interface OrganizationFormProps<Entity> {
     form: Form<Entity>;

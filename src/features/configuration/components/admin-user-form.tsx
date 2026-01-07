@@ -1,13 +1,13 @@
-import type { NewUser } from "@/features/user/types/user";
+import type { NewUser } from "@features/user/types/user";
 
-import { type Form } from "@/components/form/use-form";
+import { type Form } from "@components/form/use-form";
 
-import BoxContainer from "@/components/container/box-container";
-import FormPasswordField from "@/components/form/form-password-field";
-import FormTextField from "@/components/form/form-text-field";
-import Heading from "@/components/typography/header-typography";
-import Paragraph from "@/components/typography/paragraph";
-import SubmitButton from "@/components/button/submit-button";
+import BoxContainer from "@components/container/box-container";
+import FormPasswordField from "@components/form/form-password-field";
+import FormTextField from "@components/form/form-text-field";
+import Heading from "@components/typography/header-typography";
+import Paragraph from "@components/typography/paragraph";
+import SubmitButton from "@components/button/submit-button";
 
 export interface AdminUserFormProps {
     form: Form<NewUser>;

@@ -1,5 +1,5 @@
-import BoxContainer from "@/components/container/box-container";
-import Heading from "@/components/typography/header-typography";
+import BoxContainer from "@components/container/box-container";
+import Heading from "@components/typography/header-typography";
 import Environment from "@/config/environment";
 
 export interface ApplicationHeaderProps extends React.PropsWithChildren {

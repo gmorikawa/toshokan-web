@@ -1,11 +1,11 @@
 import { usePagination } from "@shared/pagination";
 import { useLoader } from "@shared/loader";
 
-import type { Language } from "@/features/language/types/language";
+import type { Language } from "@features/language/types/language";
 import type { Count, Pagination } from "@/common/pagination";
 import type { Loader } from "@/common/loader";
 
-import useAlert from "@/components/feedback/use-alert";
+import useAlert from "@components/feedback/use-alert";
 import useService from "@/services/use-service";
 import LanguageService from "@/services/language-service";
 

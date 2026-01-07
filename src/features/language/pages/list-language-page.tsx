@@ -1,26 +1,26 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { Language } from "@/features/language/types/language";
+import type { Language } from "@features/language/types/language";
+import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useListLanguages } from "@features/language/hooks/use-list-languages";
+import { LanguageTable } from "@features/language/components/language-table";
 
-import useAlert from "@/components/feedback/use-alert";
-import useService from "@/services/use-service";
-import LanguageService from "@/services/language-service";
+import { useAlert } from "@components/feedback/use-alert";
+import { useService } from "@/services/use-service";
+import { LanguageService } from "@/services/language-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import ActionButton from "@/components/button/action-button";
-import BoxContainer from "@/components/container/box-container";
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import { AddIcon } from "@/common/icons";
-import EmptyList from "@/common/empty-list";
-import ListSkeleton from "@/common/list-skeleton";
-import ListError from "@/common/list-error";
-import LoadingBoundary from "@/common/loading-boundary";
-import useListLanguages from "@/features/language/hooks/use-list-languages";
-import LanguageTable from "@/features/language/components/language-table";
+import { EmptyList } from "@/common/empty-list";
+import { ListSkeleton } from "@/common/list-skeleton";
+import { ListError } from "@/common/list-error";
+import { LoadingBoundary } from "@/common/loading-boundary";
 
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function ListLanguagePage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");

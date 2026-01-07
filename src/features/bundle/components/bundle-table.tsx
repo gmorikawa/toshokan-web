@@ -1,11 +1,11 @@
-import type { Bundle } from "@/features/bundle/types/bundle";
+import type { Bundle } from "@features/bundle/types/bundle";
 import type { Pagination } from "@/common/pagination";
 
-import DataTable from "@/components/table/data-table";
-import FlexContainer from "@/components/container/flex-container";
-import OutlineButton from "@/components/button/outline-button";
-import PaginationControl from "@/components/pagination/pagination-control";
-import StackContainer from "@/components/container/stack-container";
+import DataTable from "@components/table/data-table";
+import FlexContainer from "@components/container/flex-container";
+import OutlineButton from "@components/button/outline-button";
+import PaginationControl from "@components/pagination/pagination-control";
+import StackContainer from "@components/container/stack-container";
 
 export interface BundleTableProps {
     data: Bundle[];

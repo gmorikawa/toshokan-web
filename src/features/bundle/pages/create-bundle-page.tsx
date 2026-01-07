@@ -1,23 +1,22 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { NewBundle } from "@/features/bundle/types/bundle";
-import { newBundleValidator } from "@/features/bundle/validators/new-bundle.validator";
+import type { NewBundle } from "@features/bundle/types/bundle";
+import { newBundleValidator } from "@features/bundle/utils/validators";
+import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { BundleForm } from "@features/bundle/components/bundle-form";
 
-import useAlert from "@/components/feedback/use-alert";
-import useService from "@/services/use-service";
-import useForm from "@/components/form/use-form";
-import BundleService from "@/services/bundle-service";
+import { useAlert } from "@components/feedback/use-alert";
+import { useForm } from "@components/form/use-form";
+import { useService } from "@/services/use-service";
+import { BundleService } from "@/services/bundle-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import BoxContainer from "@/components/container/box-container";
-import ActionButton from "@/components/button/action-button";
-
-import BundleForm from "@/features/bundle/components/bundle-form";
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { BoxContainer } from "@components/container/box-container";
+import { ActionButton } from "@components/button/action-button";
 
 import { BackIcon } from "@/common/icons";
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateBundlePage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");

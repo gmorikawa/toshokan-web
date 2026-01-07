@@ -1,9 +1,9 @@
-import SubmitButton from "@/components/button/submit-button";
-import StackContainer from "@/components/container/stack-container";
-import FormRadioField from "@/components/form/form-radio-field";
-import FormTextField from "@/components/form/form-text-field";
-import type { Form } from "@/components/form/use-form";
-import type { User } from "@/features/user/types/user";
+import SubmitButton from "@components/button/submit-button";
+import StackContainer from "@components/container/stack-container";
+import FormRadioField from "@components/form/form-radio-field";
+import FormTextField from "@components/form/form-text-field";
+import type { Form } from "@components/form/use-form";
+import type { User } from "@features/user/types/user";
 
 export interface UpdateUserFormProps {
     form: Form<User>;

@@ -1,6 +1,6 @@
 import { SearchIcon } from "@/common/icons";
-import BoxContainer from "@/components/container/box-container";
-import TextField from "@/components/input/text-field";
+import BoxContainer from "@components/container/box-container";
+import TextField from "@components/input/text-field";
 
 export interface DocumentSearchFieldProps {
     query: string;

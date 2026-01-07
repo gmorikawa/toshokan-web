@@ -1,8 +1,8 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
 import useAuthentication from '@/features/auth/hooks/use-authentication';
 import useForm from '@/components/form/use-form';
-import useAlert from "@/components/feedback/use-alert";
+import useAlert from "@components/feedback/use-alert";
 
 import SubmitButton from '@/components/button/submit-button';
 import BorderedContainer from '@/components/container/bordered-container';

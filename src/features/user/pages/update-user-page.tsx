@@ -1,25 +1,25 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useEffect } from "react";
+
+import { useNavigator } from "@shared/router/hooks/navigator";
 import { useParams } from "@shared/router/hooks/params";
 
-import type { User } from "@/features/user/types/user";
-import { userValidator } from "@/features/user/validators/user.validator";
+import type { User } from "@features/user/types/user";
+import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { userValidator } from "@features/user/utils/validators";
+import { UpdateUserForm } from "@features/user/components/update-user-form";
 
-import { useEffect } from "react";
-import useAlert from "@/components/feedback/use-alert";
-import useForm from "@/components/form/use-form";
-import useService from "@/services/use-service";
-import UserService from "@/services/user-service";
+import { useAlert } from "@components/feedback/use-alert";
+import { useForm } from "@components/form/use-form";
+import { useService } from "@/services/use-service";
+import { UserService } from "@/services/user-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import ActionButton from "@/components/button/action-button";
-import BoxContainer from "@/components/container/box-container";
-
-import UpdateUserForm from "@/features/user/components/update-user-form";
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import { BackIcon } from "@/common/icons";
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;

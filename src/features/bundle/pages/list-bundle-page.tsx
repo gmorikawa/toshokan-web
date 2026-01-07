@@ -1,26 +1,26 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { Bundle } from "@/features/bundle/types/bundle";
+import type { Bundle } from "@features/bundle/types/bundle";
 
-import useAlert from "@/components/feedback/use-alert";
+import useAlert from "@components/feedback/use-alert";
 import useService from "@/services/use-service";
 import BundleService from "@/services/bundle-service";
 
 import ApplicationPage from "@/layout/page";
 import ApplicationHeader from "@/layout/header";
 import ApplicationContent from "@/layout/content";
-import ActionButton from "@/components/button/action-button";
-import BoxContainer from "@/components/container/box-container";
+import ActionButton from "@components/button/action-button";
+import BoxContainer from "@components/container/box-container";
 
 import { AddIcon } from "@/common/icons";
 import EmptyList from "@/common/empty-list";
 import ListSkeleton from "@/common/list-skeleton";
 import ListError from "@/common/list-error";
 import LoadingBoundary from "@/common/loading-boundary";
-import useListBundles from "@/features/bundle/hooks/use-list-bundles";
-import BundleTable from "@/features/bundle/components/bundle-table";
+import useListBundles from "@features/bundle/hooks/use-list-bundles";
+import BundleTable from "@features/bundle/components/bundle-table";
 
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+import useAuthorizationFilter from "@features/auth/hooks/use-authorization-filter";
 
 export function ListBundlePage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");

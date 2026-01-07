@@ -1,11 +1,11 @@
-import type { DocumentFile } from "@/features/document/types/document-file";
+import type { DocumentFile } from "@features/document/types/document-file";
 
-import ActionButton from "@/components/button/action-button";
-import Card from "@/components/card/card";
-import FlexContainer from "@/components/container/flex-container";
-import Information from "@/components/data-display/information";
-import RestrictedContent from "@/features/auth/components/restricted-content";
-import Badge from "@/components/data-display/badge";
+import ActionButton from "@components/button/action-button";
+import Card from "@components/card/card";
+import FlexContainer from "@components/container/flex-container";
+import Information from "@components/data-display/information";
+import RestrictedContent from "@features/auth/components/restricted-content";
+import Badge from "@components/data-display/badge";
 
 export interface DocumentFileCardProps {
     documentFile: DocumentFile;

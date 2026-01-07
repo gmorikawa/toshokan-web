@@ -1,25 +1,25 @@
-import { useParams } from "@shared/router/hooks/params";
-import { useNavigator } from '@shared/router/hooks/navigator';
-
-import type { Author } from "@/features/author/types/author";
-import { authorValidator } from "@/features/author/validators/author.validator";
-
 import { useEffect } from "react";
-import useAlert from "@/components/feedback/use-alert";
-import useForm from "@/components/form/use-form";
-import useService from "@/services/use-service";
-import AuthorService from "@/services/author-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import ActionButton from "@/components/button/action-button";
-import BoxContainer from "@/components/container/box-container";
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import AuthorForm from "@/features/author/components/author-form";
+import type { Author } from "@features/author/types/author";
+import { authorValidator } from "@features/author/utils/validators";
+import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { AuthorForm } from "@features/author/components/author-form";
+
+import { useAlert } from "@components/feedback/use-alert";
+import { useForm } from "@components/form/use-form";
+import { useService } from "@/services/use-service";
+import { AuthorService } from "@/services/author-service";
+
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import { BackIcon } from "@/common/icons";
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;

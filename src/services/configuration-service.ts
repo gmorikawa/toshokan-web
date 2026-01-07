@@ -1,5 +1,5 @@
 import type { HttpClient } from "@/common/http-client";
-import type { NewUser } from "@/features/user/types/user";
+import type { NewUser } from "@features/user/types/user";
 
 export class ConfigurationService {
     private readonly http: HttpClient;

@@ -1,23 +1,22 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { NewTopic } from "@/features/topic/types/topic";
-import { newTopicValidator } from "@/features/topic/validators/new-topic.validator";
+import type { NewTopic } from "@features/topic/types/topic";
+import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { newTopicValidator } from "@features/topic/utils/validators";
+import { TopicForm } from "@features/topic/components/topic-form";
 
-import useAlert from "@/components/feedback/use-alert";
-import useService from "@/services/use-service";
-import useForm from "@/components/form/use-form";
-import TopicService from "@/services/topic-service";
+import { useAlert } from "@components/feedback/use-alert";
+import { useService } from "@/services/use-service";
+import { useForm } from "@components/form/use-form";
+import { TopicService } from "@/services/topic-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import BoxContainer from "@/components/container/box-container";
-import ActionButton from "@/components/button/action-button";
-
-import TopicForm from "@/features/topic/components/topic-form";
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { BoxContainer } from "@components/container/box-container";
+import { ActionButton } from "@components/button/action-button";
 
 import { BackIcon } from "@/common/icons";
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 export function CreateTopicPage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");

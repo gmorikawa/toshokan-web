@@ -1,26 +1,25 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { Author } from "@/features/author/types/author";
+import type { Author } from "@features/author/types/author";
+import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
 
-import useAlert from "@/components/feedback/use-alert";
-import useService from "@/services/use-service";
-import AuthorService from "@/services/author-service";
+import { useAlert } from "@components/feedback/use-alert";
+import { useService } from "@/services/use-service";
+import { AuthorService } from "@/services/author-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import ActionButton from "@/components/button/action-button";
-import BoxContainer from "@/components/container/box-container";
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import { AddIcon } from "@/common/icons";
-import EmptyList from "@/common/empty-list";
-import ListSkeleton from "@/common/list-skeleton";
-import ListError from "@/common/list-error";
-import LoadingBoundary from "@/common/loading-boundary";
-import useListAuthors from "@/features/author/hooks/use-list-authors";
-import AuthorTable from "@/features/author/components/author-table";
-
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+import { EmptyList } from "@/common/empty-list";
+import { ListSkeleton } from "@/common/list-skeleton";
+import { ListError } from "@/common/list-error";
+import { LoadingBoundary } from "@/common/loading-boundary";
+import { useListAuthors } from "@features/author/hooks/use-list-authors";
+import { AuthorTable } from "@features/author/components/author-table";
 
 export function ListAuthorPage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");

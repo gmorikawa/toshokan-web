@@ -1,4 +1,4 @@
-import type { UserRole } from "@/features/user/types/user";
+import type { UserRole } from "@features/user/types/user";
 import useAuthentication from "../hooks/use-authentication";
 
 export interface RestrictedContentProps extends React.PropsWithChildren {

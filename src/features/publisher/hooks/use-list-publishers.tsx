@@ -1,11 +1,11 @@
 import { usePagination } from "@shared/pagination";
 import { useLoader } from "@shared/loader";
 
-import type { Publisher } from "@/features/publisher/types/publisher";
+import type { Publisher } from "@features/publisher/types/publisher";
 import type { Count, Pagination } from "@/common/pagination";
 import type { Loader } from "@/common/loader";
 
-import useAlert from "@/components/feedback/use-alert";
+import useAlert from "@components/feedback/use-alert";
 import useService from "@/services/use-service";
 import PublisherService from "@/services/publisher-service";
 

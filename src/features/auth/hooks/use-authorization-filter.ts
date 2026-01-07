@@ -1,4 +1,4 @@
-import type { UserRole } from "@/features/user/types/user";
+import type { UserRole } from "@features/user/types/user";
 import useAuthentication from "./use-authentication";
 
 export interface Authorization {

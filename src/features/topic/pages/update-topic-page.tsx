@@ -1,24 +1,25 @@
-import { useParams } from "@shared/router/hooks/params";
-import { useNavigator } from '@shared/router/hooks/navigator';
-
-import type { Topic } from "@/features/topic/types/topic";
-import { topicValidator } from "@/features/topic/validators/topic.validator";
-
 import { useEffect } from "react";
-import useAlert from "@/components/feedback/use-alert";
-import useForm from "@/components/form/use-form";
-import useService from "@/services/use-service";
-import TopicService from "@/services/topic-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import ActionButton from "@/components/button/action-button";
-import BoxContainer from "@/components/container/box-container";
-import TopicForm from "@/features/topic/components/topic-form";
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from "@shared/router/hooks/navigator";
+
+import type { Topic } from "@features/topic/types/topic";
+import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { topicValidator } from "@features/topic/utils/validators";
+import { TopicForm } from "@features/topic/components/topic-form";
+
+import { useAlert } from "@components/feedback/use-alert";
+import { useForm } from "@components/form/use-form";
+import { useService } from "@/services/use-service";
+import { TopicService } from "@/services/topic-service";
+
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import { BackIcon } from "@/common/icons";
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;

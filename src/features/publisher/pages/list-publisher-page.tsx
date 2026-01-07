@@ -1,26 +1,25 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { Publisher } from "@/features/publisher/types/publisher";
+import type { Publisher } from "@features/publisher/types/publisher";
+import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useListPublishers } from "@features/publisher/hooks/use-list-publishers";
+import { PublisherTable } from "@features/publisher/components/publisher-table";
 
-import useAlert from "@/components/feedback/use-alert";
-import useService from "@/services/use-service";
-import PublisherService from "@/services/publisher-service";
+import { useAlert } from "@components/feedback/use-alert";
+import { useService } from "@/services/use-service";
+import { PublisherService } from "@/services/publisher-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import ActionButton from "@/components/button/action-button";
-import BoxContainer from "@/components/container/box-container";
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import { AddIcon } from "@/common/icons";
-import EmptyList from "@/common/empty-list";
-import ListSkeleton from "@/common/list-skeleton";
-import ListError from "@/common/list-error";
-import LoadingBoundary from "@/common/loading-boundary";
-import useListPublishers from "@/features/publisher/hooks/use-list-publishers";
-import PublisherTable from "@/features/publisher/components/publisher-table";
-
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+import { EmptyList } from "@/common/empty-list";
+import { ListSkeleton } from "@/common/list-skeleton";
+import { ListError } from "@/common/list-error";
+import { LoadingBoundary } from "@/common/loading-boundary";
 
 export function ListPublisherPage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");

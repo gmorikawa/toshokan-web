@@ -1,4 +1,4 @@
-import type { NewLanguage, Language } from "@/features/language/types/language";
+import type { NewLanguage, Language } from "@features/language/types/language";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 

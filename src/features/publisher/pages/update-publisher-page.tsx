@@ -1,24 +1,25 @@
-import { useParams } from "@shared/router/hooks/params";
-import { useNavigator } from '@shared/router/hooks/navigator';
-
-import type { Publisher } from "@/features/publisher/types/publisher";
-import { publisherValidator } from "@/features/publisher/validators/publisher.validator";
-
 import { useEffect } from "react";
-import useAlert from "@/components/feedback/use-alert";
-import useForm from "@/components/form/use-form";
-import useService from "@/services/use-service";
-import PublisherService from "@/services/publisher-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import ActionButton from "@/components/button/action-button";
-import BoxContainer from "@/components/container/box-container";
-import PublisherForm from "@/features/publisher/components/publisher-form";
+import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from "@shared/router/hooks/navigator";
+
+import type { Publisher } from "@features/publisher/types/publisher";
+import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { publisherValidator } from "@features/publisher/utils/validators";
+import { PublisherForm } from "@features/publisher/components/publisher-form";
+
+import { useAlert } from "@components/feedback/use-alert";
+import { useForm } from "@components/form/use-form";
+import { useService } from "@/services/use-service";
+import { PublisherService } from "@/services/publisher-service";
+
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import { BackIcon } from "@/common/icons";
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;

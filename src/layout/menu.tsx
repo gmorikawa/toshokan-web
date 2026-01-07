@@ -1,15 +1,15 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import useAuthentication from "@/features/auth/hooks/use-authentication";
+import useAuthentication from "@features/auth/hooks/use-authentication";
 
 import AppRoute from "@/config/constants";
 
-import BoxContainer from "@/components/container/box-container";
-import FlexContainer from "@/components/container/flex-container";
-import Heading from "@/components/typography/header-typography";
-import Persona from "@/components/profile/persona";
-import StackContainer from "@/components/container/stack-container";
-import TextButton from "@/components/button/text-button";
+import BoxContainer from "@components/container/box-container";
+import FlexContainer from "@components/container/flex-container";
+import Heading from "@components/typography/header-typography";
+import Persona from "@components/profile/persona";
+import StackContainer from "@components/container/stack-container";
+import TextButton from "@components/button/text-button";
 
 import {
     AuthorIcon,
@@ -25,7 +25,7 @@ import {
     WhitepaperIcon
 } from "@/common/icons";
 import { Logo } from "./logo";
-import RestrictedContent from "@/features/auth/components/restricted-content";
+import RestrictedContent from "@features/auth/components/restricted-content";
 
 interface MenuItemProps {
     icon: React.ReactNode;

@@ -1,4 +1,4 @@
-import StackContainer from "@/components/container/stack-container";
+import StackContainer from "@components/container/stack-container";
 import ApplicationHeader from "./header";
 import ApplicationContent from "./content";
 

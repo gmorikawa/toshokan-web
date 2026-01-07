@@ -1,11 +1,11 @@
-import type { Publisher } from "@/features/publisher/types/publisher";
+import type { Publisher } from "@features/publisher/types/publisher";
 import type { Pagination } from "@/common/pagination";
 
-import DataTable from "@/components/table/data-table";
-import FlexContainer from "@/components/container/flex-container";
-import OutlineButton from "@/components/button/outline-button";
-import PaginationControl from "@/components/pagination/pagination-control";
-import StackContainer from "@/components/container/stack-container";
+import DataTable from "@components/table/data-table";
+import FlexContainer from "@components/container/flex-container";
+import OutlineButton from "@components/button/outline-button";
+import PaginationControl from "@components/pagination/pagination-control";
+import StackContainer from "@components/container/stack-container";
 
 export interface PublisherTableProps {
     data: Publisher[];

@@ -1,22 +1,22 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { NewUser } from "@/features/user/types/user";
-import { newUserValidator } from "@/features/user/validators/new-user.validator";
+import type { NewUser } from "@features/user/types/user";
+import { newUserValidator } from "@features/user/utils/validators";
+import { AdminUserForm } from "@features/configuration/components/admin-user-form";
 
-import useForm from "@/components/form/use-form";
-import useAlert from "@/components/feedback/use-alert";
-import useService from "@/services/use-service";
+import { useForm } from "@components/form/use-form";
+import { useAlert } from "@components/feedback/use-alert";
+import { useService } from "@/services/use-service";
 
-import Environment from "@/config/environment";
-import ConfigurationService from "@/services/configuration-service";
+import { Environment } from "@/config/environment";
+import { ConfigurationService } from "@/services/configuration-service";
 
-import BorderedContainer from "@/components/container/bordered-container";
-import BoxContainer from "@/components/container/box-container";
-import CentralizedContainer from "@/components/container/centralized-container";
-import StackContainer from "@/components/container/stack-container";
+import { BorderedContainer } from "@components/container/bordered-container";
+import { BoxContainer } from "@components/container/box-container";
+import { CentralizedContainer } from "@components/container/centralized-container";
+import { StackContainer } from "@components/container/stack-container";
 
 import { Logo } from "@/layout/logo";
-import AdminUserForm from "../components/admin-user-form";
 
 export function FirstAccessPage() {
     document.title = `First Access - ${Environment.APPLICATION_NAME}`;

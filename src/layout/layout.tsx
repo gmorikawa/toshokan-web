@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import ViewportContainer from "@/components/container/viewport-container";
-import FlexContainer from "@/components/container/flex-container";
-import BoxContainer from "@/components/container/box-container";
+import ViewportContainer from "@components/container/viewport-container";
+import FlexContainer from "@components/container/flex-container";
+import BoxContainer from "@components/container/box-container";
 
 import Menu from "./menu";
 

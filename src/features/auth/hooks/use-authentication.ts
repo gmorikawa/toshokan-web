@@ -1,6 +1,6 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { User } from "@/features/user/types/user";
+import type { User } from "@features/user/types/user";
 import type { AuthenticationToken } from "@/types/authentication-token";
 
 import NativeHttpClient from "@/common/native.http-client";

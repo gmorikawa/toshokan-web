@@ -1,6 +1,6 @@
 import type { HttpClient } from "@/common/http-client";
 import type { AuthenticationToken } from "@/types/authentication-token";
-import type { User } from "@/features/user/types/user";
+import type { User } from "@features/user/types/user";
 
 export class AuthService {
     private readonly http: HttpClient;

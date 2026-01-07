@@ -1,4 +1,4 @@
-import type { NewBundle, Bundle } from "@/features/bundle/types/bundle";
+import type { NewBundle, Bundle } from "@features/bundle/types/bundle";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 

@@ -1,26 +1,25 @@
-import { useNavigator } from '@shared/router/hooks/navigator';
+import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { Topic } from "@/features/topic/types/topic";
+import type { Topic } from "@features/topic/types/topic";
+import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useListTopics } from "@features/topic/hooks/use-list-topics";
+import { TopicTable } from "@features/topic/components/topic-table";
 
-import useAlert from "@/components/feedback/use-alert";
-import useService from "@/services/use-service";
-import TopicService from "@/services/topic-service";
+import { useAlert } from "@components/feedback/use-alert";
+import { useService } from "@/services/use-service";
+import { TopicService } from "@/services/topic-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import ActionButton from "@/components/button/action-button";
-import BoxContainer from "@/components/container/box-container";
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import { AddIcon } from "@/common/icons";
-import EmptyList from "@/common/empty-list";
-import ListSkeleton from "@/common/list-skeleton";
-import ListError from "@/common/list-error";
-import LoadingBoundary from "@/common/loading-boundary";
-import useListTopics from "@/features/topic/hooks/use-list-topics";
-import TopicTable from "@/features/topic/components/topic-table";
-
-import useAuthorizationFilter from "@/features/auth/hooks/use-authorization-filter";
+import { EmptyList } from "@/common/empty-list";
+import { ListSkeleton } from "@/common/list-skeleton";
+import { ListError } from "@/common/list-error";
+import { LoadingBoundary } from "@/common/loading-boundary";
 
 export function ListTopicPage() {
     const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
