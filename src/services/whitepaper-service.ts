@@ -1,5 +1,5 @@
 import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
-import type { NewWhitepaper, Whitepaper } from "@features/document/whitepaper/types/whitepaper";
+import type { NewWhitepaper, Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 import { removeNullishProperties } from "@/common/object";

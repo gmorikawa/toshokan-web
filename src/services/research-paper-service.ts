@@ -1,5 +1,5 @@
 import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
-import type { NewResearchPaper, ResearchPaper } from "@features/document/research-paper/types/research-paper";
+import type { NewResearchPaper, ResearchPaper } from "@features/research-paper/types/research-paper";
 import type { QueryOptions } from "@/types/query";
 import MainService, { type Service } from "@/services";
 import { removeNullishProperties } from "@/common/object";
