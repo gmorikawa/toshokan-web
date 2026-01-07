@@ -1,7 +1,7 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Publisher } from "@features/publisher/types/publisher";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useListPublishers } from "@features/publisher/hooks/use-list-publishers";
 import { PublisherTable } from "@features/publisher/components/publisher-table";
 
@@ -22,7 +22,7 @@ import { ListError } from "@/common/list-error";
 import { LoadingBoundary } from "@/common/loading-boundary";
 
 export function ListPublisherPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     const publishers = useListPublishers();
     const alert = useAlert();

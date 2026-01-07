@@ -1,7 +1,7 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Language } from "@features/language/types/language";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useListLanguages } from "@features/language/hooks/use-list-languages";
 import { LanguageTable } from "@features/language/components/language-table";
 
@@ -23,7 +23,7 @@ import { LoadingBoundary } from "@/common/loading-boundary";
 
 
 export function ListLanguagePage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     const languages = useListLanguages();
     const alert = useAlert();

@@ -1,7 +1,7 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { NewUser } from "@features/user/types/user";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { newUserValidator } from "@features/user/utils/validators";
 import { CreateUserForm } from "@features/user/components/create-user-form";
 
@@ -19,7 +19,7 @@ import { BoxContainer } from "@components/container/box-container";
 import { BackIcon } from "@/common/icons";
 
 export function CreateUserPage() {
-    const authorization = useAuthorizationFilter("ADMIN");
+    const authorization = useAuthorization("ADMIN");
 
     function handleSubmit() {
         form.submit();

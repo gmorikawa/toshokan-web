@@ -1,29 +1,28 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Category } from "@features/category/types/category";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useListCategories } from "@features/category/hooks/use-list-categories";
+import { CategoryTable } from "@features/category/components/category-table";
 
-import useAlert from "@components/feedback/use-alert";
-import useService from "@/services/use-service";
-import CategoryService from "@/services/category-service";
+import { useAlert } from "@components/feedback/use-alert";
+import { useService } from "@/services/use-service";
+import { CategoryService } from "@/services/category-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import ActionButton from "@components/button/action-button";
-import BoxContainer from "@components/container/box-container";
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import { AddIcon } from "@/common/icons";
-import EmptyList from "@/common/empty-list";
-import ListSkeleton from "@/common/list-skeleton";
-import ListError from "@/common/list-error";
-import LoadingBoundary from "@/common/loading-boundary";
-import useListCategories from "@features/category/hooks/use-list-categories";
-import CategoryTable from "@features/category/components/category-table";
-
-import useAuthorizationFilter from "@features/auth/hooks/use-authorization-filter";
+import { EmptyList } from "@/common/empty-list";
+import { ListSkeleton } from "@/common/list-skeleton";
+import { ListError } from "@/common/list-error";
+import { LoadingBoundary } from "@/common/loading-boundary";
 
 export function ListCategoryPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     const categories = useListCategories();
     const alert = useAlert();

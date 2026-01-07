@@ -1,5 +1,3 @@
-import { useLocalStorage } from "@shared/storage/hooks/local-storage";
-
 import NativeHttpClient from "@/common/native.http-client";
 import type { HttpClient } from "@/common/http-client";
 import Environment from "@/config/environment";
@@ -13,12 +11,10 @@ interface ServiceClassOptions {
 }
 
 export function useService<Service>(ServiceClass: ServiceClassConstructor<Service>, options?: ServiceClassOptions): Service {
-    const storage = useLocalStorage();
-
     const headers = {};
 
     if (options?.includeAuthorization) {
-        Object.assign(headers, { "Authorization": `Bearer ${storage.get("token") ?? ""}` });
+        Object.assign(headers, { "Authorization": `Bearer ${localStorage.getItem("token") ?? ""}` });
     }
 
     return new ServiceClass(

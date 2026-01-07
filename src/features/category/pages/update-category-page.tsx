@@ -4,7 +4,7 @@ import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Category } from "@features/category/types/category";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { categoryValidator } from "@features/category/utils/validators";
 import { CategoryForm } from "@features/category/components/category-form";
 
@@ -26,7 +26,7 @@ type ParamsWithId = {
 }
 
 export function UpdateCategoryPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

@@ -1,18 +1,18 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
-import useAuthentication from '@/features/auth/hooks/use-authentication';
-import useForm from '@/components/form/use-form';
-import useAlert from "@components/feedback/use-alert";
+import { useAuthentication } from '@/features/auth/hooks/authentication';
+import { useForm } from '@/components/form/use-form';
+import { useAlert } from "@components/feedback/use-alert";
 
-import SubmitButton from '@/components/button/submit-button';
-import BorderedContainer from '@/components/container/bordered-container';
-import CentralizedContainer from '@/components/container/centralized-container';
-import StackContainer from '@/components/container/stack-container';
-import FormPasswordField from '@/components/form/form-password-field';
-import FormTextField from '@/components/form/form-text-field';
-import Environment from '@/config/environment';
+import { SubmitButton } from '@/components/button/submit-button';
+import { BorderedContainer } from '@/components/container/bordered-container';
+import { CentralizedContainer } from '@/components/container/centralized-container';
+import { StackContainer } from '@/components/container/stack-container';
+import { FormPasswordField } from '@/components/form/form-password-field';
+import { FormTextField } from '@/components/form/form-text-field';
+import { Environment } from '@/config/environment';
 import { Logo } from '@/layout/logo';
-import BoxContainer from '@/components/container/box-container';
+import { BoxContainer } from '@/components/container/box-container';
 
 export function LoginPage() {
     document.title = `Login - ${Environment.APPLICATION_NAME}`;

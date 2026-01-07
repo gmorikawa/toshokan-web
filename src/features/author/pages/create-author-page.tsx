@@ -2,7 +2,7 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { NewAuthor } from "@features/author/types/author";
 import { newAuthorValidator } from "@features/author/utils/validators";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useService } from "@/services/use-service";
@@ -19,7 +19,7 @@ import { AuthorForm } from "@features/author/components/author-form";
 import { BackIcon } from "@/common/icons";
 
 export function CreateAuthorPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

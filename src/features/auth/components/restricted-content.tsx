@@ -1,14 +1,14 @@
-import type { UserRole } from "@features/user/types/user";
-import useAuthentication from "../hooks/use-authentication";
+import type { UserRole } from "@features/user/types/enums";
+import { useSession } from "@features/auth/hooks/session";
 
 export interface RestrictedContentProps extends React.PropsWithChildren {
     allowedRoles: UserRole[];
 }
 
 export function RestrictedContent({ allowedRoles, children }: RestrictedContentProps) {
-    const auth = useAuthentication();
+    const session = useSession();
 
-    return (!auth.loggedUser || !allowedRoles.includes(auth.loggedUser.role))
+    return (!session.loggedUser || !allowedRoles.includes(session.loggedUser.role))
         ? null
         : children;
 }

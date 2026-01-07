@@ -5,7 +5,7 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Language } from "@features/language/types/language";
 import { languageValidator } from "@features/language/utils/validators";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { LanguageForm } from "@features/language/components/language-form";
 
 import { useAlert } from "@components/feedback/use-alert";
@@ -26,7 +26,7 @@ type ParamsWithId = {
 }
 
 export function UpdateLanguagePage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

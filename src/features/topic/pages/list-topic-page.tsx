@@ -1,7 +1,7 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Topic } from "@features/topic/types/topic";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useListTopics } from "@features/topic/hooks/use-list-topics";
 import { TopicTable } from "@features/topic/components/topic-table";
 
@@ -22,7 +22,7 @@ import { ListError } from "@/common/list-error";
 import { LoadingBoundary } from "@/common/loading-boundary";
 
 export function ListTopicPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     const topics = useListTopics();
     const alert = useAlert();

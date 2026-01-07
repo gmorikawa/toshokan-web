@@ -1,6 +1,7 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { NewWhitepaper } from "@features/whitepaper/types/whitepaper";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { newWhitepaperValidator } from "@features/whitepaper/utils/validators";
 import { WhitepaperForm } from "@features/whitepaper/components/whitepaper-form";
 
@@ -15,12 +16,10 @@ import { ApplicationContent } from "@/layout/content";
 import { BoxContainer } from "@components/container/box-container";
 import { ActionButton } from "@components/button/action-button";
 
-
 import { BackIcon } from "@/common/icons";
-import useAuthorizationFilter from "@features/auth/hooks/use-authorization-filter";
 
 export function CreateWhitepaperPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

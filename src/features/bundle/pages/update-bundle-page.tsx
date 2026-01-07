@@ -2,7 +2,9 @@ import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Bundle } from "@features/bundle/types/bundle";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { bundleValidator } from "@features/bundle/utils/validators";
+import BundleForm from "@features/bundle/components/bundle-form";
 
 import { useEffect } from "react";
 import useAlert from "@components/feedback/use-alert";
@@ -15,17 +17,15 @@ import ApplicationHeader from "@/layout/header";
 import ApplicationContent from "@/layout/content";
 import ActionButton from "@components/button/action-button";
 import BoxContainer from "@components/container/box-container";
-import BundleForm from "@features/bundle/components/bundle-form";
 
 import { BackIcon } from "@/common/icons";
-import useAuthorizationFilter from "@features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;
 }
 
 export function UpdateBundlePage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

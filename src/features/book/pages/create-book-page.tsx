@@ -1,7 +1,7 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { NewBook } from "@features/book/types/book";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { newBookValidator } from "@features/book/utils/validators";
 import { BookForm } from "@features/book/components/book-form";
 
@@ -19,7 +19,7 @@ import { BoxContainer } from "@components/container/box-container";
 import { BackIcon } from "@/common/icons";
 
 export function CreateBookPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

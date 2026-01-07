@@ -2,7 +2,7 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { NewBundle } from "@features/bundle/types/bundle";
 import { newBundleValidator } from "@features/bundle/utils/validators";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { BundleForm } from "@features/bundle/components/bundle-form";
 
 import { useAlert } from "@components/feedback/use-alert";
@@ -19,7 +19,7 @@ import { ActionButton } from "@components/button/action-button";
 import { BackIcon } from "@/common/icons";
 
 export function CreateBundlePage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

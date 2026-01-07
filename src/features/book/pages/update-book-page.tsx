@@ -2,6 +2,7 @@ import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Book } from "@features/book/types/book";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { bookValidator } from "@features/book/utils/validators";
 import { BookForm } from "@features/book/components/book-form";
 import { BookFileUpload } from "@features/book/components/book-file-upload";
@@ -21,7 +22,6 @@ import { TabContent } from "@components/tab/tab-content";
 import { TabControl, type TabOption } from "@components/tab/tab-control";
 
 import { BackIcon, FileUploadIcon, FormIcon } from "@/common/icons";
-import useAuthorizationFilter from "@features/auth/hooks/use-authorization-filter";
 
 type ParamsWithId = {
     id?: string;
@@ -35,7 +35,7 @@ const bookFormTabOptions: TabOption<BookFormTab>[] = [
 ];
 
 export function UpdateBookPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

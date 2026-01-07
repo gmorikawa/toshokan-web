@@ -4,7 +4,7 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 import { useParams } from "@shared/router/hooks/params";
 
 import type { User } from "@features/user/types/user";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { userValidator } from "@features/user/utils/validators";
 import { UpdateUserForm } from "@features/user/components/update-user-form";
 
@@ -26,7 +26,7 @@ type ParamsWithId = {
 }
 
 export function UpdateUserFormPage() {
-    const authorization = useAuthorizationFilter("ADMIN");
+    const authorization = useAuthorization("ADMIN");
 
     const alert = useAlert();
     const navigate = useNavigator();

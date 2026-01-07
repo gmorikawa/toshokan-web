@@ -1,6 +1,6 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
-import useAuthentication from "@features/auth/hooks/use-authentication";
+import { useAuthentication } from "@features/auth/hooks/authentication";
 
 import AppRoute from "@/config/constants";
 
@@ -26,6 +26,7 @@ import {
 } from "@/common/icons";
 import { Logo } from "./logo";
 import RestrictedContent from "@features/auth/components/restricted-content";
+import { useSession } from "@features/auth/hooks/session";
 
 interface MenuItemProps {
     icon: React.ReactNode;
@@ -97,7 +98,8 @@ function MenuContainer({ header, footer, children }: MenuContainerProps) {
 export function Menu() {
     useAuthentication();
 
-    const { logout, loggedUser } = useAuthentication();
+    const { logout } = useAuthentication();
+    const { loggedUser } = useSession();
 
     function handleLogout(): void {
         logout();

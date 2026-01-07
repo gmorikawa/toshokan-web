@@ -1,5 +1,4 @@
-export type UserRole = "ADMIN" | "LIBRARIAN" | "READER";
-export type UserStatus = "ACTIVE" | "BLOCKED";
+import type { UserRole, UserStatus } from "@features/user/types/enums";
 
 export interface User {
     id: string;

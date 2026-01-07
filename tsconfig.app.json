@@ -28,6 +28,7 @@
       "@components/*": ["./src/components/*"],
       "@features/*": ["./src/features/*"],
       "@shared/*": ["./src/shared/*"],
+      "@config/*": ["./src/config/*"],
       "@/*": ["./src/*"]
     }
   },

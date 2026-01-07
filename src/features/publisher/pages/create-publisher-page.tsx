@@ -1,7 +1,7 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { NewPublisher } from "@features/publisher/types/publisher";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { newPublisherValidator } from "@features/publisher/utils/validators";
 import { PublisherForm } from "@features/publisher/components/publisher-form";
 
@@ -19,7 +19,7 @@ import { BoxContainer } from "@components/container/box-container";
 import { BackIcon } from "@/common/icons";
 
 export function CreatePublisherPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

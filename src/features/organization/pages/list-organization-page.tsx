@@ -1,29 +1,28 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Organization } from "@features/organization/types/organization";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useListOrganizations } from "@features/organization/hooks/use-list-organizations";
+import { OrganizationTable } from "@features/organization/components/organization-table";
 
-import useAlert from "@components/feedback/use-alert";
-import useService from "@/services/use-service";
-import OrganizationService from "@/services/organization-service";
+import { useAlert } from "@components/feedback/use-alert";
+import { useService } from "@/services/use-service";
+import { OrganizationService } from "@/services/organization-service";
 
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import ActionButton from "@components/button/action-button";
-import BoxContainer from "@components/container/box-container";
+import { ApplicationPage } from "@/layout/page";
+import { ApplicationHeader } from "@/layout/header";
+import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import { AddIcon } from "@/common/icons";
-import EmptyList from "@/common/empty-list";
-import ListSkeleton from "@/common/list-skeleton";
-import ListError from "@/common/list-error";
-import LoadingBoundary from "@/common/loading-boundary";
-
-import useAuthorizationFilter from "@features/auth/hooks/use-authorization-filter";
-import useListOrganizations from "@features/organization/hooks/use-list-organizations";
-import OrganizationTable from "@features/organization/components/organization-table";
+import { EmptyList } from "@/common/empty-list";
+import { ListSkeleton } from "@/common/list-skeleton";
+import { ListError } from "@/common/list-error";
+import { LoadingBoundary } from "@/common/loading-boundary";
 
 export function ListOrganizationPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     const organizations = useListOrganizations();
     const alert = useAlert();

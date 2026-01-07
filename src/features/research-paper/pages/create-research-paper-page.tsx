@@ -16,10 +16,10 @@ import { BoxContainer } from "@components/container/box-container";
 import { ActionButton } from "@components/button/action-button";
 
 import { BackIcon } from "@/common/icons";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 
 export function CreateResearchPaperPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

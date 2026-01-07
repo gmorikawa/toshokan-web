@@ -2,7 +2,7 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { NewCategory } from "@features/category/types/category";
 import { newCategoryValidator } from "@features/category/utils/validators";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { CategoryForm } from "@features/category/components/category-form";
 
 import { useAlert } from "@components/feedback/use-alert";
@@ -19,7 +19,7 @@ import { BoxContainer } from "@components/container/box-container";
 import { BackIcon } from "@/common/icons";
 
 export function CreateCategoryPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

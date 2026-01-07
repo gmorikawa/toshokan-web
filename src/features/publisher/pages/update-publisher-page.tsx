@@ -4,7 +4,7 @@ import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Publisher } from "@features/publisher/types/publisher";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { publisherValidator } from "@features/publisher/utils/validators";
 import { PublisherForm } from "@features/publisher/components/publisher-form";
 
@@ -26,7 +26,7 @@ type ParamsWithId = {
 }
 
 export function UpdatePublisherPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

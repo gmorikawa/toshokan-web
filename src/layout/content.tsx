@@ -1,5 +1,5 @@
 import BoxContainer from "@components/container/box-container";
-import type { Authorization } from "@features/auth/hooks/use-authorization-filter";
+import type { Authorization } from "@features/auth/hooks/authorization";
 import ForbiddenContent from "@/common/content-not-allowed";
 
 export interface ApplicationContentProps extends React.PropsWithChildren {

@@ -1,7 +1,7 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { NewTopic } from "@features/topic/types/topic";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { newTopicValidator } from "@features/topic/utils/validators";
 import { TopicForm } from "@features/topic/components/topic-form";
 
@@ -19,7 +19,7 @@ import { ActionButton } from "@components/button/action-button";
 import { BackIcon } from "@/common/icons";
 
 export function CreateTopicPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

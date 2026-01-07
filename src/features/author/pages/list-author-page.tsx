@@ -1,7 +1,7 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Author } from "@features/author/types/author";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useService } from "@/services/use-service";
@@ -22,7 +22,7 @@ import { useListAuthors } from "@features/author/hooks/use-list-authors";
 import { AuthorTable } from "@features/author/components/author-table";
 
 export function ListAuthorPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     const authors = useListAuthors();
     const alert = useAlert();

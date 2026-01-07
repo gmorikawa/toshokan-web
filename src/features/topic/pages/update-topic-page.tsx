@@ -4,7 +4,7 @@ import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Topic } from "@features/topic/types/topic";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { topicValidator } from "@features/topic/utils/validators";
 import { TopicForm } from "@features/topic/components/topic-form";
 
@@ -26,7 +26,7 @@ type ParamsWithId = {
 }
 
 export function UpdateTopicPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

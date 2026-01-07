@@ -2,7 +2,7 @@ import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { whitepaperValidator } from "@features/whitepaper/utils/validators";
 import { WhitepaperForm } from "@features/whitepaper/components/whitepaper-form";
 import { WhitepaperFileUpload } from "@features/whitepaper/components/whitepaper-file-upload";
@@ -35,7 +35,7 @@ const whitepaperFormTabOptions: TabOption<WhitepaperFormTab>[] = [
 ];
 
 export function UpdateWhitepaperPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

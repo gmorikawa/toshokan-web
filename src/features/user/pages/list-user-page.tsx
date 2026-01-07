@@ -1,7 +1,7 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { User } from "@features/user/types/user";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useListUsers } from "@features/user/hooks/use-list-users";
 import { UserTable } from "@features/user/components/user-table";
 
@@ -22,7 +22,7 @@ import { ListError } from "@/common/list-error";
 import { LoadingBoundary } from "@/common/loading-boundary";
 
 export function ListUserPage() {
-    const authorization = useAuthorizationFilter("ADMIN");
+    const authorization = useAuthorization("ADMIN");
 
     const users = useListUsers();
     const alert = useAlert();

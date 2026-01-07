@@ -21,7 +21,7 @@ import { TabContent } from "@components/tab/tab-content";
 import { TabControl, type TabOption } from "@components/tab/tab-control";
 
 import { BackIcon, FileUploadIcon, FormIcon } from "@/common/icons";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 
 type ParamsWithId = {
     id?: string;
@@ -36,7 +36,7 @@ const researchPaperFormTabOptions: TabOption<ResearchPaperFormTab>[] = [
 
 
 export function UpdateResearchPaperPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     function handleSubmit() {
         form.submit();

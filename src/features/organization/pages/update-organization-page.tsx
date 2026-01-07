@@ -5,7 +5,7 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Organization } from "@features/organization/types/organization";
 import { organizationValidator } from "@features/organization/utils/validators";
-import { useAuthorizationFilter } from "@features/auth/hooks/use-authorization-filter";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { OrganizationForm } from "@features/organization/components/organization-form";
 
 import { useAlert } from "@components/feedback/use-alert";
@@ -26,7 +26,7 @@ type ParamsWithId = {
 }
 
 export function UpdateOrganizationPage() {
-    const authorization = useAuthorizationFilter("ADMIN", "LIBRARIAN");
+    const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     const alert = useAlert();
     const navigate = useNavigator();
