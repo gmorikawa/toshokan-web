@@ -96,8 +96,6 @@ function MenuContainer({ header, footer, children }: MenuContainerProps) {
 }
 
 export function Menu() {
-    useAuthentication();
-
     const { logout } = useAuthentication();
     const { loggedUser } = useSession();
 

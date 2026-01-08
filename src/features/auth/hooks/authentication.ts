@@ -1,29 +1,33 @@
-import type { Authentication } from "@features/auth/types/authentication";
-import { useSession, type SessionController } from "@features/auth/hooks/session";
-import { loginRequest } from "@features/auth/utils/api";
+import type { Session } from "@features/auth/types/session";
+import { login } from "@features/auth/utils/api";
+import { useSession } from "@features/auth/hooks/session";
+
+import { useAlert } from "@components/feedback/use-alert";
+import useNavigator from "@shared/router/hooks/navigator";
 
 export interface AuthenticationController {
-    session: SessionController;
-
-    login: (username: string, password: string) => Promise<Authentication>;
+    login: (username: string, password: string) => Promise<void>;
     logout: () => void;
 }
 
 export function useAuthentication(): AuthenticationController {
+    const navigate = useNavigator();
     const session = useSession();
+    const alert = useAlert();
 
-    const login = async (username: string, password: string) => {
-        return loginRequest(username, password)
-            .then(async (authentication: Authentication) => {
-                session.update(authentication.token, authentication.loggedUser);
-
-                return authentication;
-            });
-    };
-
-    const logout = () => {
-        session.reset();
-    };
-
-    return { session, login, logout };
+    return {
+        login: async (username: string, password: string) => {
+            return login(username, password)
+                .then(async (userSession: Session) => {
+                    session.update(userSession.token, userSession.loggedUser);
+                })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                });
+        },
+        logout: () => {
+            session.reset();
+            navigate.to("/login");
+        },
+    }
 }
