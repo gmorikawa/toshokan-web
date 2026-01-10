@@ -1,8 +1,5 @@
-import { useNavigator } from "@shared/router/hooks/navigator";
-
 import { useAuthentication } from '@/features/auth/hooks/authentication';
 import { useForm } from '@/components/form/use-form';
-import { useAlert } from "@components/feedback/use-alert";
 
 import { SubmitButton } from '@/components/button/submit-button';
 import { BorderedContainer } from '@/components/container/bordered-container';
@@ -24,19 +21,12 @@ export function LoginPage() {
         }
     });
 
-    const alert = useAlert();
-    const navigate = useNavigator();
+    
     const authentication = useAuthentication();
 
     const handleLogin = () => {
         const { username, password } = form.entity;
-        authentication.login(username, password)
-            .then(() => {
-                navigate.to("/app/topic/list");
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
+        authentication.login(username, password);
     };
 
     return (

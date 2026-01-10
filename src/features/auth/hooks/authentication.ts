@@ -20,6 +20,8 @@ export function useAuthentication(): AuthenticationController {
             return login(username, password)
                 .then(async (userSession: Session) => {
                     session.update(userSession.token, userSession.loggedUser);
+
+                    navigate.to("/app/topic/list");
                 })
                 .catch((error: Error) => {
                     alert.showErrorMessage(error);
