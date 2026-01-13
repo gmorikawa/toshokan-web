@@ -1,4 +1,4 @@
-import type { ResearchPaper } from "@features/document/research-paper/types/research-paper";
+import type { ResearchPaper } from "@features/research-paper/types/research-paper";
 import type { Pagination } from "@/common/pagination";
 
 import DataTable from "@components/table/data-table";

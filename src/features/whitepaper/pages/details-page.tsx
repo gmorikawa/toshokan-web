@@ -1,6 +1,6 @@
-import { useWhitepaper } from "@features/whitepaper/hooks/use-whitepaper";
+import { useWhitepaper } from "@features/whitepaper/hooks/whitepaper";
 import { WhitepaperInfo } from "@features/whitepaper/components/whitepaper-info";
-import { useWhitepaperFiles } from "@features/whitepaper/hooks/use-whitepaper-files";
+import { useWhitepaperFiles } from "@features/whitepaper/hooks/whitepaper-files";
 
 import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";

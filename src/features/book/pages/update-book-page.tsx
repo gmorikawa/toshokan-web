@@ -10,8 +10,7 @@ import { BookFileUpload } from "@features/book/components/book-file-upload";
 import { useEffect } from "react";
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { BookService } from "@/services/book-service";
+import { useBookService } from "@features/book/hooks/book-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -44,7 +43,7 @@ export function UpdateBookPage() {
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<BookService>(BookService, { includeAuthorization: true });
+    const service = useBookService();
 
     const form = useForm<Book>({
         default: {

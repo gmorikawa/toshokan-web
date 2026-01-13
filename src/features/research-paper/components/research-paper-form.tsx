@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
-import useAuthorSearch from "@features/author/hooks/use-author-search";
-import useTopicSearch from "@features/topic/hooks/use-topic-search";
 
-import type { ResearchPaper, NewResearchPaper } from "@features/document/research-paper/types/research-paper";
+import type { ResearchPaper, NewResearchPaper } from "@features/research-paper/types/research-paper";
 import type { Author } from "@features/author/types/author";
 import type { Language } from "@features/language/types/language";
 import type { Organization } from "@features/organization/types/organization";
 import type { Topic } from "@features/topic/types/topic";
+import { useLanguageService } from "@features/language/hooks/language-service";
+import { useOrganizationService } from "@features/organization/hooks/organization-service";
+import { useAuthorSearch } from "@features/author/hooks/author-search";
+import { useTopicSearch } from "@features/topic/hooks/topic-search";
 
-import useAlert from "@components/feedback/use-alert";
-import useService from "@/services/use-service";
-import LanguageService from "@/services/language-service";
-import OrganizationService from "@/services/organization-service";
-
+import { useAlert } from "@components/feedback/use-alert";
 import type { Form } from "@components/form/use-form";
-import FormComboField from "@components/form/form-combo-field";
-import FormSelectField from "@components/form/form-select-field";
-import FormTextField from "@components/form/form-text-field";
-import SubmitButton from "@components/button/submit-button";
-import StackContainer from "@components/container/stack-container";
-import FormTextareaField from "@components/form/form-textarea-field";
+import { FormComboField } from "@components/form/form-combo-field";
+import { FormSelectField } from "@components/form/form-select-field";
+import { FormTextField } from "@components/form/form-text-field";
+import { SubmitButton } from "@components/button/submit-button";
+import { StackContainer } from "@components/container/stack-container";
+import { FormTextareaField } from "@components/form/form-textarea-field";
 
 export interface ResearchPaperFormProps {
     form: Form<ResearchPaper | NewResearchPaper>;
@@ -28,8 +26,8 @@ export interface ResearchPaperFormProps {
 
 export function ResearchPaperForm({ form, onSubmit }: ResearchPaperFormProps) {
     const alert = useAlert();
-    const languageService = useService<LanguageService>(LanguageService, { includeAuthorization: true });
-    const organizationService = useService<OrganizationService>(OrganizationService, { includeAuthorization: true });
+    const languageService = useLanguageService();
+    const organizationService = useOrganizationService();
 
     function handleSubmit(): void {
         (onSubmit) && (onSubmit(form.entity));

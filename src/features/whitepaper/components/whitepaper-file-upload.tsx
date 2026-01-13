@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
+
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
+import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
+import { DocumentFileCard } from "@features/document/components/document-file-card";
+import { UploadModal } from "@features/document/components/upload-modal";
 
-import useAlert from "@components/feedback/use-alert";
-import useModal from "@components/modal/use-modal";
-import useService from "@/services/use-service";
-import WhitepaperService from "@/services/whitepaper-service";
-
-import StackContainer from "@components/container/stack-container";
-
-import DocumentFileCard from "@features/document/components/document-file-card";
-import UploadModal from "@features/document/components/upload-modal";
+import { useAlert } from "@components/feedback/use-alert";
+import { useModal } from "@components/modal/use-modal";
+import { StackContainer } from "@components/container/stack-container";
 
 export interface WhitepaperFileUploadProps {
     whitepaper: Whitepaper;
@@ -22,7 +20,7 @@ export function WhitepaperFileUpload({ whitepaper }: WhitepaperFileUploadProps) 
         title: "Upload New File",
         triggerLabel: "Upload File"
     });
-    const service = useService<WhitepaperService>(WhitepaperService, { includeAuthorization: true });
+    const service = useWhitepaperService();
     const [documentFiles, setDocumentFiles] = useState<DocumentFile[]>([]);
 
     function handleUpload(documentFile: NewDocumentFile): void {

@@ -3,10 +3,10 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 import type { NewAuthor } from "@features/author/types/author";
 import { newAuthorValidator } from "@features/author/utils/validators";
 import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useAuthorService } from "@features/author/hooks/author-service";
+import { AuthorForm } from "@features/author/components/author-form";
 
 import { useAlert } from "@components/feedback/use-alert";
-import { useService } from "@/services/use-service";
-import { AuthorService } from "@/services/author-service";
 
 import { useForm } from "@components/form/use-form";
 import { BoxContainer } from "@components/container/box-container";
@@ -14,7 +14,6 @@ import { ActionButton } from "@components/button/action-button";
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
 import { ApplicationContent } from "@/layout/content";
-import { AuthorForm } from "@features/author/components/author-form";
 
 import { BackIcon } from "@/common/icons";
 
@@ -27,7 +26,7 @@ export function CreateAuthorPage() {
     const alert = useAlert();
     const navigate = useNavigator();
 
-    const service = useService<AuthorService>(AuthorService, { includeAuthorization: true });
+    const service = useAuthorService();
 
     const form = useForm<NewAuthor>({
         default: {

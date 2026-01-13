@@ -2,12 +2,11 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { User } from "@features/user/types/user";
 import { useAuthorization } from "@features/auth/hooks/authorization";
-import { useListUsers } from "@features/user/hooks/use-list-users";
+import { useListUsers } from "@features/user/hooks/list-users";
 import { UserTable } from "@features/user/components/user-table";
 
 import { useAlert } from "@components/feedback/use-alert";
-import { useService } from "@/services/use-service";
-import { UserService } from "@/services/user-service";
+import { useUserService } from "@features/user/hooks/user-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -27,7 +26,7 @@ export function ListUserPage() {
     const users = useListUsers();
     const alert = useAlert();
     const navigate = useNavigator();
-    const service = useService<UserService>(UserService, { includeAuthorization: true });
+    const service = useUserService();
 
     const handleCreate = (): void => {
         navigate.to("/app/user/form");
@@ -38,7 +37,7 @@ export function ListUserPage() {
     };
 
     const handleRemove = (entity: User): void => {
-        service.remove(entity)
+        service.delete(entity)
             .then(() => {
                 users.refresh();
             })

@@ -10,8 +10,7 @@ import { WhitepaperFileUpload } from "@features/whitepaper/components/whitepaper
 import { useEffect } from "react";
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { WhitepaperService } from "@/services/whitepaper-service";
+import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -44,7 +43,7 @@ export function UpdateWhitepaperPage() {
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<WhitepaperService>(WhitepaperService, { includeAuthorization: true });
+    const service = useWhitepaperService();
 
     const form = useForm<Whitepaper>({
         default: {

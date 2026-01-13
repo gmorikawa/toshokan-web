@@ -7,8 +7,7 @@ import { OrganizationForm } from "@features/organization/components/organization
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { OrganizationService } from "@/services/organization-service";
+import { useOrganizationService } from "@features/organization/hooks/organization-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -24,7 +23,7 @@ export function CreateOrganizationPage() {
     const alert = useAlert();
     const navigate = useNavigator();
 
-    const service = useService<OrganizationService>(OrganizationService, { includeAuthorization: true });
+    const service = useOrganizationService();
 
     const form = useForm<NewOrganization>({
         default: {

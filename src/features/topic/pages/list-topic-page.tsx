@@ -2,12 +2,11 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Topic } from "@features/topic/types/topic";
 import { useAuthorization } from "@features/auth/hooks/authorization";
-import { useListTopics } from "@features/topic/hooks/use-list-topics";
+import { useListTopics } from "@features/topic/hooks/list-topics";
 import { TopicTable } from "@features/topic/components/topic-table";
 
 import { useAlert } from "@components/feedback/use-alert";
-import { useService } from "@/services/use-service";
-import { TopicService } from "@/services/topic-service";
+import { useTopicService } from "@features/topic/hooks/topic-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -27,7 +26,7 @@ export function ListTopicPage() {
     const topics = useListTopics();
     const alert = useAlert();
     const navigate = useNavigator();
-    const service = useService<TopicService>(TopicService, { includeAuthorization: true });
+    const service = useTopicService();
 
     const handleCreate = (): void => {
         navigate.to("/app/topic/form");
@@ -38,7 +37,7 @@ export function ListTopicPage() {
     };
 
     const handleRemove = (entity: Topic): void => {
-        service.remove(entity)
+        service.delete(entity)
             .then(() => {
                 topics.refresh();
             })

@@ -2,10 +2,11 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Author } from "@features/author/types/author";
 import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useAuthorService } from "@features/author/hooks/author-service";
+import { useListAuthors } from "@features/author/hooks/list-authors";
+import { AuthorTable } from "@features/author/components/author-table";
 
 import { useAlert } from "@components/feedback/use-alert";
-import { useService } from "@/services/use-service";
-import { AuthorService } from "@/services/author-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -18,8 +19,6 @@ import { EmptyList } from "@/common/empty-list";
 import { ListSkeleton } from "@/common/list-skeleton";
 import { ListError } from "@/common/list-error";
 import { LoadingBoundary } from "@/common/loading-boundary";
-import { useListAuthors } from "@features/author/hooks/use-list-authors";
-import { AuthorTable } from "@features/author/components/author-table";
 
 export function ListAuthorPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
@@ -27,7 +26,7 @@ export function ListAuthorPage() {
     const authors = useListAuthors();
     const alert = useAlert();
     const navigate = useNavigator();
-    const service = useService<AuthorService>(AuthorService, { includeAuthorization: true });
+    const service = useAuthorService();
 
     const handleCreate = (): void => {
         navigate.to("/app/author/form");
@@ -38,7 +37,7 @@ export function ListAuthorPage() {
     };
 
     const handleRemove = (entity: Author): void => {
-        service.remove(entity)
+        service.delete(entity)
             .then(() => {
                 authors.refresh();
             })

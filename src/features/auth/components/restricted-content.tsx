@@ -6,7 +6,11 @@ export interface RestrictedContentProps extends React.PropsWithChildren {
 }
 
 export function RestrictedContent({ allowedRoles, children }: RestrictedContentProps) {
-    const session = useSession();
+    const { session } = useSession();
+
+    if (!session || !session.loggedUser) {
+        throw new Error("No session available");
+    }
 
     return (!session.loggedUser || !allowedRoles.includes(session.loggedUser.role))
         ? null

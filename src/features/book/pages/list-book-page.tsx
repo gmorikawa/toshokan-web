@@ -3,9 +3,8 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 import type { Book } from "@features/book/types/book";
 
 import { useAlert } from "@components/feedback/use-alert";
-import { useService } from "@/services/use-service";
-import { BookService } from "@/services/book-service";
-import { useBookSearch } from "@features/book/hooks/use-book-search";
+import { useBookService } from "@features/book/hooks/book-service";
+import { useBookSearch } from "@features/book/hooks/book-search";
 import { BookTable } from "@features/book/components/book-table";
 
 import { ApplicationPage } from "@/layout/page";
@@ -27,7 +26,7 @@ export function ListBookPage() {
     const books = useBookSearch();
     const alert = useAlert();
     const navigate = useNavigator();
-    const service = useService<BookService>(BookService, { includeAuthorization: true });
+    const service = useBookService();
 
     const handleCreate = (): void => {
         navigate.to("/app/book/form");
@@ -50,7 +49,7 @@ export function ListBookPage() {
     };
 
     const handleRemove = (entity: Book): void => {
-        service.remove(entity)
+        service.delete(entity)
             .then(() => {
                 books.refresh();
             })

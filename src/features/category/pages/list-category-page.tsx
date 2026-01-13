@@ -2,12 +2,11 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Category } from "@features/category/types/category";
 import { useAuthorization } from "@features/auth/hooks/authorization";
-import { useListCategories } from "@features/category/hooks/use-list-categories";
+import { useListCategories } from "@features/category/hooks/list-categories";
 import { CategoryTable } from "@features/category/components/category-table";
 
 import { useAlert } from "@components/feedback/use-alert";
-import { useService } from "@/services/use-service";
-import { CategoryService } from "@/services/category-service";
+import { useCategoryService } from "@features/category/hooks/category-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -27,7 +26,7 @@ export function ListCategoryPage() {
     const categories = useListCategories();
     const alert = useAlert();
     const navigate = useNavigator();
-    const service = useService<CategoryService>(CategoryService, { includeAuthorization: true });
+    const service = useCategoryService();
 
     const handleCreate = (): void => {
         navigate.to("/app/category/form");
@@ -38,7 +37,7 @@ export function ListCategoryPage() {
     };
 
     const handleRemove = (entity: Category): void => {
-        service.remove(entity)
+        service.delete(entity)
             .then(() => {
                 categories.refresh();
             })

@@ -8,9 +8,9 @@ import ActionButton from "@components/button/action-button";
 import BoxContainer from "@components/container/box-container";
 
 import { BackIcon } from "@/common/icons";
-import { useResearchPaper } from "../hooks/use-research-paper";
-import { ResearchPaperInfo } from "../components/research-paper-info";
-import { useResearchPaperFiles } from "../hooks/use-research-paper-files";
+import { useResearchPaper } from "@features/research-paper/hooks/research-paper";
+import { ResearchPaperInfo } from "@features/research-paper/components/research-paper-info";
+import { useResearchPaperFiles } from "@features/research-paper/hooks/research-paper-files";
 
 type ParamsWithId = {
     id: string;

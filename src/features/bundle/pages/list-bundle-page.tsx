@@ -2,12 +2,11 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Bundle } from "@features/bundle/types/bundle";
 import { useAuthorization } from "@features/auth/hooks/authorization";
-import { useListBundles } from "@features/bundle/hooks/use-list-bundles";
+import { useListBundles } from "@features/bundle/hooks/list-bundles";
 import { BundleTable } from "@features/bundle/components/bundle-table";
 
 import useAlert from "@components/feedback/use-alert";
-import useService from "@/services/use-service";
-import BundleService from "@/services/bundle-service";
+import { useBundleService } from "@features/bundle/hooks/bundle-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -27,7 +26,7 @@ export function ListBundlePage() {
     const bundles = useListBundles();
     const alert = useAlert();
     const navigate = useNavigator();
-    const service = useService<BundleService>(BundleService, { includeAuthorization: true });
+    const service = useBundleService();
 
     const handleCreate = (): void => {
         navigate.to("/app/bundle/form");
@@ -38,7 +37,7 @@ export function ListBundlePage() {
     };
 
     const handleRemove = (entity: Bundle): void => {
-        service.remove(entity)
+        service.delete(entity)
             .then(() => {
                 bundles.refresh();
             })

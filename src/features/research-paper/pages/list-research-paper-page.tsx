@@ -1,14 +1,13 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { ResearchPaper } from "@features/research-paper/types/research-paper";
-import { useResearchPaperSearch } from "@features/research-paper/hooks/use-research-paper-search";
+import { useResearchPaperSearch } from "@features/research-paper/hooks/research-paper-search";
 import { ResearchPaperTable } from "@features/research-paper/components/research-paper-table";
 import { RestrictedContent } from "@features/auth/components/restricted-content";
 import { DocumentSearchField } from "@features/document/components/document-search-field";
 
 import { useAlert } from "@components/feedback/use-alert";
-import { useService } from "@/services/use-service";
-import { ResearchPaperService } from "@/services/research-paper-service";
+import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -26,7 +25,7 @@ export function ListResearchPaperPage() {
     const researchPapers = useResearchPaperSearch();
     const alert = useAlert();
     const navigate = useNavigator();
-    const service = useService<ResearchPaperService>(ResearchPaperService, { includeAuthorization: true });
+    const service = useResearchPaperService();
 
     const handleCreate = (): void => {
         navigate.to("/app/research-paper/form");
@@ -41,7 +40,7 @@ export function ListResearchPaperPage() {
     };
 
     const handleRemove = (entity: ResearchPaper): void => {
-        service.remove(entity)
+        service.delete(entity)
             .then(() => {
                 researchPapers.refresh();
             })

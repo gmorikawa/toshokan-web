@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
-import useAuthorSearch from "@features/author/hooks/use-author-search";
-import useTopicSearch from "@features/topic/hooks/use-topic-search";
+import useAuthorSearch from "@features/author/hooks/author-search";
+import useTopicSearch from "@features/topic/hooks/topic-search";
 
-import type { Book, NewBook } from "@features/document/book/types/book";
+import type { Book, NewBook } from "@features/book/types/book";
 import type { Author } from "@features/author/types/author";
 import type { Category } from "@features/category/types/category";
 import type { Language } from "@features/language/types/language";
 import type { Publisher } from "@features/publisher/types/publisher";
 import type { Topic } from "@features/topic/types/topic";
-import BookTypeUtil from "@features/book/utils/enums";
+import { BookTypeUtil } from "@features/book/utils/enums";
+import { useLanguageService } from "@features/language/hooks/language-service";
+import { useCategoryService } from "@features/category/hooks/category-service";
+import { usePublisherService } from "@features/publisher/hooks/publisher-service";
 
-import CategoryService from "@/services/category-service";
-import LanguageService from "@/services/language-service";
-import PublisherService from "@/services/publisher-service";
-import useService from "@/services/use-service";
 import useAlert from "@components/feedback/use-alert";
 
 import type { Form } from "@components/form/use-form";
@@ -32,9 +31,9 @@ export interface BookFormProps {
 
 export function BookForm({ form, onSubmit }: BookFormProps) {
     const alert = useAlert();
-    const languageService = useService<LanguageService>(LanguageService, { includeAuthorization: true });
-    const categoryService = useService<CategoryService>(CategoryService, { includeAuthorization: true });
-    const publisherService = useService<PublisherService>(PublisherService, { includeAuthorization: true });
+    const languageService = useLanguageService();
+    const categoryService = useCategoryService();
+    const publisherService = usePublisherService();
 
     const authors = useAuthorSearch();
     const topics = useTopicSearch();

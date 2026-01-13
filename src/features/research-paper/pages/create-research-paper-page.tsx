@@ -6,8 +6,7 @@ import { ResearchPaperForm } from "@features/research-paper/components/research-
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { ResearchPaperService } from "@/services/research-paper-service";
+import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -27,7 +26,7 @@ export function CreateResearchPaperPage() {
     const alert = useAlert();
     const navigate = useNavigator();
 
-    const service = useService<ResearchPaperService>(ResearchPaperService, { includeAuthorization: true });
+    const service = useResearchPaperService();
 
     const form = useForm<NewResearchPaper>({
         default: {

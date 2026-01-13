@@ -7,8 +7,7 @@ import { BundleForm } from "@features/bundle/components/bundle-form";
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { BundleService } from "@/services/bundle-service";
+import { useBundleService } from "@features/bundle/hooks/bundle-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -27,7 +26,7 @@ export function CreateBundlePage() {
     const alert = useAlert();
     const navigate = useNavigator();
 
-    const service = useService<BundleService>(BundleService, { includeAuthorization: true });
+    const service = useBundleService();
 
     const form = useForm<NewBundle>({
         default: {

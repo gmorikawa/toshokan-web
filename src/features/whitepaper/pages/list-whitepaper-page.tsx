@@ -1,14 +1,13 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
-import { useWhitepaperSearch } from "@features/whitepaper/hooks/use-whitepaper-search";
+import { useWhitepaperSearch } from "@features/whitepaper/hooks/whitepaper-search";
 import { WhitepaperTable } from "@features/whitepaper/components/whitepaper-table";
 import { RestrictedContent } from "@features/auth/components/restricted-content";
 import { DocumentSearchField } from "@features/document/components/document-search-field";
 
 import { useAlert } from "@components/feedback/use-alert";
-import { useService } from "@/services/use-service";
-import { WhitepaperService } from "@/services/whitepaper-service";
+import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -26,7 +25,7 @@ export function ListWhitepaperPage() {
     const whitepapers = useWhitepaperSearch();
     const alert = useAlert();
     const navigate = useNavigator();
-    const service = useService<WhitepaperService>(WhitepaperService, { includeAuthorization: true });
+    const service = useWhitepaperService();
 
     const handleCreate = (): void => {
         navigate.to("/app/whitepaper/form");
@@ -41,7 +40,7 @@ export function ListWhitepaperPage() {
     };
 
     const handleRemove = (entity: Whitepaper): void => {
-        service.remove(entity)
+        service.delete(entity)
             .then(() => {
                 whitepapers.refresh();
             })

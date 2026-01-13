@@ -1,17 +1,18 @@
 import { useState } from "react";
 
+import type { Nullable } from "@shared/object/types/nullable";
+
 import type { Session } from "@features/auth/types/session";
 import type { Token } from "@features/auth/types/token";
 import type { LoggedUser } from "@features/user/types/logged-user";
 import { UserSessionContext } from "@features/auth/hooks/session";
-import type { Optional } from "@shared/object/types/optional";
 
 export interface UserSessionProviderProps {
     children: React.ReactNode;
 }
 
 export function UserSessionProvider({ children }: UserSessionProviderProps) {
-    const [session, setSession] = useState<Optional<Session>>(() => {
+    const [session, setSession] = useState<Nullable<Session>>(() => {
         const token = window.localStorage.getItem("token") || null;
         const loggedUser = JSON.parse(window.localStorage.getItem("loggedUser") || "null");
 
@@ -27,11 +28,11 @@ export function UserSessionProvider({ children }: UserSessionProviderProps) {
     const reset = () => {
         window.localStorage.removeItem("token");
         window.localStorage.removeItem("loggedUser");
-        setSession({ token: null, loggedUser: null });
+        setSession(null);
     };
 
     return (
-        <UserSessionContext.Provider value={{ ...session, update, reset }}>
+        <UserSessionContext.Provider value={{ session, update, reset }}>
             {children}
         </UserSessionContext.Provider>
     );

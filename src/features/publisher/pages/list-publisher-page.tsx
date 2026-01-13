@@ -2,12 +2,11 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Publisher } from "@features/publisher/types/publisher";
 import { useAuthorization } from "@features/auth/hooks/authorization";
-import { useListPublishers } from "@features/publisher/hooks/use-list-publishers";
+import { useListPublishers } from "@features/publisher/hooks/list-publishers";
 import { PublisherTable } from "@features/publisher/components/publisher-table";
 
 import { useAlert } from "@components/feedback/use-alert";
-import { useService } from "@/services/use-service";
-import { PublisherService } from "@/services/publisher-service";
+import { usePublisherService } from "@features/publisher/hooks/publisher-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -27,7 +26,7 @@ export function ListPublisherPage() {
     const publishers = useListPublishers();
     const alert = useAlert();
     const navigate = useNavigator();
-    const service = useService<PublisherService>(PublisherService, { includeAuthorization: true });
+    const service = usePublisherService();
 
     const handleCreate = (): void => {
         navigate.to("/app/publisher/form");
@@ -38,7 +37,7 @@ export function ListPublisherPage() {
     };
 
     const handleRemove = (entity: Publisher): void => {
-        service.remove(entity)
+        service.delete(entity)
             .then(() => {
                 publishers.refresh();
             })

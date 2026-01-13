@@ -7,8 +7,7 @@ import { CreateUserForm } from "@features/user/components/create-user-form";
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { UserService } from "@/services/user-service";
+import { useUserService } from "@features/user/hooks/user-service";
 
 import { ActionButton } from "@components/button/action-button";
 import { ApplicationPage } from "@/layout/page";
@@ -27,7 +26,7 @@ export function CreateUserPage() {
     const alert = useAlert();
     const navigate = useNavigator();
 
-    const service = useService<UserService>(UserService, { includeAuthorization: true });
+    const service = useUserService();
 
     const form = useForm<NewUser>({
         default: {

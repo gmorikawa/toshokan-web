@@ -7,8 +7,7 @@ import { BookForm } from "@features/book/components/book-form";
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { BookService } from "@/services/book-service";
+import { useBookService } from "@features/book/hooks/book-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -27,7 +26,7 @@ export function CreateBookPage() {
     const alert = useAlert();
     const navigate = useNavigator();
 
-    const service = useService<BookService>(BookService, { includeAuthorization: true });
+    const service = useBookService();
 
     const form = useForm<NewBook>({
         default: {

@@ -8,9 +8,9 @@ import ActionButton from "@components/button/action-button";
 import BoxContainer from "@components/container/box-container";
 
 import { BackIcon } from "@/common/icons";
-import { useBook } from "../hooks/use-book";
+import { useBook } from "../hooks/book";
 import { BookInfo } from "../components/book-info";
-import { useBookFiles } from "../hooks/use-book-files";
+import { useBookFiles } from "../hooks/book-files";
 
 type ParamsWithId = {
     id: string;

@@ -1,17 +1,14 @@
-import type { ResearchPaper } from "@features/document/research-paper/types/research-paper";
-
-import useAlert from "@components/feedback/use-alert";
-import useService from "@/services/use-service";
-import ResearchPaperService from "@/services/research-paper-service";
-
-import StackContainer from "@components/container/stack-container";
-
-import DocumentFileCard from "@features/document/components/document-file-card";
-import UploadModal from "@features/document/components/upload-modal";
-
-import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
 import { useEffect, useState } from "react";
-import useModal from "@components/modal/use-modal";
+
+import type { ResearchPaper } from "@features/research-paper/types/research-paper";
+import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
+import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
+import { DocumentFileCard } from "@features/document/components/document-file-card";
+import { UploadModal } from "@features/document/components/upload-modal";
+
+import { useModal } from "@components/modal/use-modal";
+import { useAlert } from "@components/feedback/use-alert";
+import { StackContainer } from "@components/container/stack-container";
 
 export interface ResearchPaperFileUploadProps {
     researchPaper: ResearchPaper;
@@ -23,7 +20,7 @@ export function ResearchPaperFileUpload({ researchPaper }: ResearchPaperFileUplo
         title: "Upload New File",
         triggerLabel: "Upload File"
     });
-    const service = useService<ResearchPaperService>(ResearchPaperService, { includeAuthorization: true });
+    const service = useResearchPaperService();
     const [documentFiles, setDocumentFiles] = useState<DocumentFile[]>([]);
 
     function handleUpload(documentFile: NewDocumentFile): void {

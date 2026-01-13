@@ -10,8 +10,7 @@ import { PublisherForm } from "@features/publisher/components/publisher-form";
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { PublisherService } from "@/services/publisher-service";
+import { usePublisherService } from "@features/publisher/hooks/publisher-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -35,7 +34,7 @@ export function UpdatePublisherPage() {
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<PublisherService>(PublisherService, { includeAuthorization: true });
+    const service = usePublisherService();
 
     const form = useForm<Publisher>({
         default: {

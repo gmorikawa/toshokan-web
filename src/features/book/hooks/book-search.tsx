@@ -1,0 +1,111 @@
+import { useEffect, useState } from "react";
+
+import { useDebounce, type DebounceDelayMilliseconds } from "@shared/debounce";
+import { useLoader, type LoaderController } from "@shared/loader";
+import { usePagination, type PaginationController } from "@shared/pagination";
+import type { Count, Pagination } from "@/common/pagination";
+
+import type { Book } from "@features/book/types/book";
+
+import useAlert from "@components/feedback/use-alert";
+import { useBookService } from "./book-service";
+
+
+type Query = string;
+type Boolean = boolean;
+
+export interface BookSearchController {
+    query: string;
+    data: Book[];
+
+    pagination: PaginationController;
+    loader: LoaderController<Book[]>;
+
+    changePage(page: number): void;
+    search(title: string): void;
+    refresh(): void;
+    reset(): void;
+}
+
+export interface BookSearchConfiguration {
+    debounceTime?: DebounceDelayMilliseconds;
+    defaultTitle?: Query;
+
+    errorAlert?: Boolean;
+}
+
+export function useBookSearch(configuration?: BookSearchConfiguration): BookSearchController {
+    const debounceTime = configuration?.debounceTime ?? 500;
+    const defaultTitle = configuration?.defaultTitle ?? "";
+    const errorAlert = configuration?.errorAlert ?? false;
+
+    const service = useBookService();
+    const [title, setTitle] = useState<Query>(defaultTitle);
+
+    const loader = useLoader<Book[]>({
+        loadFunction: async (title: Query, pagination: Pagination) => {
+            return service.getAll({ title, pagination });
+        },
+        onError: (error: Error) => {
+            if (errorAlert) {
+                alert.showErrorMessage(error);
+            }
+        },
+        preventAutoload: true,
+    });
+
+    const loadCount = () => {
+        service.countAll()
+            .then((count: Count) => {
+                pagination.update(pagination.page, pagination.size, count);
+            })
+            .catch((error: Error) => {
+                if (errorAlert) {
+                    alert.showErrorMessage(error);
+                }
+            });
+    };
+
+    const alert = useAlert();
+    const pagination = usePagination();
+
+    const search = async (title?: string) => {
+        setTitle(title || "");
+    };
+
+    const changePage = (page: number) => {
+        pagination.update(page);
+    };
+
+    const refresh = () => {
+        search(title);
+    };
+
+    const reset = () => {
+        search(undefined);
+    };
+
+    useDebounce({
+        action: () => {
+            loader.load(title, pagination);
+        },
+        dependencies: [title, pagination.page, pagination.size],
+        delay: debounceTime
+    });
+
+    useEffect(() => {
+        loadCount();
+    }, []);
+    return {
+        query: title,
+        loader,
+        data: loader.data || [],
+        pagination,
+        changePage,
+        search,
+        refresh,
+        reset
+    };
+}
+
+export default useBookSearch;

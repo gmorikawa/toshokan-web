@@ -97,7 +97,11 @@ function MenuContainer({ header, footer, children }: MenuContainerProps) {
 
 export function Menu() {
     const { logout } = useAuthentication();
-    const { loggedUser } = useSession();
+    const { session } = useSession();
+
+    if (!session) {
+        throw new Error("No session available");
+    }
 
     function handleLogout(): void {
         logout();
@@ -108,7 +112,7 @@ export function Menu() {
             header={<Logo width={230} />}
             footer={(
                 <StackContainer spacing={2}>
-                    <Persona name={loggedUser?.fullname ?? ""} email={loggedUser?.email ?? ""} />
+                    <Persona name={session.loggedUser.fullname ?? ""} email={session.loggedUser.email ?? ""} />
                     <FlexContainer justify="flex-end">
                         <TextButton onClick={handleLogout}>
                             Logout

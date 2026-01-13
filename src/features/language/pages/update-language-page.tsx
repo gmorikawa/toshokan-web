@@ -10,8 +10,7 @@ import { LanguageForm } from "@features/language/components/language-form";
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { LanguageService } from "@/services/language-service";
+import { useLanguageService } from "@features/language/hooks/language-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -35,7 +34,7 @@ export function UpdateLanguagePage() {
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<LanguageService>(LanguageService, { includeAuthorization: true });
+    const service = useLanguageService();
 
     const form = useForm<Language>({
         default: {

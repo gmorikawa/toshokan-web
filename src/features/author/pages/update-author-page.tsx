@@ -6,12 +6,11 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 import type { Author } from "@features/author/types/author";
 import { authorValidator } from "@features/author/utils/validators";
 import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useAuthorService } from "@features/author/hooks/author-service";
 import { AuthorForm } from "@features/author/components/author-form";
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { AuthorService } from "@/services/author-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -35,7 +34,7 @@ export function UpdateAuthorPage() {
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<AuthorService>(AuthorService, { includeAuthorization: true });
+    const service = useAuthorService();
 
     const form = useForm<Author>({
         default: {

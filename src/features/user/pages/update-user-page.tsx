@@ -10,8 +10,7 @@ import { UpdateUserForm } from "@features/user/components/update-user-form";
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { UserService } from "@/services/user-service";
+import { useUserService } from "@features/user/hooks/user-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -32,7 +31,7 @@ export function UpdateUserFormPage() {
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<UserService>(UserService, { includeAuthorization: true });
+    const service = useUserService();
 
     const form = useForm<User>({
         default: {

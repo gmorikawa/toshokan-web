@@ -6,11 +6,15 @@ export interface Authorization {
     allowedRoles: UserRole[];
 }
 
-export function useAuthorization(...allowedRoles: UserRole[]) {
-    const session = useSession();
+function isAuthorized(role: UserRole, allowedRoles: UserRole[]): boolean {
+    return allowedRoles.includes(role);
+}
 
-    function isAuthorized(role: UserRole, allowedRoles: UserRole[]): boolean {
-        return allowedRoles.includes(role);
+export function useAuthorization(...allowedRoles: UserRole[]) {
+    const { session } = useSession();
+
+    if (!session) {
+        throw new Error("No session available");
     }
 
     return {

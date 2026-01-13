@@ -9,8 +9,7 @@ import { ResearchPaperFileUpload } from "@features/research-paper/components/res
 import { useEffect } from "react";
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { ResearchPaperService } from "@/services/research-paper-service";
+import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -45,7 +44,7 @@ export function UpdateResearchPaperPage() {
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<ResearchPaperService>(ResearchPaperService, { includeAuthorization: true });
+    const service = useResearchPaperService();
 
     const form = useForm<ResearchPaper>({
         default: {

@@ -2,12 +2,11 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Organization } from "@features/organization/types/organization";
 import { useAuthorization } from "@features/auth/hooks/authorization";
-import { useListOrganizations } from "@features/organization/hooks/use-list-organizations";
+import { useListOrganizations } from "@features/organization/hooks/list-organizations";
 import { OrganizationTable } from "@features/organization/components/organization-table";
 
 import { useAlert } from "@components/feedback/use-alert";
-import { useService } from "@/services/use-service";
-import { OrganizationService } from "@/services/organization-service";
+import { useOrganizationService } from "@features/organization/hooks/organization-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -27,7 +26,7 @@ export function ListOrganizationPage() {
     const organizations = useListOrganizations();
     const alert = useAlert();
     const navigate = useNavigator();
-    const service = useService<OrganizationService>(OrganizationService, { includeAuthorization: true });
+    const service = useOrganizationService();
 
     const handleCreate = (): void => {
         navigate.to("/app/organization/form");
@@ -38,7 +37,7 @@ export function ListOrganizationPage() {
     };
 
     const handleRemove = (entity: Organization): void => {
-        service.remove(entity)
+        service.delete(entity)
             .then(() => {
                 organizations.refresh();
             })

@@ -7,8 +7,7 @@ import { CategoryForm } from "@features/category/components/category-form";
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { CategoryService } from "@/services/category-service";
+import { useCategoryService } from "@features/category/hooks/category-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -27,7 +26,7 @@ export function CreateCategoryPage() {
     const alert = useAlert();
     const navigate = useNavigator();
 
-    const service = useService<CategoryService>(CategoryService, { includeAuthorization: true });
+    const service = useCategoryService();
 
     const form = useForm<NewCategory>({
         default: {

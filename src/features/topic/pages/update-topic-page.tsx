@@ -10,8 +10,7 @@ import { TopicForm } from "@features/topic/components/topic-form";
 
 import { useAlert } from "@components/feedback/use-alert";
 import { useForm } from "@components/form/use-form";
-import { useService } from "@/services/use-service";
-import { TopicService } from "@/services/topic-service";
+import { useTopicService } from "@features/topic/hooks/topic-service";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
@@ -35,7 +34,7 @@ export function UpdateTopicPage() {
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
 
-    const service = useService<TopicService>(TopicService, { includeAuthorization: true });
+    const service = useTopicService();
 
     const form = useForm<Topic>({
         default: {
