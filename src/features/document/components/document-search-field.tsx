@@ -1,4 +1,4 @@
-import { SearchIcon } from "@/common/icons";
+import { SearchIcon } from "@shared/icons";
 import BoxContainer from "@components/container/box-container";
 import TextField from "@components/input/text-field";
 

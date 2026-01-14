@@ -1,6 +1,6 @@
-import type { Count, Pagination } from "@/common/pagination";
-import type { Loader } from "@/common/loader";
-import { usePagination } from "@shared/pagination";
+import type { Count, Pagination } from "@shared/search/types/pagination";
+import type { Loader } from "@/layout/loader";
+import { usePagination } from "@shared/search/hooks/pagination";
 import { useLoader } from "@shared/loader";
 
 import type { Language } from "@features/language/types/language";

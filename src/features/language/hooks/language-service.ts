@@ -1,4 +1,4 @@
-import type { QueryOptions } from "@/types/query";
+import type { QueryOptions } from "@shared/search/types/query";
 import { useSession } from "@features/auth/hooks/session";
 import type { Language, NewLanguage } from "@features/language/types/language";
 import {

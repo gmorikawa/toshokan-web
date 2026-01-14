@@ -15,7 +15,7 @@ import { ApplicationHeader } from "@/layout/header";
 import { ApplicationContent } from "@/layout/content";
 import { BoxContainer } from "@components/container/box-container";
 
-import { BackIcon } from "@/common/icons";
+import { BackIcon } from "@shared/icons";
 
 export function CreateUserPage() {
     const authorization = useAuthorization("ADMIN");

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import type { Pagination } from "@/common/pagination";
-import { usePagination } from "@shared/pagination";
+import type { Pagination } from "@shared/search/types/pagination";
+import { usePagination } from "@shared/search/hooks/pagination";
 
 import type { Topic } from "@features/topic/types/topic";
 import { useTopicService } from "@features/topic/hooks/topic-service";

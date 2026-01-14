@@ -7,7 +7,7 @@ import ApplicationContent from "@/layout/content";
 import ActionButton from "@components/button/action-button";
 import BoxContainer from "@components/container/box-container";
 
-import { BackIcon } from "@/common/icons";
+import { BackIcon } from "@shared/icons";
 import { useResearchPaper } from "@features/research-paper/hooks/research-paper";
 import { ResearchPaperInfo } from "@features/research-paper/components/research-paper-info";
 import { useResearchPaperFiles } from "@features/research-paper/hooks/research-paper-files";

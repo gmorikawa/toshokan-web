@@ -1,4 +1,4 @@
-import type { FetchState, Loader } from "@/common/loader";
+import type { FetchState, Loader } from "@/layout/loader";
 import { useEffect, useState } from "react";
 
 export interface LoaderConfiguration<Entity> {

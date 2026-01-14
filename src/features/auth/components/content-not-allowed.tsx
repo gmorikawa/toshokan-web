@@ -2,7 +2,7 @@ import BoxContainer from "@components/container/box-container";
 import CentralizedContainer from "@components/container/centralized-container";
 
 import { EmptyState, VStack } from "@chakra-ui/react"
-import { ForbiddenIcon } from "../common/icons";
+import { ForbiddenIcon } from "@shared/icons";
 
 export function ForbiddenContent() {
     return (

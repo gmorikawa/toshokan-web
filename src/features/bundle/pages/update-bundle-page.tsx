@@ -17,7 +17,7 @@ import ApplicationContent from "@/layout/content";
 import ActionButton from "@components/button/action-button";
 import BoxContainer from "@components/container/box-container";
 
-import { BackIcon } from "@/common/icons";
+import { BackIcon } from "@shared/icons";
 
 type ParamsWithId = {
     id?: string;

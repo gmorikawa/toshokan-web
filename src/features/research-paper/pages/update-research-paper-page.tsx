@@ -19,7 +19,7 @@ import { BoxContainer } from "@components/container/box-container";
 import { TabContent } from "@components/tab/tab-content";
 import { TabControl, type TabOption } from "@components/tab/tab-control";
 
-import { BackIcon, FileUploadIcon, FormIcon } from "@/common/icons";
+import { BackIcon, FileUploadIcon, FormIcon } from "@shared/icons";
 import { useAuthorization } from "@features/auth/hooks/authorization";
 
 type ParamsWithId = {

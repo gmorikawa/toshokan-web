@@ -15,7 +15,7 @@ import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";
 import { ApplicationContent } from "@/layout/content";
 
-import { BackIcon } from "@/common/icons";
+import { BackIcon } from "@shared/icons";
 
 export function CreateAuthorPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");

@@ -15,7 +15,7 @@ import { ApplicationContent } from "@/layout/content";
 import { BoxContainer } from "@components/container/box-container";
 import { ActionButton } from "@components/button/action-button";
 
-import { BackIcon } from "@/common/icons";
+import { BackIcon } from "@shared/icons";
 
 export function CreateLanguagePage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");

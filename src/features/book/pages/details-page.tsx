@@ -7,7 +7,7 @@ import ApplicationContent from "@/layout/content";
 import ActionButton from "@components/button/action-button";
 import BoxContainer from "@components/container/box-container";
 
-import { BackIcon } from "@/common/icons";
+import { BackIcon } from "@shared/icons";
 import { useBook } from "../hooks/book";
 import { BookInfo } from "../components/book-info";
 import { useBookFiles } from "../hooks/book-files";

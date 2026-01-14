@@ -1,5 +1,6 @@
 import { Fragment } from "react";
-import { type Loader } from "@/common/loader";
+
+import type { Loader } from "@layout/loader";
 
 export interface LoadingBoundaryProps {
     loader?: Loader;

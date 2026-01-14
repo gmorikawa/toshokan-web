@@ -1,12 +1,13 @@
-import BoxContainer from "@components/container/box-container";
-import CentralizedContainer from "@components/container/centralized-container";
-
 import { EmptyState, VStack } from "@chakra-ui/react"
-import { NotFoundIcon } from "../common/icons";
+
+import { NotFoundIcon } from "@shared/icons";
+
+import { BoxContainer } from "@components/container/box-container";
+import { CentralizedContainer } from "@components/container/centralized-container";
 
 export interface EmptyListProps { }
 
-export function EmptyList({}: EmptyListProps) {
+export function EmptyList({ }: EmptyListProps) {
     return (
         <BoxContainer fullHeight>
             <CentralizedContainer height="40%">

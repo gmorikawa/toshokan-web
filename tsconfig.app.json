@@ -26,6 +26,7 @@
 
     "paths": {
       "@components/*": ["./src/components/*"],
+      "@layout/*": ["./src/layout/*"],
       "@features/*": ["./src/features/*"],
       "@shared/*": ["./src/shared/*"],
       "@config/*": ["./src/config/*"],

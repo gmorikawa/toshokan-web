@@ -14,11 +14,11 @@ import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
-import { AddIcon } from "@/common/icons";
-import { EmptyList } from "@/common/empty-list";
-import { ListSkeleton } from "@/common/list-skeleton";
-import { ListError } from "@/common/list-error";
-import { LoadingBoundary } from "@/common/loading-boundary";
+import { AddIcon } from "@shared/icons";
+import { EmptyList } from "@/layout/empty-list";
+import { ListSkeleton } from "@/layout/list-skeleton";
+import { ListError } from "@/layout/list-error";
+import { LoadingBoundary } from "@/layout/loading-boundary";
 
 
 export function ListLanguagePage() {

@@ -15,7 +15,7 @@ import { ActionButton } from "@components/button/action-button";
 import { ApplicationContent } from "@/layout/content";
 import { BoxContainer } from "@components/container/box-container";
 
-import { BackIcon } from "@/common/icons";
+import { BackIcon } from "@shared/icons";
 
 export function CreatePublisherPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");

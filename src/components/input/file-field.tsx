@@ -1,10 +1,10 @@
-import {
-    FileUpload,
-} from '@chakra-ui/react';
-import type { ThemeProps } from '..';
-import ActionButton from '../button/action-button';
-import { UploadIcon } from '@/common/icons';
-import type { BinaryFile } from '@/types/binary-file';
+import { FileUpload } from "@chakra-ui/react";
+
+import type { BinaryFile } from "@shared/file/types/binary-file";
+import { UploadIcon } from "@shared/icons";
+
+import type { ThemeProps } from "@components/index";
+import { ActionButton } from "@components/button/action-button";
 
 export interface FileFieldProps extends ThemeProps {
     property: string;

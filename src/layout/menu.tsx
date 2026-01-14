@@ -23,7 +23,7 @@ import {
     TopicIcon,
     UserIcon,
     WhitepaperIcon
-} from "@/common/icons";
+} from "@shared/icons";
 import { Logo } from "./logo";
 import RestrictedContent from "@features/auth/components/restricted-content";
 import { useSession } from "@features/auth/hooks/session";

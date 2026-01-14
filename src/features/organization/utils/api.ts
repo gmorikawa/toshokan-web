@@ -1,6 +1,6 @@
 import { Environment } from "@/config/environment";
 
-import type { QueryOptions } from "@/types/query";
+import type { QueryOptions } from "@shared/search/types/query";
 
 import type { Session } from "@features/auth/types/session";
 import type { Organization } from "@features/organization/types/organization";

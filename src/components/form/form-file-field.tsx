@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import FileField, { type FileFieldProps } from "../input/file-field";
 import type { Form } from "./use-form";
-import type { BinaryFile } from "@/types/binary-file";
+import type { BinaryFile } from "@shared/file/types/binary-file";
 
 export interface FormFileFieldProps extends FileFieldProps {
     form: Form;

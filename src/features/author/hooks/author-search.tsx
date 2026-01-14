@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { usePagination } from "@shared/pagination";
-import type { Pagination } from "@/common/pagination";
+import { usePagination } from "@shared/search/hooks/pagination";
+import type { Pagination } from "@shared/search/types/pagination";
 
 import type { Author } from "@features/author/types/author";
 

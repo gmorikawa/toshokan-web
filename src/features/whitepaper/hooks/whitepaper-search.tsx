@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import type { Count, Pagination } from "@/common/pagination";
+import type { Count, Pagination } from "@shared/search/types/pagination";
 import { useDebounce, type DebounceDelayMilliseconds } from "@shared/debounce";
 import { useLoader, type LoaderController } from "@shared/loader";
-import { usePagination, type PaginationController } from "@shared/pagination";
+import { usePagination, type PaginationController } from "@shared/search/hooks/pagination";
 
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";

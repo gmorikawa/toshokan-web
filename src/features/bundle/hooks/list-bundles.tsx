@@ -1,9 +1,9 @@
-import { usePagination } from "@shared/pagination";
+import { usePagination } from "@shared/search/hooks/pagination";
 import { useLoader } from "@shared/loader";
 
 import type { Bundle } from "@features/bundle/types/bundle";
-import type { Count, Pagination } from "@/common/pagination";
-import type { Loader } from "@/common/loader";
+import type { Count, Pagination } from "@shared/search/types/pagination";
+import type { Loader } from "@/layout/loader";
 
 import useAlert from "@components/feedback/use-alert";
 import { useBundleService } from "./bundle-service";

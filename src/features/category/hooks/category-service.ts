@@ -1,4 +1,4 @@
-import type { QueryOptions } from "@/types/query";
+import type { QueryOptions } from "@shared/search/types/query";
 import { useSession } from "@features/auth/hooks/session";
 import type { Category, NewCategory } from "@features/category/types/category";
 import { countAllCategories,

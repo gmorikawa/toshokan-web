@@ -1,4 +1,4 @@
-import type { BinaryFile } from "../../../types/binary-file";
+import type { BinaryFile } from "../../../shared/file/types/binary-file";
 import type { Document } from "./document";
 import type { File } from "../../file/types/file";
 

@@ -1,8 +1,9 @@
-import BoxContainer from "@components/container/box-container";
-import CentralizedContainer from "@components/container/centralized-container";
+import { EmptyState, VStack } from "@chakra-ui/react";
 
-import { EmptyState, VStack } from "@chakra-ui/react"
-import { WarningIcon } from "../common/icons";
+import { WarningIcon } from "@shared/icons";
+
+import { BoxContainer } from "@components/container/box-container";
+import { CentralizedContainer } from "@components/container/centralized-container";
 
 export function ListError() {
     return (
