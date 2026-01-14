@@ -27,14 +27,15 @@ import {
 import { Logo } from "./logo";
 import RestrictedContent from "@features/auth/components/restricted-content";
 import { useSession } from "@features/auth/hooks/session";
+import { Menu, MenuContainer, MenuItem } from "@components/menu/menu";
 
-interface MenuItemProps {
+interface ApplicationMenuItemProps {
     icon: React.ReactNode;
     label: string;
     link: string;
 }
 
-function MenuItem({ icon, label, link }: MenuItemProps) {
+function ApplicationMenuItem({ icon, label, link }: ApplicationMenuItemProps) {
     const navigate = useNavigator();
 
     function handleClick(): void {
@@ -48,11 +49,11 @@ function MenuItem({ icon, label, link }: MenuItemProps) {
     );
 }
 
-interface MenuGroupProps extends React.PropsWithChildren {
+interface ApplicationMenuGroupProps extends React.PropsWithChildren {
     title: string;
 }
 
-function MenuGroup({ title, children }: MenuGroupProps) {
+function ApplicationMenuGroup({ title, children }: ApplicationMenuGroupProps) {
     return (
         <StackContainer>
             <Heading>{title}</Heading>
@@ -61,12 +62,12 @@ function MenuGroup({ title, children }: MenuGroupProps) {
     );
 }
 
-interface MenuContainerProps extends React.PropsWithChildren {
+interface ApplicationMenuContainerProps extends React.PropsWithChildren {
     header?: React.ReactNode;
     footer?: React.ReactNode;
 }
 
-function MenuContainer({ header, footer, children }: MenuContainerProps) {
+function ApplicationMenuContainer({ header, footer, children }: ApplicationMenuContainerProps) {
     return (
         <BoxContainer
             minWidth="250px"
@@ -95,7 +96,7 @@ function MenuContainer({ header, footer, children }: MenuContainerProps) {
     );
 }
 
-export function Menu() {
+export function ApplicationMenu() {
     const { logout } = useAuthentication();
     const { session } = useSession();
 
@@ -108,11 +109,23 @@ export function Menu() {
     }
 
     return (
-        <MenuContainer
+        <ApplicationMenuContainer
             header={<Logo width={230} />}
             footer={(
                 <StackContainer spacing={2}>
-                    <Persona name={session.loggedUser.fullname ?? ""} email={session.loggedUser.email ?? ""} />
+                    <Menu
+                        menu={
+                            <MenuContainer>
+                                <MenuItem label="Profile" value="profile" />
+                                <MenuItem label="Logout" value="logout" onClick={handleLogout} />
+                            </MenuContainer>
+                        }
+                    >
+                        <Persona
+                            name={session.loggedUser.fullname ?? ""}
+                            email={session.loggedUser.email ?? ""}
+                        />
+                    </Menu>
                     <FlexContainer justify="flex-end">
                         <TextButton onClick={handleLogout}>
                             Logout
@@ -121,31 +134,31 @@ export function Menu() {
                 </StackContainer>
             )}
         >
-            <MenuGroup title="Documents">
-                <MenuItem icon={<BookIcon />} label="Books" link={AppRoute.BOOK_LIST} />
-                <MenuItem icon={<WhitepaperIcon />} label="Whitepapers" link={AppRoute.WHITEPAPER_LIST} />
-                <MenuItem icon={<ResearchPaperIcon />} label="Research Papers" link={AppRoute.RESEARCH_PAPER_LIST} />
-            </MenuGroup>
+            <ApplicationMenuGroup title="Documents">
+                <ApplicationMenuItem icon={<BookIcon />} label="Books" link={AppRoute.BOOK_LIST} />
+                <ApplicationMenuItem icon={<WhitepaperIcon />} label="Whitepapers" link={AppRoute.WHITEPAPER_LIST} />
+                <ApplicationMenuItem icon={<ResearchPaperIcon />} label="Research Papers" link={AppRoute.RESEARCH_PAPER_LIST} />
+            </ApplicationMenuGroup>
 
             <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
-                <MenuGroup title="Settings">
-                    <MenuItem icon={<BundleIcon />} label="Bundles" link={AppRoute.BUNDLE_LIST} />
-                    <MenuItem icon={<AuthorIcon />} label="Authors" link={AppRoute.AUTHOR_LIST} />
-                    <MenuItem icon={<LanguageIcon />} label="Languages" link={AppRoute.LANGUAGE_LIST} />
-                    <MenuItem icon={<CategoryIcon />} label="Categories" link={AppRoute.CATEGORY_LIST} />
-                    <MenuItem icon={<TopicIcon />} label="Topics" link={AppRoute.TOPIC_LIST} />
-                    <MenuItem icon={<PublisherIcon />} label="Publishers" link={AppRoute.PUBLISHER_LIST} />
-                    <MenuItem icon={<OrganizationIcon />} label="Organizations" link={AppRoute.ORGANIZATION_LIST} />
-                </MenuGroup>
+                <ApplicationMenuGroup title="Settings">
+                    <ApplicationMenuItem icon={<BundleIcon />} label="Bundles" link={AppRoute.BUNDLE_LIST} />
+                    <ApplicationMenuItem icon={<AuthorIcon />} label="Authors" link={AppRoute.AUTHOR_LIST} />
+                    <ApplicationMenuItem icon={<LanguageIcon />} label="Languages" link={AppRoute.LANGUAGE_LIST} />
+                    <ApplicationMenuItem icon={<CategoryIcon />} label="Categories" link={AppRoute.CATEGORY_LIST} />
+                    <ApplicationMenuItem icon={<TopicIcon />} label="Topics" link={AppRoute.TOPIC_LIST} />
+                    <ApplicationMenuItem icon={<PublisherIcon />} label="Publishers" link={AppRoute.PUBLISHER_LIST} />
+                    <ApplicationMenuItem icon={<OrganizationIcon />} label="Organizations" link={AppRoute.ORGANIZATION_LIST} />
+                </ApplicationMenuGroup>
             </RestrictedContent>
 
             <RestrictedContent allowedRoles={["ADMIN"]}>
-                <MenuGroup title="System">
-                    <MenuItem icon={<UserIcon />} label="Users" link={AppRoute.USER_LIST} />
-                </MenuGroup>
+                <ApplicationMenuGroup title="System">
+                    <ApplicationMenuItem icon={<UserIcon />} label="Users" link={AppRoute.USER_LIST} />
+                </ApplicationMenuGroup>
             </RestrictedContent>
-        </MenuContainer>
+        </ApplicationMenuContainer>
     );
 };
 
-export default Menu;
+export default ApplicationMenu;
