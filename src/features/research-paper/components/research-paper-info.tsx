@@ -11,9 +11,12 @@ import type { DocumentFile } from "@features/document/types/document-file";
 export interface ResearchPaperInfoProps {
     researchPaper: ResearchPaper;
     files: DocumentFile[];
+
+    onRemove?: (documentFile: DocumentFile) => void;
+    onDownload?: (documentFile: DocumentFile) => void;
 }
 
-export function ResearchPaperInfo({ researchPaper, files }: ResearchPaperInfoProps) {
+export function ResearchPaperInfo({ researchPaper, files, onRemove, onDownload }: ResearchPaperInfoProps) {
     return (
         <BoxContainer display="flex" flexDirection="column" gap={2}>
             <Heading level={2} size="2xl">
@@ -34,7 +37,12 @@ export function ResearchPaperInfo({ researchPaper, files }: ResearchPaperInfoPro
 
                     <BoxContainer display="flex" flexDirection="column" gap={2}>
                         {files.map((file) => (
-                            <DocumentFileCard key={file.id} documentFile={file} />
+                            <DocumentFileCard
+                                key={file.id}
+                                documentFile={file}
+                                onDownload={onDownload}
+                                onRemove={onRemove}
+                            />
                         ))}
                     </BoxContainer>
                 </BoxContainer>

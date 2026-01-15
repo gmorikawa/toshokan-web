@@ -12,6 +12,7 @@ import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
 import { BackIcon } from "@shared/icons";
+import { useCallback } from "react";
 
 type ParamsWithId = {
     id: string;
@@ -20,13 +21,12 @@ type ParamsWithId = {
 export function WhitepaperDetailsPage() {
     const { id } = useParams<ParamsWithId>();
     const { whitepaper } = useWhitepaper(id);
-    const { files } = useWhitepaperFiles(whitepaper);
-
+    const files = useWhitepaperFiles(whitepaper);
     const navigate = useNavigator();
 
-    function handleBack(): void {
+    const handleBack = useCallback(() => {
         navigate.to("/app/whitepaper/list");
-    }
+    }, []);
 
     return (
         <ApplicationPage>
@@ -34,13 +34,26 @@ export function WhitepaperDetailsPage() {
                 title="Whitepaper"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent>
-                {(whitepaper) && <WhitepaperInfo whitepaper={whitepaper} files={files} />}
+                {(whitepaper) && (
+                    <WhitepaperInfo
+                        whitepaper={whitepaper}
+                        files={files.data}
+                        onDownload={files.handleDownload}
+                        onRemove={files.handleRemove}
+                    />
+                )}
             </ApplicationContent>
         </ApplicationPage>
     );

@@ -11,9 +11,12 @@ import { Paragraph } from "@components/typography/paragraph";
 export interface WhitepaperInfoProps {
     whitepaper: Whitepaper;
     files: DocumentFile[];
+    
+    onRemove?: (documentFile: DocumentFile) => void;
+    onDownload?: (documentFile: DocumentFile) => void;
 }
 
-export function WhitepaperInfo({ whitepaper, files }: WhitepaperInfoProps) {
+export function WhitepaperInfo({ whitepaper, files, onRemove, onDownload }: WhitepaperInfoProps) {
     return (
         <BoxContainer display="flex" flexDirection="column" gap={2}>
             <Heading level={2} size="2xl">
@@ -34,7 +37,12 @@ export function WhitepaperInfo({ whitepaper, files }: WhitepaperInfoProps) {
 
                     <BoxContainer display="flex" flexDirection="column" gap={2}>
                         {files.map((file) => (
-                            <DocumentFileCard key={file.id} documentFile={file} />
+                            <DocumentFileCard
+                                key={file.id}
+                                documentFile={file}
+                                onRemove={onRemove}
+                                onDownload={onDownload}
+                            />
                         ))}
                     </BoxContainer>
                 </BoxContainer>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import type { Nullable } from "@shared/object/types/nullable";
 
@@ -8,30 +8,80 @@ import { useBookService } from "@features/book/hooks/book-service";
 
 import { useAlert } from "@components/feedback/alert/controller";
 
-export interface UseBookFilesResult {
-    files: DocumentFile[];
+export interface BookFilesController {
+    data: DocumentFile[];
+
+    reload: () => Promise<void>;
+
+    handleDownload: (documentFile: DocumentFile) => void;
+    handleRemove: (documentFile: DocumentFile) => void;
 }
 
-export function useBookFiles(book: Nullable<Book>) {
+export function useBookFiles(book: Nullable<Book>): BookFilesController {
     const service = useBookService();
     const alert = useAlert();
 
-    const [files, setFiles] = useState<DocumentFile[]>([]);
+    const [data, setData] = useState<DocumentFile[]>([]);
+
+    const reload = async () => {
+        if (!book?.id) {
+            setData([]);
+            return;
+        }
+
+        return service.getFiles(book)
+            .then((response: DocumentFile[]) => {
+                setData(response);
+            })
+            .catch((error: Error) => {
+                alert.showErrorMessage(error);
+            });
+    };
+
+    const handleDownload = useCallback((documentFile: DocumentFile) => {
+        if (!book) {
+            return;
+        }
+
+        service.download(book, documentFile)
+            .then((blob: Blob) => {
+                const blobUrl = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = blobUrl;
+                a.download = documentFile.file?.filename || book.title;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            })
+            .catch((error: Error) => {
+                alert.showErrorMessage(error);
+            });
+    }, [book]);
+
+    const handleRemove = useCallback((documentFile: DocumentFile) => {
+        if (!book) {
+            return;
+        }
+
+        service.removeFile(book, documentFile)
+            .then(() => {
+                alert.showMessage("File removed successfully.", "success");
+                reload();
+            })
+            .catch((error: Error) => {
+                alert.showErrorMessage(error);
+            });
+    }, [book]);
 
     useEffect(() => {
-        if (book) {
-            service.getFiles(book)
-                .then((response: DocumentFile[]) => {
-                    setFiles(response);
-                })
-                .catch((error: Error) => {
-                    alert.showErrorMessage(error);
-                });
-        }
+        reload();
     }, [book]);
 
     return {
-        files
+        data,
+        reload,
+        handleDownload,
+        handleRemove
     };
 }
 

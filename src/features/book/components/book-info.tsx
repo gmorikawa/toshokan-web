@@ -12,9 +12,12 @@ import { Paragraph } from "@components/typography/paragraph";
 export interface BookInfoProps {
     book: Book;
     files: DocumentFile[];
+
+    onRemove?: (documentFile: DocumentFile) => void;
+    onDownload?: (documentFile: DocumentFile) => void;
 }
 
-export function BookInfo({ book, files }: BookInfoProps) {
+export function BookInfo({ book, files, onRemove, onDownload }: BookInfoProps) {
     return (
         <BoxContainer display="flex" flexDirection="column" gap={2}>
             <Heading level={2} size="2xl">
@@ -38,7 +41,7 @@ export function BookInfo({ book, files }: BookInfoProps) {
 
                     <BoxContainer display="flex" flexDirection="column" gap={2}>
                         {files.map((file) => (
-                            <DocumentFileCard key={file.id} documentFile={file} />
+                            <DocumentFileCard key={file.id} documentFile={file} onRemove={onRemove} onDownload={onDownload} />
                         ))}
                     </BoxContainer>
                 </BoxContainer>

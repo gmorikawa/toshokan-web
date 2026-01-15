@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-
 import type { ResearchPaper } from "@features/research-paper/types/research-paper";
 import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
 import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
+import { useResearchPaperFiles } from "@features/research-paper/hooks/research-paper-files";
 import { DocumentFileCard } from "@features/document/components/document-file-card";
 import { UploadModal } from "@features/document/components/upload-modal";
 
@@ -21,60 +20,20 @@ export function ResearchPaperFileUpload({ researchPaper }: ResearchPaperFileUplo
         triggerLabel: "Upload File"
     });
     const service = useResearchPaperService();
-    const [documentFiles, setDocumentFiles] = useState<DocumentFile[]>([]);
+    const files = useResearchPaperFiles(researchPaper);
 
     function handleUpload(documentFile: NewDocumentFile): void {
         service.upload(researchPaper, documentFile)
             .then(() => {
                 modal.close();
                 alert.showMessage("File uploaded successfully.", "success");
-                loadFiles();
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            })
-    }
-
-    function handleDownload(documentFile: DocumentFile): void {
-        service.download(researchPaper, documentFile)
-            .then((blob: Blob) => {
-                const blobUrl = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = blobUrl;
-                a.download = documentFile.file?.filename || researchPaper.title;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
+                files.reload();
             })
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             });
     }
 
-    function handleRemove(documentFile: DocumentFile): void {
-        service.removeFile(researchPaper, documentFile)
-            .then(() => {
-                alert.showMessage("File removed successfully.", "success");
-                loadFiles();
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }
-
-    function loadFiles(): void {
-        service.getFiles(researchPaper)
-            .then((files: DocumentFile[]) => {
-                setDocumentFiles(files);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }
-
-    useEffect(() => {
-        (researchPaper.id) && (loadFiles());
-    }, [researchPaper]);
     return (
         <StackContainer spacing={4}>
             <UploadModal
@@ -83,12 +42,12 @@ export function ResearchPaperFileUpload({ researchPaper }: ResearchPaperFileUplo
                 onUpload={handleUpload}
             />
 
-            {documentFiles?.map((documentFile: DocumentFile) => (
+            {files.data?.map((documentFile: DocumentFile) => (
                 <DocumentFileCard
                     key={documentFile.id}
                     documentFile={documentFile}
-                    onDownload={handleDownload}
-                    onRemove={handleRemove}
+                    onDownload={files.handleDownload}
+                    onRemove={files.handleRemove}
                 />
             ))}
         </StackContainer>
