@@ -1,6 +1,7 @@
-import ThemeProvider from "./config/theme";
-import RouteProvider from "./config/routes";
-import AlertProvider from "./config/alert";
+import { ThemeProvider } from "@config/theme";
+import { RouteProvider } from "@config/routes";
+import { AlertProvider } from "@config/alert";
+
 import { UserSessionProvider } from "@features/auth/components/user-session-provider";
 
 export function App() {
