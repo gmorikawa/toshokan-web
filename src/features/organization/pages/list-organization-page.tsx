@@ -5,7 +5,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useListOrganizations } from "@features/organization/hooks/list-organizations";
 import { OrganizationTable } from "@features/organization/components/organization-table";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useOrganizationService } from "@features/organization/hooks/organization-service";
 
 import { ApplicationPage } from "@/layout/page";

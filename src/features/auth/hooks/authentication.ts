@@ -2,7 +2,7 @@ import type { Session } from "@features/auth/types/session";
 import { login } from "@features/auth/utils/api";
 import { useSession } from "@features/auth/hooks/session";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import useNavigator from "@shared/router/hooks/navigator";
 
 export interface AuthenticationController {

@@ -5,7 +5,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useListPublishers } from "@features/publisher/hooks/list-publishers";
 import { PublisherTable } from "@features/publisher/components/publisher-table";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { usePublisherService } from "@features/publisher/hooks/publisher-service";
 
 import { ApplicationPage } from "@/layout/page";

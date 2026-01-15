@@ -2,24 +2,24 @@ import { toaster } from "./alert";
 
 export type AlertType = "success" | "error" | "loading" | "info";
 
-export interface UseAlert {
+export interface AlertController {
     showMessage(message: string, type: AlertType): void;
 
     showErrorMessage(error: Error): void;
 }
 
-export interface UseAlertConfiguration {
+export interface AlertConfiguration {
     showInConsole?: boolean;
 }
 
-export function useAlert(configuration?: UseAlertConfiguration): UseAlert {
-    const showMessage = (message: string, type: AlertType): void => {
-        toaster.create({
-            description: message,
-            type: type,
-        });
-    };
+function showMessage(message: string, type: AlertType): void {
+    toaster.create({
+        description: message,
+        type: type,
+    });
+}
 
+export function useAlert(configuration?: AlertConfiguration): AlertController {
     const showErrorMessage = (error: Error): void => {
         showMessage(error?.message, "error");
 
@@ -28,7 +28,10 @@ export function useAlert(configuration?: UseAlertConfiguration): UseAlert {
         }
     };
 
-    return { showMessage, showErrorMessage };
+    return {
+        showMessage,
+        showErrorMessage
+    };
 }
 
 export default useAlert;

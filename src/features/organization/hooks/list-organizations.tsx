@@ -6,7 +6,7 @@ import { useLoader } from "@shared/loader";
 import type { Organization } from "@features/organization/types/organization";
 import { useOrganizationService } from "@features/organization/hooks/organization-service";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 
 export interface UseListOrganizations {
     data: Organization[];

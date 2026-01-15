@@ -5,7 +5,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { newPublisherValidator } from "@features/publisher/utils/validators";
 import { PublisherForm } from "@features/publisher/components/publisher-form";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { usePublisherService } from "@features/publisher/hooks/publisher-service";
 

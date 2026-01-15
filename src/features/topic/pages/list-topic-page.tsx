@@ -5,7 +5,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useListTopics } from "@features/topic/hooks/list-topics";
 import { TopicTable } from "@features/topic/components/topic-table";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useTopicService } from "@features/topic/hooks/topic-service";
 
 import { ApplicationPage } from "@/layout/page";

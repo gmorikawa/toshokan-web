@@ -13,7 +13,7 @@ import { useLanguageService } from "@features/language/hooks/language-service";
 import { useCategoryService } from "@features/category/hooks/category-service";
 import { usePublisherService } from "@features/publisher/hooks/publisher-service";
 
-import useAlert from "@components/feedback/use-alert";
+import useAlert from "@components/feedback/alert/controller";
 
 import type { Form } from "@components/form/use-form";
 import FormComboField from "@components/form/form-combo-field";

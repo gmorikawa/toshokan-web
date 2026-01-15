@@ -8,7 +8,7 @@ import { languageValidator } from "@features/language/utils/validators";
 import { useAuthorization } from "@features/auth/hooks/authorization";
 import { LanguageForm } from "@features/language/components/language-form";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useLanguageService } from "@features/language/hooks/language-service";
 

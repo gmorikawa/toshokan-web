@@ -2,7 +2,7 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Book } from "@features/book/types/book";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useBookService } from "@features/book/hooks/book-service";
 import { useBookSearch } from "@features/book/hooks/book-search";
 import { BookTable } from "@features/book/components/book-table";

@@ -6,7 +6,7 @@ import type { Count, Pagination } from "@shared/search/types/pagination";
 import type { Loader } from "@/layout/loader";
 import { useCategoryService } from "./category-service";
 
-import useAlert from "@components/feedback/use-alert";
+import useAlert from "@components/feedback/alert/controller";
 
 export interface UseListCategories {
     data: Category[];

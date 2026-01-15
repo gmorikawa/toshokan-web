@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import useAlert from "@components/feedback/use-alert";
+import useAlert from "@components/feedback/alert/controller";
 import type { DocumentFile } from "@features/document/types/document-file";
 import type { ResearchPaper } from "@features/research-paper/types/research-paper";
 import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";

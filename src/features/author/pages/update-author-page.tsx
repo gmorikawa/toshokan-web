@@ -9,7 +9,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useAuthorService } from "@features/author/hooks/author-service";
 import { AuthorForm } from "@features/author/components/author-form";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 
 import { ApplicationPage } from "@/layout/page";

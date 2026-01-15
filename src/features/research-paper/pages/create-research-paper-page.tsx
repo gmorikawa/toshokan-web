@@ -4,7 +4,7 @@ import type { NewResearchPaper } from "@features/research-paper/types/research-p
 import { newResearchPaperValidator } from "@features/research-paper/utils/validators";
 import { ResearchPaperForm } from "@features/research-paper/components/research-paper-form";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
 

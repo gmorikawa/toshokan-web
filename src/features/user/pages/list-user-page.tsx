@@ -5,7 +5,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useListUsers } from "@features/user/hooks/list-users";
 import { UserTable } from "@features/user/components/user-table";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useUserService } from "@features/user/hooks/user-service";
 
 import { ApplicationPage } from "@/layout/page";

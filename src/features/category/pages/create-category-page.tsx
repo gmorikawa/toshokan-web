@@ -5,7 +5,7 @@ import { newCategoryValidator } from "@features/category/utils/validators";
 import { useAuthorization } from "@features/auth/hooks/authorization";
 import { CategoryForm } from "@features/category/components/category-form";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useCategoryService } from "@features/category/hooks/category-service";
 

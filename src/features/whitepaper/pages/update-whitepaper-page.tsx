@@ -8,7 +8,7 @@ import { WhitepaperForm } from "@features/whitepaper/components/whitepaper-form"
 import { WhitepaperFileUpload } from "@features/whitepaper/components/whitepaper-file-upload";
 
 import { useEffect } from "react";
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
 

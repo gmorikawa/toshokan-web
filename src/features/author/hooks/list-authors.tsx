@@ -5,7 +5,7 @@ import type { Author } from "@features/author/types/author";
 import type { Count, Pagination } from "@shared/search/types/pagination";
 import type { Loader } from "@/layout/loader";
 
-import useAlert from "@components/feedback/use-alert";
+import useAlert from "@components/feedback/alert/controller";
 import { useAuthorService } from "./author-service";
 
 export interface UseListAuthors {

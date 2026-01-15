@@ -5,7 +5,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useListCategories } from "@features/category/hooks/list-categories";
 import { CategoryTable } from "@features/category/components/category-table";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useCategoryService } from "@features/category/hooks/category-service";
 
 import { ApplicationPage } from "@/layout/page";

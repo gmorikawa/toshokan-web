@@ -8,7 +8,7 @@ import { usePagination, type PaginationController } from "@shared/search/hooks/p
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 
 type Query = string;
 type Boolean = boolean;

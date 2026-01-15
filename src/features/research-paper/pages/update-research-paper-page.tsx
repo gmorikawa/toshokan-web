@@ -7,7 +7,7 @@ import { ResearchPaperForm } from "@features/research-paper/components/research-
 import { ResearchPaperFileUpload } from "@features/research-paper/components/research-paper-file-upload";
 
 import { useEffect } from "react";
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
 

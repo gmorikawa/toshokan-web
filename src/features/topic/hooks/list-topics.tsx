@@ -7,7 +7,7 @@ import type { Loader } from "@/layout/loader";
 
 import { useTopicService } from "@features/topic/hooks/topic-service";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 
 export interface UseListTopics {
     data: Topic[]

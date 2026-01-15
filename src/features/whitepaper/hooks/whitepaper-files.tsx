@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { DocumentFile } from "@features/document/types/document-file";
 
-import useAlert from "@components/feedback/use-alert";
+import useAlert from "@components/feedback/alert/controller";
 import { useWhitepaperService } from "./whitepaper-service";
 
 export interface UseWhitepaperFilesResult {

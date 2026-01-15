@@ -6,7 +6,7 @@ import { useAuthorService } from "@features/author/hooks/author-service";
 import { useListAuthors } from "@features/author/hooks/list-authors";
 import { AuthorTable } from "@features/author/components/author-table";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 
 import { ApplicationPage } from "@/layout/page";
 import { ApplicationHeader } from "@/layout/header";

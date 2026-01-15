@@ -6,7 +6,7 @@ import { useLoader } from "@shared/loader";
 import type { Language } from "@features/language/types/language";
 import { useLanguageService } from "@features/language/hooks/language-service";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 
 export interface UseListLanguages {
     data: Language[];

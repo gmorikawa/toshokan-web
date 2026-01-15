@@ -10,7 +10,7 @@ import { useOrganizationService } from "@features/organization/hooks/organizatio
 import { useAuthorSearch } from "@features/author/hooks/author-search";
 import { useTopicSearch } from "@features/topic/hooks/topic-search";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import type { Form } from "@components/form/use-form";
 import { FormComboField } from "@components/form/form-combo-field";
 import { FormSelectField } from "@components/form/form-select-field";

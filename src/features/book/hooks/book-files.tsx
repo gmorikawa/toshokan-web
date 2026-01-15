@@ -4,7 +4,7 @@ import type { DocumentFile } from "@features/document/types/document-file";
 import type { Book } from "@features/book/types/book";
 import { useBookService } from "@features/book/hooks/book-service";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 
 export interface UseBookFilesResult {
     files: DocumentFile[];

@@ -7,7 +7,7 @@ import type { Count, Pagination } from "@shared/search/types/pagination";
 
 import type { Book } from "@features/book/types/book";
 
-import useAlert from "@components/feedback/use-alert";
+import useAlert from "@components/feedback/alert/controller";
 import { useBookService } from "./book-service";
 
 

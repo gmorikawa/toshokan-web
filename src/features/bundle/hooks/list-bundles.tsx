@@ -5,7 +5,7 @@ import type { Bundle } from "@features/bundle/types/bundle";
 import type { Count, Pagination } from "@shared/search/types/pagination";
 import type { Loader } from "@/layout/loader";
 
-import useAlert from "@components/feedback/use-alert";
+import useAlert from "@components/feedback/alert/controller";
 import { useBundleService } from "./bundle-service";
 
 export interface UseListBundles {

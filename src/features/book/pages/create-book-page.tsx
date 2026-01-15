@@ -5,7 +5,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { newBookValidator } from "@features/book/utils/validators";
 import { BookForm } from "@features/book/components/book-form";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useBookService } from "@features/book/hooks/book-service";
 

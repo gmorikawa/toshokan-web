@@ -6,7 +6,7 @@ import { useLoader } from "@shared/loader";
 import type { Publisher } from "@features/publisher/types/publisher";
 import { usePublisherService } from "@features/publisher/hooks/publisher-service";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 
 export interface UseListPublishers {
     data: Publisher[];

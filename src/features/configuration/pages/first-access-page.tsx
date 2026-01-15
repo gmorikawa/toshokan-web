@@ -5,7 +5,7 @@ import { newUserValidator } from "@features/user/utils/validators";
 import { AdminUserForm } from "@features/configuration/components/admin-user-form";
 
 import { useForm } from "@components/form/use-form";
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 
 import { Environment } from "@/config/environment";
 

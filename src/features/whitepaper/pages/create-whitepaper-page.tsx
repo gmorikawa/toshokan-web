@@ -5,7 +5,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { newWhitepaperValidator } from "@features/whitepaper/utils/validators";
 import { WhitepaperForm } from "@features/whitepaper/components/whitepaper-form";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
 

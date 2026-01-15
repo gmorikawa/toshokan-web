@@ -5,7 +5,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useListLanguages } from "@features/language/hooks/list-languages";
 import { LanguageTable } from "@features/language/components/language-table";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useLanguageService } from "@features/language/hooks/language-service";
 
 import { ApplicationPage } from "@/layout/page";

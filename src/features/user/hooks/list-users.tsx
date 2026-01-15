@@ -6,7 +6,7 @@ import { useLoader } from "@shared/loader";
 import type { User } from "@features/user/types/user";
 import { useUserService } from "@features/user/hooks/user-service";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 
 export interface UseListUsers {
     data: User[];

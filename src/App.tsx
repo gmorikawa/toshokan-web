@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@config/theme";
 import { RouteProvider } from "@config/routes";
-import { AlertProvider } from "@config/alert";
+
+import { AlertProvider } from "@components/feedback/alert/provider";
 
 import { UserSessionProvider } from "@features/auth/components/user-session-provider";
 

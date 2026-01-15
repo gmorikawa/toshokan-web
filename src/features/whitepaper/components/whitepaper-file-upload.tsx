@@ -6,7 +6,7 @@ import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-serv
 import { DocumentFileCard } from "@features/document/components/document-file-card";
 import { UploadModal } from "@features/document/components/upload-modal";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useModal } from "@components/modal/use-modal";
 import { StackContainer } from "@components/container/stack-container";
 

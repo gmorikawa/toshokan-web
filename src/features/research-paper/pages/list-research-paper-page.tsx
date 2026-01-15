@@ -6,7 +6,7 @@ import { ResearchPaperTable } from "@features/research-paper/components/research
 import { RestrictedContent } from "@features/auth/components/restricted-content";
 import { DocumentSearchField } from "@features/document/components/document-search-field";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
 
 import { ApplicationPage } from "@/layout/page";

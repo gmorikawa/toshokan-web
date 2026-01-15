@@ -7,7 +7,7 @@ import { bundleValidator } from "@features/bundle/utils/validators";
 import BundleForm from "@features/bundle/components/bundle-form";
 
 import { useEffect } from "react";
-import useAlert from "@components/feedback/use-alert";
+import useAlert from "@components/feedback/alert/controller";
 import useForm from "@components/form/use-form";
 import { useBundleService } from "@features/bundle/hooks/bundle-service";
 

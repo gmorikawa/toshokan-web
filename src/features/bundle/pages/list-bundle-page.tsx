@@ -5,7 +5,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useListBundles } from "@features/bundle/hooks/list-bundles";
 import { BundleTable } from "@features/bundle/components/bundle-table";
 
-import useAlert from "@components/feedback/use-alert";
+import useAlert from "@components/feedback/alert/controller";
 import { useBundleService } from "@features/bundle/hooks/bundle-service";
 
 import { ApplicationPage } from "@/layout/page";

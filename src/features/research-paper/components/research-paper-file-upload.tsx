@@ -7,7 +7,7 @@ import { DocumentFileCard } from "@features/document/components/document-file-ca
 import { UploadModal } from "@features/document/components/upload-modal";
 
 import { useModal } from "@components/modal/use-modal";
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { StackContainer } from "@components/container/stack-container";
 
 export interface ResearchPaperFileUploadProps {

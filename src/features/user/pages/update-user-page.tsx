@@ -8,7 +8,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { userValidator } from "@features/user/utils/validators";
 import { UpdateUserForm } from "@features/user/components/update-user-form";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useUserService } from "@features/user/hooks/user-service";
 

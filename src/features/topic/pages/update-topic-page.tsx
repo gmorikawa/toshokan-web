@@ -8,7 +8,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { topicValidator } from "@features/topic/utils/validators";
 import { TopicForm } from "@features/topic/components/topic-form";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useTopicService } from "@features/topic/hooks/topic-service";
 

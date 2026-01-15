@@ -5,7 +5,7 @@ import type { Pagination } from "@shared/search/types/pagination";
 
 import type { Author } from "@features/author/types/author";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useAuthorService } from "./author-service";
 
 type Milliseconds = number;

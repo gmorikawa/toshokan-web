@@ -6,7 +6,7 @@ import { WhitepaperTable } from "@features/whitepaper/components/whitepaper-tabl
 import { RestrictedContent } from "@features/auth/components/restricted-content";
 import { DocumentSearchField } from "@features/document/components/document-search-field";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
 
 import { ApplicationPage } from "@/layout/page";

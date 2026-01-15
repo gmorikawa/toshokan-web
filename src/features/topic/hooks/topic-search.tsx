@@ -6,7 +6,7 @@ import { usePagination } from "@shared/search/hooks/pagination";
 import type { Topic } from "@features/topic/types/topic";
 import { useTopicService } from "@features/topic/hooks/topic-service";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 
 type Milliseconds = number;
 type Name = string;

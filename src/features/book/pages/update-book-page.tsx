@@ -8,7 +8,7 @@ import { BookForm } from "@features/book/components/book-form";
 import { BookFileUpload } from "@features/book/components/book-file-upload";
 
 import { useEffect } from "react";
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useBookService } from "@features/book/hooks/book-service";
 

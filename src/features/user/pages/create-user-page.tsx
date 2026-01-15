@@ -5,7 +5,7 @@ import { useAuthorization } from "@features/auth/hooks/authorization";
 import { newUserValidator } from "@features/user/utils/validators";
 import { CreateUserForm } from "@features/user/components/create-user-form";
 
-import { useAlert } from "@components/feedback/use-alert";
+import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useUserService } from "@features/user/hooks/user-service";
 
