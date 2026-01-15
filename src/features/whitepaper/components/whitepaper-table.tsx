@@ -1,11 +1,11 @@
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { Pagination } from "@shared/search/types/pagination";
 
-import DataTable from "@components/table/data-table";
-import FlexContainer from "@components/container/flex-container";
-import OutlineButton from "@components/button/outline-button";
-import PaginationControl from "@components/pagination/pagination-control";
-import StackContainer from "@components/container/stack-container";
+import { DataTable } from "@components/table/data-table";
+import { FlexContainer } from "@components/container/flex-container";
+import { OutlineButton } from "@components/button/outline-button";
+import { PaginationControl } from "@components/pagination/pagination-control";
+import { StackContainer } from "@components/container/stack-container";
 import { RestrictedContent } from "@features/auth/components/restricted-content";
 
 export interface WhitepaperTableProps {
@@ -22,7 +22,7 @@ export function WhitepaperTable({ data, pagination, onUpdate, onRemove, onDetail
     function handleUpdate(entity: Whitepaper): void {
         (onUpdate) && (onUpdate(entity));
     }
-    
+
     function handleRemove(entity: Whitepaper): void {
         (onRemove) && (onRemove(entity));
     }

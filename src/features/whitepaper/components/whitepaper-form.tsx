@@ -18,6 +18,7 @@ import { FormTextField } from "@components/form/form-text-field";
 import { SubmitButton } from "@components/button/submit-button";
 import { StackContainer } from "@components/container/stack-container";
 import { FormTextareaField } from "@components/form/form-textarea-field";
+import FormNumericField from "@components/form/form-numeric-field";
 
 export interface WhitepaperFormProps {
     form: Form<Whitepaper | NewWhitepaper>;
@@ -133,6 +134,13 @@ export function WhitepaperForm({ form, onSubmit }: WhitepaperFormProps) {
                 options={organizations}
                 getLabel={(organization: Organization) => organization.name}
                 getValue={(organization: Organization) => organization.id}
+            />
+
+            <FormNumericField
+                form={form}
+                label="Publishing Year"
+                property="publishingYear"
+                placeholder="1997"
             />
 
             <SubmitButton onSubmit={handleSubmit}>

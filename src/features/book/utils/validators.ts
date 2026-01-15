@@ -11,7 +11,9 @@ export const bookValidator = z.object({
     topics: z.array(z.any()).optional(),
     category: z.any().optional(),
     publisher: z.any().optional(),
-    type: z.enum(BookTypeUtil.getAll())
+    type: z.enum(BookTypeUtil.getAll()),
+    publishingYear: z.number().int().min(0).max(new Date().getFullYear()).nullable(),
+    edition: z.string().optional(),
 });
 
 export const newBookValidator = z.object({
@@ -22,5 +24,7 @@ export const newBookValidator = z.object({
     topics: z.array(z.any()).optional(),
     category: z.any().optional(),
     publisher: z.any().optional(),
-    type: z.enum(BookTypeUtil.getAll())
+    type: z.enum(BookTypeUtil.getAll()),
+    publishingYear: z.number().int().min(0).max(new Date().getFullYear()).nullable(),
+    edition: z.string().optional(),
 });

@@ -57,7 +57,9 @@ export function UpdateBookPage() {
             category: null,
             publisher: null,
             type: "FICTION",
-            documentFiles: []
+            documentFiles: [],
+            publishingYear: null,
+            edition: "",
         },
         validator: bookValidator,
         onSubmit: async (entity: Book) => {

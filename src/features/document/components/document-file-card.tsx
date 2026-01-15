@@ -25,7 +25,6 @@ export function DocumentFileCard({ documentFile, onRemove, onDownload }: Documen
 
     return (
         <Card
-            title={documentFile.version}
             footer={(
                 <FlexContainer justify="flex-end" spacing={2}>
                     <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
@@ -41,9 +40,6 @@ export function DocumentFileCard({ documentFile, onRemove, onDownload }: Documen
             )}
         >
             <Information.Container>
-                <Information.Item label="Publishing Year">
-                    {documentFile?.publishingYear}
-                </Information.Item>
                 <Information.Item label="Description">
                     {documentFile?.description}
                 </Information.Item>

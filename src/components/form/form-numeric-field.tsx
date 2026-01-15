@@ -8,11 +8,23 @@ interface FormNumericFieldProps extends NumericFieldProps {
 
 function FormNumericField({ form, property, ...others }: FormNumericFieldProps) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        form.updateValue(property, e.target.value);
+        const value = parseInt(e.target.value);
+
+        if (isNaN(value)) {
+            form.updateValue(property, null);
+        } else {
+            form.updateValue(property, value);
+        }
     };
 
     const handleBlur = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        form.onBlur(property, e.target.value);
+        const value = parseInt(e.target.value);
+
+        if (isNaN(value)) {
+            form.onBlur(property, null);
+        } else {
+            form.onBlur(property, value);
+        }
     };
 
     const value = form.getValue<number>(property);

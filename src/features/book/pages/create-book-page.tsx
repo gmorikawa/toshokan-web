@@ -39,6 +39,8 @@ export function CreateBookPage() {
             topics: [],
             category: null,
             publisher: null,
+            publishingYear: null,
+            edition: "",
         },
         validator: newBookValidator,
         onSubmit: async (entity: NewBook) => {

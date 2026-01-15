@@ -7,7 +7,8 @@ export const whitepaperValidator = z.object({
     language: z.object({}, { error: "Language is required" }),
     authors: z.array(z.any()).optional(),
     topics: z.array(z.any()).optional(),
-    organization: z.any().optional()
+    organization: z.any().optional(),
+    publishingYear: z.number().int().min(0).max(new Date().getFullYear()).nullable(),
 });
 
 export const newWhitepaperValidator = z.object({
@@ -16,5 +17,6 @@ export const newWhitepaperValidator = z.object({
     language: z.any().optional(),
     authors: z.array(z.any()).optional(),
     topics: z.array(z.any()).optional(),
-    organization: z.any().optional()
+    organization: z.any().optional(),
+    publishingYear: z.number().int().min(0).max(new Date().getFullYear()).nullable(),
 });

@@ -35,7 +35,8 @@ export function CreateWhitepaperPage() {
             language: null,
             authors: [],
             topics: [],
-            organization: null
+            organization: null,
+            publishingYear: null,
         },
         validator: newWhitepaperValidator,
         onSubmit: async (entity: NewWhitepaper) => {

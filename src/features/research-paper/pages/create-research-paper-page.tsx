@@ -36,7 +36,8 @@ export function CreateResearchPaperPage() {
             authors: [],
             topics: [],
             organization: null,
-            keywords: ""
+            keywords: "",
+            publishingYear: null,
         },
         validator: newResearchPaperValidator,
         onSubmit: async (entity: NewResearchPaper) => {

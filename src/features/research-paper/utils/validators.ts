@@ -8,7 +8,8 @@ export const researchPaperValidator = z.object({
     authors: z.array(z.any()).optional(),
     topics: z.array(z.any()).optional(),
     organization: z.any().optional(),
-    keywords: z.string().optional()
+    keywords: z.string().optional(),
+    publishingYear: z.number().int().min(0).max(new Date().getFullYear()).nullable(),
 });
 
 export const newResearchPaperValidator = z.object({
@@ -18,5 +19,6 @@ export const newResearchPaperValidator = z.object({
     authors: z.array(z.any()).optional(),
     topics: z.array(z.any()).optional(),
     organization: z.any().optional(),
-    keywords: z.string().optional()
+    keywords: z.string().optional(),
+    publishingYear: z.number().int().min(0).max(new Date().getFullYear()).nullable(),
 });

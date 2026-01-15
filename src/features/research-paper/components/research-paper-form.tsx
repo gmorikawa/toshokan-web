@@ -18,6 +18,7 @@ import { FormTextField } from "@components/form/form-text-field";
 import { SubmitButton } from "@components/button/submit-button";
 import { StackContainer } from "@components/container/stack-container";
 import { FormTextareaField } from "@components/form/form-textarea-field";
+import FormNumericField from "@components/form/form-numeric-field";
 
 export interface ResearchPaperFormProps {
     form: Form<ResearchPaper | NewResearchPaper>;
@@ -139,6 +140,13 @@ export function ResearchPaperForm({ form, onSubmit }: ResearchPaperFormProps) {
                 form={form}
                 label="Keywords"
                 property="keywords"
+            />
+
+            <FormNumericField
+                form={form}
+                label="Publishing Year"
+                property="publishingYear"
+                placeholder="1997"
             />
 
             <SubmitButton onSubmit={handleSubmit}>

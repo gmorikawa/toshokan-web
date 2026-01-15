@@ -23,6 +23,7 @@ import FormTextField from "@components/form/form-text-field";
 import StackContainer from "@components/container/stack-container";
 import SubmitButton from "@components/button/submit-button";
 import { FormTextareaField } from "@components/form/form-textarea-field";
+import FormNumericField from "@components/form/form-numeric-field";
 
 export interface BookFormProps {
     form: Form<Book | NewBook>;
@@ -172,8 +173,22 @@ export function BookForm({ form, onSubmit }: BookFormProps) {
                 property="publisher"
                 placeholder="Select a publisher"
                 options={publishers}
-                getLabel={(publisher: Language) => publisher.name}
-                getValue={(publisher: Language) => publisher.id}
+                getLabel={(publisher: Publisher) => publisher.name}
+                getValue={(publisher: Publisher) => publisher.id}
+            />
+
+            <FormNumericField
+                form={form}
+                label="Publishing Year"
+                property="publishingYear"
+                placeholder="1997"
+            />
+
+            <FormTextField
+                form={form}
+                label="Edition"
+                property="edition"
+                placeholder="First Edition"
             />
 
             <SubmitButton onSubmit={handleSubmit}>

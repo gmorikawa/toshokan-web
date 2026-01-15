@@ -1,22 +1,14 @@
-import type { BinaryFile } from "../../../shared/file/types/binary-file";
-import type { Document } from "./document";
-import type { File } from "../../file/types/file";
+import type { BinaryFile } from "@shared/file/types/binary-file";
+import type { Nullable } from "@shared/object/types/nullable";
+
+import type { Document } from "@features/document/types/document";
+import type { File } from "@features/file/types/file";
 
 export interface DocumentFile {
     id: string;
     document: Document;
-    file: File | null;
-    version: string;
+    file: Nullable<File>;
     description?: string;
-    publishingYear?: number;
 }
 
-export interface NewDocumentFile {
-    document: Document;
-    file: File | null;
-    version: string;
-    description?: string;
-    publishingYear?: number | null;
-
-    binary: BinaryFile | null;
-}
+export type NewDocumentFile = Omit<DocumentFile, "id"> & { binary: Nullable<BinaryFile>; };

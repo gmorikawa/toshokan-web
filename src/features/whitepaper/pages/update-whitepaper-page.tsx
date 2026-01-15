@@ -54,7 +54,8 @@ export function UpdateWhitepaperPage() {
             authors: [],
             topics: [],
             organization: null,
-            documentFiles: []
+            documentFiles: [],
+            publishingYear: null,
         },
         validator: whitepaperValidator,
         onSubmit: async (entity: Whitepaper) => {

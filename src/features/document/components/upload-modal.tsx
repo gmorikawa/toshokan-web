@@ -7,7 +7,6 @@ import type { ModalController } from "@components/modal/use-modal";
 import ActionButton from "@components/button/action-button";
 import FlexContainer from "@components/container/flex-container";
 import FormFileField from "@components/form/form-file-field";
-import FormNumericField from "@components/form/form-numeric-field";
 import FormTextField from "@components/form/form-text-field";
 import Modal from "@components/modal/modal";
 import Paragraph from "@components/typography/paragraph";
@@ -25,9 +24,7 @@ export function UploadModal({ controller, document, onUpload }: UploadModalProps
         default: {
             document: document,
             file: null,
-            version: "",
             description: "",
-            publishingYear: null,
             binary: null,
         }
     });
@@ -48,11 +45,11 @@ export function UploadModal({ controller, document, onUpload }: UploadModalProps
         >
             <StackContainer spacing={4}>
                 <Paragraph>{form.entity.document.title}</Paragraph>
-                <FormTextField
+                {/* <FormTextField
                     form={form}
                     label="Version"
                     property="version"
-                />
+                /> */}
 
                 <FormTextField
                     form={form}
@@ -60,11 +57,11 @@ export function UploadModal({ controller, document, onUpload }: UploadModalProps
                     property="description"
                 />
 
-                <FormNumericField
+                {/* <FormNumericField
                     form={form}
                     label="Publishing Year"
                     property="publishingYear"
-                />
+                /> */}
 
                 <FormFileField
                     form={form}

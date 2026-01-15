@@ -56,7 +56,8 @@ export function UpdateResearchPaperPage() {
             topics: [],
             organization: null,
             keywords: "",
-            documentFiles: []
+            documentFiles: [],
+            publishingYear: null,
         },
         validator: researchPaperValidator,
         onSubmit: async (entity: ResearchPaper) => {
