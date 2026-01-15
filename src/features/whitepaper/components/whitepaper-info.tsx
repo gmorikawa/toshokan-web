@@ -41,6 +41,10 @@ export function WhitepaperInfo({ whitepaper, files }: WhitepaperInfoProps) {
 
                 <BoxContainer flex="1">
                     <Information.Container>
+                        <Information.Item label="Publishing Year">
+                            {whitepaper.publishingYear !== null ? whitepaper.publishingYear : "N/A"}
+                        </Information.Item>
+
                         <Information.Item label="Organization">
                             {whitepaper.organization ? whitepaper.organization.name : "N/A"}
                         </Information.Item>

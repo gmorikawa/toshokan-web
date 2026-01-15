@@ -41,6 +41,10 @@ export function ResearchPaperInfo({ researchPaper, files }: ResearchPaperInfoPro
 
                 <BoxContainer flex="1">
                     <Information.Container>
+                        <Information.Item label="Publishing Year">
+                            {researchPaper.publishingYear !== null ? researchPaper.publishingYear : "N/A"}
+                        </Information.Item>
+
                         <Information.Item label="Organization">
                             {researchPaper.organization ? researchPaper.organization.name : "N/A"}
                         </Information.Item>

@@ -1,12 +1,13 @@
 import type { Book } from "@features/book/types/book";
 import type { DocumentFile } from "@features/document/types/document-file";
 import { DocumentFileCard } from "@features/document/components/document-file-card";
+import { buildBookFullTitle } from "@features/book/utils/builder";
 
-import BoxContainer from "@components/container/box-container";
-import Badge from "@components/data-display/badge";
+import { BoxContainer } from "@components/container/box-container";
+import { Badge } from "@components/data-display/badge";
 import Information from "@components/data-display/information";
-import Heading from "@components/typography/header-typography";
-import Paragraph from "@components/typography/paragraph";
+import { Heading } from "@components/typography/header-typography";
+import { Paragraph } from "@components/typography/paragraph";
 
 export interface BookInfoProps {
     book: Book;
@@ -17,7 +18,7 @@ export function BookInfo({ book, files }: BookInfoProps) {
     return (
         <BoxContainer display="flex" flexDirection="column" gap={2}>
             <Heading level={2} size="2xl">
-                {book.title}: {book.subtitle}
+                {buildBookFullTitle(book)}
             </Heading>
 
             <BoxContainer display="flex" gap={2}>
@@ -44,8 +45,16 @@ export function BookInfo({ book, files }: BookInfoProps) {
 
                 <BoxContainer flex="1">
                     <Information.Container>
+                        <Information.Item label="Edition">
+                            {book.edition ? book.edition : "N/A"}
+                        </Information.Item>
+
                         <Information.Item label="Publisher">
                             {book.publisher ? book.publisher.name : "N/A"}
+                        </Information.Item>
+
+                        <Information.Item label="Publishing Year">
+                            {book.publishingYear !== null ? book.publishingYear : "N/A"}
                         </Information.Item>
 
                         <Information.Item label="Authors">
