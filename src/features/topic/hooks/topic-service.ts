@@ -26,7 +26,7 @@ export function useTopicService(): TopicService {
     }
 
     return {
-        getAll: async () => getAllTopics(session),
+        getAll: async (query?: TopicQueryOptions) => getAllTopics(session, query),
         getById: async (id: string) => getTopicById(session, id),
         countAll: async () => countAllTopics(session),
         create: async (topic: NewTopic) => createTopic(session, topic),

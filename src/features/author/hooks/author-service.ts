@@ -27,7 +27,7 @@ export function useAuthorService(): AuthorService {
     }
 
     return {
-        getAll: async () => getAllAuthors(session),
+        getAll: async (query?: AuthorQueryOptions) => getAllAuthors(session, query),
         getById: async (id: string) => getAuthorById(session, id),
         countAll: async () => countAllAuthors(session),
         create: async (author: NewAuthor) => createAuthor(session, author),
