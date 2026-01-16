@@ -32,8 +32,11 @@ export function PaginationControl({ count, pageSize, page, onPageChange }: Pagin
                     </IconButton>
                 </ChakraPagination.PrevTrigger>
                 <ChakraPagination.Items
-                    render={(page) => (
-                        <IconButton variant={{ base: "ghost", _selected: "outline" }}>
+                    render={(page: { value: number }) => (
+                        <IconButton
+                            variant={{ base: "ghost", _selected: "outline" }}
+                            onClick={() => (onPageChange && onPageChange(page.value))}
+                        >
                             {page.value}
                         </IconButton>
                     )}
