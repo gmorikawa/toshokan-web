@@ -1,7 +1,10 @@
 export { MdOutlineError as WarningIcon } from "react-icons/md";
 
 export { MdAdd as AddIcon } from "react-icons/md";
+export { MdModeEdit as UpdateIcon } from "react-icons/md";
+export { MdDelete as DeleteIcon } from "react-icons/md";
 export { MdArrowBack as BackIcon } from "react-icons/md";
+export { MdOpenInNew as OpenIcon } from "react-icons/md";
 
 export { MdOutlinePlaylistRemove as EmptyListIcon } from "react-icons/md";
 export { LuSearchX as NotFoundIcon } from "react-icons/lu";

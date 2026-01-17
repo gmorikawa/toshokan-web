@@ -1,9 +1,11 @@
 import type { Language } from "@features/language/types/language";
 import type { Pagination } from "@shared/search/types/pagination";
 
+import { UpdateButton } from "@layout/button/update-button";
+import { DeleteButton } from "@layout/button/delete-button";
+
 import DataTable from "@components/table/data-table";
 import FlexContainer from "@components/container/flex-container";
-import OutlineButton from "@components/button/outline-button";
 import PaginationControl from "@components/pagination/pagination-control";
 import StackContainer from "@components/container/stack-container";
 
@@ -44,9 +46,9 @@ export function LanguageTable({ data, pagination, onUpdate, onRemove, onPageChan
                     {
                         header: "Actions",
                         accessor: (language: Language) => (
-                            <FlexContainer spacing="2">
-                                <OutlineButton onClick={() => handleUpdate(language)}>Edit</OutlineButton>
-                                <OutlineButton onClick={() => handleRemove(language)}>Delete</OutlineButton>
+                            <FlexContainer>
+                                <UpdateButton onClick={() => handleUpdate(language)} />
+                                <DeleteButton onClick={() => handleRemove(language)} />
                             </FlexContainer>
                         )
                     },

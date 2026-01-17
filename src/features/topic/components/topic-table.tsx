@@ -1,9 +1,11 @@
 import type { Topic } from "@features/topic/types/topic";
 import type { Pagination } from "@shared/search/types/pagination";
 
+import { UpdateButton } from "@layout/button/update-button";
+import { DeleteButton } from "@layout/button/delete-button";
+
 import DataTable from "@components/table/data-table";
 import FlexContainer from "@components/container/flex-container";
-import OutlineButton from "@components/button/outline-button";
 import PaginationControl from "@components/pagination/pagination-control";
 import StackContainer from "@components/container/stack-container";
 
@@ -44,9 +46,9 @@ export function TopicTable({ data, pagination, onUpdate, onRemove, onPageChange 
                     {
                         header: "Actions",
                         accessor: (topic: Topic) => (
-                            <FlexContainer spacing="2">
-                                <OutlineButton onClick={() => handleUpdate(topic)}>Edit</OutlineButton>
-                                <OutlineButton onClick={() => handleRemove(topic)}>Delete</OutlineButton>
+                            <FlexContainer>
+                                <UpdateButton onClick={() => handleUpdate(topic)} />
+                                <DeleteButton onClick={() => handleRemove(topic)} />
                             </FlexContainer>
                         )
                     },

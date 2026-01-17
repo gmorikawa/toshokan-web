@@ -1,9 +1,11 @@
 import type { Organization } from "@features/organization/types/organization";
 import type { Pagination } from "@shared/search/types/pagination";
 
+import { UpdateButton } from "@layout/button/update-button";
+import { DeleteButton } from "@layout/button/delete-button";
+
 import DataTable from "@components/table/data-table";
 import FlexContainer from "@components/container/flex-container";
-import OutlineButton from "@components/button/outline-button";
 import PaginationControl from "@components/pagination/pagination-control";
 import StackContainer from "@components/container/stack-container";
 
@@ -44,9 +46,9 @@ export function OrganizationTable({ data, pagination, onUpdate, onRemove, onPage
                     {
                         header: "Actions",
                         accessor: (organization: Organization) => (
-                            <FlexContainer spacing="2">
-                                <OutlineButton onClick={() => handleUpdate(organization)}>Edit</OutlineButton>
-                                <OutlineButton onClick={() => handleRemove(organization)}>Delete</OutlineButton>
+                            <FlexContainer>
+                                <UpdateButton onClick={() => handleUpdate(organization)} />
+                                <DeleteButton onClick={() => handleRemove(organization)} />
                             </FlexContainer>
                         )
                     },

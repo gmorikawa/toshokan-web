@@ -1,12 +1,15 @@
 import type { ResearchPaper } from "@features/research-paper/types/research-paper";
 import type { Pagination } from "@shared/search/types/pagination";
 
-import DataTable from "@components/table/data-table";
-import FlexContainer from "@components/container/flex-container";
-import OutlineButton from "@components/button/outline-button";
-import PaginationControl from "@components/pagination/pagination-control";
-import StackContainer from "@components/container/stack-container";
-import RestrictedContent from "@features/auth/components/restricted-content";
+import { OpenButton } from "@layout/button/open-button";
+import { UpdateButton } from "@layout/button/update-button";
+import { DeleteButton } from "@layout/button/delete-button";
+
+import { DataTable } from "@components/table/data-table";
+import { FlexContainer } from "@components/container/flex-container";
+import { PaginationControl } from "@components/pagination/pagination-control";
+import { StackContainer } from "@components/container/stack-container";
+import { RestrictedContent } from "@features/auth/components/restricted-content";
 
 export interface ResearchPaperTableProps {
     data: ResearchPaper[];
@@ -22,7 +25,7 @@ export function ResearchPaperTable({ data, pagination, onUpdate, onRemove, onDet
     function handleUpdate(entity: ResearchPaper): void {
         (onUpdate) && (onUpdate(entity));
     }
-    
+
     function handleRemove(entity: ResearchPaper): void {
         (onRemove) && (onRemove(entity));
     }
@@ -50,12 +53,12 @@ export function ResearchPaperTable({ data, pagination, onUpdate, onRemove, onDet
                     {
                         header: "Actions",
                         accessor: (researchPaper: ResearchPaper) => (
-                            <FlexContainer spacing="2">
+                            <FlexContainer>
                                 <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
-                                    <OutlineButton onClick={() => handleUpdate(researchPaper)}>Edit</OutlineButton>
-                                    <OutlineButton onClick={() => handleRemove(researchPaper)}>Delete</OutlineButton>
+                                    <UpdateButton onClick={() => handleUpdate(researchPaper)} />
+                                    <DeleteButton onClick={() => handleRemove(researchPaper)} />
                                 </RestrictedContent>
-                                <OutlineButton onClick={() => handleDetail(researchPaper)}>Details</OutlineButton>
+                                <OpenButton onClick={() => handleDetail(researchPaper)} />
                             </FlexContainer>
                         )
                     },

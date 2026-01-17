@@ -1,9 +1,11 @@
 import type { Author } from "@features/author/types/author";
 import type { Pagination } from "@shared/search/types/pagination";
 
+import { UpdateButton } from "@layout/button/update-button";
+import { DeleteButton } from "@layout/button/delete-button";
+
 import DataTable from "@components/table/data-table";
 import FlexContainer from "@components/container/flex-container";
-import OutlineButton from "@components/button/outline-button";
 import PaginationControl from "@components/pagination/pagination-control";
 import StackContainer from "@components/container/stack-container";
 
@@ -44,9 +46,9 @@ export function AuthorTable({ data, pagination, onUpdate, onRemove, onPageChange
                     {
                         header: "Actions",
                         accessor: (author: Author) => (
-                            <FlexContainer spacing="2">
-                                <OutlineButton onClick={() => handleUpdate(author)}>Edit</OutlineButton>
-                                <OutlineButton onClick={() => handleRemove(author)}>Delete</OutlineButton>
+                            <FlexContainer>
+                                <UpdateButton onClick={() => handleUpdate(author)} />
+                                <DeleteButton onClick={() => handleRemove(author)} />
                             </FlexContainer>
                         )
                     },

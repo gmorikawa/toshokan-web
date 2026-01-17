@@ -1,12 +1,15 @@
 import type { Book } from "@features/book/types/book";
 import type { Pagination } from "@shared/search/types/pagination";
 
-import DataTable from "@components/table/data-table";
-import FlexContainer from "@components/container/flex-container";
-import OutlineButton from "@components/button/outline-button";
-import PaginationControl from "@components/pagination/pagination-control";
-import StackContainer from "@components/container/stack-container";
-import RestrictedContent from "@features/auth/components/restricted-content";
+import { OpenButton } from "@layout/button/open-button";
+import { UpdateButton } from "@layout/button/update-button";
+import { DeleteButton } from "@layout/button/delete-button";
+
+import { DataTable } from "@components/table/data-table";
+import { FlexContainer } from "@components/container/flex-container";
+import { PaginationControl } from "@components/pagination/pagination-control";
+import { StackContainer } from "@components/container/stack-container";
+import { RestrictedContent } from "@features/auth/components/restricted-content";
 
 export interface BookTableProps {
     data: Book[];
@@ -27,7 +30,7 @@ export function BookTable({ data, pagination, onUpdate, onRemove, onDetail, onPa
         (onRemove) && (onRemove(entity));
     }
 
-    function handleDetail(entity: Book): void {
+    function handleOpen(entity: Book): void {
         (onDetail) && (onDetail(entity));
     }
 
@@ -50,12 +53,12 @@ export function BookTable({ data, pagination, onUpdate, onRemove, onDetail, onPa
                     {
                         header: "Actions",
                         accessor: (book: Book) => (
-                            <FlexContainer spacing="2">
+                            <FlexContainer>
                                 <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
-                                    <OutlineButton onClick={() => handleUpdate(book)}>Edit</OutlineButton>
-                                    <OutlineButton onClick={() => handleRemove(book)}>Delete</OutlineButton>
+                                    <UpdateButton onClick={() => handleUpdate(book)} />
+                                    <DeleteButton onClick={() => handleRemove(book)} />
                                 </RestrictedContent>
-                                <OutlineButton onClick={() => handleDetail(book)}>Details</OutlineButton>
+                                <OpenButton onClick={() => handleOpen(book)} />
                             </FlexContainer>
                         )
                     },

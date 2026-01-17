@@ -1,9 +1,12 @@
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { Pagination } from "@shared/search/types/pagination";
 
+import { OpenButton } from "@layout/button/open-button";
+import { UpdateButton } from "@layout/button/update-button";
+import { DeleteButton } from "@layout/button/delete-button";
+
 import { DataTable } from "@components/table/data-table";
 import { FlexContainer } from "@components/container/flex-container";
-import { OutlineButton } from "@components/button/outline-button";
 import { PaginationControl } from "@components/pagination/pagination-control";
 import { StackContainer } from "@components/container/stack-container";
 import { RestrictedContent } from "@features/auth/components/restricted-content";
@@ -27,7 +30,7 @@ export function WhitepaperTable({ data, pagination, onUpdate, onRemove, onDetail
         (onRemove) && (onRemove(entity));
     }
 
-    function handleDetail(entity: Whitepaper): void {
+    function handleOpen(entity: Whitepaper): void {
         (onDetail) && (onDetail(entity));
     }
 
@@ -50,12 +53,12 @@ export function WhitepaperTable({ data, pagination, onUpdate, onRemove, onDetail
                     {
                         header: "Actions",
                         accessor: (whitepaper: Whitepaper) => (
-                            <FlexContainer spacing="2">
+                            <FlexContainer>
                                 <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
-                                    <OutlineButton onClick={() => handleUpdate(whitepaper)}>Edit</OutlineButton>
-                                    <OutlineButton onClick={() => handleRemove(whitepaper)}>Delete</OutlineButton>
+                                    <UpdateButton onClick={() => handleUpdate(whitepaper)} />
+                                    <DeleteButton onClick={() => handleRemove(whitepaper)} />
                                 </RestrictedContent>
-                                <OutlineButton onClick={() => handleDetail(whitepaper)}>Details</OutlineButton>
+                                <OpenButton onClick={() => handleOpen(whitepaper)} />
                             </FlexContainer>
                         )
                     },

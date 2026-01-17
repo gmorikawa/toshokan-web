@@ -1,11 +1,13 @@
+import { UpdateButton } from "@layout/button/update-button";
+import { DeleteButton } from "@layout/button/delete-button";
+
 import type { User } from "@features/user/types/user";
 import type { Pagination } from "@shared/search/types/pagination";
 
-import DataTable from "@components/table/data-table";
-import FlexContainer from "@components/container/flex-container";
-import OutlineButton from "@components/button/outline-button";
-import PaginationControl from "@components/pagination/pagination-control";
-import StackContainer from "@components/container/stack-container";
+import { DataTable } from "@components/table/data-table";
+import { FlexContainer } from "@components/container/flex-container";
+import { PaginationControl } from "@components/pagination/pagination-control";
+import { StackContainer } from "@components/container/stack-container";
 
 export interface UserTableProps {
     data: User[];
@@ -20,7 +22,7 @@ export function UserTable({ data, pagination, onUpdate, onRemove, onPageChange }
     function handleUpdate(entity: User): void {
         (onUpdate) && (onUpdate(entity));
     }
-    
+
     function handleRemove(entity: User): void {
         (onRemove) && (onRemove(entity));
     }
@@ -44,9 +46,9 @@ export function UserTable({ data, pagination, onUpdate, onRemove, onPageChange }
                     {
                         header: "Actions",
                         accessor: (user: User) => (
-                            <FlexContainer spacing="2">
-                                <OutlineButton onClick={() => handleUpdate(user)}>Edit</OutlineButton>
-                                <OutlineButton onClick={() => handleRemove(user)}>Delete</OutlineButton>
+                            <FlexContainer>
+                                <UpdateButton onClick={() => handleUpdate(user)} />
+                                <DeleteButton onClick={() => handleRemove(user)} />
                             </FlexContainer>
                         )
                     },
