@@ -77,7 +77,7 @@ export function useWhitepaperSearch(configuration?: WhitepaperSearchConfiguratio
     };
 
     const refresh = () => {
-        search(title);
+        loader.load(title, pagination);
     };
 
     const reset = () => {

@@ -77,7 +77,7 @@ export function useResearchPaperSearch(configuration?: ResearchPaperSearchConfig
     };
 
     const refresh = () => {
-        search(title);
+        loader.load(title, pagination);
     };
 
     const reset = () => {

@@ -77,7 +77,7 @@ export function useBookSearch(configuration?: BookSearchConfiguration): BookSear
     };
 
     const refresh = () => {
-        search(title);
+        loader.load(title, pagination);
     };
 
     const reset = () => {
