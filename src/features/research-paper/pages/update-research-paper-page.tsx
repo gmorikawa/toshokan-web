@@ -1,12 +1,15 @@
+import { useEffect } from "react";
+
 import { useParams } from "@shared/router/hooks/params";
+import { useQuery } from "@shared/router/hooks/query";
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { ResearchPaper } from "@features/research-paper/types/research-paper";
+import { useAuthorization } from "@features/auth/hooks/authorization";
 import { researchPaperValidator } from "@features/research-paper/utils/validators";
 import { ResearchPaperForm } from "@features/research-paper/components/research-paper-form";
 import { ResearchPaperFileUpload } from "@features/research-paper/components/research-paper-file-upload";
 
-import { useEffect } from "react";
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
@@ -20,10 +23,13 @@ import { TabContent } from "@components/tab/tab-content";
 import { TabControl, type TabOption } from "@components/tab/tab-control";
 
 import { BackIcon, FileUploadIcon, FormIcon } from "@shared/icons";
-import { useAuthorization } from "@features/auth/hooks/authorization";
 
 type ParamsWithId = {
     id?: string;
+}
+
+type QueryWithTab = {
+    tab?: ResearchPaperFormTab;
 }
 
 type ResearchPaperFormTab = "details" | "files";
@@ -43,6 +49,7 @@ export function UpdateResearchPaperPage() {
     const alert = useAlert();
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
+    const { tab } = useQuery<QueryWithTab>();
 
     const service = useResearchPaperService();
 
@@ -103,7 +110,7 @@ export function UpdateResearchPaperPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <TabControl defaultTab="details" options={researchPaperFormTabOptions}>
+                <TabControl defaultTab={tab ?? "details"} options={researchPaperFormTabOptions}>
                     <TabContent tab="details">
                         <ResearchPaperForm form={form} onSubmit={handleSubmit} />
                     </TabContent>

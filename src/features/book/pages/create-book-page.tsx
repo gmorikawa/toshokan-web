@@ -1,6 +1,6 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { NewBook } from "@features/book/types/book";
+import type { Book, NewBook } from "@features/book/types/book";
 import { useAuthorization } from "@features/auth/hooks/authorization";
 import { newBookValidator } from "@features/book/utils/validators";
 import { BookForm } from "@features/book/components/book-form";
@@ -46,8 +46,13 @@ export function CreateBookPage() {
         onSubmit: async (entity: NewBook) => {
             if (!form.isValid()) return;
             try {
-                await service.create(entity);
-                navigate.to("/app/book/list");
+                service.create(entity)
+                    .then((savedBook: Book) => {
+                        navigate.to(`/app/book/form/${savedBook.id}?tab=files`);
+                    })
+                    .catch((error: Error) => {
+                        alert.showErrorMessage(error);
+                    });
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }

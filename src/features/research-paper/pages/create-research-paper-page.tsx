@@ -1,6 +1,6 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { NewResearchPaper } from "@features/research-paper/types/research-paper";
+import type { NewResearchPaper, ResearchPaper } from "@features/research-paper/types/research-paper";
 import { newResearchPaperValidator } from "@features/research-paper/utils/validators";
 import { ResearchPaperForm } from "@features/research-paper/components/research-paper-form";
 
@@ -43,8 +43,13 @@ export function CreateResearchPaperPage() {
         onSubmit: async (entity: NewResearchPaper) => {
             if (!form.isValid()) return;
             try {
-                await service.create(entity);
-                navigate.to("/app/research-paper/list");
+                service.create(entity)
+                    .then((savedResearchPaper: ResearchPaper) => {
+                        navigate.to(`/app/research-paper/form/${savedResearchPaper.id}?tab=files`);
+                    })
+                    .catch((error: Error) => {
+                        alert.showErrorMessage(error);
+                    });
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }

@@ -1,6 +1,6 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
 
-import type { NewWhitepaper } from "@features/whitepaper/types/whitepaper";
+import type { NewWhitepaper, Whitepaper } from "@features/whitepaper/types/whitepaper";
 import { useAuthorization } from "@features/auth/hooks/authorization";
 import { newWhitepaperValidator } from "@features/whitepaper/utils/validators";
 import { WhitepaperForm } from "@features/whitepaper/components/whitepaper-form";
@@ -42,8 +42,13 @@ export function CreateWhitepaperPage() {
         onSubmit: async (entity: NewWhitepaper) => {
             if (!form.isValid()) return;
             try {
-                await service.create(entity);
-                navigate.to("/app/whitepaper/list");
+                service.create(entity)
+                    .then((savedWhitepaper: Whitepaper) => {
+                        navigate.to(`/app/whitepaper/form/${savedWhitepaper.id}?tab=files`);
+                    })
+                    .catch((error: Error) => {
+                        alert.showErrorMessage(error);
+                    });
             } catch (error) {
                 alert.showErrorMessage(error as Error);
             }

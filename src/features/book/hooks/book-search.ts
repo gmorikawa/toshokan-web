@@ -6,10 +6,9 @@ import { usePagination, type PaginationController } from "@shared/search/hooks/p
 import type { Count, Pagination } from "@shared/search/types/pagination";
 
 import type { Book } from "@features/book/types/book";
+import { useBookService } from "@features/book/hooks/book-service";
 
 import useAlert from "@components/feedback/alert/controller";
-import { useBookService } from "./book-service";
-
 
 type Query = string;
 type Boolean = boolean;

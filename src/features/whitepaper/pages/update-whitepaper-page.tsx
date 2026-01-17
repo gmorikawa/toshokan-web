@@ -1,4 +1,7 @@
+import { useEffect } from "react";
+
 import { useParams } from "@shared/router/hooks/params";
+import { useQuery } from "@shared/router/hooks/query";
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
@@ -7,7 +10,6 @@ import { whitepaperValidator } from "@features/whitepaper/utils/validators";
 import { WhitepaperForm } from "@features/whitepaper/components/whitepaper-form";
 import { WhitepaperFileUpload } from "@features/whitepaper/components/whitepaper-file-upload";
 
-import { useEffect } from "react";
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
@@ -26,6 +28,10 @@ type ParamsWithId = {
     id?: string;
 }
 
+type QueryWithTab = {
+    tab?: WhitepaperFormTab;
+}
+
 type WhitepaperFormTab = "details" | "files";
 
 const whitepaperFormTabOptions: TabOption<WhitepaperFormTab>[] = [
@@ -42,6 +48,7 @@ export function UpdateWhitepaperPage() {
     const alert = useAlert();
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
+    const { tab } = useQuery<QueryWithTab>();
 
     const service = useWhitepaperService();
 
@@ -101,7 +108,7 @@ export function UpdateWhitepaperPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <TabControl defaultTab="details" options={whitepaperFormTabOptions}>
+                <TabControl defaultTab={tab ?? "details"} options={whitepaperFormTabOptions}>
                     <TabContent tab="details">
                         <WhitepaperForm form={form} onSubmit={handleSubmit} />
                     </TabContent>

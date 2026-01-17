@@ -1,4 +1,7 @@
+import { useEffect } from "react";
+
 import { useParams } from "@shared/router/hooks/params";
+import { useQuery } from "@shared/router/hooks/query";
 import { useNavigator } from "@shared/router/hooks/navigator";
 
 import type { Book } from "@features/book/types/book";
@@ -7,7 +10,6 @@ import { bookValidator } from "@features/book/utils/validators";
 import { BookForm } from "@features/book/components/book-form";
 import { BookFileUpload } from "@features/book/components/book-file-upload";
 
-import { useEffect } from "react";
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { useBookService } from "@features/book/hooks/book-service";
@@ -26,6 +28,10 @@ type ParamsWithId = {
     id?: string;
 }
 
+type QueryWithTab = {
+    tab?: BookFormTab;
+}
+
 type BookFormTab = "details" | "files";
 
 const bookFormTabOptions: TabOption<BookFormTab>[] = [
@@ -42,6 +48,7 @@ export function UpdateBookPage() {
     const alert = useAlert();
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
+    const { tab } = useQuery<QueryWithTab>();
 
     const service = useBookService();
 
@@ -105,12 +112,12 @@ export function UpdateBookPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <TabControl defaultTab="details" options={bookFormTabOptions}>
+                <TabControl defaultTab={tab ?? "details"} options={bookFormTabOptions}>
                     <TabContent tab="details">
                         <BookForm form={form} onSubmit={handleSubmit} />
                     </TabContent>
 
-                    <TabContent tab="files">
+                    <TabContent tab="files" fullHeight>
                         <BookFileUpload book={form.entity} />
                     </TabContent>
                 </TabControl>

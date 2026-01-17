@@ -45,23 +45,12 @@ export function UploadModal({ controller, document, onUpload }: UploadModalProps
         >
             <StackContainer spacing={4}>
                 <Paragraph>{form.entity.document.title}</Paragraph>
-                {/* <FormTextField
-                    form={form}
-                    label="Version"
-                    property="version"
-                /> */}
 
                 <FormTextField
                     form={form}
                     label="Description"
                     property="description"
                 />
-
-                {/* <FormNumericField
-                    form={form}
-                    label="Publishing Year"
-                    property="publishingYear"
-                /> */}
 
                 <FormFileField
                     form={form}
