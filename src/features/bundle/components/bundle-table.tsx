@@ -44,6 +44,7 @@ export function BundleTable({ data, pagination, onUpdate, onRemove, onPageChange
                 data={data}
                 columns={[
                     {
+                        width: "150px",
                         header: "Actions",
                         accessor: (bundle: Bundle) => (
                             <FlexContainer>

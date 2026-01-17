@@ -51,6 +51,7 @@ export function ResearchPaperTable({ data, pagination, onUpdate, onRemove, onDet
                 data={data}
                 columns={[
                     {
+                        width: "150px",
                         header: "Actions",
                         accessor: (researchPaper: ResearchPaper) => (
                             <FlexContainer>

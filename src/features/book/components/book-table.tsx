@@ -51,6 +51,7 @@ export function BookTable({ data, pagination, onUpdate, onRemove, onDetail, onPa
                 data={data}
                 columns={[
                     {
+                        width: "150px",
                         header: "Actions",
                         accessor: (book: Book) => (
                             <FlexContainer>

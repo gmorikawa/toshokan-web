@@ -44,6 +44,7 @@ export function LanguageTable({ data, pagination, onUpdate, onRemove, onPageChan
                 data={data}
                 columns={[
                     {
+                        width: "150px",
                         header: "Actions",
                         accessor: (language: Language) => (
                             <FlexContainer>

@@ -51,6 +51,7 @@ export function WhitepaperTable({ data, pagination, onUpdate, onRemove, onDetail
                 data={data}
                 columns={[
                     {
+                        width: "150px",
                         header: "Actions",
                         accessor: (whitepaper: Whitepaper) => (
                             <FlexContainer>

@@ -44,6 +44,7 @@ export function OrganizationTable({ data, pagination, onUpdate, onRemove, onPage
                 data={data}
                 columns={[
                     {
+                        width: "150px",
                         header: "Actions",
                         accessor: (organization: Organization) => (
                             <FlexContainer>

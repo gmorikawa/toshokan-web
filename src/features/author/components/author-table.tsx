@@ -44,6 +44,7 @@ export function AuthorTable({ data, pagination, onUpdate, onRemove, onPageChange
                 data={data}
                 columns={[
                     {
+                        width: "150px",
                         header: "Actions",
                         accessor: (author: Author) => (
                             <FlexContainer>

@@ -5,6 +5,7 @@ type ComponentNode = React.ReactNode;
 type Node = ComponentNode | TextNode;
 
 interface TableColumn<Row> {
+    width?: string | number;
     header: string;
     accessor(row: Row): Node;
 }
@@ -20,7 +21,7 @@ function DataTable<Row>({ data = [], columns = [] }: DataTableProps<Row>) {
             <Table.Header>
                 <Table.Row>
                     {columns.map((column: TableColumn<Row>, index: number) => (
-                        <Table.ColumnHeader key={index} fontWeight="bold">
+                        <Table.ColumnHeader key={index} fontWeight="bold" width={column.width}>
                             {column.header}
                         </Table.ColumnHeader>
                     ))}

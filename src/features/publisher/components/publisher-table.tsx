@@ -44,6 +44,7 @@ export function PublisherTable({ data, pagination, onUpdate, onRemove, onPageCha
                 data={data}
                 columns={[
                     {
+                        width: "150px",
                         header: "Actions",
                         accessor: (publisher: Publisher) => (
                             <FlexContainer>
