@@ -1,8 +1,8 @@
 import type { Topic } from "@features/topic/types/topic";
 import type { Pagination } from "@shared/search/types/pagination";
 
-import { UpdateButton } from "@layout/button/update-button";
-import { DeleteButton } from "@layout/button/delete-button";
+import { UpdateButton } from "@layout/button/update";
+import { DeleteButton } from "@layout/button/delete";
 
 import DataTable from "@components/table/data-table";
 import FlexContainer from "@components/container/flex-container";

@@ -1,5 +1,5 @@
-import { UpdateButton } from "@layout/button/update-button";
-import { DeleteButton } from "@layout/button/delete-button";
+import { UpdateButton } from "@layout/button/update";
+import { DeleteButton } from "@layout/button/delete";
 
 import type { User } from "@features/user/types/user";
 import type { Pagination } from "@shared/search/types/pagination";

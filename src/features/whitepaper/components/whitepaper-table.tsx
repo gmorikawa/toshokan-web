@@ -1,9 +1,9 @@
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { Pagination } from "@shared/search/types/pagination";
 
-import { OpenButton } from "@layout/button/open-button";
-import { UpdateButton } from "@layout/button/update-button";
-import { DeleteButton } from "@layout/button/delete-button";
+import { OpenButton } from "@layout/button/open";
+import { UpdateButton } from "@layout/button/update";
+import { DeleteButton } from "@layout/button/delete";
 
 import { DataTable } from "@components/table/data-table";
 import { FlexContainer } from "@components/container/flex-container";

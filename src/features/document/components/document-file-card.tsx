@@ -1,11 +1,13 @@
 import type { DocumentFile } from "@features/document/types/document-file";
 
-import ActionButton from "@components/button/action-button";
 import Card from "@components/card/card";
 import FlexContainer from "@components/container/flex-container";
 import Information from "@components/data-display/information";
 import RestrictedContent from "@features/auth/components/restricted-content";
 import Badge from "@components/data-display/badge";
+
+import { DownloadButton } from "@layout/button/download";
+import { DeleteButton } from "@layout/button/delete";
 
 export interface DocumentFileCardProps {
     documentFile: DocumentFile;
@@ -28,14 +30,10 @@ export function DocumentFileCard({ documentFile, onRemove, onDownload }: Documen
             footer={(
                 <FlexContainer justify="flex-end" spacing={2}>
                     <RestrictedContent allowedRoles={["ADMIN", "LIBRARIAN"]}>
-                        <ActionButton palette="danger" onClick={handleRemove}>
-                            Remove
-                        </ActionButton>
+                        <DeleteButton onClick={handleRemove} />
                     </RestrictedContent>
 
-                    <ActionButton onClick={handleDownload}>
-                        Download
-                    </ActionButton>
+                    <DownloadButton onClick={handleDownload} />
                 </FlexContainer>
             )}
         >
