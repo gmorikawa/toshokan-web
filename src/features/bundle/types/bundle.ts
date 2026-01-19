@@ -1,5 +1,7 @@
+import type { ID } from "@shared/entity/types/id";
+
 export interface Bundle {
-    id: string;
+    id: ID;
     title: string;
     description: string;
 }

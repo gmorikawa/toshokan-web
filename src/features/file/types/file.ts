@@ -1,7 +1,9 @@
+import type { ID } from "@shared/entity/types/id";
+
 export type FileState = "UPLOADING" | "AVAILABLE" | "CORRUPTED";
 
 export interface FileType {
-    id: string;
+    id: ID;
     name: string;
     extension: string;
     mimeType: string;

@@ -1,7 +1,9 @@
+import type { ID } from "@shared/entity/types/id";
+
 export type OrganizationType = "UNIVERSITY" | "COMPANY";
 
 export interface Organization {
-    id: string;
+    id: ID;
     name: string;
     description: string;
     type: OrganizationType;

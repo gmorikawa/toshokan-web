@@ -1,5 +1,7 @@
+import type { ID } from "@shared/entity/types/id";
+
 export interface Category {
-    id: string;
+    id: ID;
     name: string;
 }
 

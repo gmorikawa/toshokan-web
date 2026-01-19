@@ -1,5 +1,7 @@
+import type { ID } from "@shared/entity/types/id";
+
 export interface Publisher {
-    id: string;
+    id: ID;
     name: string;
     description: string;
 }

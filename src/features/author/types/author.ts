@@ -1,5 +1,7 @@
+import type { ID } from "@shared/entity/types/id";
+
 export interface Author {
-    id: string;
+    id: ID;
     fullname: string;
     biography?: string;
 }
