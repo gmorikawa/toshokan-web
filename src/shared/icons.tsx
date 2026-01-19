@@ -23,6 +23,8 @@ export { CiHashtag as TopicIcon } from "react-icons/ci";
 export { GrOrganization as OrganizationIcon } from "react-icons/gr";
 export { MdOutlinePublishedWithChanges as PublisherIcon } from "react-icons/md";
 
+export { IoBookOutline as ReadIcon } from "react-icons/io5";
+
 export { FaWpforms as FormIcon } from "react-icons/fa";
 export { HiUpload as UploadIcon } from "react-icons/hi";
 export { HiDownload as DownloadIcon } from "react-icons/hi";

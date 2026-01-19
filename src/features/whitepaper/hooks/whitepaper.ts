@@ -1,33 +1,19 @@
-import { useEffect, useState } from "react";
+import type { ID } from "@shared/entity/types/id";
+import type { EntityController } from "@shared/entity/hooks/entity";
+import { useEntity } from "@shared/entity/hooks/entity";
 
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
 
-import { useAlert } from "@components/feedback/alert/controller";
+export interface WhitepaperController extends EntityController<Whitepaper> { }
 
-export interface UseWhitepaperResult {
-    whitepaper: Whitepaper | null;
-}
-
-export function useWhitepaper(id: string) {
+export function useWhitepaper(id: ID): WhitepaperController {
     const service = useWhitepaperService();
-    const alert = useAlert();
 
-    const [whitepaper, setWhitepaper] = useState<Whitepaper | null>(null);
-
-    useEffect(() => {
-        service.getById(id)
-            .then((response: Whitepaper) => {
-                setWhitepaper(response);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }, [id]);
-
-    return {
-        whitepaper
-    };
+    return useEntity<Whitepaper>(
+        () => service.getById(id),
+        [id]
+    );
 }
 
 export default useWhitepaper;

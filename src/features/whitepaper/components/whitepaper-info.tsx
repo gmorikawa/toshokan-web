@@ -14,9 +14,10 @@ export interface WhitepaperInfoProps {
     
     onRemove?: (documentFile: DocumentFile) => void;
     onDownload?: (documentFile: DocumentFile) => void;
+    onRead?: (documentFile: DocumentFile) => void;
 }
 
-export function WhitepaperInfo({ whitepaper, files, onRemove, onDownload }: WhitepaperInfoProps) {
+export function WhitepaperInfo({ whitepaper, files, onRemove, onDownload, onRead }: WhitepaperInfoProps) {
     return (
         <BoxContainer display="flex" flexDirection="column" gap={2}>
             <Heading level={2} size="2xl">
@@ -42,6 +43,7 @@ export function WhitepaperInfo({ whitepaper, files, onRemove, onDownload }: Whit
                                 documentFile={file}
                                 onRemove={onRemove}
                                 onDownload={onDownload}
+                                onRead={onRead}
                             />
                         ))}
                     </BoxContainer>

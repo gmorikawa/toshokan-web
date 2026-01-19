@@ -8,22 +8,29 @@ import Badge from "@components/data-display/badge";
 
 import { DownloadButton } from "@layout/button/download";
 import { DeleteButton } from "@layout/button/delete";
+import { useCallback } from "react";
+import ReadButton from "@layout/button/read";
 
 export interface DocumentFileCardProps {
     documentFile: DocumentFile;
 
     onRemove?: (documentFile: DocumentFile) => void;
     onDownload?: (documentFile: DocumentFile) => void;
+    onRead?: (documentFile: DocumentFile) => void;
 }
 
-export function DocumentFileCard({ documentFile, onRemove, onDownload }: DocumentFileCardProps) {
-    function handleRemove(): void {
+export function DocumentFileCard({ documentFile, onRemove, onDownload, onRead }: DocumentFileCardProps) {
+    const handleRemove = useCallback((): void => {
         (onRemove) && (onRemove(documentFile));
-    }
+    }, [documentFile, onRemove]);
 
-    function handleDownload(): void {
+    const handleDownload = useCallback((): void => {
         (onDownload) && (onDownload(documentFile));
-    }
+    }, [documentFile, onDownload]);
+
+    const handleRead = useCallback((): void => {
+        (onRead) && (onRead(documentFile));
+    }, [documentFile, onRead]);
 
     return (
         <Card
@@ -34,6 +41,7 @@ export function DocumentFileCard({ documentFile, onRemove, onDownload }: Documen
                     </RestrictedContent>
 
                     <DownloadButton onClick={handleDownload} />
+                    <ReadButton onClick={handleRead} />
                 </FlexContainer>
             )}
         >

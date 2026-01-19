@@ -1,3 +1,6 @@
+import type { ID } from "@shared/entity/types/id";
+import { getID } from "@shared/entity/utils/id";
+
 import { useSession } from "@features/auth/hooks/session";
 import type { Whitepaper, NewWhitepaper } from "@features/whitepaper/types/whitepaper";
 import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
@@ -17,14 +20,14 @@ import type { WhitepaperQueryOptions } from "@features/whitepaper/types/query";
 export interface WhitepaperService {
     getAll(query?: WhitepaperQueryOptions): Promise<Whitepaper[]>;
     countAll(): Promise<number>;
-    getById(id: string): Promise<Whitepaper>;
+    getById(id: ID): Promise<Whitepaper>;
     create(whitepaper: NewWhitepaper): Promise<Whitepaper>;
     update(whitepaper: Whitepaper): Promise<Whitepaper>;
-    delete(whitepaper: Whitepaper): Promise<boolean>;
-    getFiles(whitepaper: Whitepaper): Promise<DocumentFile[]>;
-    download(whitepaper: Whitepaper, documentFile: DocumentFile): Promise<Blob>;
-    upload(whitepaper: Whitepaper, documentFile: NewDocumentFile): Promise<boolean>;
-    removeFile(whitepaper: Whitepaper, documentFile: DocumentFile): Promise<boolean>;
+    delete(whitepaper: Whitepaper | ID): Promise<boolean>;
+    getFiles(whitepaper: Whitepaper | ID): Promise<DocumentFile[]>;
+    download(whitepaper: Whitepaper | ID, documentFile: DocumentFile | ID): Promise<Blob>;
+    upload(whitepaper: Whitepaper | ID, documentFile: NewDocumentFile): Promise<boolean>;
+    removeFile(whitepaper: Whitepaper | ID, documentFile: DocumentFile | ID): Promise<boolean>;
 }
 
 export function useWhitepaperService(): WhitepaperService {
@@ -36,14 +39,14 @@ export function useWhitepaperService(): WhitepaperService {
 
     return {
         getAll: async (query?: WhitepaperQueryOptions) => getAllWhitepapers(session, query),
-        getById: async (id: string) => getWhitepaperById(session, id),
+        getById: async (id: ID) => getWhitepaperById(session, id),
         countAll: async () => countAllWhitepapers(session),
         create: async (whitepaper: NewWhitepaper) => createWhitepaper(session, whitepaper),
         update: async (whitepaper: Whitepaper) => updateWhitepaper(session, whitepaper.id, whitepaper),
-        delete: async (whitepaper: Whitepaper) => deleteWhitepaper(session, whitepaper.id),
-        getFiles: async (whitepaper: Whitepaper) => getWhitepaperFiles(session, whitepaper.id),
-        download: async (whitepaper: Whitepaper, documentFile: DocumentFile) => downloadWhitepaperFile(session, whitepaper.id, documentFile.id),
-        upload: async (whitepaper: Whitepaper, documentFile: NewDocumentFile) => uploadWhitepaperFile(session, whitepaper.id, documentFile),
-        removeFile: async (whitepaper: Whitepaper, documentFile: DocumentFile) => deleteWhitepaperFile(session, whitepaper.id, documentFile.id)
+        delete: async (whitepaper: Whitepaper | ID) => deleteWhitepaper(session, getID(whitepaper)),
+        getFiles: async (whitepaper: Whitepaper | ID) => getWhitepaperFiles(session, getID(whitepaper)),
+        download: async (whitepaper: Whitepaper | ID, documentFile: DocumentFile | ID) => downloadWhitepaperFile(session, getID(whitepaper), getID(documentFile)),
+        upload: async (whitepaper: Whitepaper | ID, documentFile: NewDocumentFile) => uploadWhitepaperFile(session, getID(whitepaper), documentFile),
+        removeFile: async (whitepaper: Whitepaper | ID, documentFile: DocumentFile | ID) => deleteWhitepaperFile(session, getID(whitepaper), getID(documentFile))
     }
 }

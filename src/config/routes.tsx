@@ -38,16 +38,19 @@ import ListBookPage from "@features/book/pages/list-book-page";
 import CreateBookFormPage from "@features/book/pages/create-book-page";
 import UpdateBookFormPage from "@features/book/pages/update-book-page";
 import BookDetailsPage from "@features/book/pages/details-page";
+import ReadBookPage from "@features/book/pages/read-book-page";
 
 import ListResearchPaperPage from "@features/research-paper/pages/list-research-paper-page";
 import CreateResearchPaperFormPage from "@features/research-paper/pages/create-research-paper-page";
 import UpdateResearchPaperFormPage from "@features/research-paper/pages/update-research-paper-page";
 import ResearchPaperDetailsPage from "@features/research-paper/pages/details-page";
+import ReadResearchPaperPage from "@features/research-paper/pages/read-research-paper-page";
 
 import ListWhitepaperPage from "@features/whitepaper/pages/list-whitepaper-page";
 import CreateWhitepaperFormPage from "@features/whitepaper/pages/create-whitepaper-page";
 import UpdateWhitepaperFormPage from "@features/whitepaper/pages/update-whitepaper-page";
 import WhitepaperDetailsPage from "@features/whitepaper/pages/details-page";
+import ReadWhitepaperPage from "@features/whitepaper/pages/read-whitepaper-page";
 
 import ListBundlePage from "@features/bundle/pages/list-bundle-page";
 import CreateBundleFormPage from "@features/bundle/pages/create-bundle-page";
@@ -74,6 +77,7 @@ export function RouteProvider() {
                         <Route path="form" element={<CreateBookFormPage />} />
                         <Route path="form/:id" element={<UpdateBookFormPage />} />
                         <Route path="details/:id" element={<BookDetailsPage />} />
+                        <Route path="details/:bookId/read/:documentFileId" element={<ReadBookPage />} />
                     </Route>
 
                     <Route path="research-paper">
@@ -81,6 +85,7 @@ export function RouteProvider() {
                         <Route path="form" element={<CreateResearchPaperFormPage />} />
                         <Route path="form/:id" element={<UpdateResearchPaperFormPage />} />
                         <Route path="details/:id" element={<ResearchPaperDetailsPage />} />
+                        <Route path="details/:researchPaperId/read/:documentFileId" element={<ReadResearchPaperPage />} />
                     </Route>
 
                     <Route path="whitepaper">
@@ -88,6 +93,7 @@ export function RouteProvider() {
                         <Route path="form" element={<CreateWhitepaperFormPage />} />
                         <Route path="form/:id" element={<UpdateWhitepaperFormPage />} />
                         <Route path="details/:id" element={<WhitepaperDetailsPage />} />
+                        <Route path="details/:whitepaperId/read/:documentFileId" element={<ReadWhitepaperPage />} />
                     </Route>
 
                     <Route path="author">

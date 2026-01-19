@@ -1,33 +1,19 @@
-import { useEffect, useState } from "react";
+import type { ID } from "@shared/entity/types/id";
+import type { EntityController } from "@shared/entity/hooks/entity";
+import { useEntity } from "@shared/entity/hooks/entity";
 
 import type { ResearchPaper } from "@features/research-paper/types/research-paper";
 import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
 
-import { useAlert } from "@components/feedback/alert/controller";
+export interface ResearchPaperController extends EntityController<ResearchPaper> { }
 
-export interface UseResearchPaperResult {
-    researchPaper: ResearchPaper | null;
-}
-
-export function useResearchPaper(id: string) {
+export function useResearchPaper(id: ID): ResearchPaperController {
     const service = useResearchPaperService();
-    const alert = useAlert();
 
-    const [researchPaper, setResearchPaper] = useState<ResearchPaper | null>(null);
-
-    useEffect(() => {
-        service.getById(id)
-            .then((response: ResearchPaper) => {
-                setResearchPaper(response);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }, [id]);
-
-    return {
-        researchPaper
-    };
+    return useEntity<ResearchPaper>(
+        () => service.getById(id),
+        [id]
+    );
 }
 
 export default useResearchPaper;

@@ -14,9 +14,10 @@ export interface ResearchPaperInfoProps {
 
     onRemove?: (documentFile: DocumentFile) => void;
     onDownload?: (documentFile: DocumentFile) => void;
+    onRead?: (documentFile: DocumentFile) => void;
 }
 
-export function ResearchPaperInfo({ researchPaper, files, onRemove, onDownload }: ResearchPaperInfoProps) {
+export function ResearchPaperInfo({ researchPaper, files, onRemove, onDownload, onRead }: ResearchPaperInfoProps) {
     return (
         <BoxContainer display="flex" flexDirection="column" gap={2}>
             <Heading level={2} size="2xl">
@@ -42,6 +43,7 @@ export function ResearchPaperInfo({ researchPaper, files, onRemove, onDownload }
                                 documentFile={file}
                                 onDownload={onDownload}
                                 onRemove={onRemove}
+                                onRead={onRead}
                             />
                         ))}
                     </BoxContainer>

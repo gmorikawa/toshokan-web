@@ -1,3 +1,6 @@
+import type { ID } from "@shared/entity/types/id";
+import { getID } from "@shared/entity/utils/id";
+
 import { useSession } from "@features/auth/hooks/session";
 import type { ResearchPaper, NewResearchPaper } from "@features/research-paper/types/research-paper";
 import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
@@ -17,14 +20,14 @@ import type { ResearchPaperQueryOptions } from "../types/query";
 export interface ResearchPaperService {
     getAll(query?: ResearchPaperQueryOptions): Promise<ResearchPaper[]>;
     countAll(): Promise<number>;
-    getById(id: string): Promise<ResearchPaper>;
+    getById(id: ID): Promise<ResearchPaper>;
     create(researchPaper: NewResearchPaper): Promise<ResearchPaper>;
     update(researchPaper: ResearchPaper): Promise<ResearchPaper>;
-    delete(researchPaper: ResearchPaper): Promise<boolean>;
-    getFiles(researchPaper: ResearchPaper): Promise<DocumentFile[]>;
-    download(researchPaper: ResearchPaper, documentFile: DocumentFile): Promise<Blob>;
-    upload(researchPaper: ResearchPaper, documentFile: NewDocumentFile): Promise<boolean>;
-    removeFile(researchPaper: ResearchPaper, documentFile: DocumentFile): Promise<boolean>;
+    delete(researchPaper: ResearchPaper | ID): Promise<boolean>;
+    getFiles(researchPaper: ResearchPaper | ID): Promise<DocumentFile[]>;
+    download(researchPaper: ResearchPaper | ID, documentFile: DocumentFile | ID): Promise<Blob>;
+    upload(researchPaper: ResearchPaper | ID, documentFile: NewDocumentFile): Promise<boolean>;
+    removeFile(researchPaper: ResearchPaper | ID, documentFile: DocumentFile | ID): Promise<boolean>;
 }
 
 export function useResearchPaperService(): ResearchPaperService {
@@ -36,14 +39,14 @@ export function useResearchPaperService(): ResearchPaperService {
 
     return {
         getAll: async (query?: ResearchPaperQueryOptions) => getAllResearchPapers(session, query),
-        getById: async (id: string) => getResearchPaperById(session, id),
+        getById: async (id: ID) => getResearchPaperById(session, id),
         countAll: async () => countAllResearchPapers(session),
         create: async (researchPaper: NewResearchPaper) => createResearchPaper(session, researchPaper),
         update: async (researchPaper: ResearchPaper) => updateResearchPaper(session, researchPaper.id, researchPaper),
-        delete: async (researchPaper: ResearchPaper) => deleteResearchPaper(session, researchPaper.id),
-        getFiles: async (researchPaper: ResearchPaper) => getResearchPaperFiles(session, researchPaper.id),
-        download: async (researchPaper: ResearchPaper, documentFile: DocumentFile) => downloadResearchPaperFile(session, researchPaper.id, documentFile.id),
-        upload: async (researchPaper: ResearchPaper, documentFile: NewDocumentFile) => uploadResearchPaperFile(session, researchPaper.id, documentFile),
-        removeFile: async (researchPaper: ResearchPaper, documentFile: DocumentFile) => deleteResearchPaperFile(session, researchPaper.id, documentFile.id)
+        delete: async (researchPaper: ResearchPaper | ID) => deleteResearchPaper(session, getID(researchPaper)),
+        getFiles: async (researchPaper: ResearchPaper | ID) => getResearchPaperFiles(session, getID(researchPaper)),
+        download: async (researchPaper: ResearchPaper | ID, documentFile: DocumentFile | ID) => downloadResearchPaperFile(session, getID(researchPaper), getID(documentFile)),
+        upload: async (researchPaper: ResearchPaper | ID, documentFile: NewDocumentFile) => uploadResearchPaperFile(session, getID(researchPaper), documentFile),
+        removeFile: async (researchPaper: ResearchPaper | ID, documentFile: DocumentFile | ID) => deleteResearchPaperFile(session, getID(researchPaper), getID(documentFile))
     }
 }
