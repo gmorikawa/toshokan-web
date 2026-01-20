@@ -1,4 +1,7 @@
+import { useCallback } from "react";
+
 import { useParams } from "@shared/router/hooks/params";
+import { useNavigator } from "@shared/router/hooks/navigator";
 import { BackIcon } from "@shared/icons";
 
 import { ApplicationContent } from "@layout/content";
@@ -18,8 +21,12 @@ type ParamsWithId = {
 
 export function ReadResearchPaperPage() {
     const { researchPaperId, documentFileId } = useParams<ParamsWithId>();
-
+    const navigate = useNavigator();
     const reader = useResearchPaperReader(researchPaperId, documentFileId);
+
+    const handleBack = useCallback(() => {
+        navigate.to(`/app/research-paper/details/${researchPaperId}`);
+    }, []);
 
     return (
         <ApplicationPage>
@@ -29,7 +36,7 @@ export function ReadResearchPaperPage() {
                     <BoxContainer>
                         <ActionButton
                             variant="text"
-                            onClick={() => null}
+                            onClick={handleBack}
                             leftIcon={<BackIcon />}
                         >
                             Back
@@ -38,7 +45,7 @@ export function ReadResearchPaperPage() {
                 }
             />
 
-            <ApplicationContent>
+            <ApplicationContent removePadding>
                 {(reader.state === "success") && (
                     <PDFReader data={reader.blob} />
                 )}
