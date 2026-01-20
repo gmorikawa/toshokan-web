@@ -11,6 +11,7 @@ import { countAllWhitepapers,
     downloadWhitepaperFile,
     getAllWhitepapers,
     getWhitepaperById,
+    getWhitepaperFile,
     getWhitepaperFiles,
     updateWhitepaper,
     uploadWhitepaperFile
@@ -25,6 +26,7 @@ export interface WhitepaperService {
     update(whitepaper: Whitepaper): Promise<Whitepaper>;
     delete(whitepaper: Whitepaper | ID): Promise<boolean>;
     getFiles(whitepaper: Whitepaper | ID): Promise<DocumentFile[]>;
+    getFile(whitepaper: Whitepaper | ID, documentFile: ID): Promise<DocumentFile>;
     download(whitepaper: Whitepaper | ID, documentFile: DocumentFile | ID): Promise<Blob>;
     upload(whitepaper: Whitepaper | ID, documentFile: NewDocumentFile): Promise<boolean>;
     removeFile(whitepaper: Whitepaper | ID, documentFile: DocumentFile | ID): Promise<boolean>;
@@ -45,6 +47,7 @@ export function useWhitepaperService(): WhitepaperService {
         update: async (whitepaper: Whitepaper) => updateWhitepaper(session, whitepaper.id, whitepaper),
         delete: async (whitepaper: Whitepaper | ID) => deleteWhitepaper(session, getID(whitepaper)),
         getFiles: async (whitepaper: Whitepaper | ID) => getWhitepaperFiles(session, getID(whitepaper)),
+        getFile: async (whitepaper: Whitepaper | ID, documentFile: ID) => getWhitepaperFile(session, getID(whitepaper), getID(documentFile)),
         download: async (whitepaper: Whitepaper | ID, documentFile: DocumentFile | ID) => downloadWhitepaperFile(session, getID(whitepaper), getID(documentFile)),
         upload: async (whitepaper: Whitepaper | ID, documentFile: NewDocumentFile) => uploadWhitepaperFile(session, getID(whitepaper), documentFile),
         removeFile: async (whitepaper: Whitepaper | ID, documentFile: DocumentFile | ID) => deleteWhitepaperFile(session, getID(whitepaper), getID(documentFile))

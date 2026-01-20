@@ -11,6 +11,7 @@ import { countAllResearchPapers,
     downloadResearchPaperFile,
     getAllResearchPapers,
     getResearchPaperById,
+    getResearchPaperFile,
     getResearchPaperFiles,
     updateResearchPaper,
     uploadResearchPaperFile
@@ -25,6 +26,7 @@ export interface ResearchPaperService {
     update(researchPaper: ResearchPaper): Promise<ResearchPaper>;
     delete(researchPaper: ResearchPaper | ID): Promise<boolean>;
     getFiles(researchPaper: ResearchPaper | ID): Promise<DocumentFile[]>;
+    getFile(researchPaper: ResearchPaper | ID, documentFile: ID): Promise<DocumentFile>;
     download(researchPaper: ResearchPaper | ID, documentFile: DocumentFile | ID): Promise<Blob>;
     upload(researchPaper: ResearchPaper | ID, documentFile: NewDocumentFile): Promise<boolean>;
     removeFile(researchPaper: ResearchPaper | ID, documentFile: DocumentFile | ID): Promise<boolean>;
@@ -45,6 +47,7 @@ export function useResearchPaperService(): ResearchPaperService {
         update: async (researchPaper: ResearchPaper) => updateResearchPaper(session, researchPaper.id, researchPaper),
         delete: async (researchPaper: ResearchPaper | ID) => deleteResearchPaper(session, getID(researchPaper)),
         getFiles: async (researchPaper: ResearchPaper | ID) => getResearchPaperFiles(session, getID(researchPaper)),
+        getFile: async (researchPaper: ResearchPaper | ID, documentFile: ID) => getResearchPaperFile(session, getID(researchPaper), getID(documentFile)),
         download: async (researchPaper: ResearchPaper | ID, documentFile: DocumentFile | ID) => downloadResearchPaperFile(session, getID(researchPaper), getID(documentFile)),
         upload: async (researchPaper: ResearchPaper | ID, documentFile: NewDocumentFile) => uploadResearchPaperFile(session, getID(researchPaper), documentFile),
         removeFile: async (researchPaper: ResearchPaper | ID, documentFile: DocumentFile | ID) => deleteResearchPaperFile(session, getID(researchPaper), getID(documentFile))

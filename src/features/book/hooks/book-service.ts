@@ -12,6 +12,7 @@ import { countAllBooks,
     downloadBookFile,
     getAllBooks,
     getBookById,
+    getBookFile,
     getBookFiles,
     updateBook,
     uploadBookFile
@@ -25,6 +26,7 @@ export interface BookService {
     update(book: Book): Promise<Book>;
     delete(book: Book | ID): Promise<boolean>;
     getFiles(book: Book | ID): Promise<DocumentFile[]>;
+    getFile(book: Book | ID, documentFile: ID): Promise<DocumentFile>;
     download(book: Book | ID, documentFile: DocumentFile | ID): Promise<Blob>;
     upload(book: Book | ID, documentFile: NewDocumentFile): Promise<boolean>;
     removeFile(book: Book | ID, documentFile: DocumentFile | ID): Promise<boolean>;
@@ -45,6 +47,7 @@ export function useBookService(): BookService {
         update: async (book: Book) => updateBook(session, book.id, book),
         delete: async (book: Book | ID) => deleteBook(session, getID(book)),
         getFiles: async (book: Book | ID) => getBookFiles(session, getID(book)),
+        getFile: async (book: Book | ID, documentFile: ID) => getBookFile(session, getID(book), getID(documentFile)),
         download: async (book: Book | ID, documentFile: DocumentFile | ID) => downloadBookFile(session, getID(book), getID(documentFile)),
         upload: async (book: Book | ID, documentFile: NewDocumentFile) => uploadBookFile(session, getID(book), documentFile),
         removeFile: async (book: Book | ID, documentFile: DocumentFile | ID) => deleteBookFile(session, getID(book), getID(documentFile))

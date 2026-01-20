@@ -1,5 +1,7 @@
 import { Environment } from "@/config/environment";
 
+import type { ID } from "@shared/entity/types/id";
+
 import type { Session } from "@features/auth/types/session";
 import type { NewWhitepaper, Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
@@ -72,7 +74,7 @@ export async function updateWhitepaper(session: Session, id: string, whitepaper:
     return response.json();
 }
 
-export async function deleteWhitepaper(session: Session, id: string): Promise<boolean> {
+export async function deleteWhitepaper(session: Session, id: ID): Promise<boolean> {
     const url = new URL(`${Environment.API_URL}/whitepapers/${id}`);
     const response = await fetch(url.toString(), {
         method: 'DELETE',
@@ -84,7 +86,7 @@ export async function deleteWhitepaper(session: Session, id: string): Promise<bo
     return response.ok;
 }
 
-export async function getWhitepaperFiles(session: Session, whitepaperId: string): Promise<DocumentFile[]> {
+export async function getWhitepaperFiles(session: Session, whitepaperId: ID): Promise<DocumentFile[]> {
     const url = new URL(`${Environment.API_URL}/whitepapers/${whitepaperId}/files`);
     const response = await fetch(url.toString(), {
         headers: {
@@ -95,7 +97,18 @@ export async function getWhitepaperFiles(session: Session, whitepaperId: string)
     return response.json();
 }
 
-export async function downloadWhitepaperFile(session: Session, whitepaperId: string, fileId: string): Promise<Blob> {
+export async function getWhitepaperFile(session: Session, whitepaperId: ID, documentFileId: ID): Promise<DocumentFile> {
+    const url = new URL(`${Environment.API_URL}/whitepapers/${whitepaperId}/files/${documentFileId}`);
+    const response = await fetch(url.toString(), {
+        headers: {
+            "Authorization": `Bearer ${session.token}`
+        }
+    });
+
+    return response.json();
+}
+
+export async function downloadWhitepaperFile(session: Session, whitepaperId: ID, fileId: ID): Promise<Blob> {
     const url = new URL(`${Environment.API_URL}/whitepapers/${whitepaperId}/files/${fileId}/download`);
     const response = await fetch(url.toString(), {
         headers: {
@@ -106,11 +119,11 @@ export async function downloadWhitepaperFile(session: Session, whitepaperId: str
     return response.blob();
 }
 
-export async function uploadWhitepaperFile(session: Session, whitepaperId: string, documentFile: NewDocumentFile): Promise<boolean> {
+export async function uploadWhitepaperFile(session: Session, whitepaperId: ID, documentFile: NewDocumentFile): Promise<boolean> {
     const url = new URL(`${Environment.API_URL}/whitepapers/${whitepaperId}/files/upload`);
     const formData = new FormData();
     Object.entries(documentFile).forEach(([key, value]) => {
-        formData.append(key, value);
+        formData.append(key, value as any);
     });
 
     const response = await fetch(url.toString(), {
@@ -124,7 +137,7 @@ export async function uploadWhitepaperFile(session: Session, whitepaperId: strin
     return response.ok;
 }
 
-export async function deleteWhitepaperFile(session: Session, whitepaperId: string, fileId: string): Promise<boolean> {
+export async function deleteWhitepaperFile(session: Session, whitepaperId: ID, fileId: ID): Promise<boolean> {
     const url = new URL(`${Environment.API_URL}/whitepapers/${whitepaperId}/files/${fileId}`);
     const response = await fetch(url.toString(), {
         method: 'DELETE',

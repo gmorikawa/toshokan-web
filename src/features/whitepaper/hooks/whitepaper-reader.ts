@@ -1,4 +1,5 @@
 import type { ID } from "@shared/entity/types/id";
+import { getID } from "@shared/entity/utils/id";
 
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { DocumentFile } from "@features/document/types/document-file";
@@ -12,6 +13,7 @@ export function useWhitepaperReader(whitepaper: Whitepaper | ID, documentFile: D
     const service = useWhitepaperService();
 
     return useDocumentReader(
-        () => service.download(whitepaper, documentFile)
+        () => service.download(whitepaper, documentFile),
+        () => service.getFile(whitepaper, getID(documentFile)),
     );
 }

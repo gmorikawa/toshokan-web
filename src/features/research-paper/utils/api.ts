@@ -1,5 +1,7 @@
 import { Environment } from "@/config/environment";
 
+import type { ID } from "@shared/entity/types/id";
+
 import type { Session } from "@features/auth/types/session";
 import type { NewResearchPaper, ResearchPaper } from "@features/research-paper/types/research-paper";
 import type { ResearchPaperQueryOptions } from "@features/research-paper/types/query";
@@ -84,7 +86,7 @@ export async function deleteResearchPaper(session: Session, id: string): Promise
     return response.ok;
 }
 
-export async function getResearchPaperFiles(session: Session, researchPaperId: string): Promise<DocumentFile[]> {
+export async function getResearchPaperFiles(session: Session, researchPaperId: ID): Promise<DocumentFile[]> {
     const url = new URL(`${Environment.API_URL}/research-papers/${researchPaperId}/files`);
     const response = await fetch(url.toString(), {
         headers: {
@@ -95,7 +97,18 @@ export async function getResearchPaperFiles(session: Session, researchPaperId: s
     return response.json();
 }
 
-export async function downloadResearchPaperFile(session: Session, researchPaperId: string, fileId: string): Promise<Blob> {
+export async function getResearchPaperFile(session: Session, researchPaperId: ID, documentFileId: ID): Promise<DocumentFile> {
+    const url = new URL(`${Environment.API_URL}/research-papers/${researchPaperId}/files/${documentFileId}`);
+    const response = await fetch(url.toString(), {
+        headers: {
+            "Authorization": `Bearer ${session.token}`
+        }
+    });
+
+    return response.json();
+}
+
+export async function downloadResearchPaperFile(session: Session, researchPaperId: ID, fileId: ID): Promise<Blob> {
     const url = new URL(`${Environment.API_URL}/research-papers/${researchPaperId}/files/${fileId}/download`);
     const response = await fetch(url.toString(), {
         headers: {
@@ -106,11 +119,11 @@ export async function downloadResearchPaperFile(session: Session, researchPaperI
     return response.blob();
 }
 
-export async function uploadResearchPaperFile(session: Session, researchPaperId: string, documentFile: NewDocumentFile): Promise<boolean> {
+export async function uploadResearchPaperFile(session: Session, researchPaperId: ID, documentFile: NewDocumentFile): Promise<boolean> {
     const url = new URL(`${Environment.API_URL}/research-papers/${researchPaperId}/files/upload`);
     const formData = new FormData();
     Object.entries(documentFile).forEach(([key, value]) => {
-        formData.append(key, value);
+        formData.append(key, value as any);
     });
 
     const response = await fetch(url.toString(), {
@@ -124,7 +137,7 @@ export async function uploadResearchPaperFile(session: Session, researchPaperId:
     return response.ok;
 }
 
-export async function deleteResearchPaperFile(session: Session, researchPaperId: string, fileId: string): Promise<boolean> {
+export async function deleteResearchPaperFile(session: Session, researchPaperId: ID, fileId: ID): Promise<boolean> {
     const url = new URL(`${Environment.API_URL}/research-papers/${researchPaperId}/files/${fileId}`);
     const response = await fetch(url.toString(), {
         method: 'DELETE',

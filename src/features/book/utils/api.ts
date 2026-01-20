@@ -95,6 +95,17 @@ export async function getBookFiles(session: Session, bookId: string): Promise<Do
     return response.json();
 }
 
+export async function getBookFile(session: Session, bookId: string, documentFileId: string): Promise<DocumentFile> {
+    const url = new URL(`${Environment.API_URL}/books/${bookId}/files/${documentFileId}`);
+    const response = await fetch(url.toString(), {
+        headers: {
+            "Authorization": `Bearer ${session.token}`
+        }
+    });
+
+    return response.json();
+}
+
 export async function downloadBookFile(session: Session, bookId: string, fileId: string): Promise<Blob> {
     const url = new URL(`${Environment.API_URL}/books/${bookId}/files/${fileId}/download`);
     const response = await fetch(url.toString(), {

@@ -9,7 +9,7 @@ import { ApplicationHeader } from "@layout/header";
 import { ApplicationPage } from "@layout/page";
 
 import { useBookReader } from "@features/book/hooks/book-reader";
-import { PDFReader } from "@features/file/components/pdf-reader";
+import { DocumentReader } from "@features/document/components/document-reader";
 
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
@@ -46,8 +46,11 @@ export function ReadBookPage() {
             />
 
             <ApplicationContent removePadding>
-                {(reader.state === "success") && (
-                    <PDFReader data={reader.blob} />
+                {(reader.state === "success" && reader.documentFile?.file) && (
+                    <DocumentReader
+                        fileType={reader.documentFile.file.type}
+                        data={reader.blob}
+                    />
                 )}
             </ApplicationContent>
         </ApplicationPage>

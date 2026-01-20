@@ -1,4 +1,5 @@
 import type { ID } from "@shared/entity/types/id";
+import { getID } from "@shared/entity/utils/id";
 
 import type { ResearchPaper } from "@features/research-paper/types/research-paper";
 import type { DocumentFile } from "@features/document/types/document-file";
@@ -12,6 +13,7 @@ export function useResearchPaperReader(researchPaper: ResearchPaper | ID, docume
     const service = useResearchPaperService();
 
     return useDocumentReader(
-        () => service.download(researchPaper, documentFile)
+        () => service.download(researchPaper, documentFile),
+        () => service.getFile(researchPaper, getID(documentFile)),
     );
 }
