@@ -9,6 +9,7 @@ This project is the client application of the `toshokan` application.
 * [ChakraUI](https://chakra-ui.com/);
 * [React Router](https://reactrouter.com/);
 * [React Icons](https://react-icons.github.io/react-icons/);
+* [React Reader](https://github.com/gerhardsletten/react-reader);
 
 ## Objectives
 
