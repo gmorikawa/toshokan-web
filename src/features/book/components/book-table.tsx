@@ -1,15 +1,17 @@
-import type { Book } from "@features/book/types/book";
 import type { Pagination } from "@shared/search/types/pagination";
 
 import { OpenButton } from "@layout/button/open";
 import { UpdateButton } from "@layout/button/update";
 import { DeleteButton } from "@layout/button/delete";
 
+import type { Book } from "@features/book/types/book";
+import { RestrictedContent } from "@features/auth/components/restricted-content";
+import { BookTitle } from "@features/book/components/book-title";
+
 import { DataTable } from "@components/table/data-table";
 import { FlexContainer } from "@components/container/flex-container";
 import { PaginationControl } from "@components/pagination/pagination-control";
 import { StackContainer } from "@components/container/stack-container";
-import { RestrictedContent } from "@features/auth/components/restricted-content";
 
 export interface BookTableProps {
     data: Book[];
@@ -63,8 +65,11 @@ export function BookTable({ data, pagination, onUpdate, onRemove, onDetail, onPa
                             </FlexContainer>
                         )
                     },
-                    { header: "Title", accessor: (book: Book) => book.title },
-                    { header: "Type", accessor: (book: Book) => book.type }
+                    { header: "Title", accessor: (book: Book) => <BookTitle book={book} /> },
+                    { header: "Category", accessor: (book: Book) => book.category?.name },
+                    { header: "Publisher", accessor: (book: Book) => book.publisher?.name },
+                    { header: "Publishing Year", accessor: (book: Book) => book.publishingYear },
+                    { header: "Authors", accessor: (book: Book) => book.authors?.map(author => author.fullname).join(", ") }
                 ]}>
 
             </DataTable>

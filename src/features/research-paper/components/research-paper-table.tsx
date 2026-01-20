@@ -64,7 +64,10 @@ export function ResearchPaperTable({ data, pagination, onUpdate, onRemove, onDet
                         )
                     },
                     { header: "Title", accessor: (researchPaper: ResearchPaper) => researchPaper.title },
-                    { header: "Keywords", accessor: (researchPaper: ResearchPaper) => researchPaper.keywords }
+                    { header: "Organization", accessor: (researchPaper: ResearchPaper) => researchPaper.organization?.name },
+                    { header: "Publishing Year", accessor: (researchPaper: ResearchPaper) => researchPaper.publishingYear },
+                    { header: "Authors", accessor: (researchPaper: ResearchPaper) => researchPaper.authors?.map(author => author.fullname).join(", ") },
+                    { header: "Keywords", accessor: (researchPaper: ResearchPaper) => researchPaper.keywords },
                 ]}>
 
             </DataTable>

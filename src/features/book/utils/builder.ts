@@ -1,5 +1,11 @@
-import type { Book } from "../types/book";
+import type { Book } from "@features/book/types/book";
 
 export function buildBookFullTitle(book: Book): string {
-    return book.subtitle ? `${book.title}: ${book.subtitle}` : book.title;
+    const hasSubtitle = Boolean(book.subtitle && book.subtitle.length > 0);
+
+    if (hasSubtitle) {
+        return `${book.title}: ${book.subtitle}`;
+    }
+
+    return book.title;
 }

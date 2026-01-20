@@ -63,7 +63,10 @@ export function WhitepaperTable({ data, pagination, onUpdate, onRemove, onDetail
                             </FlexContainer>
                         )
                     },
-                    { header: "Title", accessor: (whitepaper: Whitepaper) => whitepaper.title }
+                    { header: "Title", accessor: (whitepaper: Whitepaper) => whitepaper.title },
+                    { header: "Organization", accessor: (whitepaper: Whitepaper) => whitepaper.organization?.name },
+                    { header: "Publishing Year", accessor: (whitepaper: Whitepaper) => whitepaper.publishingYear },
+                    { header: "Authors", accessor: (whitepaper: Whitepaper) => whitepaper.authors?.map(author => author.fullname).join(", ") }
                 ]}>
 
             </DataTable>
