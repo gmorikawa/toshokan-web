@@ -10,7 +10,7 @@ import FormFileField from "@components/form/form-file-field";
 import FormTextField from "@components/form/form-text-field";
 import Modal from "@components/modal/modal";
 import Paragraph from "@components/typography/paragraph";
-import StackContainer from "@components/container/stack-container";
+import { StackContainer } from "@components/container/stack-container";
 
 export interface UploadModalProps {
     controller: ModalController;

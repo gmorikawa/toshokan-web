@@ -28,7 +28,5 @@ export function usePagination(): PaginationController {
         size,
         count,
         update,
-    }
+    };
 }
-
-export default usePagination;

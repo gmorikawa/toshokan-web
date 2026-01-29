@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 
-import type { Nullable } from "@shared/object/types/nullable";
+import type { ID } from "@shared/entity/types/id";
+import { getID } from "@shared/entity/utils/id";
+
+import { useAlert } from "@components/feedback/alert/controller";
 
 import type { DocumentFile } from "@features/document/types/document-file";
 import type { Book } from "@features/book/types/book";
 import { useBookService } from "@features/book/hooks/book-service";
-
-import { useAlert } from "@components/feedback/alert/controller";
 
 export interface BookFilesController {
     data: DocumentFile[];
@@ -17,14 +18,14 @@ export interface BookFilesController {
     handleRemove: (documentFile: DocumentFile) => void;
 }
 
-export function useBookFiles(book: Nullable<Book>): BookFilesController {
+export function useBookFiles(book: Book | ID): BookFilesController {
     const service = useBookService();
     const alert = useAlert();
 
     const [data, setData] = useState<DocumentFile[]>([]);
 
     const reload = async () => {
-        if (!book?.id) {
+        if (getID(book)) {
             setData([]);
             return;
         }
@@ -48,7 +49,7 @@ export function useBookFiles(book: Nullable<Book>): BookFilesController {
                 const blobUrl = URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.href = blobUrl;
-                a.download = documentFile.file?.filename || book.title;
+                a.download = documentFile.file?.filename || getID(book);
                 document.body.appendChild(a);
                 a.click();
                 a.remove();

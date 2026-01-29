@@ -5,7 +5,7 @@ import { DocumentFileCard } from "@features/document/components/document-file-ca
 import { BoxContainer } from "@components/container/box-container";
 import { Badge } from "@components/data-display/badge";
 import Information from "@components/data-display/information";
-import { Heading } from "@components/typography/header-typography";
+import { Heading } from "@components/typography/heading";
 import { Paragraph } from "@components/typography/paragraph";
 
 export interface WhitepaperInfoProps {

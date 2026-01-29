@@ -118,7 +118,7 @@ export function UpdateBookPage() {
                     </TabContent>
 
                     <TabContent tab="files" fullHeight>
-                        <BookFileUpload book={form.entity} />
+                        {(form.entity?.id) && <BookFileUpload book={form.entity} />}
                     </TabContent>
                 </TabControl>
             </ApplicationContent>

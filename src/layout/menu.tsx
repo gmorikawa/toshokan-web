@@ -4,12 +4,12 @@ import { useAuthentication } from "@features/auth/hooks/authentication";
 
 import AppRoute from "@/config/constants";
 
-import BoxContainer from "@components/container/box-container";
-import FlexContainer from "@components/container/flex-container";
-import Heading from "@components/typography/header-typography";
-import Persona from "@components/profile/persona";
-import StackContainer from "@components/container/stack-container";
-import TextButton from "@components/button/text-button";
+import { BoxContainer } from "@components/container/box-container";
+import { FlexContainer } from "@components/container/flex-container";
+import { Heading } from "@components/typography/heading";
+import { Persona } from "@components/profile/persona";
+import { StackContainer } from "@components/container/stack-container";
+import { TextButton } from "@components/button/text-button";
 
 import {
     AuthorIcon,

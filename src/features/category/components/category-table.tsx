@@ -7,7 +7,7 @@ import { DeleteButton } from "@layout/button/delete";
 import DataTable from "@components/table/data-table";
 import FlexContainer from "@components/container/flex-container";
 import PaginationControl from "@components/pagination/pagination-control";
-import StackContainer from "@components/container/stack-container";
+import { StackContainer } from "@components/container/stack-container";
 
 export interface CategoryTableProps {
     data: Category[];

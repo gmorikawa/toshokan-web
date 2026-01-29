@@ -15,5 +15,3 @@ export function Heading({ size, level, children }: HeadingProps) {
         </ChakraHeading>
     );
 }
-
-export default Heading;

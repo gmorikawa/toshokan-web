@@ -1,6 +1,7 @@
-import StackContainer from "@components/container/stack-container";
-import ApplicationHeader from "./header";
-import ApplicationContent from "./content";
+import { ApplicationHeader } from "@layout/header";
+import { ApplicationContent } from "@layout/content";
+
+import { StackContainer } from "@components/container/stack-container";
 
 export interface ApplicationPageProps {
     children: React.ReactElement[];
@@ -21,7 +22,7 @@ export function ApplicationPage({ children }: ApplicationPageProps) {
     return (
         <StackContainer fullHeight>
             {children}
-        </StackContainer >
+        </StackContainer>
     );
 }
 

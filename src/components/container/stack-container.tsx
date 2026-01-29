@@ -1,24 +1,19 @@
-import {
-    Stack,
-} from '@chakra-ui/react';
+import { Stack, type StackProps } from '@chakra-ui/react';
 
-interface StackContainerProps extends React.ComponentPropsWithRef<React.ElementType> {
+export interface StackContainerProps extends React.ComponentPropsWithRef<React.ElementType>, StackProps {
     spacing?: number;
     fullHeight?: boolean;
 }
 
-function StackContainer({ spacing, fullHeight, children, ref }: StackContainerProps) {
+export function StackContainer({ spacing, fullHeight, children, ref, ...props }: StackContainerProps) {
     return (
         <Stack
             gap={spacing ?? 0}
             height={fullHeight ? "100%" : "auto"}
             ref={ref}
+            {...props}
         >
             {children}
         </Stack>
     );
 }
-
-export { StackContainer };
-export type { StackContainerProps };
-export default StackContainer;
