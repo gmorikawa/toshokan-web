@@ -1,15 +1,16 @@
-import type { DocumentFile } from "@features/document/types/document-file";
-
-import Card from "@components/card/card";
-import FlexContainer from "@components/container/flex-container";
-import Information from "@components/data-display/information";
-import RestrictedContent from "@features/auth/components/restricted-content";
-import Badge from "@components/data-display/badge";
-
-import { DownloadButton } from "@layout/button/download";
-import { DeleteButton } from "@layout/button/delete";
 import { useCallback } from "react";
-import ReadButton from "@layout/button/read";
+
+import { DeleteButton } from "@shared/application/components/delete-button";
+import { DownloadButton } from "@shared/application/components/download-button";
+import { ReadButton } from "@shared/application/components/read-button";
+
+import { Badge } from "@components/data-display/badge";
+import { Card } from "@components/card/card";
+import { FlexContainer } from "@components/container/flex-container";
+import Information from "@components/data-display/information";
+
+import type { DocumentFile } from "@features/document/types/document-file";
+import { RestrictedContent } from "@features/auth/components/restricted-content";
 
 export interface DocumentFileCardProps {
     documentFile: DocumentFile;
@@ -59,5 +60,3 @@ export function DocumentFileCard({ documentFile, onRemove, onDownload, onRead }:
         </Card>
     );
 }
-
-export default DocumentFileCard;

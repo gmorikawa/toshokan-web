@@ -15,5 +15,3 @@ export function useResearchPaper(id: ID): ResearchPaperController {
         [id]
     );
 }
-
-export default useResearchPaper;

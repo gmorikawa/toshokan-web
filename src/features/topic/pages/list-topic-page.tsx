@@ -1,29 +1,26 @@
+import type { PageNumber } from "@shared/search/types/pagination";
 import { useNavigator } from "@shared/router/hooks/navigator";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { AddIcon } from "@shared/icons";
 
-import type { Topic } from "@features/topic/types/topic";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { useListTopics } from "@features/topic/hooks/list-topics";
-import { TopicTable } from "@features/topic/components/topic-table";
+import { EmptyList } from "@/layout/empty-list";
 
 import { useAlert } from "@components/feedback/alert/controller";
-import { useTopicService } from "@features/topic/hooks/topic-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
-import { AddIcon } from "@shared/icons";
-import { EmptyList } from "@/layout/empty-list";
-import { ListSkeleton } from "@/layout/list-skeleton";
-import { ListError } from "@/layout/list-error";
-import { LoadingBoundary } from "@/layout/loading-boundary";
+import type { Topic } from "@features/topic/types/topic";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useTopicService } from "@features/topic/hooks/topic-service";
+import { useTopicSearch } from "@features/topic/hooks/topic-search";
+import { TopicTable } from "@features/topic/components/topic-table";
 
 export function ListTopicPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    const topics = useListTopics();
+    const topics = useTopicSearch();
     const alert = useAlert();
     const navigate = useNavigator();
     const service = useTopicService();
@@ -46,8 +43,8 @@ export function ListTopicPage() {
             });
     };
 
-    const handlePageChange = (page: number): void => {
-        topics.pagination.update(page);
+    const handlePageChange = (page: PageNumber): void => {
+        topics.changePage(page);
     };
 
     return (
@@ -56,40 +53,32 @@ export function ListTopicPage() {
                 title="Topic"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleCreate} leftIcon={<AddIcon />}>New</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleCreate}
+                            leftIcon={<AddIcon />}
+                        >
+                            New
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <LoadingBoundary.Root loader={topics.loader}>
-                    <LoadingBoundary.LoadingState>
-                        <ListSkeleton />
-                    </LoadingBoundary.LoadingState>
+                {(topics.data.length > 0) && (
+                    <TopicTable
+                        data={topics.data}
+                        pagination={topics.pagination}
+                        onUpdate={handleUpdate}
+                        onRemove={handleRemove}
+                        onPageChange={handlePageChange}
+                    />
+                )}
 
-                    <LoadingBoundary.SuccessState>
-                        {(topics.data.length > 0) && (
-                            <TopicTable
-                                data={topics.data}
-                                pagination={topics.pagination}
-                                onUpdate={handleUpdate}
-                                onRemove={handleRemove}
-                                onPageChange={handlePageChange}
-                            />
-                        )}
-
-                        {(topics.data?.length === 0) && (
-                            <EmptyList />
-                        )}
-                    </LoadingBoundary.SuccessState>
-
-                    <LoadingBoundary.ErrorState>
-                        <ListError />
-                    </LoadingBoundary.ErrorState>
-                </LoadingBoundary.Root>
+                {(topics.data?.length === 0) && (
+                    <EmptyList />
+                )}
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default ListTopicPage;

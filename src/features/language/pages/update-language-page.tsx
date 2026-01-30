@@ -2,34 +2,29 @@ import { useEffect } from "react";
 
 import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { Language } from "@features/language/types/language";
-import { languageValidator } from "@features/language/utils/validators";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { LanguageForm } from "@features/language/components/language-form";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { useLanguageService } from "@features/language/hooks/language-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
-import { BackIcon } from "@shared/icons";
+import type { Language } from "@features/language/types/language";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useLanguageService } from "@features/language/hooks/language-service";
+import { languageValidator } from "@features/language/utils/validators";
+import { LanguageForm } from "@features/language/components/language-form";
 
 type ParamsWithId = {
     id?: string;
 }
 
-export function UpdateLanguagePage() {
+export function UpdateLanguageFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    function handleSubmit() {
-        form.submit();
-    }
     const alert = useAlert();
     const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
@@ -53,7 +48,7 @@ export function UpdateLanguagePage() {
         }
     });
 
-    async function loadEntity(): Promise<void> {
+    const loadEntity = async (): Promise<void> => {
         if (id) {
             return service.getById(id)
                 .then((entity: Language) => {
@@ -65,30 +60,40 @@ export function UpdateLanguagePage() {
         }
     };
 
-    function handleBack(): void {
+    const handleSubmit = () => {
+        form.submit();
+    };
+
+    const handleBack = (): void => {
         navigate.to("/app/language/list");
-    }
+    };
 
     useEffect(() => {
         loadEntity();
     }, []);
-
     return (
         <ApplicationPage>
             <ApplicationHeader
                 title="Language"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <LanguageForm form={form} onSubmit={handleSubmit} />
+                <LanguageForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default UpdateLanguagePage;

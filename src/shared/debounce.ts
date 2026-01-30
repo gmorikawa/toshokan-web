@@ -28,5 +28,3 @@ export function useDebounce(configuration: DebounceConfiguration): void {
         };
     }, dependencies);
 }
-
-export default useDebounce;

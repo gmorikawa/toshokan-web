@@ -13,5 +13,3 @@ export function ReadButton({ onClick }: ReadButtonProps) {
         </IconButton>
     );
 }
-
-export default ReadButton;

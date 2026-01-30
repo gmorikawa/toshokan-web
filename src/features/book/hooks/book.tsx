@@ -15,5 +15,3 @@ export function useBook(id: ID): BookController {
         [id]
     );
 }
-
-export default useBook;

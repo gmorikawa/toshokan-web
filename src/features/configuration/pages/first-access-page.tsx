@@ -63,5 +63,3 @@ export function FirstAccessPage() {
         </CentralizedContainer>
     );
 }
-
-export default FirstAccessPage;

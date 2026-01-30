@@ -1,6 +1,8 @@
-import { useSession } from "@features/auth/hooks/session";
+import type { ID } from "@shared/entity/types/id";
+
 import type { Author, NewAuthor } from "@features/author/types/author";
 import type { AuthorQueryOptions } from "@features/author/types/query";
+import { useSession } from "@features/auth/hooks/session";
 import {
     countAllAuthors,
     createAuthor,
@@ -13,7 +15,7 @@ import {
 export interface AuthorService {
     getAll(query?: AuthorQueryOptions): Promise<Author[]>;
     countAll(): Promise<number>;
-    getById(id: string): Promise<Author>;
+    getById(id: ID): Promise<Author>;
     create(author: NewAuthor): Promise<Author>;
     update(author: Author): Promise<Author>;
     delete(author: Author): Promise<boolean>;
@@ -28,7 +30,7 @@ export function useAuthorService(): AuthorService {
 
     return {
         getAll: async (query?: AuthorQueryOptions) => getAllAuthors(session, query),
-        getById: async (id: string) => getAuthorById(session, id),
+        getById: async (id: ID) => getAuthorById(session, id),
         countAll: async () => countAllAuthors(session),
         create: async (author: NewAuthor) => createAuthor(session, author),
         update: async (author: Author) => updateAuthor(session, author.id, author),

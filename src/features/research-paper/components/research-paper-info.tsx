@@ -17,7 +17,13 @@ export interface ResearchPaperInfoProps {
     onRead?: (documentFile: DocumentFile) => void;
 }
 
-export function ResearchPaperInfo({ researchPaper, files, onRemove, onDownload, onRead }: ResearchPaperInfoProps) {
+export function ResearchPaperInfo({
+    researchPaper,
+    files,
+    onRemove,
+    onDownload,
+    onRead
+}: ResearchPaperInfoProps) {
     return (
         <BoxContainer display="flex" flexDirection="column" gap={2}>
             <Heading level={2} size="2xl">

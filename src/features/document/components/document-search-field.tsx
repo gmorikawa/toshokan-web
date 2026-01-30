@@ -1,6 +1,7 @@
 import { SearchIcon } from "@shared/icons";
-import BoxContainer from "@components/container/box-container";
-import TextField from "@components/input/text-field";
+
+import { BoxContainer } from "@components/container/box-container";
+import { TextField } from "@components/input/text-field";
 
 export interface DocumentSearchFieldProps {
     query: string;
@@ -24,5 +25,3 @@ export function DocumentSearchField({ query, onSearch }: DocumentSearchFieldProp
         </BoxContainer>
     );
 }
-
-export default DocumentSearchField;

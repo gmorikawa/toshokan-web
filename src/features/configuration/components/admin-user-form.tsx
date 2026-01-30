@@ -40,5 +40,3 @@ export function AdminUserForm({ form }: AdminUserFormProps) {
         </>
     );
 }
-
-export default AdminUserForm;

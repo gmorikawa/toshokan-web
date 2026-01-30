@@ -2,37 +2,33 @@ import { useEffect } from "react";
 
 import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { Organization } from "@features/organization/types/organization";
-import { organizationValidator } from "@features/organization/utils/validators";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { OrganizationForm } from "@features/organization/components/organization-form";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { useOrganizationService } from "@features/organization/hooks/organization-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
-import { BackIcon } from "@shared/icons";
+import type { Organization } from "@features/organization/types/organization";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useOrganizationService } from "@features/organization/hooks/organization-service";
+import { organizationValidator } from "@features/organization/utils/validators";
+import { OrganizationForm } from "@features/organization/components/organization-form";
 
 type ParamsWithId = {
     id?: string;
 }
 
-export function UpdateOrganizationPage() {
+export function UpdateOrganizationFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
+    const { id } = useParams<ParamsWithId>();
     const alert = useAlert();
     const navigate = useNavigator();
-    const { id } = useParams<ParamsWithId>();
-
     const service = useOrganizationService();
-
     const form = useForm<Organization>({
         default: {
             id: "",
@@ -64,13 +60,13 @@ export function UpdateOrganizationPage() {
         }
     };
 
-    function handleSubmit(): void {
+    const handleSubmit = (): void => {
         form.submit();
-    }
+    };
 
-    function handleBack(): void {
+    const handleBack = (): void => {
         navigate.to("/app/organization/list");
-    }
+    };
 
     useEffect(() => {
         loadEntity();
@@ -82,16 +78,23 @@ export function UpdateOrganizationPage() {
                 title="Organization"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <OrganizationForm form={form} onSubmit={handleSubmit} />
+                <OrganizationForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default UpdateOrganizationPage;

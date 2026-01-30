@@ -22,5 +22,3 @@ export function useAuthorization(...allowedRoles: UserRole[]) {
         allowedRoles,
     }
 }
-
-export default useAuthorization;

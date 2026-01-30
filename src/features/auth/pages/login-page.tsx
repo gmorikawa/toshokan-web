@@ -1,15 +1,17 @@
-import { useAuthentication } from '@/features/auth/hooks/authentication';
-import { useForm } from '@/components/form/use-form';
+import { Environment } from "@/config/environment";
 
-import { SubmitButton } from '@/components/button/submit-button';
-import { BorderedContainer } from '@/components/container/bordered-container';
-import { CentralizedContainer } from '@/components/container/centralized-container';
-import { StackContainer } from '@/components/container/stack-container';
-import { FormPasswordField } from '@/components/form/form-password-field';
-import { FormTextField } from '@/components/form/form-text-field';
-import { Environment } from '@/config/environment';
-import { Logo } from '@/layout/logo';
-import { BoxContainer } from '@/components/container/box-container';
+import { Logo } from "@/layout/logo";
+
+import { useForm } from "@/components/form/use-form";
+import { BorderedContainer } from "@/components/container/bordered-container";
+import { BoxContainer } from "@/components/container/box-container";
+import { CentralizedContainer } from "@/components/container/centralized-container";
+import { FormPasswordField } from "@/components/form/form-password-field";
+import { FormTextField } from "@/components/form/form-text-field";
+import { StackContainer } from "@/components/container/stack-container";
+import { SubmitButton } from "@/components/button/submit-button";
+
+import { useAuthentication } from "@/features/auth/hooks/authentication";
 
 export function LoginPage() {
     document.title = `Login - ${Environment.APPLICATION_NAME}`;
@@ -58,5 +60,3 @@ export function LoginPage() {
         </CentralizedContainer>
     );
 }
-
-export default LoginPage;

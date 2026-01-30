@@ -1,4 +1,6 @@
+import type { ID } from "@shared/entity/types/id";
 import type { QueryOptions } from "@shared/search/types/query";
+
 import { useSession } from "@features/auth/hooks/session";
 import type { User, NewUser } from "@features/user/types/user";
 import { countAllUsers,
@@ -12,7 +14,7 @@ import { countAllUsers,
 export interface UserService {
     getAll(query?: QueryOptions): Promise<User[]>;
     countAll(): Promise<number>;
-    getById(id: string): Promise<User>;
+    getById(id: ID): Promise<User>;
     create(user: NewUser): Promise<User>;
     update(user: User): Promise<User>;
     delete(user: User): Promise<boolean>;
@@ -27,7 +29,7 @@ export function useUserService(): UserService {
 
     return {
         getAll: async (query?: QueryOptions) => getAllUsers(session, query),
-        getById: async (id: string) => getUserById(session, id),
+        getById: async (id: ID) => getUserById(session, id),
         countAll: async () => countAllUsers(session),
         create: async (user: NewUser) => createUser(session, user),
         update: async (user: User) => updateUser(session, user.id, user),

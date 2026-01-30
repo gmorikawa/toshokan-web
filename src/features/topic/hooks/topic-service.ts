@@ -1,3 +1,5 @@
+import type { ID } from "@shared/entity/types/id";
+
 import { useSession } from "@features/auth/hooks/session";
 import type { Topic, NewTopic } from "@features/topic/types/topic";
 import { countAllTopics,
@@ -12,7 +14,7 @@ import type { TopicQueryOptions } from "@features/topic/types/query";
 export interface TopicService {
     getAll(query?: TopicQueryOptions): Promise<Topic[]>;
     countAll(): Promise<number>;
-    getById(id: string): Promise<Topic>;
+    getById(id: ID): Promise<Topic>;
     create(topic: NewTopic): Promise<Topic>;
     update(topic: Topic): Promise<Topic>;
     delete(topic: Topic): Promise<boolean>;
@@ -27,7 +29,7 @@ export function useTopicService(): TopicService {
 
     return {
         getAll: async (query?: TopicQueryOptions) => getAllTopics(session, query),
-        getById: async (id: string) => getTopicById(session, id),
+        getById: async (id: ID) => getTopicById(session, id),
         countAll: async () => countAllTopics(session),
         create: async (topic: NewTopic) => createTopic(session, topic),
         update: async (topic: Topic) => updateTopic(session, topic.id, topic),

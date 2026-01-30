@@ -1,7 +1,10 @@
+import type { ID } from "@shared/entity/types/id";
 import type { QueryOptions } from "@shared/search/types/query";
+
 import { useSession } from "@features/auth/hooks/session";
 import type { Category, NewCategory } from "@features/category/types/category";
-import { countAllCategories,
+import {
+    countAllCategories,
     createCategory,
     deleteCategory,
     getAllCategories,
@@ -12,7 +15,7 @@ import { countAllCategories,
 export interface CategoryService {
     getAll(query?: QueryOptions): Promise<Category[]>;
     countAll(): Promise<number>;
-    getById(id: string): Promise<Category>;
+    getById(id: ID): Promise<Category>;
     create(category: NewCategory): Promise<Category>;
     update(category: Category): Promise<Category>;
     delete(category: Category): Promise<boolean>;
@@ -27,7 +30,7 @@ export function useCategoryService(): CategoryService {
 
     return {
         getAll: async (query?: QueryOptions) => getAllCategories(session, query),
-        getById: async (id: string) => getCategoryById(session, id),
+        getById: async (id: ID) => getCategoryById(session, id),
         countAll: async () => countAllCategories(session),
         create: async (category: NewCategory) => createCategory(session, category),
         update: async (category: Category) => updateCategory(session, category.id, category),

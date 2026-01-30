@@ -2,40 +2,33 @@ import { useEffect } from "react";
 
 import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { Publisher } from "@features/publisher/types/publisher";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { publisherValidator } from "@features/publisher/utils/validators";
-import { PublisherForm } from "@features/publisher/components/publisher-form";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { usePublisherService } from "@features/publisher/hooks/publisher-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
-import { BackIcon } from "@shared/icons";
+import type { Publisher } from "@features/publisher/types/publisher";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { usePublisherService } from "@features/publisher/hooks/publisher-service";
+import { publisherValidator } from "@features/publisher/utils/validators";
+import { PublisherForm } from "@features/publisher/components/publisher-form";
 
 type ParamsWithId = {
     id?: string;
 }
 
-export function UpdatePublisherPage() {
+export function UpdatePublisherFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    function handleSubmit() {
-        form.submit();
-    }
+    const { id } = useParams<ParamsWithId>();
     const alert = useAlert();
     const navigate = useNavigator();
-    const { id } = useParams<ParamsWithId>();
-
     const service = usePublisherService();
-
     const form = useForm<Publisher>({
         default: {
             id: "",
@@ -66,9 +59,13 @@ export function UpdatePublisherPage() {
         }
     };
 
-    function handleBack(): void {
+    const handleSubmit = (): void => {
+        form.submit();
+    };
+
+    const handleBack = (): void => {
         navigate.to("/app/publisher/list");
-    }
+    };
 
     useEffect(() => {
         loadEntity();
@@ -80,16 +77,23 @@ export function UpdatePublisherPage() {
                 title="Publisher"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <PublisherForm form={form} onSubmit={handleSubmit} />
+                <PublisherForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default UpdatePublisherPage;

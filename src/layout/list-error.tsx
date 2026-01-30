@@ -26,5 +26,3 @@ export function ListError() {
         </BoxContainer>
     );
 }
-
-export default ListError;

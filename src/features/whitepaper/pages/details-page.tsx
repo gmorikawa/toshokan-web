@@ -1,19 +1,19 @@
+import { useCallback } from "react";
+
 import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
 import { BackIcon } from "@shared/icons";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
-
-import type { DocumentFile } from "@features/document/types/document-file";
-import { useWhitepaper } from "@features/whitepaper/hooks/whitepaper";
-import { WhitepaperInfo } from "@features/whitepaper/components/whitepaper-info";
-import { useWhitepaperFiles } from "@features/whitepaper/hooks/whitepaper-files";
 
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
-import { useCallback } from "react";
+
+import type { DocumentFile } from "@features/document/types/document-file";
+import { useWhitepaper } from "@features/whitepaper/hooks/whitepaper";
+import { useWhitepaperFiles } from "@features/whitepaper/hooks/whitepaper-files";
+import { WhitepaperInfo } from "@features/whitepaper/components/whitepaper-info";
 
 type ParamsWithId = {
     id: string;
@@ -64,5 +64,3 @@ export function WhitepaperDetailsPage() {
         </ApplicationPage>
     );
 }
-
-export default WhitepaperDetailsPage;

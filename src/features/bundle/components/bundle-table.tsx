@@ -1,35 +1,41 @@
-import type { Bundle } from "@features/bundle/types/bundle";
 import type { Pagination } from "@shared/search/types/pagination";
+import { UpdateButton } from "@shared/application/components/update-button";
+import { DeleteButton } from "@shared/application/components/delete-button";
 
-import { UpdateButton } from "@layout/button/update";
-import { DeleteButton } from "@layout/button/delete";
-
-import DataTable from "@components/table/data-table";
-import FlexContainer from "@components/container/flex-container";
-import PaginationControl from "@components/pagination/pagination-control";
+import { DataTable } from "@components/table/data-table";
+import { FlexContainer } from "@components/container/flex-container";
+import { PaginationControl } from "@components/pagination/pagination-control";
 import { StackContainer } from "@components/container/stack-container";
+
+import type { Bundle } from "@features/bundle/types/bundle";
 
 export interface BundleTableProps {
     data: Bundle[];
     pagination: Pagination;
 
-    onUpdate?(entity: Bundle): void;
-    onRemove?(entity: Bundle): void;
-    onPageChange?(page: number): void;
+    onUpdate?: (entity: Bundle) => void;
+    onRemove?: (entity: Bundle) => void;
+    onPageChange?: (page: number) => void;
 }
 
-export function BundleTable({ data, pagination, onUpdate, onRemove, onPageChange }: BundleTableProps) {
-    function handleUpdate(entity: Bundle): void {
+export function BundleTable({
+    data,
+    pagination,
+    onUpdate,
+    onRemove,
+    onPageChange
+}: BundleTableProps) {
+    const handleUpdate = (entity: Bundle): void => {
         (onUpdate) && (onUpdate(entity));
-    }
-    
-    function handleRemove(entity: Bundle): void {
-        (onRemove) && (onRemove(entity));
-    }
+    };
 
-    function handlePageChange(page: number): void {
+    const handleRemove = (entity: Bundle): void => {
+        (onRemove) && (onRemove(entity));
+    };
+
+    const handlePageChange = (page: number): void => {
         (onPageChange) && (onPageChange(page));
-    }
+    };
 
     return (
         <StackContainer spacing={4}>
@@ -61,5 +67,3 @@ export function BundleTable({ data, pagination, onUpdate, onRemove, onPageChange
         </StackContainer>
     );
 }
-
-export default BundleTable;

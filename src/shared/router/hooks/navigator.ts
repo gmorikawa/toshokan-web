@@ -13,5 +13,3 @@ export function useNavigator(): NavigatorController {
 
     return { to };
 }
-
-export default useNavigator;

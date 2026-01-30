@@ -1,4 +1,5 @@
 import type { QueryOptions } from "@shared/search/types/query";
+import type { ID } from "@shared/entity/types/id";
 
 import { useSession } from "@features/auth/hooks/session";
 import type { Publisher, NewPublisher } from "@features/publisher/types/publisher";
@@ -13,7 +14,7 @@ import { countAllPublishers,
 export interface PublisherService {
     getAll(query?: QueryOptions): Promise<Publisher[]>;
     countAll(): Promise<number>;
-    getById(id: string): Promise<Publisher>;
+    getById(id: ID): Promise<Publisher>;
     create(publisher: NewPublisher): Promise<Publisher>;
     update(publisher: Publisher): Promise<Publisher>;
     delete(publisher: Publisher): Promise<boolean>;
@@ -28,7 +29,7 @@ export function usePublisherService(): PublisherService {
 
     return {
         getAll: async (query?: QueryOptions) => getAllPublishers(session, query),
-        getById: async (id: string) => getPublisherById(session, id),
+        getById: async (id: ID) => getPublisherById(session, id),
         countAll: async () => countAllPublishers(session),
         create: async (publisher: NewPublisher) => createPublisher(session, publisher),
         update: async (publisher: Publisher) => updatePublisher(session, publisher.id, publisher),

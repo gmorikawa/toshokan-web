@@ -3,18 +3,17 @@ import { useCallback } from "react";
 import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
 import { BackIcon } from "@shared/icons";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
 
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import type { DocumentFile } from "@features/document/types/document-file";
 import { useResearchPaper } from "@features/research-paper/hooks/research-paper";
 import { ResearchPaperInfo } from "@features/research-paper/components/research-paper-info";
 import { useResearchPaperFiles } from "@features/research-paper/hooks/research-paper-files";
-
-import { ActionButton } from "@components/button/action-button";
-import { BoxContainer } from "@components/container/box-container";
 
 type ParamsWithId = {
     id: string;
@@ -65,5 +64,3 @@ export function ResearchPaperDetailsPage() {
         </ApplicationPage>
     );
 }
-
-export default ResearchPaperDetailsPage;

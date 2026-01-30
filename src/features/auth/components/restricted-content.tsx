@@ -16,5 +16,3 @@ export function RestrictedContent({ allowedRoles, children }: RestrictedContentP
         ? null
         : children;
 }
-
-export default RestrictedContent;

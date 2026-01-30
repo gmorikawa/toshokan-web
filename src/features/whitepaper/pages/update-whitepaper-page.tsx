@@ -3,26 +3,24 @@ import { useEffect } from "react";
 import { useParams } from "@shared/router/hooks/params";
 import { useQuery } from "@shared/router/hooks/query";
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { whitepaperValidator } from "@features/whitepaper/utils/validators";
-import { WhitepaperForm } from "@features/whitepaper/components/whitepaper-form";
-import { WhitepaperFileUpload } from "@features/whitepaper/components/whitepaper-file-upload";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon, FileUploadIcon, FormIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 import { TabContent } from "@components/tab/tab-content";
 import { TabControl, type TabOption } from "@components/tab/tab-control";
 
-import { BackIcon, FileUploadIcon, FormIcon } from "@shared/icons";
+import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
+import { whitepaperValidator } from "@features/whitepaper/utils/validators";
+import { WhitepaperForm } from "@features/whitepaper/components/whitepaper-form";
+import { WhitepaperFileUpload } from "@features/whitepaper/components/whitepaper-file-upload";
 
 type ParamsWithId = {
     id?: string;
@@ -39,19 +37,14 @@ const whitepaperFormTabOptions: TabOption<WhitepaperFormTab>[] = [
     { tab: "files", label: "File Upload", icon: <FileUploadIcon /> }
 ];
 
-export function UpdateWhitepaperPage() {
+export function UpdateWhitepaperFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    function handleSubmit() {
-        form.submit();
-    }
-    const alert = useAlert();
-    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
     const { tab } = useQuery<QueryWithTab>();
-
+    const alert = useAlert();
+    const navigate = useNavigator();
     const service = useWhitepaperService();
-
     const form = useForm<Whitepaper>({
         default: {
             id: "",
@@ -88,9 +81,13 @@ export function UpdateWhitepaperPage() {
         }
     };
 
-    function handleBack(): void {
+    const handleSubmit = (): void => {
+        form.submit();
+    };
+
+    const handleBack = (): void => {
         navigate.to("/app/whitepaper/list");
-    }
+    };
 
     useEffect(() => {
         loadEntity();
@@ -102,7 +99,13 @@ export function UpdateWhitepaperPage() {
                 title="Whitepaper"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
@@ -110,16 +113,19 @@ export function UpdateWhitepaperPage() {
             <ApplicationContent authorization={authorization}>
                 <TabControl defaultTab={tab ?? "details"} options={whitepaperFormTabOptions}>
                     <TabContent tab="details">
-                        <WhitepaperForm form={form} onSubmit={handleSubmit} />
+                        <WhitepaperForm
+                            form={form}
+                            onSubmit={handleSubmit}
+                        />
                     </TabContent>
 
                     <TabContent tab="files">
-                        <WhitepaperFileUpload whitepaper={form.entity} />
+                        <WhitepaperFileUpload
+                            whitepaper={form.entity}
+                        />
                     </TabContent>
                 </TabControl>
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default UpdateWhitepaperPage;

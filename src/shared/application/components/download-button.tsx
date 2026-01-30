@@ -13,5 +13,3 @@ export function DownloadButton({ onClick }: DownloadButtonProps) {
         </IconButton>
     );
 }
-
-export default DownloadButton;

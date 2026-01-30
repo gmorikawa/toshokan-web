@@ -1,12 +1,12 @@
-import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
-import type { DocumentFile } from "@features/document/types/document-file";
-import { DocumentFileCard } from "@features/document/components/document-file-card";
-
 import { BoxContainer } from "@components/container/box-container";
 import { Badge } from "@components/data-display/badge";
 import Information from "@components/data-display/information";
 import { Heading } from "@components/typography/heading";
 import { Paragraph } from "@components/typography/paragraph";
+
+import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
+import type { DocumentFile } from "@features/document/types/document-file";
+import { DocumentFileCard } from "@features/document/components/document-file-card";
 
 export interface WhitepaperInfoProps {
     whitepaper: Whitepaper;
@@ -17,7 +17,13 @@ export interface WhitepaperInfoProps {
     onRead?: (documentFile: DocumentFile) => void;
 }
 
-export function WhitepaperInfo({ whitepaper, files, onRemove, onDownload, onRead }: WhitepaperInfoProps) {
+export function WhitepaperInfo({
+    whitepaper,
+    files,
+    onRemove,
+    onDownload,
+    onRead
+}: WhitepaperInfoProps) {
     return (
         <BoxContainer display="flex" flexDirection="column" gap={2}>
             <Heading level={2} size="2xl">

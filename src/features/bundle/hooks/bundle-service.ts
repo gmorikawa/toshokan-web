@@ -1,4 +1,6 @@
 import type { QueryOptions } from "@shared/search/types/query";
+import type { ID } from "@shared/entity/types/id";
+
 import { useSession } from "@features/auth/hooks/session";
 import type { Bundle, NewBundle } from "@features/bundle/types/bundle";
 import { countAllBundles,
@@ -12,7 +14,7 @@ import { countAllBundles,
 export interface BundleService {
     getAll(query?: QueryOptions): Promise<Bundle[]>;
     countAll(): Promise<number>;
-    getById(id: string): Promise<Bundle>;
+    getById(id: ID): Promise<Bundle>;
     create(bundle: NewBundle): Promise<Bundle>;
     update(bundle: Bundle): Promise<Bundle>;
     delete(bundle: Bundle): Promise<boolean>;
@@ -27,7 +29,7 @@ export function useBundleService(): BundleService {
 
     return {
         getAll: async (query?: QueryOptions) => getAllBundles(session, query),
-        getById: async (id: string) => getBundleById(session, id),
+        getById: async (id: ID) => getBundleById(session, id),
         countAll: async () => countAllBundles(session),
         create: async (bundle: NewBundle) => createBundle(session, bundle),
         update: async (bundle: Bundle) => updateBundle(session, bundle.id, bundle),

@@ -54,5 +54,3 @@ export function useLoader<Entity>(configuration: LoaderConfiguration<Entity>): L
         load
     };
 }
-
-export default useLoader;

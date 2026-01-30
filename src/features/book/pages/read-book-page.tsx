@@ -2,17 +2,16 @@ import { useCallback } from "react";
 
 import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationPage } from "@shared/application/components/application-page";
 import { BackIcon } from "@shared/icons";
-
-import { ApplicationContent } from "@layout/content";
-import { ApplicationHeader } from "@layout/header";
-import { ApplicationPage } from "@layout/page";
-
-import { useBookReader } from "@features/book/hooks/book-reader";
-import { DocumentReader } from "@features/document/components/document-reader";
 
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
+
+import { useBookReader } from "@features/book/hooks/book-reader";
+import { DocumentReader } from "@features/document/components/document-reader";
 
 type ParamsWithId = {
     bookId: string;
@@ -56,5 +55,3 @@ export function ReadBookPage() {
         </ApplicationPage>
     );
 }
-
-export default ReadBookPage;

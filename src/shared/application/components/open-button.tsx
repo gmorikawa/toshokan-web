@@ -13,5 +13,3 @@ export function OpenButton({ onClick }: OpenButtonProps) {
         </IconButton>
     );
 }
-
-export default OpenButton;

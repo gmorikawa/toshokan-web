@@ -1,11 +1,9 @@
-export type Page = number;
-export type Size = number;
-export type Count = number;
+export type PageNumber = number;
+export type PageSize = number;
+export type PageCount = number;
 
 export interface Pagination {
-    page: Page;
-    size: Size;
-    count: Count;
-
-    update(page: Page, size?: Size, count?: Count): void;
+    page: PageNumber;
+    size: PageSize;
+    count: PageCount;
 }

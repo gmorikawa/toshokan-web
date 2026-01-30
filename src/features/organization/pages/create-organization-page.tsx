@@ -1,30 +1,25 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { NewOrganization } from "@features/organization/types/organization";
-import { newOrganizationValidator } from "@features/organization/utils/validators";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { OrganizationForm } from "@features/organization/components/organization-form";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { useOrganizationService } from "@features/organization/hooks/organization-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { BoxContainer } from "@components/container/box-container";
 import { ActionButton } from "@components/button/action-button";
 
-import { BackIcon } from "@shared/icons";
+import type { NewOrganization } from "@features/organization/types/organization";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useOrganizationService } from "@features/organization/hooks/organization-service";
+import { newOrganizationValidator } from "@features/organization/utils/validators";
+import { OrganizationForm } from "@features/organization/components/organization-form";
 
-export function CreateOrganizationPage() {
+export function CreateOrganizationFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
-
     const alert = useAlert();
     const navigate = useNavigator();
-
     const service = useOrganizationService();
-
     const form = useForm<NewOrganization>({
         default: {
             name: "",
@@ -43,13 +38,13 @@ export function CreateOrganizationPage() {
         }
     });
 
-    function handleSubmit(): void {
+    const handleSubmit = (): void => {
         form.submit();
-    }
+    };
 
-    function handleBack(): void {
+    const handleBack = (): void => {
         navigate.to("/app/organization/list");
-    }
+    };
 
     return (
         <ApplicationPage>
@@ -57,16 +52,23 @@ export function CreateOrganizationPage() {
                 title="Organization"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <OrganizationForm form={form} onSubmit={handleSubmit} />
+                <OrganizationForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default CreateOrganizationPage;

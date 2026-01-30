@@ -1,42 +1,50 @@
-import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { Pagination } from "@shared/search/types/pagination";
-
-import { OpenButton } from "@layout/button/open";
-import { UpdateButton } from "@layout/button/update";
-import { DeleteButton } from "@layout/button/delete";
+import { OpenButton } from "@shared/application/components/open-button";
+import { UpdateButton } from "@shared/application/components/update-button";
+import { DeleteButton } from "@shared/application/components/delete-button";
 
 import { DataTable } from "@components/table/data-table";
 import { FlexContainer } from "@components/container/flex-container";
 import { PaginationControl } from "@components/pagination/pagination-control";
 import { StackContainer } from "@components/container/stack-container";
+
+import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import { RestrictedContent } from "@features/auth/components/restricted-content";
 
 export interface WhitepaperTableProps {
     data: Whitepaper[];
     pagination: Pagination;
 
-    onUpdate?(entity: Whitepaper): void;
-    onRemove?(entity: Whitepaper): void;
-    onDetail?(entity: Whitepaper): void;
-    onPageChange?(page: number): void;
+    onUpdate?: (entity: Whitepaper) => void;
+    onRemove?: (entity: Whitepaper) => void;
+    onDetail?: (entity: Whitepaper) => void;
+    onPageChange?: (page: number) => void;
 }
 
-export function WhitepaperTable({ data, pagination, onUpdate, onRemove, onDetail, onPageChange }: WhitepaperTableProps) {
-    function handleUpdate(entity: Whitepaper): void {
+export function WhitepaperTable({
+    data,
+    pagination,
+    onUpdate,
+    onRemove,
+    onDetail,
+    onPageChange
+}: WhitepaperTableProps) {
+
+    const handleUpdate = (entity: Whitepaper): void => {
         (onUpdate) && (onUpdate(entity));
-    }
+    };
 
-    function handleRemove(entity: Whitepaper): void {
+    const handleRemove = (entity: Whitepaper): void => {
         (onRemove) && (onRemove(entity));
-    }
+    };
 
-    function handleOpen(entity: Whitepaper): void {
+    const handleOpen = (entity: Whitepaper): void => {
         (onDetail) && (onDetail(entity));
-    }
+    };
 
-    function handlePageChange(page: number): void {
+    const handlePageChange = (page: number): void => {
         (onPageChange) && (onPageChange(page));
-    }
+    };
 
     return (
         <StackContainer spacing={4}>
@@ -73,5 +81,3 @@ export function WhitepaperTable({ data, pagination, onUpdate, onRemove, onDetail
         </StackContainer>
     );
 }
-
-export default WhitepaperTable;

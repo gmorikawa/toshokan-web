@@ -1,29 +1,54 @@
-import { SubmitButton } from "@components/button/submit-button";
-import { StackContainer } from "@components/container/stack-container";
+import type { Form } from "@components/form/use-form";
 import { FormPasswordField } from "@components/form/form-password-field";
 import { FormRadioField } from "@components/form/form-radio-field";
 import { FormTextField } from "@components/form/form-text-field";
-import type { Form } from "@components/form/use-form";
+import { StackContainer } from "@components/container/stack-container";
+import { SubmitButton } from "@components/button/submit-button";
+
 import type { NewUser } from "@features/user/types/user";
 
 export interface CreateUserFormProps {
     form: Form<NewUser>;
-    onSubmit?(entity: NewUser): void;
+
+    onSubmit?: (entity: NewUser) => void;
 }
 
-export function CreateUserForm({ form, onSubmit }: CreateUserFormProps) {
-    function handleSubmit(): void {
+export function CreateUserForm({
+    form,
+    onSubmit
+}: CreateUserFormProps) {
+
+    const handleSubmit = (): void => {
         (onSubmit) && (onSubmit(form.entity));
-    }
+    };
 
     return (
         <StackContainer spacing={4}>
-            <FormTextField form={form} label="Full Name" property="fullname" required />
+            <FormTextField
+                form={form}
+                label="Full Name"
+                property="fullname"
+                required
+            />
 
-            <FormTextField form={form} label="Username" property="username" required />
+            <FormTextField
+                form={form}
+                label="Username"
+                property="username"
+                required
+            />
 
-            <FormPasswordField form={form} label="Password" property="password" required />
-            <FormTextField form={form} label="Email" property="email" />
+            <FormPasswordField
+                form={form}
+                label="Password"
+                property="password"
+                required
+            />
+            <FormTextField
+                form={form}
+                label="Email"
+                property="email"
+            />
 
             <FormRadioField
                 form={form}
@@ -54,5 +79,3 @@ export function CreateUserForm({ form, onSubmit }: CreateUserFormProps) {
         </StackContainer>
     );
 }
-
-export default CreateUserForm;

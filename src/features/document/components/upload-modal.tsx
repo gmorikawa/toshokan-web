@@ -1,16 +1,15 @@
+import type { ModalController } from "@components/modal/use-modal";
+import { useForm } from "@components/form/use-form";
+import { ActionButton } from "@components/button/action-button";
+import { FlexContainer } from "@components/container/flex-container";
+import { FormFileField } from "@components/form/form-file-field";
+import { FormTextField } from "@components/form/form-text-field";
+import { Modal } from "@components/modal/modal";
+import { Paragraph } from "@components/typography/paragraph";
+import { StackContainer } from "@components/container/stack-container";
+
 import type { Document } from "@features/document/types/document";
 import type { NewDocumentFile } from "@features/document/types/document-file";
-
-import useForm from "@components/form/use-form";
-import type { ModalController } from "@components/modal/use-modal";
-
-import ActionButton from "@components/button/action-button";
-import FlexContainer from "@components/container/flex-container";
-import FormFileField from "@components/form/form-file-field";
-import FormTextField from "@components/form/form-text-field";
-import Modal from "@components/modal/modal";
-import Paragraph from "@components/typography/paragraph";
-import { StackContainer } from "@components/container/stack-container";
 
 export interface UploadModalProps {
     controller: ModalController;
@@ -60,5 +59,3 @@ export function UploadModal({ controller, document, onUpload }: UploadModalProps
         </Modal>
     );
 }
-
-export default UploadModal;

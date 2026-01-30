@@ -1,33 +1,26 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { NewBundle } from "@features/bundle/types/bundle";
-import { newBundleValidator } from "@features/bundle/utils/validators";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { BundleForm } from "@features/bundle/components/bundle-form";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { useBundleService } from "@features/bundle/hooks/bundle-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { BoxContainer } from "@components/container/box-container";
 import { ActionButton } from "@components/button/action-button";
 
-import { BackIcon } from "@shared/icons";
+import type { NewBundle } from "@features/bundle/types/bundle";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useBundleService } from "@features/bundle/hooks/bundle-service";
+import { newBundleValidator } from "@features/bundle/utils/validators";
+import { BundleForm } from "@features/bundle/components/bundle-form";
 
-export function CreateBundlePage() {
+export function CreateBundleFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    function handleSubmit() {
-        form.submit();
-    }
     const alert = useAlert();
     const navigate = useNavigator();
-
     const service = useBundleService();
-
     const form = useForm<NewBundle>({
         default: {
             title: "",
@@ -45,9 +38,13 @@ export function CreateBundlePage() {
         }
     });
 
-    function handleBack(): void {
+    const handleSubmit = (): void => {
+        form.submit();
+    };
+
+    const handleBack = (): void => {
         navigate.to("/app/bundle/list");
-    }
+    };
 
     return (
         <ApplicationPage>
@@ -67,10 +64,11 @@ export function CreateBundlePage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <BundleForm form={form} onSubmit={handleSubmit} />
+                <BundleForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default CreateBundlePage;

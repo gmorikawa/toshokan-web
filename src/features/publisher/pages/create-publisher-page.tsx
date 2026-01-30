@@ -1,33 +1,26 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { NewPublisher } from "@features/publisher/types/publisher";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { newPublisherValidator } from "@features/publisher/utils/validators";
-import { PublisherForm } from "@features/publisher/components/publisher-form";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { usePublisherService } from "@features/publisher/hooks/publisher-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
 import { ActionButton } from "@components/button/action-button";
-import { ApplicationContent } from "@/layout/content";
+import { ApplicationContent } from "@shared/application/components/application-content";
 import { BoxContainer } from "@components/container/box-container";
 
-import { BackIcon } from "@shared/icons";
+import type { NewPublisher } from "@features/publisher/types/publisher";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { usePublisherService } from "@features/publisher/hooks/publisher-service";
+import { newPublisherValidator } from "@features/publisher/utils/validators";
+import { PublisherForm } from "@features/publisher/components/publisher-form";
 
-export function CreatePublisherPage() {
+export function CreatePublisherFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    function handleSubmit() {
-        form.submit();
-    }
     const alert = useAlert();
     const navigate = useNavigator();
-
     const service = usePublisherService();
-
     const form = useForm<NewPublisher>({
         default: {
             name: "",
@@ -45,9 +38,13 @@ export function CreatePublisherPage() {
         }
     });
 
-    function handleBack(): void {
+    const handleSubmit = (): void => {
+        form.submit();
+    };
+
+    const handleBack = (): void => {
         navigate.to("/app/publisher/list");
-    }
+    };
 
     return (
         <ApplicationPage>
@@ -55,16 +52,23 @@ export function CreatePublisherPage() {
                 title="Publisher"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <PublisherForm form={form} onSubmit={handleSubmit} />
+                <PublisherForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default CreatePublisherPage;

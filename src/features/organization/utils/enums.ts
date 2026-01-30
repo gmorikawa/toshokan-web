@@ -28,5 +28,3 @@ export class OrganizationTypeUtil {
         }
     }
 }
-
-export default OrganizationTypeUtil;

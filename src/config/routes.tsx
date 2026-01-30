@@ -1,60 +1,60 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 
-import FirstAccessPage from "@features/configuration/pages/first-access-page";
+import { FirstAccessPage } from "@features/configuration/pages/first-access-page";
 
-import LoginPage from "@features/auth/pages/login-page";
+import { LoginPage } from "@features/auth/pages/login-page";
 
-import AppLayout from "@/layout/layout";
+import { AppLayout } from "@/layout/layout";
 
-import ListUserPage from "@features/user/pages/list-user-page";
-import CreateUserFormPage from "@features/user/pages/create-user-page";
-import UpdateUserFormPage from "@features/user/pages/update-user-page";
+import { ListUserPage } from "@features/user/pages/list-user-page";
+import { CreateUserFormPage } from "@features/user/pages/create-user-page";
+import { UpdateUserFormPage } from "@features/user/pages/update-user-page";
 
-import ListAuthorPage from "@features/author/pages/list-author-page";
-import CreateAuthorFormPage from "@features/author/pages/create-author-page";
-import UpdateAuthorFormPage from "@features/author/pages/update-author-page";
+import { ListAuthorPage } from "@features/author/pages/list-author-page";
+import { CreateAuthorFormPage } from "@features/author/pages/create-author-page";
+import { UpdateAuthorFormPage } from "@features/author/pages/update-author-page";
 
-import ListLanguagePage from "@features/language/pages/list-language-page";
-import CreateLanguageFormPage from "@features/language/pages/create-language-page";
-import UpdateLanguageFormPage from "@features/language/pages/update-language-page";
+import { ListLanguagePage } from "@features/language/pages/list-language-page";
+import { CreateLanguageFormPage } from "@features/language/pages/create-language-page";
+import { UpdateLanguageFormPage } from "@features/language/pages/update-language-page";
 
-import ListCategoryPage from "@features/category/pages/list-category-page";
-import CreateCategoryFormPage from "@features/category/pages/create-category-page";
-import UpdateCategoryFormPage from "@features/category/pages/update-category-page";
+import { ListCategoryPage } from "@features/category/pages/list-category-page";
+import { CreateCategoryFormPage } from "@features/category/pages/create-category-page";
+import { UpdateCategoryFormPage } from "@features/category/pages/update-category-page";
 
-import ListTopicPage from "@features/topic/pages/list-topic-page";
-import CreateTopicFormPage from "@features/topic/pages/create-topic-page";
-import UpdateTopicFormPage from "@features/topic/pages/update-topic-page";
+import { ListTopicPage } from "@features/topic/pages/list-topic-page";
+import { CreateTopicFormPage } from "@features/topic/pages/create-topic-page";
+import { UpdateTopicFormPage } from "@features/topic/pages/update-topic-page";
 
-import ListPublisherPage from "@features/publisher/pages/list-publisher-page";
-import CreatePublisherFormPage from "@features/publisher/pages/create-publisher-page";
-import UpdatePublisherFormPage from "@features/publisher/pages/update-publisher-page";
+import { ListPublisherPage } from "@features/publisher/pages/list-publisher-page";
+import { CreatePublisherFormPage } from "@features/publisher/pages/create-publisher-page";
+import { UpdatePublisherFormPage } from "@features/publisher/pages/update-publisher-page";
 
-import ListOrganizationPage from "@features/organization/pages/list-organization-page";
-import CreateOrganizationFormPage from "@features/organization/pages/create-organization-page";
-import UpdateOrganizationFormPage from "@features/organization/pages/update-organization-page";
+import { ListOrganizationPage } from "@features/organization/pages/list-organization-page";
+import { CreateOrganizationFormPage } from "@features/organization/pages/create-organization-page";
+import { UpdateOrganizationFormPage } from "@features/organization/pages/update-organization-page";
 
-import ListBookPage from "@features/book/pages/list-book-page";
-import CreateBookFormPage from "@features/book/pages/create-book-page";
-import UpdateBookFormPage from "@features/book/pages/update-book-page";
-import BookDetailsPage from "@features/book/pages/details-page";
-import ReadBookPage from "@features/book/pages/read-book-page";
+import { ListBookPage } from "@features/book/pages/list-book-page";
+import { CreateBookFormPage } from "@features/book/pages/create-book-page";
+import { UpdateBookFormPage } from "@features/book/pages/update-book-page";
+import { BookDetailsPage } from "@features/book/pages/details-page";
+import { ReadBookPage } from "@features/book/pages/read-book-page";
 
-import ListResearchPaperPage from "@features/research-paper/pages/list-research-paper-page";
-import CreateResearchPaperFormPage from "@features/research-paper/pages/create-research-paper-page";
-import UpdateResearchPaperFormPage from "@features/research-paper/pages/update-research-paper-page";
-import ResearchPaperDetailsPage from "@features/research-paper/pages/details-page";
-import ReadResearchPaperPage from "@features/research-paper/pages/read-research-paper-page";
+import { ListResearchPaperPage } from "@features/research-paper/pages/list-research-paper-page";
+import { CreateResearchPaperFormPage } from "@features/research-paper/pages/create-research-paper-page";
+import { UpdateResearchPaperFormPage } from "@features/research-paper/pages/update-research-paper-page";
+import { ResearchPaperDetailsPage } from "@features/research-paper/pages/details-page";
+import { ReadResearchPaperPage } from "@features/research-paper/pages/read-research-paper-page";
 
-import ListWhitepaperPage from "@features/whitepaper/pages/list-whitepaper-page";
-import CreateWhitepaperFormPage from "@features/whitepaper/pages/create-whitepaper-page";
-import UpdateWhitepaperFormPage from "@features/whitepaper/pages/update-whitepaper-page";
-import WhitepaperDetailsPage from "@features/whitepaper/pages/details-page";
-import ReadWhitepaperPage from "@features/whitepaper/pages/read-whitepaper-page";
+import { ListWhitepaperPage } from "@features/whitepaper/pages/list-whitepaper-page";
+import { CreateWhitepaperFormPage } from "@features/whitepaper/pages/create-whitepaper-page";
+import { UpdateWhitepaperFormPage } from "@features/whitepaper/pages/update-whitepaper-page";
+import { WhitepaperDetailsPage } from "@features/whitepaper/pages/details-page";
+import { ReadWhitepaperPage } from "@features/whitepaper/pages/read-whitepaper-page";
 
-import ListBundlePage from "@features/bundle/pages/list-bundle-page";
-import CreateBundleFormPage from "@features/bundle/pages/create-bundle-page";
-import UpdateBundleFormPage from "@features/bundle/pages/update-bundle-page";
+import { ListBundlePage } from "@features/bundle/pages/list-bundle-page";
+import { CreateBundleFormPage } from "@features/bundle/pages/create-bundle-page";
+import { UpdateBundleFormPage } from "@features/bundle/pages/update-bundle-page";
 
 export function RouteProvider() {
     return (
@@ -142,5 +142,3 @@ export function RouteProvider() {
         </BrowserRouter>
     );
 }
-
-export default RouteProvider;

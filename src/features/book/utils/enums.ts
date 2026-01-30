@@ -21,5 +21,3 @@ export class BookTypeUtil {
         return BookTypeUtil.getMetadata().find((meta) => meta.type === type)?.label || "Unknown";
     }
 }
-
-export default BookTypeUtil;

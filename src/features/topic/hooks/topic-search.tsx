@@ -1,87 +1,37 @@
-import { useEffect, useState } from "react";
+import type { PageCount } from "@shared/search/types/pagination";
+import type { PaginationConfiguration } from "@shared/search/hooks/pagination";
+import { useSearch, type SearchController } from "@shared/search/hooks/search";
 
-import type { Pagination } from "@shared/search/types/pagination";
-import { usePagination } from "@shared/search/hooks/pagination";
+import { useAlert } from "@components/feedback/alert/controller";
 
 import type { Topic } from "@features/topic/types/topic";
 import { useTopicService } from "@features/topic/hooks/topic-service";
 
-import { useAlert } from "@components/feedback/alert/controller";
+export interface TopicSearchConfiguration extends PaginationConfiguration { }
 
-type Milliseconds = number;
-type Name = string;
-type Boolean = boolean;
+export interface TopicSearchController extends SearchController<Topic> { }
 
-export interface TopicSearchController {
-    data: Topic[];
-    pagination: Pagination;
-
-    search(name: string): void;
-    create(): void;
-    reset(): void;
-}
-
-export interface TopicSearchConfiguration {
-    debounceTime?: Milliseconds;
-    defaultName?: Name;
-
-    errorAlert?: Boolean;
-}
-
-export function useTopicSearch(configuration?: TopicSearchConfiguration): TopicSearchController {
-    const debounceTime = configuration?.debounceTime ?? 500;
-    const defaultName = configuration?.defaultName ?? "";
-    const errorAlert = configuration?.errorAlert ?? false;
-
-    const service = useTopicService();
-    const [name, setName] = useState<Name>(defaultName);
-    const [data, setData] = useState<Topic[]>([]);
-
+export function useTopicSearch(
+    config?: TopicSearchConfiguration
+): TopicSearchController {
     const alert = useAlert();
-    const pagination = usePagination();
+    const service = useTopicService();
 
-    const search = async (name?: string) => {
-        setName(name || "");
-    };
-
-    const reset = () => {
-        search(undefined);
-    };
-
-    const create = () => {
-        service.create({ name })
-            .then((result: Topic) => {
-                setData([result, ...data]);
-            })
-            .catch((error: Error) => {
-                if (errorAlert) {
-                    alert.showErrorMessage(error);
-                }
-            });
-    };
-
-    useEffect(() => {
-        const newTimer = setTimeout(() => {
-            service.getAll({ name, pagination })
-                .then((result) => {
-                    setData(result);
-                })
+    return useSearch<Topic>({
+        ...config,
+        fetchCount: async (): Promise<PageCount> => {
+            return service.countAll()
                 .catch((error: Error) => {
-                    if (errorAlert) {
-                        alert.showErrorMessage(error);
-                    }
+                    alert.showErrorMessage(error);
+                    return 0;
                 });
-        }, debounceTime);
-
-        return () => clearTimeout(newTimer);
-    }, [name, pagination.page, pagination.size]);
-    return {
-        data,
-        pagination,
-        search,
-        create,
-        reset
-    };
+        },
+        fetchData: async (pagination): Promise<Topic[]> => {
+            return service.getAll({ pagination })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                    return [];
+                });
+        },
+    });
 }
-
-export default useTopicSearch;

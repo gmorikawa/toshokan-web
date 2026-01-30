@@ -71,5 +71,3 @@ export function FileDrop({ onFileDrop, children }: FileDropProps) {
         </BoxContainer>
     );
 }
-
-export default FileDrop;

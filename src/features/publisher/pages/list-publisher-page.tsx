@@ -1,32 +1,28 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { AddIcon } from "@shared/icons";
 
-import type { Publisher } from "@features/publisher/types/publisher";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { useListPublishers } from "@features/publisher/hooks/list-publishers";
-import { PublisherTable } from "@features/publisher/components/publisher-table";
+import { EmptyList } from "@/layout/empty-list";
 
 import { useAlert } from "@components/feedback/alert/controller";
-import { usePublisherService } from "@features/publisher/hooks/publisher-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
-import { AddIcon } from "@shared/icons";
-import { EmptyList } from "@/layout/empty-list";
-import { ListSkeleton } from "@/layout/list-skeleton";
-import { ListError } from "@/layout/list-error";
-import { LoadingBoundary } from "@/layout/loading-boundary";
+import type { Publisher } from "@features/publisher/types/publisher";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { usePublisherService } from "@features/publisher/hooks/publisher-service";
+import { usePublisherSearch } from "@features/publisher/hooks/publisher-search";
+import { PublisherTable } from "@features/publisher/components/publisher-table";
 
 export function ListPublisherPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    const publishers = useListPublishers();
     const alert = useAlert();
     const navigate = useNavigator();
     const service = usePublisherService();
+    const publishers = usePublisherSearch();
 
     const handleCreate = (): void => {
         navigate.to("/app/publisher/form");
@@ -47,7 +43,7 @@ export function ListPublisherPage() {
     };
 
     const handlePageChange = (page: number): void => {
-        publishers.pagination.update(page);
+        publishers.changePage(page);
     };
 
     return (
@@ -56,40 +52,32 @@ export function ListPublisherPage() {
                 title="Publisher"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleCreate} leftIcon={<AddIcon />}>New</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleCreate}
+                            leftIcon={<AddIcon />}
+                        >
+                            New
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <LoadingBoundary.Root loader={publishers.loader}>
-                    <LoadingBoundary.LoadingState>
-                        <ListSkeleton />
-                    </LoadingBoundary.LoadingState>
+                {(publishers.data.length > 0) && (
+                    <PublisherTable
+                        data={publishers.data}
+                        pagination={publishers.pagination}
+                        onUpdate={handleUpdate}
+                        onRemove={handleRemove}
+                        onPageChange={handlePageChange}
+                    />
+                )}
 
-                    <LoadingBoundary.SuccessState>
-                        {(publishers.data.length > 0) && (
-                            <PublisherTable
-                                data={publishers.data}
-                                pagination={publishers.pagination}
-                                onUpdate={handleUpdate}
-                                onRemove={handleRemove}
-                                onPageChange={handlePageChange}
-                            />
-                        )}
-
-                        {(publishers.data?.length === 0) && (
-                            <EmptyList />
-                        )}
-                    </LoadingBoundary.SuccessState>
-
-                    <LoadingBoundary.ErrorState>
-                        <ListError />
-                    </LoadingBoundary.ErrorState>
-                </LoadingBoundary.Root>
+                {(publishers.data?.length === 0) && (
+                    <EmptyList />
+                )}
             </ApplicationContent>
-        </ApplicationPage>
+        </ApplicationPage >
     );
 }
-
-export default ListPublisherPage;

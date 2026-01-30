@@ -18,7 +18,13 @@ export interface BookInfoProps {
     onRead?: (documentFile: DocumentFile) => void;
 }
 
-export function BookInfo({ book, files, onRemove, onDownload, onRead }: BookInfoProps) {
+export function BookInfo({
+    book,
+    files,
+    onRemove,
+    onDownload,
+    onRead
+}: BookInfoProps) {
     return (
         <BoxContainer display="flex" flexDirection="column" gap={2}>
             <Heading level={2} size="2xl">

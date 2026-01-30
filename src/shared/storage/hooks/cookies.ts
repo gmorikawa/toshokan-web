@@ -23,5 +23,3 @@ export function useCookies(): UseCookies {
 
     return { get, set };
 }
-
-export default useCookies;

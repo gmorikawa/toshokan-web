@@ -18,5 +18,3 @@ export function useLocalStorage(): UseLocalStorage {
 
     return { get, set };
 }
-
-export default useLocalStorage;

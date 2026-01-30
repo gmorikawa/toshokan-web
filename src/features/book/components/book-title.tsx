@@ -1,8 +1,8 @@
-import type { Book } from "@features/book/types/book";
-import { buildBookFullTitle } from "@features/book/utils/builder";
-
 import { BoxContainer } from "@components/container/box-container";
 import { Paragraph } from "@components/typography/paragraph";
+
+import type { Book } from "@features/book/types/book";
+import { buildBookFullTitle } from "@features/book/utils/builder";
 
 export interface BookTitleProps {
     book: Book;

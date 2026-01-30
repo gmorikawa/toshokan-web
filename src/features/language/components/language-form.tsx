@@ -1,17 +1,21 @@
-import SubmitButton from "@components/button/submit-button";
-import { StackContainer } from "@components/container/stack-container";
-import FormTextField from "@components/form/form-text-field";
 import type { Form } from "@components/form/use-form";
+import { FormTextField } from "@components/form/form-text-field";
+import { SubmitButton } from "@components/button/submit-button";
+import { StackContainer } from "@components/container/stack-container";
 
 export interface LanguageFormProps<Entity> {
     form: Form<Entity>;
-    onSubmit?(entity: Entity): void;
+
+    onSubmit?: (entity: Entity) => void;
 }
 
-export function LanguageForm<Entity>({ form, onSubmit }: LanguageFormProps<Entity>) {
-    function handleSubmit(): void {
+export function LanguageForm<Entity>({
+    form,
+    onSubmit
+}: LanguageFormProps<Entity>) {
+    const handleSubmit = (): void => {
         (onSubmit) && (onSubmit(form.entity));
-    }
+    };
 
     return (
         <StackContainer spacing={4}>
@@ -27,5 +31,3 @@ export function LanguageForm<Entity>({ form, onSubmit }: LanguageFormProps<Entit
         </StackContainer>
     );
 }
-
-export default LanguageForm;

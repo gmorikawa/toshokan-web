@@ -76,5 +76,3 @@ export function ThemeProvider(props: ColorModeProviderProps) {
         </ChakraProvider>
     )
 }
-
-export default ThemeProvider;

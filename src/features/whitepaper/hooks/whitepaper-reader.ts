@@ -9,7 +9,10 @@ import { useDocumentReader } from "@features/document/hooks/document-reader";
 
 export interface WhitepaperReaderController extends DocumentReaderController { }
 
-export function useWhitepaperReader(whitepaper: Whitepaper | ID, documentFile: DocumentFile | ID): WhitepaperReaderController {
+export function useWhitepaperReader(
+    whitepaper: Whitepaper | ID,
+    documentFile: DocumentFile | ID
+): WhitepaperReaderController {
     const service = useWhitepaperService();
 
     return useDocumentReader(

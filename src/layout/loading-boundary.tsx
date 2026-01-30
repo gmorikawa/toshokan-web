@@ -38,5 +38,3 @@ function Root({ loader, children }: LoadingBoundaryProps) {
 }
 
 export const LoadingBoundary = { Root, SuccessState, LoadingState, ErrorState };
-
-export default LoadingBoundary;

@@ -1,8 +1,8 @@
 import type { Category } from "@features/category/types/category";
 import type { Pagination } from "@shared/search/types/pagination";
 
-import { UpdateButton } from "@layout/button/update";
-import { DeleteButton } from "@layout/button/delete";
+import { UpdateButton } from "@shared/application/components/update-button";
+import { DeleteButton } from "@shared/application/components/delete-button";
 
 import DataTable from "@components/table/data-table";
 import FlexContainer from "@components/container/flex-container";
@@ -13,23 +13,29 @@ export interface CategoryTableProps {
     data: Category[];
     pagination: Pagination;
 
-    onUpdate?(entity: Category): void;
-    onRemove?(entity: Category): void;
-    onPageChange?(page: number): void;
+    onUpdate?: (entity: Category) => void;
+    onRemove?: (entity: Category) => void;
+    onPageChange?: (page: number) => void;
 }
 
-export function CategoryTable({ data, pagination, onUpdate, onRemove, onPageChange }: CategoryTableProps) {
-    function handleUpdate(entity: Category): void {
+export function CategoryTable({
+    data,
+    pagination,
+    onUpdate,
+    onRemove,
+    onPageChange
+}: CategoryTableProps) {
+    const handleUpdate = (entity: Category): void => {
         (onUpdate) && (onUpdate(entity));
-    }
+    };
     
-    function handleRemove(entity: Category): void {
+    const handleRemove = (entity: Category): void => {
         (onRemove) && (onRemove(entity));
-    }
+    };
 
-    function handlePageChange(page: number): void {
+    const handlePageChange = (page: number): void => {
         (onPageChange) && (onPageChange(page));
-    }
+    };
 
     return (
         <StackContainer spacing={4}>
@@ -60,5 +66,3 @@ export function CategoryTable({ data, pagination, onUpdate, onRemove, onPageChan
         </StackContainer>
     );
 }
-
-export default CategoryTable;

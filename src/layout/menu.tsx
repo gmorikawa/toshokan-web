@@ -2,7 +2,7 @@ import { useNavigator } from "@shared/router/hooks/navigator";
 
 import { useAuthentication } from "@features/auth/hooks/authentication";
 
-import AppRoute from "@/config/constants";
+import { AppRoute } from "@/config/constants";
 
 import { BoxContainer } from "@components/container/box-container";
 import { FlexContainer } from "@components/container/flex-container";
@@ -25,7 +25,7 @@ import {
     WhitepaperIcon
 } from "@shared/icons";
 import { Logo } from "./logo";
-import RestrictedContent from "@features/auth/components/restricted-content";
+import { RestrictedContent } from "@features/auth/components/restricted-content";
 import { useSession } from "@features/auth/hooks/session";
 import { Menu, MenuContainer, MenuItem } from "@components/menu/menu";
 
@@ -160,5 +160,3 @@ export function ApplicationMenu() {
         </ApplicationMenuContainer>
     );
 };
-
-export default ApplicationMenu;

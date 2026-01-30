@@ -1,110 +1,37 @@
-import { useEffect, useState } from "react";
+import type { PageCount } from "@shared/search/types/pagination";
+import type { PaginationConfiguration } from "@shared/search/hooks/pagination";
+import { useSearch, type SearchController } from "@shared/search/hooks/search";
 
-import type { Count, Pagination } from "@shared/search/types/pagination";
-import { useDebounce, type DebounceDelayMilliseconds } from "@shared/debounce";
-import { useLoader, type LoaderController } from "@shared/loader";
-import { usePagination, type PaginationController } from "@shared/search/hooks/pagination";
+import { useAlert } from "@components/feedback/alert/controller";
 
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
 
-import { useAlert } from "@components/feedback/alert/controller";
+export interface WhitepaperSearchConfiguration extends PaginationConfiguration { }
 
-type Query = string;
-type Boolean = boolean;
+export interface WhitepaperSearchController extends SearchController<Whitepaper> { }
 
-export interface WhitepaperSearchController {
-    query: string;
-    data: Whitepaper[];
-
-    pagination: PaginationController;
-    loader: LoaderController<Whitepaper[]>;
-
-    changePage(page: number): void;
-    search(title: string): void;
-    refresh(): void;
-    reset(): void;
-}
-
-export interface WhitepaperSearchConfiguration {
-    debounceTime?: DebounceDelayMilliseconds;
-    defaultTitle?: Query;
-
-    errorAlert?: Boolean;
-}
-
-export function useWhitepaperSearch(configuration?: WhitepaperSearchConfiguration): WhitepaperSearchController {
-    const debounceTime = configuration?.debounceTime ?? 500;
-    const defaultTitle = configuration?.defaultTitle ?? "";
-    const errorAlert = configuration?.errorAlert ?? false;
-
-    const service = useWhitepaperService();
-    const [title, setTitle] = useState<Query>(defaultTitle);
-
-    const loader = useLoader<Whitepaper[]>({
-        loadFunction: async (title: Query, pagination: Pagination) => {
-            return service.getAll({ title, pagination });
-        },
-        onError: (error: Error) => {
-            if (errorAlert) {
-                alert.showErrorMessage(error);
-            }
-        },
-        preventAutoload: true,
-    });
-
-    const loadCount = () => {
-        service.countAll()
-            .then((count: Count) => {
-                pagination.update(pagination.page, pagination.size, count);
-            })
-            .catch((error: Error) => {
-                if (errorAlert) {
-                    alert.showErrorMessage(error);
-                }
-            });
-    };
-
+export function useWhitepaperSearch(
+    config?: WhitepaperSearchConfiguration
+): WhitepaperSearchController {
     const alert = useAlert();
-    const pagination = usePagination();
+    const service = useWhitepaperService();
 
-    const search = async (title?: string) => {
-        setTitle(title || "");
-    };
-
-    const changePage = (page: number) => {
-        pagination.update(page);
-    };
-
-    const refresh = () => {
-        loader.load(title, pagination);
-    };
-
-    const reset = () => {
-        search(undefined);
-    };
-
-    useDebounce({
-        action: () => {
-            loader.load(title, pagination);
+    return useSearch<Whitepaper>({
+        ...config,
+        fetchCount: async (): Promise<PageCount> => {
+            return service.countAll()
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                    return 0;
+                });
         },
-        dependencies: [title, pagination.page, pagination.size],
-        delay: debounceTime
+        fetchData: async (pagination): Promise<Whitepaper[]> => {
+            return service.getAll({ pagination })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                    return [];
+                });
+        },
     });
-
-    useEffect(() => {
-        loadCount();
-    }, []);
-    return {
-        query: title,
-        loader,
-        data: loader.data || [],
-        pagination,
-        changePage,
-        search,
-        refresh,
-        reset
-    };
 }
-
-export default useWhitepaperSearch;

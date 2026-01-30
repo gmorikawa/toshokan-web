@@ -1,40 +1,34 @@
+import { useEffect } from "react";
+
 import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon } from "@shared/icons";
+
+import { useAlert } from "@components/feedback/alert/controller";
+import { useForm } from "@components/form/use-form";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import type { Bundle } from "@features/bundle/types/bundle";
 import { useAuthorization } from "@features/auth/hooks/authorization";
-import { bundleValidator } from "@features/bundle/utils/validators";
-import BundleForm from "@features/bundle/components/bundle-form";
-
-import { useEffect } from "react";
-import useAlert from "@components/feedback/alert/controller";
-import useForm from "@components/form/use-form";
 import { useBundleService } from "@features/bundle/hooks/bundle-service";
-
-import ApplicationPage from "@/layout/page";
-import ApplicationHeader from "@/layout/header";
-import ApplicationContent from "@/layout/content";
-import ActionButton from "@components/button/action-button";
-import BoxContainer from "@components/container/box-container";
-
-import { BackIcon } from "@shared/icons";
+import { bundleValidator } from "@features/bundle/utils/validators";
+import { BundleForm } from "@features/bundle/components/bundle-form";
 
 type ParamsWithId = {
     id?: string;
 }
 
-export function UpdateBundlePage() {
+export function UpdateBundleFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    function handleSubmit() {
-        form.submit();
-    }
+    const { id } = useParams<ParamsWithId>();
     const alert = useAlert();
     const navigate = useNavigator();
-    const { id } = useParams<ParamsWithId>();
-
     const service = useBundleService();
-
     const form = useForm<Bundle>({
         default: {
             id: "",
@@ -65,9 +59,13 @@ export function UpdateBundlePage() {
         }
     };
 
-    function handleBack(): void {
+    const handleSubmit = (): void => {
+        form.submit();
+    };
+
+    const handleBack = (): void =>{
         navigate.to("/app/bundle/list");
-    }
+    };
 
     useEffect(() => {
         loadEntity();
@@ -79,16 +77,23 @@ export function UpdateBundlePage() {
                 title="Bundle"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <BundleForm form={form} onSubmit={handleSubmit} />
+                <BundleForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default UpdateBundlePage;

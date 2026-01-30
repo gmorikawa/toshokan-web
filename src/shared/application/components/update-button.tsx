@@ -13,5 +13,3 @@ export function UpdateButton({ onClick }: UpdateButtonProps) {
         </IconButton>
     );
 }
-
-export default UpdateButton;

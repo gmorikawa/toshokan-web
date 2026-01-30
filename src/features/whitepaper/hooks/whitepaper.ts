@@ -15,5 +15,3 @@ export function useWhitepaper(id: ID): WhitepaperController {
         [id]
     );
 }
-
-export default useWhitepaper;

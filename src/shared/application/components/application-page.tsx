@@ -1,5 +1,5 @@
-import { ApplicationHeader } from "@layout/header";
-import { ApplicationContent } from "@layout/content";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
 
 import { StackContainer } from "@components/container/stack-container";
 
@@ -25,5 +25,3 @@ export function ApplicationPage({ children }: ApplicationPageProps) {
         </StackContainer>
     );
 }
-
-export default ApplicationPage;

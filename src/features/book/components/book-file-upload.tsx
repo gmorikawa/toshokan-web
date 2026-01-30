@@ -1,13 +1,13 @@
+import { useAlert } from "@components/feedback/alert/controller";
+import { useModal } from "@components/modal/use-modal";
+import { StackContainer } from "@components/container/stack-container";
+
 import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
 import type { Book } from "@features/book/types/book";
 import { useBookService } from "@features/book/hooks/book-service";
 import { useBookFiles } from "@features/book/hooks/book-files";
 import { DocumentFileCard } from "@features/document/components/document-file-card";
 import { UploadModal } from "@features/document/components/upload-modal";
-
-import { useAlert } from "@components/feedback/alert/controller";
-import { useModal } from "@components/modal/use-modal";
-import { StackContainer } from "@components/container/stack-container";
 
 export interface BookFileUploadProps {
     book: Book;
@@ -53,5 +53,3 @@ export function BookFileUpload({ book }: BookFileUploadProps) {
         </StackContainer>
     );
 }
-
-export default BookFileUpload;

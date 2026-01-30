@@ -1,16 +1,3 @@
-import { useEffect, useState } from "react";
-
-import type { NewWhitepaper, Whitepaper } from "@features/whitepaper/types/whitepaper";
-import type { Author } from "@features/author/types/author";
-import type { Language } from "@features/language/types/language";
-import type { Organization } from "@features/organization/types/organization";
-import type { Topic } from "@features/topic/types/topic";
-import { useLanguageService } from "@features/language/hooks/language-service";
-import { useOrganizationService } from "@features/organization/hooks/organization-service";
-import { useAuthorSearch } from "@features/author/hooks/author-search";
-import { useTopicSearch } from "@features/topic/hooks/topic-search";
-
-import { useAlert } from "@components/feedback/alert/controller";
 import type { Form } from "@components/form/use-form";
 import { FormComboField } from "@components/form/form-combo-field";
 import { FormSelectField } from "@components/form/form-select-field";
@@ -18,47 +5,37 @@ import { FormTextField } from "@components/form/form-text-field";
 import { SubmitButton } from "@components/button/submit-button";
 import { StackContainer } from "@components/container/stack-container";
 import { FormTextareaField } from "@components/form/form-textarea-field";
-import FormNumericField from "@components/form/form-numeric-field";
+import { FormNumericField } from "@components/form/form-numeric-field";
+
+import type { NewWhitepaper, Whitepaper } from "@features/whitepaper/types/whitepaper";
+import type { Author } from "@features/author/types/author";
+import type { Language } from "@features/language/types/language";
+import type { Organization } from "@features/organization/types/organization";
+import type { Topic } from "@features/topic/types/topic";
+import { useAuthorSearch } from "@features/author/hooks/author-search";
+import { useLanguageSearch } from "@features/language/hooks/language-search";
+import { useOrganizationSearch } from "@features/organization/hooks/organization-search";
+import { useTopicSearch } from "@features/topic/hooks/topic-search";
 
 export interface WhitepaperFormProps {
     form: Form<Whitepaper | NewWhitepaper>;
-    onSubmit?(entity: Whitepaper | NewWhitepaper): void;
+
+    onSubmit?: (entity: Whitepaper | NewWhitepaper) => void;
 }
 
-export function WhitepaperForm({ form, onSubmit }: WhitepaperFormProps) {
-    const alert = useAlert();
-    const languageService = useLanguageService();
-    const organizationService = useOrganizationService();
+export function WhitepaperForm({
+    form,
+    onSubmit
+}: WhitepaperFormProps) {
 
-    function handleSubmit(): void {
-        (onSubmit) && (onSubmit(form.entity));
-    }
-
+    const languages = useLanguageSearch();
+    const organizations = useOrganizationSearch();
     const authors = useAuthorSearch();
     const topics = useTopicSearch();
 
-    const [languages, setLanguages] = useState<Language[]>([]);
-    const [organizations, setOrganizations] = useState<Organization[]>([]);
-
-    useEffect(() => {
-        languageService.getAll()
-            .then((response: Language[]) => {
-                setLanguages(response);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }, []);
-
-    useEffect(() => {
-        organizationService.getAll()
-            .then((response: Organization[]) => {
-                setOrganizations(response);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }, []);
+    const handleSubmit = (): void => {
+        (onSubmit) && (onSubmit(form.entity));
+    };
 
     return (
         <StackContainer spacing={4}>
@@ -81,7 +58,7 @@ export function WhitepaperForm({ form, onSubmit }: WhitepaperFormProps) {
                 label="Language"
                 property="language"
                 placeholder="Select a language"
-                options={languages}
+                options={languages.data}
                 getLabel={(language: Language) => language.name}
                 getValue={(language: Language) => language.id}
             />
@@ -97,12 +74,14 @@ export function WhitepaperForm({ form, onSubmit }: WhitepaperFormProps) {
                 multiple
                 allowCreate
                 onChange={(value: Author[]) => {
-                    authors.reset();
+                    authors.changeFilter("fullname", value);
                     form.onChange("authors", value);
                 }}
-                onInput={authors.search}
+                onInput={(value: string) => {
+                    authors.changeFilter("fullname", value);
+                }}
                 onCreate={() => {
-                    authors.create();
+                    // authors.create();
                 }}
             />
 
@@ -117,12 +96,14 @@ export function WhitepaperForm({ form, onSubmit }: WhitepaperFormProps) {
                 multiple
                 allowCreate
                 onChange={(value: Topic[]) => {
-                    topics.reset();
+                    topics.changeFilter("name", value);
                     form.onChange("topics", value);
                 }}
-                onInput={topics.search}
+                onInput={(value: string) => {
+                    topics.changeFilter("name", value);
+                }}
                 onCreate={() => {
-                    topics.create();
+                    // topics.create();
                 }}
             />
 
@@ -131,7 +112,7 @@ export function WhitepaperForm({ form, onSubmit }: WhitepaperFormProps) {
                 label="Organization"
                 property="organization"
                 placeholder="Select an organization"
-                options={organizations}
+                options={organizations.data}
                 getLabel={(organization: Organization) => organization.name}
                 getValue={(organization: Organization) => organization.id}
             />
@@ -149,5 +130,3 @@ export function WhitepaperForm({ form, onSubmit }: WhitepaperFormProps) {
         </StackContainer>
     );
 }
-
-export default WhitepaperForm;

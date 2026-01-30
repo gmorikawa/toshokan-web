@@ -1,13 +1,13 @@
+import { useAlert } from "@components/feedback/alert/controller";
+import { useModal } from "@components/modal/use-modal";
+import { StackContainer } from "@components/container/stack-container";
+
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
 import { useWhitepaperFiles } from "@features/whitepaper/hooks/whitepaper-files";
 import { DocumentFileCard } from "@features/document/components/document-file-card";
 import { UploadModal } from "@features/document/components/upload-modal";
-
-import { useAlert } from "@components/feedback/alert/controller";
-import { useModal } from "@components/modal/use-modal";
-import { StackContainer } from "@components/container/stack-container";
 
 export interface WhitepaperFileUploadProps {
     whitepaper: Whitepaper;
@@ -22,7 +22,7 @@ export function WhitepaperFileUpload({ whitepaper }: WhitepaperFileUploadProps) 
     const service = useWhitepaperService();
     const files = useWhitepaperFiles(whitepaper);
 
-    function handleUpload(documentFile: NewDocumentFile): void {
+    const handleUpload = (documentFile: NewDocumentFile): void => {
         service.upload(whitepaper, documentFile)
             .then(() => {
                 modal.close();
@@ -32,7 +32,7 @@ export function WhitepaperFileUpload({ whitepaper }: WhitepaperFileUploadProps) 
             .catch((error: Error) => {
                 alert.showErrorMessage(error);
             })
-    }
+    };
 
     return (
         <StackContainer spacing={4}>
@@ -53,5 +53,3 @@ export function WhitepaperFileUpload({ whitepaper }: WhitepaperFileUploadProps) 
         </StackContainer>
     );
 }
-
-export default WhitepaperFileUpload;

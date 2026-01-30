@@ -85,5 +85,3 @@ export function useBookFiles(book: Book | ID): BookFilesController {
         handleRemove
     };
 }
-
-export default useBookFiles;

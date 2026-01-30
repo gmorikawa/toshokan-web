@@ -5,5 +5,3 @@ type RouteParams<Params> = Params;
 export function useParams<Params = any>(): RouteParams<Params> {
     return useReactRouterParams() as Params;
 }
-
-export default useParams;

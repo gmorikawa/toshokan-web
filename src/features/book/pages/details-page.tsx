@@ -2,19 +2,18 @@ import { useCallback } from "react";
 
 import { useNavigator } from "@shared/router/hooks/navigator";
 import { useParams } from "@shared/router/hooks/params";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
 import { BackIcon } from "@shared/icons";
 
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
+import { ActionButton } from "@components/button/action-button";
+import { BoxContainer } from "@components/container/box-container";
 
 import type { DocumentFile } from "@features/document/types/document-file";
 import { useBook } from "@features/book/hooks/book";
 import { BookInfo } from "@features/book/components/book-info";
 import { useBookFiles } from "@features/book/hooks/book-files";
-
-import { ActionButton } from "@components/button/action-button";
-import { BoxContainer } from "@components/container/box-container";
 
 type ParamsWithId = {
     id: string;
@@ -23,7 +22,7 @@ type ParamsWithId = {
 export function BookDetailsPage() {
     const { id } = useParams<ParamsWithId>();
     const book = useBook(id);
-    const files = useBookFiles(book.entity);
+    const files = useBookFiles(book.entity ?? id);
     const navigate = useNavigator();
 
     const handleBack = useCallback(() => {
@@ -66,4 +65,3 @@ export function BookDetailsPage() {
     );
 }
 
-export default BookDetailsPage;

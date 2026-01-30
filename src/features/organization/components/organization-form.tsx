@@ -1,21 +1,25 @@
-import { OrganizationTypeUtil } from "@features/organization/utils/enums";
-
-import { SubmitButton } from "@components/button/submit-button";
-import { StackContainer } from "@components/container/stack-container";
+import type { Form } from "@components/form/use-form";
 import { FormRadioField } from "@components/form/form-radio-field";
 import { FormTextField } from "@components/form/form-text-field";
 import { FormTextareaField } from "@components/form/form-textarea-field";
-import type { Form } from "@components/form/use-form";
+import { StackContainer } from "@components/container/stack-container";
+import { SubmitButton } from "@components/button/submit-button";
+
+import { OrganizationTypeUtil } from "@features/organization/utils/enums";
 
 export interface OrganizationFormProps<Entity> {
     form: Form<Entity>;
-    onSubmit?(entity: Entity): void;
+
+    onSubmit?: (entity: Entity) => void;
 }
 
-export function OrganizationForm<Entity>({ form, onSubmit }: OrganizationFormProps<Entity>) {
-    function handleSubmit(): void {
+export function OrganizationForm<Entity>({
+    form,
+    onSubmit
+}: OrganizationFormProps<Entity>) {
+    const handleSubmit = (): void => {
         (onSubmit) && (onSubmit(form.entity));
-    }
+    };
 
     return (
         <StackContainer spacing={4}>
@@ -44,5 +48,3 @@ export function OrganizationForm<Entity>({ form, onSubmit }: OrganizationFormPro
         </StackContainer>
     );
 }
-
-export default OrganizationForm;

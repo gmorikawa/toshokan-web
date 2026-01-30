@@ -3,26 +3,24 @@ import { useEffect } from "react";
 import { useParams } from "@shared/router/hooks/params";
 import { useQuery } from "@shared/router/hooks/query";
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { ResearchPaper } from "@features/research-paper/types/research-paper";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { researchPaperValidator } from "@features/research-paper/utils/validators";
-import { ResearchPaperForm } from "@features/research-paper/components/research-paper-form";
-import { ResearchPaperFileUpload } from "@features/research-paper/components/research-paper-file-upload";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon, FileUploadIcon, FormIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 import { TabContent } from "@components/tab/tab-content";
 import { TabControl, type TabOption } from "@components/tab/tab-control";
 
-import { BackIcon, FileUploadIcon, FormIcon } from "@shared/icons";
+import type { ResearchPaper } from "@features/research-paper/types/research-paper";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
+import { researchPaperValidator } from "@features/research-paper/utils/validators";
+import { ResearchPaperForm } from "@features/research-paper/components/research-paper-form";
+import { ResearchPaperFileUpload } from "@features/research-paper/components/research-paper-file-upload";
 
 type ParamsWithId = {
     id?: string;
@@ -39,20 +37,14 @@ const researchPaperFormTabOptions: TabOption<ResearchPaperFormTab>[] = [
     { tab: "files", label: "File Upload", icon: <FileUploadIcon /> }
 ];
 
-
-export function UpdateResearchPaperPage() {
+export function UpdateResearchPaperFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    function handleSubmit() {
-        form.submit();
-    }
-    const alert = useAlert();
-    const navigate = useNavigator();
     const { id } = useParams<ParamsWithId>();
     const { tab } = useQuery<QueryWithTab>();
-
+    const alert = useAlert();
+    const navigate = useNavigator();
     const service = useResearchPaperService();
-
     const form = useForm<ResearchPaper>({
         default: {
             id: "",
@@ -90,9 +82,13 @@ export function UpdateResearchPaperPage() {
         }
     };
 
-    function handleBack(): void {
+    const handleSubmit = (): void => {
+        form.submit();
+    };
+
+    const handleBack = (): void => {
         navigate.to("/app/research-paper/list");
-    }
+    };
 
     useEffect(() => {
         loadEntity();
@@ -104,7 +100,13 @@ export function UpdateResearchPaperPage() {
                 title="Research Paper"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
@@ -123,5 +125,3 @@ export function UpdateResearchPaperPage() {
         </ApplicationPage>
     );
 }
-
-export default UpdateResearchPaperPage;

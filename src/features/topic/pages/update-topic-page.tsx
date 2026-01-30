@@ -2,40 +2,33 @@ import { useEffect } from "react";
 
 import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { Topic } from "@features/topic/types/topic";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { topicValidator } from "@features/topic/utils/validators";
-import { TopicForm } from "@features/topic/components/topic-form";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { useTopicService } from "@features/topic/hooks/topic-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
-import { BackIcon } from "@shared/icons";
+import type { Topic } from "@features/topic/types/topic";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useTopicService } from "@features/topic/hooks/topic-service";
+import { topicValidator } from "@features/topic/utils/validators";
+import { TopicForm } from "@features/topic/components/topic-form";
 
 type ParamsWithId = {
     id?: string;
 }
 
-export function UpdateTopicPage() {
+export function UpdateTopicFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    function handleSubmit() {
-        form.submit();
-    }
+    const { id } = useParams<ParamsWithId>();
     const alert = useAlert();
     const navigate = useNavigator();
-    const { id } = useParams<ParamsWithId>();
-
     const service = useTopicService();
-
     const form = useForm<Topic>({
         default: {
             id: "",
@@ -65,9 +58,13 @@ export function UpdateTopicPage() {
         }
     };
 
-    function handleBack(): void {
+    const handleSubmit = (): void => {
+        form.submit();
+    };
+
+    const handleBack = (): void => {
         navigate.to("/app/topic/list");
-    }
+    };
 
     useEffect(() => {
         loadEntity();
@@ -79,16 +76,23 @@ export function UpdateTopicPage() {
                 title="Topic"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <TopicForm form={form} onSubmit={handleSubmit} />
+                <TopicForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default UpdateTopicPage;

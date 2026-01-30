@@ -12,5 +12,3 @@ export const AppRoute = Object.freeze({
     ORGANIZATION_LIST: "/app/organization/list",
     BUNDLE_LIST: "/app/bundle/list",
 });
-
-export default AppRoute;

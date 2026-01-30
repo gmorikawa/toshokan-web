@@ -37,5 +37,3 @@ export function ApplicationHeader({ title, actionSlot, children }: ApplicationHe
         </BoxContainer>
     );
 }
-
-export default ApplicationHeader;

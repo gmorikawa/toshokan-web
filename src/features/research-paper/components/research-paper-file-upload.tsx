@@ -53,5 +53,3 @@ export function ResearchPaperFileUpload({ researchPaper }: ResearchPaperFileUplo
         </StackContainer>
     );
 }
-
-export default ResearchPaperFileUpload;

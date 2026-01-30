@@ -1,5 +1,5 @@
-import { UpdateButton } from "@layout/button/update";
-import { DeleteButton } from "@layout/button/delete";
+import { UpdateButton } from "@shared/application/components/update-button";
+import { DeleteButton } from "@shared/application/components/delete-button";
 
 import type { User } from "@features/user/types/user";
 import type { Pagination } from "@shared/search/types/pagination";
@@ -13,23 +13,30 @@ export interface UserTableProps {
     data: User[];
     pagination: Pagination;
 
-    onUpdate?(entity: User): void;
-    onRemove?(entity: User): void;
-    onPageChange?(page: number): void;
+    onUpdate?: (entity: User) => void;
+    onRemove?: (entity: User) => void;
+    onPageChange?: (page: number) => void;
 }
 
-export function UserTable({ data, pagination, onUpdate, onRemove, onPageChange }: UserTableProps) {
-    function handleUpdate(entity: User): void {
+export function UserTable({
+    data,
+    pagination,
+    onUpdate,
+    onRemove,
+    onPageChange
+}: UserTableProps) {
+
+    const handleUpdate = (entity: User): void => {
         (onUpdate) && (onUpdate(entity));
-    }
+    };
 
-    function handleRemove(entity: User): void {
+    const handleRemove = (entity: User): void => {
         (onRemove) && (onRemove(entity));
-    }
+    };
 
-    function handlePageChange(page: number): void {
+    const handlePageChange = (page: number): void => {
         (onPageChange) && (onPageChange(page));
-    }
+    };
 
     return (
         <StackContainer spacing={4}>
@@ -64,5 +71,3 @@ export function UserTable({ data, pagination, onUpdate, onRemove, onPageChange }
         </StackContainer>
     );
 }
-
-export default UserTable;

@@ -3,14 +3,14 @@ import ViewportContainer from "@components/container/viewport-container";
 import FlexContainer from "@components/container/flex-container";
 import BoxContainer from "@components/container/box-container";
 
-import Menu from "./menu";
+import { ApplicationMenu } from "./menu";
 
 export function AppLayout() {
     return (
         <ViewportContainer>
             <FlexContainer fullHeight direction="row">
                 <BoxContainer fullHeight flexBasis="auto">
-                    <Menu />
+                    <ApplicationMenu />
                 </BoxContainer>
                 <BoxContainer fullHeight flexGrow="1">
                     <Outlet />
@@ -19,5 +19,3 @@ export function AppLayout() {
         </ViewportContainer>
     );
 }
-
-export default AppLayout;

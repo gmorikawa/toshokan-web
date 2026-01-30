@@ -1,29 +1,25 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { AddIcon } from "@shared/icons";
 
-import type { Category } from "@features/category/types/category";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { useListCategories } from "@features/category/hooks/list-categories";
-import { CategoryTable } from "@features/category/components/category-table";
+import { EmptyList } from "@/layout/empty-list";
 
 import { useAlert } from "@components/feedback/alert/controller";
-import { useCategoryService } from "@features/category/hooks/category-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
-import { AddIcon } from "@shared/icons";
-import { EmptyList } from "@/layout/empty-list";
-import { ListSkeleton } from "@/layout/list-skeleton";
-import { ListError } from "@/layout/list-error";
-import { LoadingBoundary } from "@/layout/loading-boundary";
+import type { Category } from "@features/category/types/category";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useCategoryService } from "@features/category/hooks/category-service";
+import { useCategorySearch } from "@features/category/hooks/category-search";
+import { CategoryTable } from "@features/category/components/category-table";
 
 export function ListCategoryPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    const categories = useListCategories();
+    const categories = useCategorySearch();
     const alert = useAlert();
     const navigate = useNavigator();
     const service = useCategoryService();
@@ -47,7 +43,7 @@ export function ListCategoryPage() {
     };
 
     const handlePageChange = (page: number): void => {
-        categories.pagination.update(page);
+        categories.changePage(page);
     };
 
     return (
@@ -56,40 +52,32 @@ export function ListCategoryPage() {
                 title="Category"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleCreate} leftIcon={<AddIcon />}>New</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleCreate}
+                            leftIcon={<AddIcon />}
+                        >
+                            New
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <LoadingBoundary.Root loader={categories.loader}>
-                    <LoadingBoundary.LoadingState>
-                        <ListSkeleton />
-                    </LoadingBoundary.LoadingState>
+                {(categories.data.length > 0) && (
+                    <CategoryTable
+                        data={categories.data}
+                        pagination={categories.pagination}
+                        onUpdate={handleUpdate}
+                        onRemove={handleRemove}
+                        onPageChange={handlePageChange}
+                    />
+                )}
 
-                    <LoadingBoundary.SuccessState>
-                        {(categories.data.length > 0) && (
-                            <CategoryTable
-                                data={categories.data}
-                                pagination={categories.pagination}
-                                onUpdate={handleUpdate}
-                                onRemove={handleRemove}
-                                onPageChange={handlePageChange}
-                            />
-                        )}
-
-                        {(categories.data?.length === 0) && (
-                            <EmptyList />
-                        )}
-                    </LoadingBoundary.SuccessState>
-
-                    <LoadingBoundary.ErrorState>
-                        <ListError />
-                    </LoadingBoundary.ErrorState>
-                </LoadingBoundary.Root>
+                {(categories.data?.length === 0) && (
+                    <EmptyList />
+                )}
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default ListCategoryPage;

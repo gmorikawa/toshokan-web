@@ -2,40 +2,33 @@ import { useEffect } from "react";
 
 import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { Category } from "@features/category/types/category";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { categoryValidator } from "@features/category/utils/validators";
-import { CategoryForm } from "@features/category/components/category-form";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { useCategoryService } from "@features/category/hooks/category-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
-import { BackIcon } from "@shared/icons";
+import type { Category } from "@features/category/types/category";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useCategoryService } from "@features/category/hooks/category-service";
+import { categoryValidator } from "@features/category/utils/validators";
+import { CategoryForm } from "@features/category/components/category-form";
 
 type ParamsWithId = {
     id?: string;
 }
 
-export function UpdateCategoryPage() {
+export function UpdateCategoryFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    function handleSubmit() {
-        form.submit();
-    }
+    const { id } = useParams<ParamsWithId>();
     const alert = useAlert();
     const navigate = useNavigator();
-    const { id } = useParams<ParamsWithId>();
-
     const service = useCategoryService();
-
     const form = useForm<Category>({
         default: {
             id: "",
@@ -65,9 +58,13 @@ export function UpdateCategoryPage() {
         }
     };
 
-    function handleBack(): void {
+    const handleSubmit = () => {
+        form.submit();
+    };
+
+    const handleBack = (): void => {
         navigate.to("/app/category/list");
-    }
+    };
 
     useEffect(() => {
         loadEntity();
@@ -79,16 +76,23 @@ export function UpdateCategoryPage() {
                 title="Category"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <CategoryForm form={form} onSubmit={handleSubmit} />
+                <CategoryForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default UpdateCategoryPage;

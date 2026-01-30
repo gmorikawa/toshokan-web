@@ -1,29 +1,25 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { AddIcon } from "@shared/icons";
 
-import type { Organization } from "@features/organization/types/organization";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { useListOrganizations } from "@features/organization/hooks/list-organizations";
-import { OrganizationTable } from "@features/organization/components/organization-table";
+import { EmptyList } from "@/layout/empty-list";
 
 import { useAlert } from "@components/feedback/alert/controller";
-import { useOrganizationService } from "@features/organization/hooks/organization-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
-import { AddIcon } from "@shared/icons";
-import { EmptyList } from "@/layout/empty-list";
-import { ListSkeleton } from "@/layout/list-skeleton";
-import { ListError } from "@/layout/list-error";
-import { LoadingBoundary } from "@/layout/loading-boundary";
+import type { Organization } from "@features/organization/types/organization";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useOrganizationService } from "@features/organization/hooks/organization-service";
+import { useOrganizationSearch } from "@features/organization/hooks/organization-search";
+import { OrganizationTable } from "@features/organization/components/organization-table";
 
 export function ListOrganizationPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    const organizations = useListOrganizations();
+    const organizations = useOrganizationSearch();
     const alert = useAlert();
     const navigate = useNavigator();
     const service = useOrganizationService();
@@ -47,7 +43,7 @@ export function ListOrganizationPage() {
     };
 
     const handlePageChange = (page: number): void => {
-        organizations.pagination.update(page);
+        organizations.changePage(page);
     };
 
     return (
@@ -56,40 +52,32 @@ export function ListOrganizationPage() {
                 title="Organization"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleCreate} leftIcon={<AddIcon />}>New</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleCreate}
+                            leftIcon={<AddIcon />}
+                        >
+                            New
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <LoadingBoundary.Root loader={organizations.loader}>
-                    <LoadingBoundary.LoadingState>
-                        <ListSkeleton />
-                    </LoadingBoundary.LoadingState>
+                {(organizations.data.length > 0) && (
+                    <OrganizationTable
+                        data={organizations.data}
+                        pagination={organizations.pagination}
+                        onUpdate={handleUpdate}
+                        onRemove={handleRemove}
+                        onPageChange={handlePageChange}
+                    />
+                )}
 
-                    <LoadingBoundary.SuccessState>
-                        {(organizations.data.length > 0) && (
-                            <OrganizationTable
-                                data={organizations.data}
-                                pagination={organizations.pagination}
-                                onUpdate={handleUpdate}
-                                onRemove={handleRemove}
-                                onPageChange={handlePageChange}
-                            />
-                        )}
-
-                        {(organizations.data?.length === 0) && (
-                            <EmptyList />
-                        )}
-                    </LoadingBoundary.SuccessState>
-
-                    <LoadingBoundary.ErrorState>
-                        <ListError />
-                    </LoadingBoundary.ErrorState>
-                </LoadingBoundary.Root>
+                {(organizations.data?.length === 0) && (
+                    <EmptyList />
+                )}
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default ListOrganizationPage;

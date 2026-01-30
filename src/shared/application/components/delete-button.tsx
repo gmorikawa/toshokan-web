@@ -13,5 +13,3 @@ export function DeleteButton({ onClick }: DeleteButtonProps) {
         </IconButton>
     );
 }
-
-export default DeleteButton;

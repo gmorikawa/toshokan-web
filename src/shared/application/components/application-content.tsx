@@ -23,5 +23,3 @@ export function ApplicationContent({ authorization, removePadding, children }: A
             </BoxContainer>
         );
 }
-
-export default ApplicationContent;

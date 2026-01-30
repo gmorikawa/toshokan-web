@@ -2,11 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 
 import type { Nullable } from "@shared/object/types/nullable";
 
+import { useAlert } from "@components/feedback/alert/controller";
+
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { DocumentFile } from "@features/document/types/document-file";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
-
-import { useAlert } from "@components/feedback/alert/controller";
 
 export interface WhitepaperFilesController {
     data: DocumentFile[];
@@ -84,5 +84,3 @@ export function useWhitepaperFiles(whitepaper: Nullable<Whitepaper>): Whitepaper
         handleRemove
     };
 }
-
-export default useWhitepaperFiles;

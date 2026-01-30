@@ -1,42 +1,50 @@
-import type { ResearchPaper } from "@features/research-paper/types/research-paper";
-import type { Pagination } from "@shared/search/types/pagination";
-
-import { OpenButton } from "@layout/button/open";
-import { UpdateButton } from "@layout/button/update";
-import { DeleteButton } from "@layout/button/delete";
+import { OpenButton } from "@shared/application/components/open-button";
+import { UpdateButton } from "@shared/application/components/update-button";
+import { DeleteButton } from "@shared/application/components/delete-button";
 
 import { DataTable } from "@components/table/data-table";
 import { FlexContainer } from "@components/container/flex-container";
 import { PaginationControl } from "@components/pagination/pagination-control";
 import { StackContainer } from "@components/container/stack-container";
+
+import type { ResearchPaper } from "@features/research-paper/types/research-paper";
+import type { Pagination } from "@shared/search/types/pagination";
 import { RestrictedContent } from "@features/auth/components/restricted-content";
+
 
 export interface ResearchPaperTableProps {
     data: ResearchPaper[];
     pagination: Pagination;
 
-    onUpdate?(entity: ResearchPaper): void;
-    onRemove?(entity: ResearchPaper): void;
-    onDetail?(entity: ResearchPaper): void;
-    onPageChange?(page: number): void;
+    onUpdate?: (entity: ResearchPaper) => void;
+    onRemove?: (entity: ResearchPaper) => void;
+    onDetail?: (entity: ResearchPaper) => void;
+    onPageChange?: (page: number) => void;
 }
 
-export function ResearchPaperTable({ data, pagination, onUpdate, onRemove, onDetail, onPageChange }: ResearchPaperTableProps) {
-    function handleUpdate(entity: ResearchPaper): void {
+export function ResearchPaperTable({
+    data, pagination,
+    onUpdate,
+    onRemove,
+    onDetail,
+    onPageChange
+}: ResearchPaperTableProps) {
+
+    const handleUpdate = (entity: ResearchPaper): void => {
         (onUpdate) && (onUpdate(entity));
-    }
+    };
 
-    function handleRemove(entity: ResearchPaper): void {
+    const handleRemove = (entity: ResearchPaper): void => {
         (onRemove) && (onRemove(entity));
-    }
+    };
 
-    function handleDetail(entity: ResearchPaper): void {
+    const handleDetail = (entity: ResearchPaper): void => {
         (onDetail) && (onDetail(entity));
-    }
+    };
 
-    function handlePageChange(page: number): void {
+    const handlePageChange = (page: number): void => {
         (onPageChange) && (onPageChange(page));
-    }
+    };
 
     return (
         <StackContainer spacing={4}>
@@ -74,5 +82,3 @@ export function ResearchPaperTable({ data, pagination, onUpdate, onRemove, onDet
         </StackContainer>
     );
 }
-
-export default ResearchPaperTable;

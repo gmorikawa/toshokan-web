@@ -1,44 +1,50 @@
 import type { Pagination } from "@shared/search/types/pagination";
-
-import { OpenButton } from "@layout/button/open";
-import { UpdateButton } from "@layout/button/update";
-import { DeleteButton } from "@layout/button/delete";
-
-import type { Book } from "@features/book/types/book";
-import { RestrictedContent } from "@features/auth/components/restricted-content";
-import { BookTitle } from "@features/book/components/book-title";
+import { OpenButton } from "@shared/application/components/open-button";
+import { UpdateButton } from "@shared/application/components/update-button";
+import { DeleteButton } from "@shared/application/components/delete-button";
 
 import { DataTable } from "@components/table/data-table";
 import { FlexContainer } from "@components/container/flex-container";
 import { PaginationControl } from "@components/pagination/pagination-control";
 import { StackContainer } from "@components/container/stack-container";
 
+import type { Book } from "@features/book/types/book";
+import { RestrictedContent } from "@features/auth/components/restricted-content";
+import { BookTitle } from "@features/book/components/book-title";
+
 export interface BookTableProps {
     data: Book[];
     pagination: Pagination;
 
-    onUpdate?(entity: Book): void;
-    onRemove?(entity: Book): void;
-    onDetail?(entity: Book): void;
-    onPageChange?(page: number): void;
+    onUpdate?: (entity: Book) => void;
+    onRemove?: (entity: Book) => void;
+    onDetail?: (entity: Book) => void;
+    onPageChange?: (page: number) => void;
 }
 
-export function BookTable({ data, pagination, onUpdate, onRemove, onDetail, onPageChange }: BookTableProps) {
-    function handleUpdate(entity: Book): void {
+export function BookTable({
+    data,
+    pagination,
+    onUpdate,
+    onRemove,
+    onDetail,
+    onPageChange
+}: BookTableProps) {
+    const handleUpdate = (entity: Book): void => {
         (onUpdate) && (onUpdate(entity));
-    }
+    };
 
-    function handleRemove(entity: Book): void {
+    const handleRemove = (entity: Book): void => {
         (onRemove) && (onRemove(entity));
-    }
+    };
 
-    function handleOpen(entity: Book): void {
+    const handleOpen = (entity: Book): void => {
         (onDetail) && (onDetail(entity));
-    }
+    };
 
-    function handlePageChange(page: number): void {
+    const handlePageChange = (page: number): void => {
         (onPageChange) && (onPageChange(page));
-    }
+    };
 
     return (
         <StackContainer spacing={4}>
@@ -76,5 +82,3 @@ export function BookTable({ data, pagination, onUpdate, onRemove, onDetail, onPa
         </StackContainer>
     );
 }
-
-export default BookTable;

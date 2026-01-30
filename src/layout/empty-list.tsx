@@ -28,5 +28,3 @@ export function EmptyList({ }: EmptyListProps) {
         </BoxContainer>
     );
 }
-
-export default EmptyList;

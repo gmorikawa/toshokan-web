@@ -4,9 +4,9 @@ import type { Nullable } from "@shared/object/types/nullable";
 
 import type { FetchState } from "@layout/loader";
 
-import type { DocumentFile } from "@features/document/types/document-file";
-
 import { useAlert } from "@components/feedback/alert/controller";
+
+import type { DocumentFile } from "@features/document/types/document-file";
 
 export interface DocumentReaderController {
     documentFile: Nullable<DocumentFile>;

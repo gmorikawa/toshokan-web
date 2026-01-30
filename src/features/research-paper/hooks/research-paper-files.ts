@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 
-import useAlert from "@components/feedback/alert/controller";
+import type { Nullable } from "@shared/object/types/nullable";
+
+import { useAlert } from "@components/feedback/alert/controller";
+
 import type { DocumentFile } from "@features/document/types/document-file";
 import type { ResearchPaper } from "@features/research-paper/types/research-paper";
 import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
-import type { Nullable } from "@shared/object/types/nullable";
 
 export interface ResearchPaperFilesController {
     data: DocumentFile[];
@@ -82,5 +84,3 @@ export function useResearchPaperFiles(researchPaper: Nullable<ResearchPaper>): R
         handleRemove
     };
 }
-
-export default useResearchPaperFiles;

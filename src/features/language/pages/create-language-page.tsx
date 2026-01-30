@@ -1,31 +1,24 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { NewLanguage } from "@features/language/types/language";
-import { newLanguageValidator } from "@features/language/utils/validators";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { LanguageForm } from "@features/language/components/language-form";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { useLanguageService } from "@features/language/hooks/language-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { BoxContainer } from "@components/container/box-container";
 import { ActionButton } from "@components/button/action-button";
 
-import { BackIcon } from "@shared/icons";
+import type { NewLanguage } from "@features/language/types/language";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useLanguageService } from "@features/language/hooks/language-service";
+import { newLanguageValidator } from "@features/language/utils/validators";
+import { LanguageForm } from "@features/language/components/language-form";
 
-export function CreateLanguagePage() {
+export function CreateLanguageFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
-
-    function handleSubmit() {
-        form.submit();
-    }
     const alert = useAlert();
     const navigate = useNavigator();
-
     const service = useLanguageService();
 
     const form = useForm<NewLanguage>({
@@ -44,9 +37,13 @@ export function CreateLanguagePage() {
         }
     });
 
-    function handleBack(): void {
+    const handleSubmit = (): void => {
+        form.submit();
+    };
+
+    const handleBack = (): void => {
         navigate.to("/app/language/list");
-    }
+    };
 
     return (
         <ApplicationPage>
@@ -54,16 +51,23 @@ export function CreateLanguagePage() {
                 title="Language"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>Back</ActionButton>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
+                            Back
+                        </ActionButton>
                     </BoxContainer>
                 }
             />
 
             <ApplicationContent authorization={authorization}>
-                <LanguageForm form={form} onSubmit={handleSubmit} />
+                <LanguageForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default CreateLanguagePage;

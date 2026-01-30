@@ -2,7 +2,10 @@ import { Environment } from "@config/environment";
 
 import type { Session } from "@features/auth/types/session";
 
-export async function login(username: string, password: string): Promise<Session> {
+export async function login(
+    username: string,
+    password: string
+): Promise<Session> {
     const response = await fetch(Environment.API_URL.concat("/auth/login"), {
         method: "POST",
         headers: {

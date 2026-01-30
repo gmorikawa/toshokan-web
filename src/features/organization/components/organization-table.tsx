@@ -1,35 +1,41 @@
-import type { Organization } from "@features/organization/types/organization";
 import type { Pagination } from "@shared/search/types/pagination";
+import { UpdateButton } from "@shared/application/components/update-button";
+import { DeleteButton } from "@shared/application/components/delete-button";
 
-import { UpdateButton } from "@layout/button/update";
-import { DeleteButton } from "@layout/button/delete";
-
-import DataTable from "@components/table/data-table";
-import FlexContainer from "@components/container/flex-container";
-import PaginationControl from "@components/pagination/pagination-control";
+import { DataTable } from "@components/table/data-table";
+import { FlexContainer } from "@components/container/flex-container";
+import { PaginationControl } from "@components/pagination/pagination-control";
 import { StackContainer } from "@components/container/stack-container";
+
+import type { Organization } from "@features/organization/types/organization";
 
 export interface OrganizationTableProps {
     data: Organization[];
     pagination: Pagination;
 
-    onUpdate?(entity: Organization): void;
-    onRemove?(entity: Organization): void;
-    onPageChange?(page: number): void;
+    onUpdate?: (entity: Organization) => void;
+    onRemove?: (entity: Organization) => void;
+    onPageChange?: (page: number) => void;
 }
 
-export function OrganizationTable({ data, pagination, onUpdate, onRemove, onPageChange }: OrganizationTableProps) {
-    function handleUpdate(entity: Organization): void {
+export function OrganizationTable({
+    data,
+    pagination,
+    onUpdate,
+    onRemove,
+    onPageChange
+}: OrganizationTableProps) {
+    const handleUpdate = (entity: Organization): void => {
         (onUpdate) && (onUpdate(entity));
-    }
-    
-    function handleRemove(entity: Organization): void {
-        (onRemove) && (onRemove(entity));
-    }
+    };
 
-    function handlePageChange(page: number): void {
+    const handleRemove = (entity: Organization): void => {
+        (onRemove) && (onRemove(entity));
+    };
+
+    const handlePageChange = (page: number): void => {
         (onPageChange) && (onPageChange(page));
-    }
+    };
 
     return (
         <StackContainer spacing={4}>
@@ -61,5 +67,3 @@ export function OrganizationTable({ data, pagination, onUpdate, onRemove, onPage
         </StackContainer>
     );
 }
-
-export default OrganizationTable;

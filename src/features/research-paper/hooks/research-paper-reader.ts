@@ -9,7 +9,10 @@ import { useDocumentReader } from "@features/document/hooks/document-reader";
 
 export interface ResearchPaperReaderController extends DocumentReaderController { }
 
-export function useResearchPaperReader(researchPaper: ResearchPaper | ID, documentFile: DocumentFile | ID): ResearchPaperReaderController {
+export function useResearchPaperReader(
+    researchPaper: ResearchPaper | ID,
+    documentFile: DocumentFile | ID
+): ResearchPaperReaderController {
     const service = useResearchPaperService();
 
     return useDocumentReader(

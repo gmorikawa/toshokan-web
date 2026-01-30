@@ -1,4 +1,4 @@
-import Environment from "@config/environment";
+import { Environment } from "@config/environment";
 import type { NewUser } from "@features/user/types/user";
 
 export async function configureAdminUser(user: NewUser): Promise<boolean> {

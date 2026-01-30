@@ -3,16 +3,15 @@ import { useCallback } from "react";
 import { useParams } from "@shared/router/hooks/params";
 import { useNavigator } from "@shared/router/hooks/navigator";
 import { BackIcon } from "@shared/icons";
-
-import { ApplicationContent } from "@layout/content";
-import { ApplicationHeader } from "@layout/header";
-import { ApplicationPage } from "@layout/page";
-
-import { useResearchPaperReader } from "@features/research-paper/hooks/research-paper-reader";
-import { DocumentReader } from "@features/document/components/document-reader";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationPage } from "@shared/application/components/application-page";
 
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
+
+import { useResearchPaperReader } from "@features/research-paper/hooks/research-paper-reader";
+import { DocumentReader } from "@features/document/components/document-reader";
 
 type ParamsWithId = {
     researchPaperId: string;
@@ -56,5 +55,3 @@ export function ReadResearchPaperPage() {
         </ApplicationPage>
     );
 }
-
-export default ReadResearchPaperPage;

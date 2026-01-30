@@ -2,23 +2,21 @@ import { useEffect } from "react";
 
 import { useNavigator } from "@shared/router/hooks/navigator";
 import { useParams } from "@shared/router/hooks/params";
-
-import type { User } from "@features/user/types/user";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { userValidator } from "@features/user/utils/validators";
-import { UpdateUserForm } from "@features/user/components/update-user-form";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { useUserService } from "@features/user/hooks/user-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
 
-import { BackIcon } from "@shared/icons";
+import type { User } from "@features/user/types/user";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useUserService } from "@features/user/hooks/user-service";
+import { userValidator } from "@features/user/utils/validators";
+import { UpdateUserForm } from "@features/user/components/update-user-form";
 
 type ParamsWithId = {
     id?: string;
@@ -27,12 +25,10 @@ type ParamsWithId = {
 export function UpdateUserFormPage() {
     const authorization = useAuthorization("ADMIN");
 
+    const { id } = useParams<ParamsWithId>();
     const alert = useAlert();
     const navigate = useNavigator();
-    const { id } = useParams<ParamsWithId>();
-
     const service = useUserService();
-
     const form = useForm<User>({
         default: {
             id: "",
@@ -67,13 +63,13 @@ export function UpdateUserFormPage() {
         }
     }
 
-    function handleSubmit() {
+    const handleSubmit = (): void => {
         form.submit();
-    }
+    };
 
-    function handleBack(): void {
+    const handleBack = (): void => {
         navigate.to("/app/user/list");
-    }
+    };
 
     useEffect(() => {
         loadEntity();
@@ -85,7 +81,11 @@ export function UpdateUserFormPage() {
                 title="User"
                 actionSlot={
                     <BoxContainer>
-                        <ActionButton variant="text" onClick={handleBack} leftIcon={<BackIcon />}>
+                        <ActionButton
+                            variant="text"
+                            onClick={handleBack}
+                            leftIcon={<BackIcon />}
+                        >
                             Back
                         </ActionButton>
                     </BoxContainer>
@@ -93,10 +93,11 @@ export function UpdateUserFormPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <UpdateUserForm form={form} onSubmit={handleSubmit} />
+                <UpdateUserForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default UpdateUserFormPage;

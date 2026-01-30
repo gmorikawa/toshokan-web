@@ -1,32 +1,43 @@
 import { useState } from "react";
 
-import type { Count, Page, Pagination, Size } from "@shared/search/types/pagination";
+import type {
+    PageCount,
+    PageNumber,
+    Pagination,
+    PageSize
+} from "@shared/search/types/pagination";
 
-export interface PaginationController extends Pagination {
-    update(page: Page, size?: Size, count?: Count): void;
+export interface PaginationConfiguration {
+    initialPage?: PageNumber;
+    initialSize?: PageSize;
+    initialCount?: PageCount;
 }
 
-export function usePagination(): PaginationController {
-    const [page, setPage] = useState<Page>(1);
-    const [size, setSize] = useState<Size>(10);
-    const [count, setCount] = useState<Count>(0);
+export interface PaginationController {
+    pagination: Pagination;
 
-    const update = (page: Page, size?: Size, count?: Count): void => {
-        setPage(page);
+    updatePagination(page: PageNumber, size?: PageSize, count?: PageCount): void;
+}
 
-        if (size !== undefined) {
-            setSize(size);
-        }
+export function usePagination(
+    config?: PaginationConfiguration
+): PaginationController {
+    const [pagination, setPagination] = useState<Pagination>({
+        page: config?.initialPage ?? 1,
+        size: config?.initialSize ?? 10,
+        count: config?.initialCount ?? 0
+    });
 
-        if (count !== undefined) {
-            setCount(count);
-        }
+    const updatePagination = (newPage: PageNumber, newSize?: PageSize, newCount?: PageCount): void => {
+        setPagination({
+            page: newPage,
+            size: newSize !== undefined ? newSize : pagination.size,
+            count: newCount !== undefined ? newCount : pagination.count
+        })
     };
 
     return {
-        page,
-        size,
-        count,
-        update,
+        pagination,
+        updatePagination,
     };
 }

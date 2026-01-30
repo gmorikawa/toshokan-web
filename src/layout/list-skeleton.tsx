@@ -8,5 +8,3 @@ export function ListSkeleton() {
         </Stack>
     )
 };
-
-export default ListSkeleton;

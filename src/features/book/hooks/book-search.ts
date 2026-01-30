@@ -1,110 +1,37 @@
-import { useEffect, useState } from "react";
+import type { PageCount } from "@shared/search/types/pagination";
+import type { PaginationConfiguration } from "@shared/search/hooks/pagination";
+import { useSearch, type SearchController } from "@shared/search/hooks/search";
 
-import { useDebounce, type DebounceDelayMilliseconds } from "@shared/debounce";
-import { useLoader, type LoaderController } from "@shared/loader";
-import { usePagination, type PaginationController } from "@shared/search/hooks/pagination";
-import type { Count, Pagination } from "@shared/search/types/pagination";
+import { useAlert } from "@components/feedback/alert/controller";
 
 import type { Book } from "@features/book/types/book";
 import { useBookService } from "@features/book/hooks/book-service";
 
-import useAlert from "@components/feedback/alert/controller";
+export interface BookSearchConfiguration extends PaginationConfiguration { }
 
-type Query = string;
-type Boolean = boolean;
+export interface BookSearchController extends SearchController<Book> { }
 
-export interface BookSearchController {
-    query: string;
-    data: Book[];
-
-    pagination: PaginationController;
-    loader: LoaderController<Book[]>;
-
-    changePage(page: number): void;
-    search(title: string): void;
-    refresh(): void;
-    reset(): void;
-}
-
-export interface BookSearchConfiguration {
-    debounceTime?: DebounceDelayMilliseconds;
-    defaultTitle?: Query;
-
-    errorAlert?: Boolean;
-}
-
-export function useBookSearch(configuration?: BookSearchConfiguration): BookSearchController {
-    const debounceTime = configuration?.debounceTime ?? 500;
-    const defaultTitle = configuration?.defaultTitle ?? "";
-    const errorAlert = configuration?.errorAlert ?? false;
-
-    const service = useBookService();
-    const [title, setTitle] = useState<Query>(defaultTitle);
-
-    const loader = useLoader<Book[]>({
-        loadFunction: async (title: Query, pagination: Pagination) => {
-            return service.getAll({ title, pagination });
-        },
-        onError: (error: Error) => {
-            if (errorAlert) {
-                alert.showErrorMessage(error);
-            }
-        },
-        preventAutoload: true,
-    });
-
-    const loadCount = () => {
-        service.countAll()
-            .then((count: Count) => {
-                pagination.update(pagination.page, pagination.size, count);
-            })
-            .catch((error: Error) => {
-                if (errorAlert) {
-                    alert.showErrorMessage(error);
-                }
-            });
-    };
-
+export function useBookSearch(
+    config?: BookSearchConfiguration
+): BookSearchController {
     const alert = useAlert();
-    const pagination = usePagination();
+    const service = useBookService();
 
-    const search = async (title?: string) => {
-        setTitle(title || "");
-    };
-
-    const changePage = (page: number) => {
-        pagination.update(page);
-    };
-
-    const refresh = () => {
-        loader.load(title, pagination);
-    };
-
-    const reset = () => {
-        search(undefined);
-    };
-
-    useDebounce({
-        action: () => {
-            loader.load(title, pagination);
+    return useSearch<Book>({
+        ...config,
+        fetchCount: async (): Promise<PageCount> => {
+            return service.countAll()
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                    return 0;
+                });
         },
-        dependencies: [title, pagination.page, pagination.size],
-        delay: debounceTime
+        fetchData: async (pagination): Promise<Book[]> => {
+            return service.getAll({ pagination })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                    return [];
+                });
+        },
     });
-
-    useEffect(() => {
-        loadCount();
-    }, []);
-    return {
-        query: title,
-        loader,
-        data: loader.data || [],
-        pagination,
-        changePage,
-        search,
-        refresh,
-        reset
-    };
 }
-
-export default useBookSearch;

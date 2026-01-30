@@ -1,4 +1,6 @@
+import type { ID } from "@shared/entity/types/id";
 import type { QueryOptions } from "@shared/search/types/query";
+
 import { useSession } from "@features/auth/hooks/session";
 import type { Organization, NewOrganization } from "@features/organization/types/organization";
 import { countAllOrganizations,
@@ -12,7 +14,7 @@ import { countAllOrganizations,
 export interface OrganizationService {
     getAll(query?: QueryOptions): Promise<Organization[]>;
     countAll(): Promise<number>;
-    getById(id: string): Promise<Organization>;
+    getById(id: ID): Promise<Organization>;
     create(organization: NewOrganization): Promise<Organization>;
     update(organization: Organization): Promise<Organization>;
     delete(organization: Organization): Promise<boolean>;
@@ -27,7 +29,7 @@ export function useOrganizationService(): OrganizationService {
 
     return {
         getAll: async (query?: QueryOptions) => getAllOrganizations(session, query),
-        getById: async (id: string) => getOrganizationById(session, id),
+        getById: async (id: ID) => getOrganizationById(session, id),
         countAll: async () => countAllOrganizations(session),
         create: async (organization: NewOrganization) => createOrganization(session, organization),
         update: async (organization: Organization) => updateOrganization(session, organization.id, organization),

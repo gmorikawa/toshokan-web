@@ -1,33 +1,26 @@
 import { useNavigator } from "@shared/router/hooks/navigator";
-
-import type { NewTopic } from "@features/topic/types/topic";
-import { useAuthorization } from "@features/auth/hooks/authorization";
-import { newTopicValidator } from "@features/topic/utils/validators";
-import { TopicForm } from "@features/topic/components/topic-form";
+import { ApplicationPage } from "@shared/application/components/application-page";
+import { ApplicationHeader } from "@shared/application/components/application-header";
+import { ApplicationContent } from "@shared/application/components/application-content";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
-import { useTopicService } from "@features/topic/hooks/topic-service";
-
-import { ApplicationPage } from "@/layout/page";
-import { ApplicationHeader } from "@/layout/header";
-import { ApplicationContent } from "@/layout/content";
 import { BoxContainer } from "@components/container/box-container";
 import { ActionButton } from "@components/button/action-button";
 
-import { BackIcon } from "@shared/icons";
+import type { NewTopic } from "@features/topic/types/topic";
+import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useTopicService } from "@features/topic/hooks/topic-service";
+import { newTopicValidator } from "@features/topic/utils/validators";
+import { TopicForm } from "@features/topic/components/topic-form";
 
-export function CreateTopicPage() {
+export function CreateTopicFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
-    function handleSubmit() {
-        form.submit();
-    }
     const alert = useAlert();
     const navigate = useNavigator();
-
     const service = useTopicService();
-
     const form = useForm<NewTopic>({
         default: {
             name: ""
@@ -44,9 +37,13 @@ export function CreateTopicPage() {
         }
     });
 
-    function handleBack(): void {
+    const handleSubmit = (): void => {
+        form.submit();
+    };
+
+    const handleBack = (): void => {
         navigate.to("/app/topic/list");
-    }
+    };
 
     return (
         <ApplicationPage>
@@ -66,10 +63,11 @@ export function CreateTopicPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <TopicForm form={form} onSubmit={handleSubmit} />
+                <TopicForm
+                    form={form}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );
 }
-
-export default CreateTopicPage;
