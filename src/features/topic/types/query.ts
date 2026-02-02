@@ -1,5 +1,7 @@
 import type { QueryOptions } from "@shared/search/types/query";
 
-export interface TopicQueryOptions extends QueryOptions {
-    name?: string;
+export interface TopicFilter {
+    name: string;
 }
+
+export interface TopicQueryOptions extends QueryOptions<TopicFilter> { }

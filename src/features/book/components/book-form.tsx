@@ -33,8 +33,30 @@ export function BookForm({
     form,
     onSubmit
 }: BookFormProps) {
-    const authors = useAuthorSearch();
-    const topics = useTopicSearch();
+    const authors = useAuthorSearch({
+        pagination: {
+            initialLimit: 3
+        },
+        filter: {
+            initialFilters: {
+                fullname: [
+                    { operator: "contains", value: null }
+                ]
+            }
+        }
+    });
+    const topics = useTopicSearch({
+        pagination: {
+            initialLimit: 3
+        },
+        filter: {
+            initialFilters: {
+                name: [
+                    { operator: "contains", value: null }
+                ]
+            }
+        }
+    });
     const languages = useLanguageSearch();
     const categories = useCategorySearch();
     const publishers = usePublisherSearch();
@@ -135,7 +157,11 @@ export function BookForm({
                             form.onChange("authors", value);
                         }}
                         onInput={(value: string) => {
-                            authors.changeFilter<string>("fullname", value);
+                            authors.changeFilter(
+                                "fullname",
+                                "contains",
+                                value !== "" ? value : null
+                            );
                         }}
                         onCreate={() => {
                             // authors.create();
@@ -157,7 +183,11 @@ export function BookForm({
                             form.onChange("topics", value);
                         }}
                         onInput={(value: string) => {
-                            topics.changeFilter<string>("name", value);
+                            topics.changeFilter(
+                                "name",
+                                "contains",
+                                value !== "" ? value : null
+                            );
                         }}
                         onCreate={() => {
                             // topics.create();

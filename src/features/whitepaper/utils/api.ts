@@ -1,6 +1,9 @@
 import { Environment } from "@/config/environment";
 
 import type { ID } from "@shared/entity/types/id";
+import { URLBuilder } from "@shared/http/utils/url-builder";
+import { appendFiltersToURL } from "@shared/search/utils/filter";
+import { appendPaginationToURL } from "@shared/search/utils/pagination";
 
 import type { Session } from "@features/auth/types/session";
 import type { NewWhitepaper, Whitepaper } from "@features/whitepaper/types/whitepaper";
@@ -8,11 +11,9 @@ import type { DocumentFile, NewDocumentFile } from "@features/document/types/doc
 import type { WhitepaperQueryOptions } from "@features/whitepaper/types/query";
 
 export async function getAllWhitepapers(session: Session, query?: WhitepaperQueryOptions): Promise<Whitepaper[]> {
-    const url = new URL(`${Environment.API_URL}/whitepapers`);
-
-    query?.pagination?.page && url.searchParams.append("page", query.pagination.page.toString());
-    query?.pagination?.size && url.searchParams.append("size", query.pagination.size.toString());
-    query?.title && url.searchParams.append("query", query.title);
+    const url = new URLBuilder(Environment.API_URL).appendPath("whitepapers");
+    appendPaginationToURL(url, query?.pagination);
+    appendFiltersToURL(url, query?.filters);
 
     const response = await fetch(url.toString(), {
         headers: {

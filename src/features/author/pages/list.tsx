@@ -18,11 +18,11 @@ import { AuthorTable } from "@features/author/components/author-table";
 
 export function AuthorListPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
-
-    const authors = useAuthorSearch();
     const alert = useAlert();
     const navigate = useNavigator();
+
     const service = useAuthorService();
+    const authors = useAuthorSearch();
 
     const handleCreate = (): void => {
         navigate.to("/app/author/form");

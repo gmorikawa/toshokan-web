@@ -1,15 +1,17 @@
 import { Environment } from "@/config/environment";
 
 import type { QueryOptions } from "@shared/search/types/query";
+import { URLBuilder } from "@shared/http/utils/url-builder";
+import { appendFiltersToURL } from "@shared/search/utils/filter";
+import { appendPaginationToURL } from "@shared/search/utils/pagination";
 
 import type { Session } from "@features/auth/types/session";
 import type { Organization } from "@features/organization/types/organization";
 
 export async function getAllOrganizations(session: Session, query?: QueryOptions): Promise<Organization[]> {
-    const url = new URL(`${Environment.API_URL}/organizations`);
-
-    query?.pagination?.page && url.searchParams.append("page", query.pagination.page.toString());
-    query?.pagination?.size && url.searchParams.append("size", query.pagination.size.toString());
+    const url = new URLBuilder(Environment.API_URL).appendPath("organizations");
+    appendPaginationToURL(url, query?.pagination);
+    appendFiltersToURL(url, query?.filters);
 
     const response = await fetch(url.toString(), {
         headers: {

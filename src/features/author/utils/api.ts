@@ -1,15 +1,17 @@
 import { Environment } from "@/config/environment";
 
+import { URLBuilder } from "@shared/http/utils/url-builder";
+import { appendFiltersToURL } from "@shared/search/utils/filter";
+import { appendPaginationToURL } from "@shared/search/utils/pagination";
+
 import type { Session } from "@features/auth/types/session";
 import type { Author } from "@features/author/types/author";
-import type { AuthorQueryOptions } from "@features/author/types/query";
+import type { AuthorFilter, AuthorQueryOptions } from "@features/author/types/query";
 
 export async function getAllAuthors(session: Session, query?: AuthorQueryOptions): Promise<Author[]> {
-    const url = new URL(`${Environment.API_URL}/authors`);
-
-    query?.pagination?.page && url.searchParams.append("page", query.pagination.page.toString());
-    query?.pagination?.size && url.searchParams.append("size", query.pagination.size.toString());
-    query?.fullname && url.searchParams.append("query", query.fullname);
+    const url = new URLBuilder(Environment.API_URL).appendPath("authors");
+    appendPaginationToURL(url, query?.pagination);
+    appendFiltersToURL<AuthorFilter>(url, query?.filters);
 
     const response = await fetch(url.toString(), {
         headers: {

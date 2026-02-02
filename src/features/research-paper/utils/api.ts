@@ -1,6 +1,9 @@
 import { Environment } from "@/config/environment";
 
 import type { ID } from "@shared/entity/types/id";
+import { URLBuilder } from "@shared/http/utils/url-builder";
+import { appendFiltersToURL } from "@shared/search/utils/filter";
+import { appendPaginationToURL } from "@shared/search/utils/pagination";
 
 import type { Session } from "@features/auth/types/session";
 import type { NewResearchPaper, ResearchPaper } from "@features/research-paper/types/research-paper";
@@ -8,11 +11,9 @@ import type { ResearchPaperQueryOptions } from "@features/research-paper/types/q
 import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
 
 export async function getAllResearchPapers(session: Session, query?: ResearchPaperQueryOptions): Promise<ResearchPaper[]> {
-    const url = new URL(`${Environment.API_URL}/research-papers`);
-
-    query?.pagination?.page && url.searchParams.append("page", query.pagination.page.toString());
-    query?.pagination?.size && url.searchParams.append("size", query.pagination.size.toString());
-    query?.title && url.searchParams.append("query", query.title);
+    const url = new URLBuilder(Environment.API_URL).appendPath("research-papers");
+    appendPaginationToURL(url, query?.pagination);
+    appendFiltersToURL(url, query?.filters);
 
     const response = await fetch(url.toString(), {
         headers: {

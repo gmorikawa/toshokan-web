@@ -4,19 +4,19 @@ import type {
     PageCount,
     PageNumber,
     Pagination,
-    PageSize
+    PageLimit
 } from "@shared/search/types/pagination";
 
 export interface PaginationConfiguration {
     initialPage?: PageNumber;
-    initialSize?: PageSize;
+    initialLimit?: PageLimit;
     initialCount?: PageCount;
 }
 
 export interface PaginationController {
     pagination: Pagination;
 
-    updatePagination(page: PageNumber, size?: PageSize, count?: PageCount): void;
+    updatePagination(page: PageNumber, limit?: PageLimit, count?: PageCount): void;
 }
 
 export function usePagination(
@@ -24,14 +24,14 @@ export function usePagination(
 ): PaginationController {
     const [pagination, setPagination] = useState<Pagination>({
         page: config?.initialPage ?? 1,
-        size: config?.initialSize ?? 10,
+        limit: config?.initialLimit ?? 10,
         count: config?.initialCount ?? 0
     });
 
-    const updatePagination = (newPage: PageNumber, newSize?: PageSize, newCount?: PageCount): void => {
+    const updatePagination = (newPage: PageNumber, newLimit?: PageLimit, newCount?: PageCount): void => {
         setPagination({
             page: newPage,
-            size: newSize !== undefined ? newSize : pagination.size,
+            limit: newLimit !== undefined ? newLimit : pagination.limit,
             count: newCount !== undefined ? newCount : pagination.count
         })
     };

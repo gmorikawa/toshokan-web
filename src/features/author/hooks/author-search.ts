@@ -1,21 +1,17 @@
 import type { PageCount } from "@shared/search/types/pagination";
-import type { PaginationConfiguration } from "@shared/search/hooks/pagination";
-import { useSearch, type SearchController } from "@shared/search/hooks/search";
+import type { SearchConfiguration, SearchController } from "@shared/search/hooks/search";
+import { useSearch } from "@shared/search/hooks/search";
 
 import { useAlert } from "@components/feedback/alert/controller";
 
 import type { Author } from "@features/author/types/author";
+import type { AuthorFilter } from "@features/author/types/query";
 import { useAuthorService } from "@features/author/hooks/author-service";
 
-type Milliseconds = number;
-type Name = string;
+export interface AuthorSearchConfiguration
+    extends Omit<SearchConfiguration<Author, AuthorFilter>, "fetchData" | "fetchCount"> { }
 
-export interface AuthorSearchConfiguration extends PaginationConfiguration {
-    debounceTime?: Milliseconds;
-    defaultFullname?: Name;
-}
-
-export interface AuthorSearchController extends SearchController<Author> { }
+export interface AuthorSearchController extends SearchController<Author, AuthorFilter> { }
 
 export function useAuthorSearch(
     configuration?: AuthorSearchConfiguration
@@ -24,7 +20,8 @@ export function useAuthorSearch(
     const service = useAuthorService();
 
     return useSearch<Author>({
-        ...configuration,
+        filter: configuration?.filter,
+        pagination: configuration?.pagination,
         fetchCount: async (): Promise<PageCount> => {
             return service.countAll()
                 .catch((error: Error) => {
@@ -32,8 +29,8 @@ export function useAuthorSearch(
                     return 0;
                 });
         },
-        fetchData: async (pagination): Promise<Author[]> => {
-            return service.getAll({ pagination })
+        fetchData: async (pagination, filters): Promise<Author[]> => {
+            return service.getAll({ pagination, filters })
                 .catch((error: Error) => {
                     alert.showErrorMessage(error);
                     return [];

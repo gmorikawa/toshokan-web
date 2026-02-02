@@ -50,7 +50,7 @@ export function ResearchPaperTable({
         <StackContainer spacing={4}>
             <PaginationControl
                 count={pagination.count}
-                pageSize={pagination.size}
+                pageSize={pagination.limit}
                 page={pagination.page}
                 onPageChange={handlePageChange}
             />

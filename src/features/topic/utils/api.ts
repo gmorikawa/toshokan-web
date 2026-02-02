@@ -1,15 +1,17 @@
 import { Environment } from "@/config/environment";
 
+import { URLBuilder } from "@shared/http/utils/url-builder";
+import { appendFiltersToURL } from "@shared/search/utils/filter";
+import { appendPaginationToURL } from "@shared/search/utils/pagination";
+
 import type { Session } from "@features/auth/types/session";
 import type { Topic } from "@features/topic/types/topic";
-import type { TopicQueryOptions } from "@features/topic/types/query";
+import type { TopicFilter, TopicQueryOptions } from "@features/topic/types/query";
 
 export async function getAllTopics(session: Session, query?: TopicQueryOptions): Promise<Topic[]> {
-    const url = new URL(`${Environment.API_URL}/topics`);
-
-    query?.pagination?.page && url.searchParams.append("page", query.pagination.page.toString());
-    query?.pagination?.size && url.searchParams.append("size", query.pagination.size.toString());
-    query?.name && url.searchParams.append("query", query.name);
+    const url = new URLBuilder(Environment.API_URL).appendPath("topics");
+    appendPaginationToURL(url, query?.pagination);
+    appendFiltersToURL<TopicFilter>(url, query?.filters);
 
     const response = await fetch(url.toString(), {
         headers: {

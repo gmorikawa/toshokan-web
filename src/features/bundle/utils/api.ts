@@ -1,15 +1,17 @@
 import { Environment } from "@/config/environment";
 
 import type { QueryOptions } from "@shared/search/types/query";
+import { URLBuilder } from "@shared/http/utils/url-builder";
+import { appendFiltersToURL } from "@shared/search/utils/filter";
+import { appendPaginationToURL } from "@shared/search/utils/pagination";
 
 import type { Session } from "@features/auth/types/session";
 import type { Bundle } from "@features/bundle/types/bundle";
 
 export async function getAllBundles(session: Session, query?: QueryOptions): Promise<Bundle[]> {
-    const url = new URL(`${Environment.API_URL}/bundles`);
-
-    query?.pagination?.page && url.searchParams.append("page", query.pagination.page.toString());
-    query?.pagination?.size && url.searchParams.append("size", query.pagination.size.toString());
+    const url = new URLBuilder(Environment.API_URL).appendPath("bundles");
+    appendPaginationToURL(url, query?.pagination);
+    appendFiltersToURL(url, query?.filters);
 
     const response = await fetch(url.toString(), {
         headers: {

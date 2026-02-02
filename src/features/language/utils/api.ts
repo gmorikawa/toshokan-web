@@ -1,15 +1,17 @@
 import { Environment } from "@/config/environment";
 
 import type { QueryOptions } from "@shared/search/types/query";
+import { URLBuilder } from "@shared/http/utils/url-builder";
+import { appendFiltersToURL } from "@shared/search/utils/filter";
+import { appendPaginationToURL } from "@shared/search/utils/pagination";
 
 import type { Session } from "@features/auth/types/session";
 import type { Language } from "@features/language/types/language";
 
 export async function getAllLanguages(session: Session, query?: QueryOptions): Promise<Language[]> {
-    const url = new URL(`${Environment.API_URL}/languages`);
-
-    query?.pagination?.page && url.searchParams.append("page", query.pagination.page.toString());
-    query?.pagination?.size && url.searchParams.append("size", query.pagination.size.toString());
+    const url = new URLBuilder(Environment.API_URL).appendPath("languages");
+    appendPaginationToURL(url, query?.pagination);
+    appendFiltersToURL(url, query?.filters);
 
     const response = await fetch(url.toString(), {
         headers: {
