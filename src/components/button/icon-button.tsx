@@ -3,15 +3,24 @@ import type { ThemeProps } from '..';
 
 type TextAlign = "center" | "right" | "left";
 type ButtonVariant = "solid" | "outline" | "text";
+type ButtonSize = "xs" | "sm" | "md" | "lg";
 
 export interface IconButtonProps extends React.PropsWithChildren, ThemeProps {
     variant?: ButtonVariant;
     align?: TextAlign;
+    size?: ButtonSize;
 
     onClick?(e: React.MouseEvent<HTMLButtonElement>): void;
 }
 
-export function IconButton({ variant, align, onClick, palette, children }: IconButtonProps) {
+export function IconButton({
+    variant,
+    align,
+    size = "md",
+    onClick,
+    palette,
+    children
+}: IconButtonProps) {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         (onClick) && (onClick(e));
     };
@@ -40,6 +49,7 @@ export function IconButton({ variant, align, onClick, palette, children }: IconB
             justifyContent={aligmentMapper(align)}
             onClick={handleClick}
             colorPalette={palette ?? "primary"}
+            size={size}
         >
             {children}
         </ChakraIconButton>
