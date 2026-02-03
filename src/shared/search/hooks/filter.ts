@@ -2,50 +2,44 @@ import { useState } from "react";
 
 import type { Nullable } from "@shared/object/types/nullable";
 import type {
-    FilterCriteria,
-    FilterOperator,
+    // FilterCriteria,
+    FilterMetadata,
+    // FilterOperator,
     Filters
 } from "@shared/search/types/filter";
-import { hasProperty } from "@shared/object/utils/object";
+// import { hasProperty } from "@shared/object/utils/object";
 
-export interface FilterConfiguration<Entity extends Object = any> {
-    initialFilters?: Filters<Entity>;
+export interface FilterConfiguration {
+    initialFilters?: Filters;
 }
 
-export interface FilterController<Entity extends Object = any> {
-    filters: Filters<Entity>;
-    updateFilter: <Key extends keyof Entity>(path: Key, operator: FilterOperator, value: Nullable<Entity[Key]>) => void;
+export interface FilterController {
+    filters: Filters;
+    // updateFilter: <Key extends keyof Entity>(path: Key, operator: FilterOperator, value: Nullable<Entity[Key]>) => void;
+    updateFilter: <Value>(name: string, value: Nullable<Value>) => void;
     resetFilters: () => void;
 }
 
-export function useFilter<Entity extends Object = any>(
-    configuration: FilterConfiguration<Entity>
-): FilterController<Entity> {
-    const [filters, setFilters] = useState<Filters<Entity>>(configuration.initialFilters ?? {});
+export function useFilter(
+    configuration: FilterConfiguration
+): FilterController {
+    const [filters, setFilters] = useState<Filters>(configuration.initialFilters ?? []);
 
-    const updateFilter = <Key extends keyof Entity>(
-        path: Key,
-        operator: FilterOperator,
-        value: Nullable<Entity[Key]>
+    const updateFilter = <Value>(
+        name: string,
+        value: Nullable<Value>
     ): void => {
-        hasProperty(filters, path as string);
-
-        setFilters((previousState: Filters<Entity>) => {
-            return {
-                ...previousState,
-                [path]: previousState[path]!
-                    .map((condition: FilterCriteria<Entity[Key]>) => {
-                        if (condition.operator === operator) {
-                            return { ...condition, value: value };
-                        }
-                        return condition;
-                    })
-            }
+        setFilters((previousState: Filters) => {
+            return previousState.map((metadata: FilterMetadata) => {
+                if (metadata.name === name)
+                    return { value, name };
+                return metadata;
+            });
         });
     };
 
     const resetFilters = (): void => {
-        setFilters(configuration.initialFilters ?? {});
+        setFilters(configuration.initialFilters ?? []);
     };
 
     return {

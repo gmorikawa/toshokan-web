@@ -2,32 +2,33 @@ import { useEffect, useState } from "react";
 
 import type { Nullable } from "@shared/object/types/nullable";
 import type { PageCount, PageNumber, Pagination } from "@shared/search/types/pagination";
-import type { FilterOperator, Filters } from "@shared/search/types/filter";
+import type { Filters } from "@shared/search/types/filter";
 import { usePagination, type PaginationConfiguration } from "@shared/search/hooks/pagination";
 import { useFilter, type FilterConfiguration } from "@shared/search/hooks/filter";
 
-export interface SearchConfiguration<Entity extends Object = any, Filter extends Object = any> {
+export interface SearchConfiguration<Entity extends Object = any> {
     pagination?: PaginationConfiguration;
-    filter?: FilterConfiguration<Filter>;
+    filter?: FilterConfiguration;
 
-    fetchData: (pagination: Pagination, filter: Filters<Filter>) => Promise<Entity[]>;
+    fetchData: (pagination: Pagination, filter: Filters) => Promise<Entity[]>;
     fetchCount: () => Promise<PageCount>;
 }
 
-export interface SearchController<Entity extends Object = any, Filter extends Object = any> {
+export interface SearchController<Entity extends Object = any> {
     data: Entity[];
     pagination: Pagination;
-    filters: Filters<Filter>;
+    filters: Filters;
 
     changePage: (page: PageNumber) => void;
-    changeFilter: <Key extends keyof Filter>(path: Key, operator: FilterOperator, value: Nullable<Filter[Key]>) => void;
+    getFilterValue<Value>(path: string): Nullable<Value>;
+    changeFilter: <Value>(path: string, value: Nullable<Value>) => void;
     resetFilters: () => void;
     refresh: () => void;
 }
 
-export function useSearch<Entity extends Object = any, Filter extends Object = any>(
-    configuration: SearchConfiguration<Entity, Filter>
-): SearchController<Entity, Filter> {
+export function useSearch<Entity extends Object = any>(
+    configuration: SearchConfiguration<Entity>
+): SearchController<Entity> {
     const [data, setData] = useState<Entity[]>([]);
 
     const { pagination, updatePagination } = usePagination({
@@ -36,7 +37,7 @@ export function useSearch<Entity extends Object = any, Filter extends Object = a
         initialCount: configuration?.pagination?.initialCount
     });
 
-    const { filters, updateFilter, resetFilters } = useFilter<Filter>({
+    const { filters, updateFilter, resetFilters } = useFilter({
         initialFilters: configuration?.filter?.initialFilters
     });
 
@@ -47,7 +48,7 @@ export function useSearch<Entity extends Object = any, Filter extends Object = a
             });
     };
 
-    const loadData = async (pagination: Pagination, filters: Filters<Filter>): Promise<void> => {
+    const loadData = async (pagination: Pagination, filters: Filters): Promise<void> => {
         return configuration.fetchData(pagination, filters)
             .then((response: Entity[]) => {
                 setData(response);
@@ -68,8 +69,12 @@ export function useSearch<Entity extends Object = any, Filter extends Object = a
         changePage: (page: PageNumber): void => {
             updatePagination(page);
         },
-        changeFilter: <Key extends keyof Filter>(path: Key, operator: FilterOperator, value: Nullable<Filter[Key]>): void => {
-            updateFilter(path, operator, value);
+        getFilterValue: <Value>(path: string): Nullable<Value> => {
+            const filter = filters.find(f => f.name === path);
+            return filter ? (filter.value as Nullable<Value>) : null;
+        },
+        changeFilter: <Value>(path: string, value: Nullable<Value>): void => {
+            updateFilter(path, value);
         },
         refresh: (): void => {
             loadData(pagination, filters);

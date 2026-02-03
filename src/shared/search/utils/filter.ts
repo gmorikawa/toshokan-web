@@ -1,25 +1,24 @@
 import type { URLBuilder } from "@shared/http/utils/url-builder";
-import type { FilterCriteria, Filters } from "@shared/search/types/filter";
+import type { FilterMetadata, Filters } from "@shared/search/types/filter";
 
-export function appendFiltersToURL<Entity extends Object>(
+export function appendFiltersToURL(
     url: URLBuilder,
-    filters?: Filters<Entity>
+    filters?: Filters
 ): URLBuilder {
     if (!filters) {
         return url;
     }
 
-    Object
-        .entries(filters)
-        .forEach(([key, criterias]) => {
-            (criterias as FilterCriteria[])
-                .filter(({ value }) => value !== undefined && value !== null)
-                .forEach(({ operator, value }) => {
-                    url.appendQuery(
-                        key,
-                        encodeURIComponent(`${operator}-${value.toString()}`)
-                    );
-                });
+    filters
+        .forEach((metadata: FilterMetadata) => {
+            if (metadata.value === null || metadata.value === undefined) {
+                return;
+            }
+
+            url.appendQuery(
+                metadata.name,
+                metadata.value.toString()
+            );
         });
 
     return url;

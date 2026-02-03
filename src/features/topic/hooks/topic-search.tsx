@@ -5,12 +5,11 @@ import { useSearch } from "@shared/search/hooks/search";
 import { useAlert } from "@components/feedback/alert/controller";
 
 import type { Topic } from "@features/topic/types/topic";
-import type { TopicFilter } from "@features/topic/types/query";
 import { useTopicService } from "@features/topic/hooks/topic-service";
 export interface TopicSearchConfiguration
-    extends Omit<SearchConfiguration<Topic, TopicFilter>, "fetchData" | "fetchCount"> { }
+    extends Omit<SearchConfiguration<Topic>, "fetchData" | "fetchCount"> { }
 
-export interface TopicSearchController extends SearchController<Topic, TopicFilter> { }
+export interface TopicSearchController extends SearchController<Topic> { }
 
 export function useTopicSearch(
     configuration?: TopicSearchConfiguration
@@ -18,7 +17,7 @@ export function useTopicSearch(
     const alert = useAlert();
     const service = useTopicService();
 
-    return useSearch<Topic, TopicFilter>({
+    return useSearch<Topic>({
         filter: configuration?.filter,
         pagination: configuration?.pagination,
         fetchCount: async (): Promise<PageCount> => {

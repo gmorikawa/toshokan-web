@@ -54,11 +54,9 @@ export function WhitepaperForm({
             initialLimit: 3
         },
         filter: {
-            initialFilters: {
-                fullname: [
-                    { operator: "contains", value: null }
-                ]
-            }
+            initialFilters: [
+                { name: "contains_fullname", value: null }
+            ]
         }
     });
     const topics = useTopicSearch({
@@ -66,11 +64,9 @@ export function WhitepaperForm({
             initialLimit: 3
         },
         filter: {
-            initialFilters: {
-                name: [
-                    { operator: "contains", value: null }
-                ]
-            }
+            initialFilters: [
+                { name: "contains_name", value: null }
+            ]
         }
     });
 
@@ -190,8 +186,7 @@ export function WhitepaperForm({
                             }}
                             onInput={(value: string) => {
                                 authors.changeFilter(
-                                    "fullname",
-                                    "contains",
+                                    "contains_fullname",
                                     value !== "" ? value : null
                                 );
                             }}
@@ -216,8 +211,7 @@ export function WhitepaperForm({
                             }}
                             onInput={(value: string) => {
                                 topics.changeFilter(
-                                    "name",
-                                    "contains",
+                                    "contains_name",
                                     value !== "" ? value : null
                                 );
                             }}

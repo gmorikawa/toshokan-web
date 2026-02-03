@@ -3,4 +3,4 @@ export interface AuthorFilter {
     fullname: string;
 }
 
-export interface AuthorQueryOptions extends QueryOptions<AuthorFilter> { }
+export interface AuthorQueryOptions extends QueryOptions { }

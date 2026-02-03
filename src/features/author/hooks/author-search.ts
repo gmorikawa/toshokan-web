@@ -5,13 +5,12 @@ import { useSearch } from "@shared/search/hooks/search";
 import { useAlert } from "@components/feedback/alert/controller";
 
 import type { Author } from "@features/author/types/author";
-import type { AuthorFilter } from "@features/author/types/query";
 import { useAuthorService } from "@features/author/hooks/author-service";
 
 export interface AuthorSearchConfiguration
-    extends Omit<SearchConfiguration<Author, AuthorFilter>, "fetchData" | "fetchCount"> { }
+    extends Omit<SearchConfiguration<Author>, "fetchData" | "fetchCount"> { }
 
-export interface AuthorSearchController extends SearchController<Author, AuthorFilter> { }
+export interface AuthorSearchController extends SearchController<Author> { }
 
 export function useAuthorSearch(
     configuration?: AuthorSearchConfiguration

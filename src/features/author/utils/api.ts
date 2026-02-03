@@ -6,12 +6,12 @@ import { appendPaginationToURL } from "@shared/search/utils/pagination";
 
 import type { Session } from "@features/auth/types/session";
 import type { Author } from "@features/author/types/author";
-import type { AuthorFilter, AuthorQueryOptions } from "@features/author/types/query";
+import type { AuthorQueryOptions } from "@features/author/types/query";
 
 export async function getAllAuthors(session: Session, query?: AuthorQueryOptions): Promise<Author[]> {
     const url = new URLBuilder(Environment.API_URL).appendPath("authors");
     appendPaginationToURL(url, query?.pagination);
-    appendFiltersToURL<AuthorFilter>(url, query?.filters);
+    appendFiltersToURL(url, query?.filters);
 
     const response = await fetch(url.toString(), {
         headers: {

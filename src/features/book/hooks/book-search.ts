@@ -5,11 +5,10 @@ import { useSearch } from "@shared/search/hooks/search";
 import { useAlert } from "@components/feedback/alert/controller";
 
 import type { Book } from "@features/book/types/book";
-import type { BookFilter } from "@features/book/types/query";
 import { useBookService } from "@features/book/hooks/book-service";
 
 export interface BookSearchConfiguration
-    extends Omit<SearchConfiguration<Book, BookFilter>, "fetchData" | "fetchCount"> { }
+    extends Omit<SearchConfiguration<Book>, "fetchData" | "fetchCount"> { }
 
 export interface BookSearchController extends SearchController<Book> { }
 

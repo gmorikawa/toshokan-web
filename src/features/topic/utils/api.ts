@@ -6,12 +6,12 @@ import { appendPaginationToURL } from "@shared/search/utils/pagination";
 
 import type { Session } from "@features/auth/types/session";
 import type { Topic } from "@features/topic/types/topic";
-import type { TopicFilter, TopicQueryOptions } from "@features/topic/types/query";
+import type { TopicQueryOptions } from "@features/topic/types/query";
 
 export async function getAllTopics(session: Session, query?: TopicQueryOptions): Promise<Topic[]> {
     const url = new URLBuilder(Environment.API_URL).appendPath("topics");
     appendPaginationToURL(url, query?.pagination);
-    appendFiltersToURL<TopicFilter>(url, query?.filters);
+    appendFiltersToURL(url, query?.filters);
 
     const response = await fetch(url.toString(), {
         headers: {

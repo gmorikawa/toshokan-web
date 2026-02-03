@@ -16,9 +16,16 @@ export interface FilterCriteria<Value = any> {
     value: Nullable<Value>;
 }
 
-export type Filters<Field extends Object> = Partial<{
-    [Key in keyof Field]: FilterCriteria<Field[Key]>[];
-}>;
+export interface FilterMetadata<Value = any> {
+    name: string;
+    value: Nullable<Value>;
+}
+
+export type Filters = FilterMetadata[];
+
+// export type Filters<Field extends Object> = Partial<{
+//     [Key in keyof Field]: FilterCriteria<Field[Key]>[];
+// }>;
 
 // export type Filters<Field extends Object> =
 //     Partial<{

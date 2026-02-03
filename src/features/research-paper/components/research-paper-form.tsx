@@ -51,11 +51,9 @@ export function ResearchPaperForm({
             initialLimit: 3
         },
         filter: {
-            initialFilters: {
-                fullname: [
-                    { operator: "contains", value: null }
-                ]
-            }
+            initialFilters: [
+                { name: "contains_fullname", value: null }
+            ]
         }
     });
     const topics = useTopicSearch({
@@ -63,11 +61,9 @@ export function ResearchPaperForm({
             initialLimit: 3
         },
         filter: {
-            initialFilters: {
-                name: [
-                    { operator: "contains", value: null }
-                ]
-            }
+            initialFilters: [
+                { name: "contains_name", value: null }
+            ]
         }
     });
     const languages = useLanguageSearch();
@@ -189,8 +185,7 @@ export function ResearchPaperForm({
                             }}
                             onInput={(value: string) => {
                                 authors.changeFilter(
-                                    "fullname",
-                                    "contains",
+                                    "contains_fullname",
                                     value !== "" ? value : null
                                 );
                             }}
@@ -215,8 +210,7 @@ export function ResearchPaperForm({
                             }}
                             onInput={(value: string) => {
                                 topics.changeFilter(
-                                    "name",
-                                    "contains",
+                                    "contains_name",
                                     value !== "" ? value : null
                                 );
                             }}

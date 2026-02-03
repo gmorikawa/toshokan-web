@@ -28,11 +28,9 @@ export function BookListPage() {
             initialLimit: 10,
         },
         filter: {
-            initialFilters: {
-                title: [
-                    { operator: "contains", value: null }
-                ]
-            }
+            initialFilters: [
+                { name: "contains_title", value: null }
+            ]
         }
     });
 
@@ -87,12 +85,12 @@ export function BookListPage() {
 
             <ApplicationContent>
                 <DocumentSearchField
-                    query={books.filters["title"]?.[0].value || ""}
+                    query={books.getFilterValue<string>("contains_title") || ""}
                     onSearch={(newValue) => {
                         if (newValue === undefined || newValue === null || newValue === "") {
-                            books.changeFilter("title", "contains", null);
+                            books.changeFilter("contains_title", null);
                         } else {
-                            books.changeFilter("title", "contains", newValue);
+                            books.changeFilter("contains_title", newValue);
                         }
                     }}
                 />

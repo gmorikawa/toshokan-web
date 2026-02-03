@@ -4,4 +4,4 @@ export interface TopicFilter {
     name: string;
 }
 
-export interface TopicQueryOptions extends QueryOptions<TopicFilter> { }
+export interface TopicQueryOptions extends QueryOptions { }
