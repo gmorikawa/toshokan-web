@@ -18,7 +18,7 @@ export function useDocumentFileUpload<Entity extends Document>(
 ): DocumentFileUploadController<Entity> {
     const [files, setFiles] = useState<UploadDocumentFile[]>([]);
 
-    const addUploadFile = (binary: BinaryFile, description?: string): void => {
+    const addUploadFile = (binary: BinaryFile, description: string = ""): void => {
         if (files.find((file) => file.binary.name === binary.name)) return;
 
         setFiles((previousFiles: UploadDocumentFile[]) => [
