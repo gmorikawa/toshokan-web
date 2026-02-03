@@ -6,13 +6,16 @@ import { appendPaginationToURL } from "@shared/search/utils/pagination";
 
 import type { Session } from "@features/auth/types/session";
 import type { Book, NewBook } from "@features/book/types/book";
-import type { BookQueryOptions } from "@features/book/types/query";
+import type { BookFilter, BookQueryOptions } from "@features/book/types/query";
 import type { DocumentFile, NewDocumentFile } from "@features/document/types/document-file";
 
-export async function getAllBooks(session: Session, query?: BookQueryOptions): Promise<Book[]> {
+export async function getAllBooks(
+    session: Session,
+    query?: BookQueryOptions
+): Promise<Book[]> {
     const url = new URLBuilder(Environment.API_URL).appendPath("books");
     appendPaginationToURL(url, query?.pagination);
-    appendFiltersToURL(url, query?.filters);
+    appendFiltersToURL<BookFilter>(url, query?.filters);
 
     const response = await fetch(url.toString(), {
         headers: {

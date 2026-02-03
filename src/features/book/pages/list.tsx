@@ -15,12 +15,26 @@ import { useBookService } from "@features/book/hooks/book-service";
 import { useBookSearch } from "@features/book/hooks/book-search";
 import { RestrictedContent } from "@features/auth/components/restricted-content";
 import { BookTable } from "@features/book/components/book-table";
+import { DocumentSearchField } from "@features/document/components/document-search-field";
 
 export function BookListPage() {
-    const books = useBookSearch();
     const alert = useAlert();
     const navigate = useNavigator();
+
     const service = useBookService();
+    const books = useBookSearch({
+        pagination: {
+            initialPage: 1,
+            initialLimit: 10,
+        },
+        filter: {
+            initialFilters: {
+                title: [
+                    { operator: "contains", value: null }
+                ]
+            }
+        }
+    });
 
     const handleCreate = (): void => {
         navigate.to("/app/book/form");
@@ -72,10 +86,17 @@ export function BookListPage() {
             />
 
             <ApplicationContent>
-                {/* <DocumentSearchField
-                    query={books.query}
-                    onSearch={handleSearch}
-                /> */}
+                <DocumentSearchField
+                    query={books.filters["title"]?.[0].value || ""}
+                    onSearch={(newValue) => {
+                        if (newValue === undefined || newValue === null || newValue === "") {
+                            books.changeFilter("title", "contains", null);
+                        } else {
+                            books.changeFilter("title", "contains", newValue);
+                        }
+                    }}
+                />
+
                 {(books.data.length > 0) && (
                     <BookTable
                         data={books.data}

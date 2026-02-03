@@ -1,24 +1,27 @@
 import type { PageCount } from "@shared/search/types/pagination";
-import type { PaginationConfiguration } from "@shared/search/hooks/pagination";
-import { useSearch, type SearchController } from "@shared/search/hooks/search";
+import type { SearchConfiguration, SearchController } from "@shared/search/hooks/search";
+import { useSearch } from "@shared/search/hooks/search";
 
 import { useAlert } from "@components/feedback/alert/controller";
 
 import type { Book } from "@features/book/types/book";
+import type { BookFilter } from "@features/book/types/query";
 import { useBookService } from "@features/book/hooks/book-service";
 
-export interface BookSearchConfiguration extends PaginationConfiguration { }
+export interface BookSearchConfiguration
+    extends Omit<SearchConfiguration<Book, BookFilter>, "fetchData" | "fetchCount"> { }
 
 export interface BookSearchController extends SearchController<Book> { }
 
 export function useBookSearch(
-    config?: BookSearchConfiguration
+    configuration?: BookSearchConfiguration
 ): BookSearchController {
     const alert = useAlert();
     const service = useBookService();
 
     return useSearch<Book>({
-        ...config,
+        pagination: configuration?.pagination,
+        filter: configuration?.filter,
         fetchCount: async (): Promise<PageCount> => {
             return service.countAll()
                 .catch((error: Error) => {
@@ -26,8 +29,8 @@ export function useBookSearch(
                     return 0;
                 });
         },
-        fetchData: async (pagination): Promise<Book[]> => {
-            return service.getAll({ pagination })
+        fetchData: async (pagination, filters): Promise<Book[]> => {
+            return service.getAll({ pagination, filters })
                 .catch((error: Error) => {
                     alert.showErrorMessage(error);
                     return [];
