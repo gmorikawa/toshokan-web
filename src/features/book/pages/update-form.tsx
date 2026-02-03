@@ -1,51 +1,39 @@
 import { useEffect } from "react";
 
 import { useParams } from "@shared/router/hooks/params";
-import { useQuery } from "@shared/router/hooks/query";
 import { useNavigator } from "@shared/router/hooks/navigator";
 import { ApplicationPage } from "@shared/application/components/application-page";
 import { ApplicationHeader } from "@shared/application/components/application-header";
 import { ApplicationContent } from "@shared/application/components/application-content";
-import { BackIcon, FileUploadIcon, FormIcon } from "@shared/icons";
+import { BackIcon } from "@shared/icons";
 
-import type { TabOption } from "@components/tab/tab-control";
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
-import { TabContent } from "@components/tab/tab-content";
-import { TabControl } from "@components/tab/tab-control";
 
 import type { Book } from "@features/book/types/book";
 import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useBookService } from "@features/book/hooks/book-service";
+import { useBookFileUpload } from "@features/book/hooks/book-file-upload";
+import { useBookFiles } from "@features/book/hooks/book-files";
 import { bookValidator } from "@features/book/utils/validators";
 import { BookForm } from "@features/book/components/book-form";
-import { BookFileUpload } from "@features/book/components/book-file-upload";
 
 type ParamsWithId = {
-    id?: string;
+    id: string;
 }
-
-type QueryWithTab = {
-    tab?: BookFormTab;
-}
-
-type BookFormTab = "details" | "files";
-
-const bookFormTabOptions: TabOption<BookFormTab>[] = [
-    { tab: "details", label: "Details", icon: <FormIcon /> },
-    { tab: "files", label: "File Upload", icon: <FileUploadIcon /> }
-];
 
 export function BookUpdateFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     const { id } = useParams<ParamsWithId>();
-    const { tab } = useQuery<QueryWithTab>();
     const alert = useAlert();
     const navigate = useNavigator();
+
     const service = useBookService();
+    const files = useBookFiles(id);
+    const uploader = useBookFileUpload();
     const form = useForm<Book>({
         default: {
             id: "",
@@ -65,12 +53,16 @@ export function BookUpdateFormPage() {
         validator: bookValidator,
         onSubmit: async (entity: Book) => {
             if (!form.isValid()) return;
-            try {
-                await service.update(entity);
-                navigate.to("/app/book/list");
-            } catch (error) {
-                alert.showErrorMessage(error as Error);
-            }
+            service.update(entity)
+                .then((updatedBook: Book) => {
+                    return uploader.upload(updatedBook);
+                })
+                .then(() => {
+                    navigate.to("/app/book/list");
+                })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                });
         }
     });
 
@@ -116,18 +108,12 @@ export function BookUpdateFormPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <TabControl defaultTab={tab ?? "details"} options={bookFormTabOptions}>
-                    <TabContent tab="details">
-                        <BookForm
-                            form={form}
-                            onSubmit={handleSubmit}
-                        />
-                    </TabContent>
-
-                    <TabContent tab="files">
-                        {(form.entity?.id) && <BookFileUpload book={form.entity} />}
-                    </TabContent>
-                </TabControl>
+                <BookForm
+                    form={form}
+                    files={files}
+                    uploader={uploader}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );

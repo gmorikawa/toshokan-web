@@ -11,4 +11,9 @@ export interface DocumentFile {
     description?: string;
 }
 
-export type NewDocumentFile = Omit<DocumentFile, "id"> & { binary: Nullable<BinaryFile>; };
+export type NewDocumentFile = Omit<DocumentFile, "id" | "file"> & { binary: Nullable<BinaryFile>; };
+
+export interface UploadDocumentFile {
+    binary: BinaryFile;
+    description?: string;
+}

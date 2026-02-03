@@ -12,15 +12,17 @@ import { ActionButton } from "@components/button/action-button";
 import type { NewResearchPaper, ResearchPaper } from "@features/research-paper/types/research-paper";
 import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useResearchPaperService } from "@features/research-paper/hooks/research-paper-service";
+import { useResearchPaperFileUpload } from "@features/research-paper/hooks/research-paper-file-upload";
 import { newResearchPaperValidator } from "@features/research-paper/utils/validators";
 import { ResearchPaperForm } from "@features/research-paper/components/research-paper-form";
 
 export function ResearchPaperCreateFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
-
     const alert = useAlert();
     const navigate = useNavigator();
+
     const service = useResearchPaperService();
+    const uploader = useResearchPaperFileUpload();
     const form = useForm<NewResearchPaper>({
         default: {
             title: "",
@@ -35,17 +37,16 @@ export function ResearchPaperCreateFormPage() {
         validator: newResearchPaperValidator,
         onSubmit: async (entity: NewResearchPaper) => {
             if (!form.isValid()) return;
-            try {
-                service.create(entity)
-                    .then((savedResearchPaper: ResearchPaper) => {
-                        navigate.to(`/app/research-paper/form/${savedResearchPaper.id}?tab=files`);
-                    })
-                    .catch((error: Error) => {
-                        alert.showErrorMessage(error);
-                    });
-            } catch (error) {
-                alert.showErrorMessage(error as Error);
-            }
+            service.create(entity)
+                .then((savedResearchPaper: ResearchPaper) => {
+                    return uploader.upload(savedResearchPaper);
+                })
+                .then(() => {
+                    navigate.to("/app/research-paper/list");
+                })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                });
         }
     });
 
@@ -77,6 +78,7 @@ export function ResearchPaperCreateFormPage() {
             <ApplicationContent authorization={authorization}>
                 <ResearchPaperForm
                     form={form}
+                    uploader={uploader}
                     onSubmit={handleSubmit}
                 />
             </ApplicationContent>

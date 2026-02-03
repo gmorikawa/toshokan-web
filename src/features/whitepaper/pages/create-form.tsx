@@ -12,15 +12,17 @@ import { ActionButton } from "@components/button/action-button";
 import type { NewWhitepaper, Whitepaper } from "@features/whitepaper/types/whitepaper";
 import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
+import { useWhitepaperFileUpload } from "@features/whitepaper/hooks/whitepaper-file-upload";
 import { newWhitepaperValidator } from "@features/whitepaper/utils/validators";
 import { WhitepaperForm } from "@features/whitepaper/components/whitepaper-form";
 
 export function WhitepaperCreateFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
-
     const alert = useAlert();
     const navigate = useNavigator();
+
     const service = useWhitepaperService();
+    const uploader = useWhitepaperFileUpload();
     const form = useForm<NewWhitepaper>({
         default: {
             title: "",
@@ -34,17 +36,17 @@ export function WhitepaperCreateFormPage() {
         validator: newWhitepaperValidator,
         onSubmit: async (entity: NewWhitepaper) => {
             if (!form.isValid()) return;
-            try {
-                service.create(entity)
-                    .then((savedWhitepaper: Whitepaper) => {
-                        navigate.to(`/app/whitepaper/form/${savedWhitepaper.id}?tab=files`);
-                    })
-                    .catch((error: Error) => {
-                        alert.showErrorMessage(error);
-                    });
-            } catch (error) {
-                alert.showErrorMessage(error as Error);
-            }
+
+            service.create(entity)
+                .then((savedWhitepaper: Whitepaper) => {
+                    return uploader.upload(savedWhitepaper);
+                })
+                .then(() => {
+                    navigate.to("/app/whitepaper/list");
+                })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                });
         }
     });
 
@@ -76,6 +78,7 @@ export function WhitepaperCreateFormPage() {
             <ApplicationContent authorization={authorization}>
                 <WhitepaperForm
                     form={form}
+                    uploader={uploader}
                     onSubmit={handleSubmit}
                 />
             </ApplicationContent>

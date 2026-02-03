@@ -22,7 +22,7 @@ type ParamsWithId = {
 export function WhitepaperDetailsPage() {
     const { id } = useParams<ParamsWithId>();
     const whitepaper = useWhitepaper(id);
-    const files = useWhitepaperFiles(whitepaper.entity);
+    const files = useWhitepaperFiles(id);
     const navigate = useNavigator();
 
     const handleBack = useCallback(() => {

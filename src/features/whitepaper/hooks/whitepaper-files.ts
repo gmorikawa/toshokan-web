@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
-
-import type { Nullable } from "@shared/object/types/nullable";
+import type { ID } from "@shared/entity/types/id";
+import { getID } from "@shared/entity/utils/id";
 
 import { useAlert } from "@components/feedback/alert/controller";
 
-import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import type { DocumentFile } from "@features/document/types/document-file";
+import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
+import { useDocumentFiles } from "@features/document/hooks/document-files";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
 
 export interface WhitepaperFilesController {
@@ -17,70 +17,36 @@ export interface WhitepaperFilesController {
     handleRemove: (documentFile: DocumentFile) => void;
 }
 
-export function useWhitepaperFiles(whitepaper: Nullable<Whitepaper>): WhitepaperFilesController {
+export function useWhitepaperFiles(whitepaper: Whitepaper | ID): WhitepaperFilesController {
     const service = useWhitepaperService();
     const alert = useAlert();
 
-    const [data, setData] = useState<DocumentFile[]>([]);
+    return useDocumentFiles<Whitepaper>({
+        document: whitepaper,
+        fetchFiles: async () => {
+            const id = getID(whitepaper);
 
-    const reload = async () => {
-        if (!whitepaper?.id) {
-            setData([]);
-            return;
-        }
+            if (id === undefined || id === null || id === "") {
+                return [];
+            }
 
-        return service.getFiles(whitepaper)
-            .then((response: DocumentFile[]) => {
-                setData(response);
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    };
-
-    const handleDownload = useCallback((documentFile: DocumentFile) => {
-        if (!whitepaper) {
-            return;
-        }
-
-        service.download(whitepaper, documentFile)
-            .then((blob: Blob) => {
-                const blobUrl = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = blobUrl;
-                a.download = documentFile.file?.filename || whitepaper.title;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }, [whitepaper]);
-
-    const handleRemove = useCallback((documentFile: DocumentFile) => {
-        if (!whitepaper) {
-            return;
-        }
-
-        service.removeFile(whitepaper, documentFile)
-            .then(() => {
-                alert.showMessage("File removed successfully.", "success");
-                reload();
-            })
-            .catch((error: Error) => {
-                alert.showErrorMessage(error);
-            });
-    }, [whitepaper]);
-
-    useEffect(() => {
-        reload();
-    }, [whitepaper]);
-
-    return {
-        data,
-        reload,
-        handleDownload,
-        handleRemove
-    };
+            return service.getFiles(whitepaper);
+        },
+        download: async (documentFile: DocumentFile) => {
+            return service.download(whitepaper, documentFile)
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                    return null;
+                });
+        },
+        remove: async (documentFile: DocumentFile) => {
+            return service.removeFile(whitepaper, documentFile)
+                .then(() => {
+                    alert.showMessage("File removed successfully.", "success");
+                })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                });
+        },
+    });
 }

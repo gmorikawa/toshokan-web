@@ -11,15 +11,18 @@ import { BoxContainer } from "@components/container/box-container";
 
 import type { Book, NewBook } from "@features/book/types/book";
 import { useAuthorization } from "@features/auth/hooks/authorization";
+import { useBookService } from "@features/book/hooks/book-service";
+import { useBookFileUpload } from "@features/book/hooks/book-file-upload";
 import { newBookValidator } from "@features/book/utils/validators";
 import { BookForm } from "@features/book/components/book-form";
-import { useBookService } from "@features/book/hooks/book-service";
 
 export function BookCreateFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
     const alert = useAlert();
     const navigate = useNavigator();
+
     const service = useBookService();
+    const uploader = useBookFileUpload();
     const form = useForm<NewBook>({
         default: {
             type: "FICTION",
@@ -37,17 +40,17 @@ export function BookCreateFormPage() {
         validator: newBookValidator,
         onSubmit: async (entity: NewBook) => {
             if (!form.isValid()) return;
-            try {
-                service.create(entity)
-                    .then((savedBook: Book) => {
-                        navigate.to(`/app/book/form/${savedBook.id}?tab=files`);
-                    })
-                    .catch((error: Error) => {
-                        alert.showErrorMessage(error);
-                    });
-            } catch (error) {
-                alert.showErrorMessage(error as Error);
-            }
+
+            service.create(entity)
+                .then((savedBook: Book) => {
+                    return uploader.upload(savedBook);
+                })
+                .then(() => {
+                    navigate.to("/app/book/list");
+                })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                });
         }
     });
 
@@ -79,6 +82,7 @@ export function BookCreateFormPage() {
             <ApplicationContent authorization={authorization}>
                 <BookForm
                     form={form}
+                    uploader={uploader}
                     onSubmit={handleSubmit}
                 />
             </ApplicationContent>

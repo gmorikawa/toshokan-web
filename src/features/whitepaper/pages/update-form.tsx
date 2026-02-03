@@ -1,50 +1,39 @@
 import { useEffect } from "react";
 
 import { useParams } from "@shared/router/hooks/params";
-import { useQuery } from "@shared/router/hooks/query";
 import { useNavigator } from "@shared/router/hooks/navigator";
 import { ApplicationPage } from "@shared/application/components/application-page";
 import { ApplicationHeader } from "@shared/application/components/application-header";
 import { ApplicationContent } from "@shared/application/components/application-content";
-import { BackIcon, FileUploadIcon, FormIcon } from "@shared/icons";
+import { BackIcon } from "@shared/icons";
 
 import { useAlert } from "@components/feedback/alert/controller";
 import { useForm } from "@components/form/use-form";
 import { ActionButton } from "@components/button/action-button";
 import { BoxContainer } from "@components/container/box-container";
-import { TabContent } from "@components/tab/tab-content";
-import { TabControl, type TabOption } from "@components/tab/tab-control";
 
 import type { Whitepaper } from "@features/whitepaper/types/whitepaper";
 import { useAuthorization } from "@features/auth/hooks/authorization";
 import { useWhitepaperService } from "@features/whitepaper/hooks/whitepaper-service";
+import { useWhitepaperFileUpload } from "@features/whitepaper/hooks/whitepaper-file-upload";
+import { useWhitepaperFiles } from "@features/whitepaper/hooks/whitepaper-files";
 import { whitepaperValidator } from "@features/whitepaper/utils/validators";
 import { WhitepaperForm } from "@features/whitepaper/components/whitepaper-form";
-import { WhitepaperFileUpload } from "@features/whitepaper/components/whitepaper-file-upload";
 
 type ParamsWithId = {
-    id?: string;
+    id: string;
 }
-
-type QueryWithTab = {
-    tab?: WhitepaperFormTab;
-}
-
-type WhitepaperFormTab = "details" | "files";
-
-const whitepaperFormTabOptions: TabOption<WhitepaperFormTab>[] = [
-    { tab: "details", label: "Details", icon: <FormIcon /> },
-    { tab: "files", label: "File Upload", icon: <FileUploadIcon /> }
-];
 
 export function WhitepaperUpdateFormPage() {
     const authorization = useAuthorization("ADMIN", "LIBRARIAN");
 
     const { id } = useParams<ParamsWithId>();
-    const { tab } = useQuery<QueryWithTab>();
     const alert = useAlert();
     const navigate = useNavigator();
+
     const service = useWhitepaperService();
+    const files = useWhitepaperFiles(id);
+    const uploader = useWhitepaperFileUpload();
     const form = useForm<Whitepaper>({
         default: {
             id: "",
@@ -60,12 +49,16 @@ export function WhitepaperUpdateFormPage() {
         validator: whitepaperValidator,
         onSubmit: async (entity: Whitepaper) => {
             if (!form.isValid()) return;
-            try {
-                await service.update(entity);
-                navigate.to("/app/whitepaper/list");
-            } catch (error) {
-                alert.showErrorMessage(error as Error);
-            }
+            service.update(entity)
+                .then((updatedWhitepaper: Whitepaper) => {
+                    return uploader.upload(updatedWhitepaper);
+                })
+                .then(() => {
+                    navigate.to("/app/whitepaper/list");
+                })
+                .catch((error: Error) => {
+                    alert.showErrorMessage(error);
+                });
         }
     });
 
@@ -111,20 +104,12 @@ export function WhitepaperUpdateFormPage() {
             />
 
             <ApplicationContent authorization={authorization}>
-                <TabControl defaultTab={tab ?? "details"} options={whitepaperFormTabOptions}>
-                    <TabContent tab="details">
-                        <WhitepaperForm
-                            form={form}
-                            onSubmit={handleSubmit}
-                        />
-                    </TabContent>
-
-                    <TabContent tab="files">
-                        <WhitepaperFileUpload
-                            whitepaper={form.entity}
-                        />
-                    </TabContent>
-                </TabControl>
+                <WhitepaperForm
+                    form={form}
+                    files={files}
+                    uploader={uploader}
+                    onSubmit={handleSubmit}
+                />
             </ApplicationContent>
         </ApplicationPage>
     );

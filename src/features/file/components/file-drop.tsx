@@ -1,34 +1,37 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 import { BoxContainer } from "@components/container/box-container";
 import { Paragraph } from "@components/typography/paragraph";
 import type { BinaryFile } from "@shared/file/types/binary-file";
 
 export interface FileDropProps extends React.PropsWithChildren {
+    dropareaText?: string;
+
     onFileDrop?: (file: BinaryFile) => void;
 }
 
-export function FileDrop({ onFileDrop, children }: FileDropProps) {
+export function FileDrop({
+    onFileDrop,
+    dropareaText,
+    children
+}: FileDropProps) {
     const [isHovering, setIsHovering] = useState(false);
 
-    const handleDragEnter = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-        console.log("drag enter - hover true");
+    const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         setIsHovering(true);
-    }, []);
+    };
 
-    const handleDragLeave = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-        console.log("drag leave - hover false");
+    const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         setIsHovering(false);
-    }, []);
+    };
 
-    const handleDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
-    }, []);
+    };
 
-    const handleDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-        console.log("drag drop - hover false");
+    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         setIsHovering(false);
         const file = event.dataTransfer.files[0];
@@ -36,23 +39,45 @@ export function FileDrop({ onFileDrop, children }: FileDropProps) {
         if (file && onFileDrop) {
             onFileDrop(file);
         }
-    }, []);
+    };
 
     return (
         <BoxContainer
-            fullHeight
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-
-            style={{
-                outline: isHovering ? "2px dashed black" : "1px solid black",
-                position: "relative",
-                backgroundColor: isHovering ? "#00000055" : undefined,
-                backdropFilter: isHovering ? "blur(2px)" : undefined,
-            }}
+            style={{ position: "relative" }}
         >
+            <BoxContainer
+                // pointerEvents=""
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+
+                zIndex={isHovering ? 1 : undefined}
+                position="absolute"
+                height="100%"
+                width="100%"
+
+                style={{
+                    // backgroundColor: isHovering ? "#00000033" : undefined,
+                    // backdropFilter: isHovering ? "blur(2px)" : undefined,
+                }}
+            >
+                {(isHovering && dropareaText) && (
+                    <Paragraph
+                        style={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            color: "white",
+                            transform: "translate(-50%, -50%)",
+                            fontSize: "1.5rem",
+                            fontWeight: "bold",
+                        }}
+                    >
+                        {dropareaText}
+                    </Paragraph>
+                )}
+            </BoxContainer>
             {children}
             {(isHovering) && (
                 <BoxContainer

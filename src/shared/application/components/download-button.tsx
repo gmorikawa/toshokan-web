@@ -1,14 +1,16 @@
 import { DownloadIcon } from "@shared/icons";
 
-import { IconButton } from "@components/button/icon-button";
+import { IconButton, type IconButtonProps } from "@components/button/icon-button";
 
-export interface DownloadButtonProps {
-    onClick?(): void;
-}
+export interface DownloadButtonProps extends IconButtonProps { }
 
-export function DownloadButton({ onClick }: DownloadButtonProps) {
+export function DownloadButton({ ...props }: DownloadButtonProps) {
     return (
-        <IconButton onClick={onClick} variant="text">
+        <IconButton
+            {...props}
+            variant="text"
+            palette="primary"
+        >
             <DownloadIcon />
         </IconButton>
     );

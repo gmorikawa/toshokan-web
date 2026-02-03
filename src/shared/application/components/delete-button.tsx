@@ -1,14 +1,17 @@
 import { DeleteIcon } from "@shared/icons";
 
-import { IconButton } from "@components/button/icon-button";
+import { IconButton, type IconButtonProps } from "@components/button/icon-button";
 
-export interface DeleteButtonProps {
-    onClick?(): void;
-}
+export interface DeleteButtonProps extends IconButtonProps { }
 
-export function DeleteButton({ onClick }: DeleteButtonProps) {
+export function DeleteButton({ ...props }: DeleteButtonProps) {
     return (
-        <IconButton onClick={onClick} variant="text" palette="danger">
+        <IconButton
+            {...props}
+            variant="text"
+            palette="danger"
+
+        >
             <DeleteIcon />
         </IconButton>
     );

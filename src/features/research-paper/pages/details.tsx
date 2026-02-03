@@ -22,7 +22,7 @@ type ParamsWithId = {
 export function ResearchPaperDetailsPage() {
     const { id } = useParams<ParamsWithId>();
     const researchPaper = useResearchPaper(id);
-    const files = useResearchPaperFiles(researchPaper.entity);
+    const files = useResearchPaperFiles(id);
     const navigate = useNavigator();
 
     const handleBack = useCallback(() => {
