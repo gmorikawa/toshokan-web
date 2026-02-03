@@ -11,7 +11,7 @@ export interface ParagraphProps extends TextProps {
 export function Paragraph({ size, align, children, ...props }: ParagraphProps) {
     return (
         <Text
-            textStyle={size ?? "md"}
+            textStyle={size ?? "sm"}
             textAlign={align ?? "left"}
             {...props}
         >
