@@ -31,3 +31,23 @@ export { HiDownload as DownloadIcon } from "react-icons/hi";
 export { MdOutlineUploadFile as FileUploadIcon } from "react-icons/md";
 
 export { BiPackage as BundleIcon } from "react-icons/bi";
+
+import { Icon, type IconProps } from "@chakra-ui/react";
+import PdfSvg from "@resources/pdf.svg?react";
+import EpubSvg from "@resources/epub.svg?react";
+
+export const PDFIcon = (props: IconProps) => {
+    return (
+        <Icon {...props}>
+            <PdfSvg />
+        </Icon>
+    );
+}
+
+export const EPUBIcon = (props: IconProps) => {
+    return (
+        <Icon {...props}>
+            <EpubSvg />
+        </Icon>
+    );
+}
