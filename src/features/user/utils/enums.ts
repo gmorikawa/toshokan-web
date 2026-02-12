@@ -1,5 +1,7 @@
-import type { UserRole } from "@features/user/types/user";
-import type { UserStatus } from "@features/user/types/user";
+import type {
+    UserRole,
+    UserStatus
+} from "@features/user/types/enums";
 
 export interface UserRoleMetadata {
     role: UserRole;

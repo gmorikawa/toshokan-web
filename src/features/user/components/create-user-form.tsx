@@ -26,13 +26,6 @@ export function CreateUserForm({
         <StackContainer spacing={4}>
             <FormTextField
                 form={form}
-                label="Full Name"
-                property="fullname"
-                required
-            />
-
-            <FormTextField
-                form={form}
                 label="Username"
                 property="username"
                 required

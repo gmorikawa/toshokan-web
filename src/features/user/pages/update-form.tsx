@@ -37,7 +37,11 @@ export function UserUpdateFormPage() {
             email: "",
             role: "READER",
             status: "ACTIVE",
-            fullname: ""
+            profile: {
+                fullname: "",
+                biography: "",
+                avatar: null
+            }
         },
         validator: userValidator,
         onSubmit: (entity: User) => {

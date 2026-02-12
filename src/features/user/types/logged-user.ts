@@ -1,5 +1,7 @@
-import type { UserRole, UserStatus } from "@/features/user/types/enums";
 import type { ID } from "@shared/entity/types/id";
+
+import type { UserRole, UserStatus } from "@/features/user/types/enums";
+import type { UserProfile } from "@features/user/types/user";
 
 export interface LoggedUser {
     id: ID;
@@ -7,5 +9,5 @@ export interface LoggedUser {
     email: string;
     role: UserRole;
     status: UserStatus;
-    fullname: string;
+    profile: UserProfile;
 }

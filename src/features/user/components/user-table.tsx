@@ -62,7 +62,7 @@ export function UserTable({
                     },
                     { header: "Username", accessor: (user: User) => user.username },
                     { header: "Email", accessor: (user: User) => user.email },
-                    { header: "Full Name", accessor: (user: User) => user.fullname },
+                    { header: "Full Name", accessor: (user: User) => user.profile.fullname },
                     { header: "Role", accessor: (user: User) => user.role },
                     { header: "Status", accessor: (user: User) => user.status }
                 ]}>

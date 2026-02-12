@@ -122,7 +122,7 @@ export function ApplicationMenu() {
                         }
                     >
                         <Persona
-                            name={session.loggedUser.fullname ?? ""}
+                            name={session.loggedUser.profile.fullname ?? ""}
                             email={session.loggedUser.email ?? ""}
                         />
                     </Menu>

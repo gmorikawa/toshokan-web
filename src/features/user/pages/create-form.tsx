@@ -27,8 +27,7 @@ export function UserCreateFormPage() {
             password: "",
             email: "",
             role: "READER",
-            status: "ACTIVE",
-            fullname: ""
+            status: "ACTIVE"
         },
         validator: newUserValidator,
         onSubmit: async (entity: NewUser) => {

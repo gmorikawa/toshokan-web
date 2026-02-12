@@ -1,5 +1,12 @@
+import type { File } from "@features/file/types/file";
 import type { UserRole, UserStatus } from "@features/user/types/enums";
 import type { ID } from "@shared/entity/types/id";
+
+export interface UserProfile {
+    fullname: string;
+    biography: string;
+    avatar: File | null;
+}
 
 export interface User {
     id: ID;
@@ -8,7 +15,7 @@ export interface User {
     email: string;
     role: UserRole;
     status: UserStatus;
-    fullname: string;
+    profile: UserProfile;
 }
 
 export interface NewUser {
@@ -17,5 +24,4 @@ export interface NewUser {
     email: string;
     role: UserRole;
     status: UserStatus;
-    fullname: string;
 }

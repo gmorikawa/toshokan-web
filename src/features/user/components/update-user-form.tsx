@@ -5,6 +5,7 @@ import { StackContainer } from "@components/container/stack-container";
 import { SubmitButton } from "@components/button/submit-button";
 
 import type { User } from "@features/user/types/user";
+import FormTextareaField from "@components/form/form-textarea-field";
 
 export interface UpdateUserFormProps {
     form: Form<User>;
@@ -26,8 +27,13 @@ export function UpdateUserForm({
             <FormTextField
                 form={form}
                 label="Full Name"
-                property="fullname"
-                required
+                property="profile.fullname"
+            />
+
+            <FormTextareaField
+                form={form}
+                label="Biography"
+                property="profile.biography"
             />
 
             <FormTextField
