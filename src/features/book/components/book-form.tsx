@@ -51,7 +51,7 @@ export function BookForm({
 }: BookFormProps) {
     const authors = useAuthorSearch({
         pagination: {
-            initialLimit: 3
+            initialLimit: 10
         },
         filter: {
             initialFilters: [
@@ -61,7 +61,7 @@ export function BookForm({
     });
     const topics = useTopicSearch({
         pagination: {
-            initialLimit: 3
+            initialLimit: 10
         },
         filter: {
             initialFilters: [
@@ -70,8 +70,16 @@ export function BookForm({
         }
     });
     const languages = useLanguageSearch();
-    const categories = useCategorySearch();
-    const publishers = usePublisherSearch();
+    const categories = useCategorySearch({
+        pagination: {
+            initialLimit: 20
+        }
+    });
+    const publishers = usePublisherSearch({
+        pagination: {
+            initialLimit: 20
+        }
+    });
 
     const handleSubmit = (): void => {
         (onSubmit) && (onSubmit(form.entity));
