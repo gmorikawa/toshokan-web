@@ -7,6 +7,7 @@ import { usePagination, type PaginationConfiguration } from "@shared/search/hook
 import { useFilter, type FilterConfiguration } from "@shared/search/hooks/filter";
 
 export interface SearchConfiguration<Entity extends Object = any> {
+    deboundTime?: number;
     pagination?: PaginationConfiguration;
     filter?: FilterConfiguration;
 
@@ -41,26 +42,53 @@ export function useSearch<Entity extends Object = any>(
         initialFilters: configuration?.filter?.initialFilters
     });
 
-    const loadCount = async (): Promise<void> => {
-        return configuration.fetchCount()
+    const fetchCount = () =>
+        configuration
+            .fetchCount()
             .then((count: PageCount) => {
                 updatePagination(pagination.page, pagination.limit, count);
             });
-    };
 
-    const loadData = async (pagination: Pagination, filters: Filters): Promise<void> => {
-        return configuration.fetchData(pagination, filters)
+    const fetchData = (pagination: Pagination, filters: Filters) =>
+        configuration
+            .fetchData(pagination, filters)
             .then((response: Entity[]) => {
                 setData(response);
             });
-    };
 
     useEffect(() => {
-        loadData(pagination, filters);
+        let timeout: NodeJS.Timeout | undefined;
+
+        if (configuration?.deboundTime) {
+            timeout = setTimeout(() => {
+                fetchData(pagination, filters);
+            }, configuration.deboundTime);
+        } else {
+            fetchData(pagination, filters);
+        }
+
+        return () => {
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+        };
     }, [filters, pagination.page, pagination.limit]);
 
     useEffect(() => {
-        loadCount();
+        let timeout: NodeJS.Timeout | undefined;
+        if (configuration?.deboundTime) {
+            timeout = setTimeout(() => {
+                fetchCount();
+            }, configuration.deboundTime);
+        } else {
+            fetchCount();
+        }
+
+        return () => {
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+        };
     }, [filters]);
     return {
         data,
@@ -77,7 +105,7 @@ export function useSearch<Entity extends Object = any>(
             updateFilter(path, value);
         },
         refresh: (): void => {
-            loadData(pagination, filters);
+            fetchData(pagination, filters);
         },
         resetFilters: (): void => {
             resetFilters();

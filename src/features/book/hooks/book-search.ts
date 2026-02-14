@@ -19,8 +19,7 @@ export function useBookSearch(
     const service = useBookService();
 
     return useSearch<Book>({
-        pagination: configuration?.pagination,
-        filter: configuration?.filter,
+        ...configuration,
         fetchCount: async (): Promise<PageCount> => {
             return service.countAll()
                 .catch((error: Error) => {

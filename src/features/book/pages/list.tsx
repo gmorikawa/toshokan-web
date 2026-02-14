@@ -23,6 +23,7 @@ export function BookListPage() {
 
     const service = useBookService();
     const books = useBookSearch({
+        deboundTime: 500,
         pagination: {
             initialPage: 1,
             initialLimit: 10,
