@@ -2,7 +2,7 @@ import type { BinaryFile } from "@shared/file/types/binary-file";
 import { DownloadButton } from "@shared/application/components/download-button";
 import { DeleteButton } from "@shared/application/components/delete-button";
 
-import type { Form } from "@components/form/use-form";
+import { useForm, type Form } from "@components/form/use-form";
 import { BoxContainer } from "@components/container/box-container";
 import { FormComboField } from "@components/form/form-combo-field";
 import { FormNumericField } from "@components/form/form-numeric-field";
@@ -15,10 +15,10 @@ import { StackContainer } from "@components/container/stack-container";
 import { SubmitButton } from "@components/button/submit-button";
 
 import type { ResearchPaper, NewResearchPaper } from "@features/research-paper/types/research-paper";
-import type { Author } from "@features/author/types/author";
+import type { Author, NewAuthor } from "@features/author/types/author";
 import type { Language } from "@features/language/types/language";
 import type { Organization } from "@features/organization/types/organization";
-import type { Topic } from "@features/topic/types/topic";
+import type { NewTopic, Topic } from "@features/topic/types/topic";
 import type { DocumentFile, UploadDocumentFile } from "@features/document/types/document-file";
 import type { ResearchPaperFileUploadController } from "@features/research-paper/hooks/research-paper-file-upload";
 import type { ResearchPaperFilesController } from "@features/research-paper/hooks/research-paper-files";
@@ -29,6 +29,10 @@ import { useOrganizationSearch } from "@features/organization/hooks/organization
 import { FileDrop } from "@features/file/components/file-drop";
 import { DocumentUploadFileList } from "@features/document/components/document-upload-file-list";
 import { DocumentFileList } from "@features/document/components/document-file-list";
+import { newTopicValidator } from "@features/topic/utils/validators";
+import { useTopicService } from "@features/topic/hooks/topic-service";
+import { newAuthorValidator } from "@features/author/utils/validators";
+import { useAuthorService } from "@features/author/hooks/author-service";
 
 export interface ResearchPaperFormProps {
     form: Form<ResearchPaper | NewResearchPaper>;
@@ -46,9 +50,12 @@ export function ResearchPaperForm({
     onSubmit
 }: ResearchPaperFormProps) {
 
+    const topicService = useTopicService();
+    const authorService = useAuthorService();
+
     const authors = useAuthorSearch({
         pagination: {
-            initialLimit: 3
+            initialLimit: 10
         },
         filter: {
             initialFilters: [
@@ -58,7 +65,7 @@ export function ResearchPaperForm({
     });
     const topics = useTopicSearch({
         pagination: {
-            initialLimit: 3
+            initialLimit: 10
         },
         filter: {
             initialFilters: [
@@ -68,6 +75,40 @@ export function ResearchPaperForm({
     });
     const languages = useLanguageSearch();
     const organizations = useOrganizationSearch();
+
+    const topicForm = useForm<NewTopic>({
+        default: {
+            name: "",
+        },
+        validator: newTopicValidator,
+        onSubmit: (newTopic: NewTopic) => {
+            topicService.create(newTopic)
+                .then((topic: Topic) => {
+                    form.onChange("topics", [...(form.entity.topics || []), topic]);
+                    topicForm.reset({
+                        name: "",
+                    });
+                });
+        }
+    });
+
+    const authorForm = useForm<NewAuthor>({
+        default: {
+            fullname: "",
+            biography: "",
+        },
+        validator: newAuthorValidator,
+        onSubmit: (newAuthor: NewAuthor) => {
+            authorService.create(newAuthor)
+                .then((author: Author) => {
+                    form.onChange("authors", [...(form.entity.authors || []), author]);
+                    authorForm.reset({
+                        fullname: "",
+                        biography: "",
+                    });
+                });
+        }
+    });
 
     const handleSubmit = (): void => {
         (onSubmit) && (onSubmit(form.entity));
@@ -184,13 +225,15 @@ export function ResearchPaperForm({
                                 form.onChange("authors", value);
                             }}
                             onInput={(value: string) => {
+                                authorForm.updateValue("fullname", value);
+
                                 authors.changeFilter(
                                     "contains_fullname",
                                     value !== "" ? value : null
                                 );
                             }}
                             onCreate={() => {
-                                //authors.create();
+                                authorForm.submit();
                             }}
                         />
 
@@ -209,13 +252,15 @@ export function ResearchPaperForm({
                                 form.onChange("topics", value);
                             }}
                             onInput={(value: string) => {
+                                topicForm.updateValue("name", value);
+
                                 topics.changeFilter(
                                     "contains_name",
                                     value !== "" ? value : null
                                 );
                             }}
                             onCreate={() => {
-                                //topics.create();
+                                topicForm.submit();
                             }}
                         />
 
