@@ -28,6 +28,7 @@ export function BookCreateFormPage() {
             type: "NON_FICTION",
             title: "",
             subtitle: "",
+            edition: "First Edition",
             summary: "",
             language: null,
             authors: [],
@@ -35,7 +36,6 @@ export function BookCreateFormPage() {
             category: null,
             publisher: null,
             publishingYear: null,
-            edition: "",
         },
         validator: newBookValidator,
         onSubmit: async (entity: NewBook) => {
