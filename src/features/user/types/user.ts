@@ -15,7 +15,7 @@ export interface User {
     email: string;
     role: UserRole;
     status: UserStatus;
-    profile: UserProfile;
+    profile?: UserProfile;
 }
 
 export interface NewUser {

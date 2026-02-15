@@ -9,5 +9,5 @@ export interface LoggedUser {
     email: string;
     role: UserRole;
     status: UserStatus;
-    profile: UserProfile;
+    profile?: UserProfile;
 }
