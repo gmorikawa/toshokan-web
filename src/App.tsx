@@ -7,7 +7,7 @@ import { UserSessionProvider } from "@features/auth/components/user-session-prov
 
 export function App() {
     return (
-        <ThemeProvider>
+        <ThemeProvider value="light" themes={["light"]}>
             <AlertProvider />
 
             <UserSessionProvider>
