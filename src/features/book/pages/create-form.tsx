@@ -25,7 +25,7 @@ export function BookCreateFormPage() {
     const uploader = useBookFileUpload();
     const form = useForm<NewBook>({
         default: {
-            type: "FICTION",
+            type: "NON_FICTION",
             title: "",
             subtitle: "",
             summary: "",
