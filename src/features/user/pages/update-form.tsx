@@ -59,6 +59,11 @@ export function UserUpdateFormPage() {
         if (id) {
             return service.getById(id)
                 .then((entity: User) => {
+                    entity.profile = entity.profile || {
+                        fullname: "",
+                        biography: "",
+                        avatar: null
+                    };
                     form.reset(entity);
                 })
                 .catch((error: Error) => {
